@@ -1,32 +1,57 @@
+* {
+  outline: none;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+h4 {
+  margin: 3px;
+  font-weight: 500;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h1 {
+  font-weight: 200;
+}
+
+header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  height: 10vh;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  background-image: linear-gradient(rgb(76, 77, 79),rgb(96, 189, 60),rgb(255,255,255));
 }
 
-.App-link {
-  color: #61dafb;
+main {
+  height: 90vh;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),url("./img/CultivatR-01.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-color: black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.container {
+  display: inline-flex;
+  width: 100%;
+  height: 100%; 
+}
+
+.box-container {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+.container-1 {
+  display: inline-flex;
+  flex-wrap: wrap;
+  width: 49%;
+  height: 50%;
+  border: 1px solid black;
+  margin: 2px;
+  justify-content: space-evenly;
+  font-weight: 300;
+  font-size: smaller;
 }

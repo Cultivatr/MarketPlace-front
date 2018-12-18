@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ContainerDashboard from './Components/ContainerDashboard/ContainerDashboard';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+        <header>
+          <h1>Welcome Dan!</h1>
         </header>
+        <main>
+          <div className="container">
+            {/* <div className="nav-container">Left Container</div> */}
+            <div className="box-container">
+              <div className="container-1">
+                <h4>Items To Be Accepted Conditionally</h4>
+                <ContainerDashboard />
+              </div>
+              <div className="container-1">
+                <h4>Items Accepted Conditionally</h4>
+                <ContainerDashboard />
+              </div>
+              <div className="container-1">
+                <h4>Items Sold To Be Delivered</h4>
+                <ContainerDashboard />
+              </div>
+              <div className="container-1">
+                <h4>Items Delivered</h4>
+                <ContainerDashboard />
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
     );
   }
