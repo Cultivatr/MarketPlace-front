@@ -51,7 +51,60 @@ main {
   height: 50%;
   border: 1px solid black;
   margin: 2px;
-  justify-content: space-evenly;
+  justify-content: center;
   font-weight: 300;
   font-size: smaller;
+}
+
+#item-overlay {
+  position: fixed;
+  display: none;
+  width: 80%;
+  height: 80%;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  border-radius: 20px;
+  box-shadow: 0 0 30px lightsteelblue;
+  background-color: rgba(0, 0, 0, 0.90);
+  z-index: 100;
+  cursor: pointer;
+  color:white;
+}
+
+table {
+  border-collapse: collapse;
+  border-radius: 10px;
+  width: 50%;
+  margin: 0 auto;
+  cursor: default;
+}
+
+table.draftTable {
+  border-collapse: collapse;
+  border-radius: 10px;
+  width: 80%;
+  margin: 0 auto;
+  cursor: default;
+}
+
+table.center {
+  margin-left: 0 auto;
+}
+
+tr, th {
+  font-weight: 300;
+}
+
+td, th,
+.ReactTable .rt-td {
+  border-bottom: 1px solid #dddddd;
+  text-align: center;
+  padding: 10px 10px;
+}
+
+tr:hover {
+  color: rgb(59, 59, 59);
+  background-color: #dddddd;
 }

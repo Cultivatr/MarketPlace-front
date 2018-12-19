@@ -4,18 +4,26 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 
 class ContainerDashboard extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
+    this.props = props;
     this.state = {
-    //   data: ''
+      data: this.props.data
     };
   }
+
+  getItemDetails = (e) => {
+    console.log(e.target.id);
+    document.getElementById("item-overlay").style.display = "block";
+  }
+
   render() {
     const { data } = this.state;
     return (
-      <div className="table">
+      <div className="table" onDoubleClick={this.getItemDetails}>
         <ReactTable
           data={data}
+          noDataText="No items from producers!"
           filterable
           defaultFilterMethod={(filter, row) =>
             String(row[filter.id]) === filter.value}
@@ -26,41 +34,53 @@ class ContainerDashboard extends React.Component {
                 {
                   Header: "Farm",
                   accessor: "farm",
-                  width: 220,
+                  width: 210,
                   filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["lastName"] }),
+                    matchSorter(rows, filter.value, { keys: ["farm"] }),
                   filterAll: true
                 },
                 {
                   Header: "Product",
                   id: "product",
-                  width: 240,
-                  accessor: d => d.lastName,
+                  width: 230,
+                  accessor: d => d.product,
                   filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["lastName"] }),
+                    matchSorter(rows, filter.value, { keys: ["product"] }),
                   filterAll: true
                 },
                 {
                     Header: "Qty",
                     id: "qty",
-                    width: 75,
-                    accessor: d => d.lastName,
+                    width: 65,
+                    accessor: d => d.qty,
                     filterMethod: (filter, rows) =>
-                      matchSorter(rows, filter.value, { keys: ["lastName"] }),
+                      matchSorter(rows, filter.value, { keys: ["qty"] }),
                     filterAll: true
                 },
                 {
                     Header: "Date",
                     id: "date",
-                    width: 125,
-                    accessor: d => d.lastName,
+                    width: 115,
+                    accessor: d => d.date,
                     filterMethod: (filter, rows) =>
-                      matchSorter(rows, filter.value, { keys: ["lastName"] }),
+                      matchSorter(rows, filter.value, { keys: ["date"] }),
                     filterAll: true
+                },
+                {
+                  Header: "",
+                  id: "details",
+                  width: 35,
+                  accessor: d => <span id={d.id} onClick={this.getItemDetails}>&#x2295;</span>,
+                  style: {
+                    cursor: "pointer",
+                    fontSize: 25,
+                    padding: "0",
+                    textAlign: "center",
+                    userSelect: "none"
+                  },
                 }
-
-              ]} 
-          ]}
+              ]}
+              ]}
           defaultPageSize={5}
           className="-striped -highlight"
           style={{
