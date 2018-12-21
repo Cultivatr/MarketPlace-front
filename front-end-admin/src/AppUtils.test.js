@@ -1,4 +1,4 @@
-import { filterData, getIdData } from "./AppUtils";
+import { filterData, getIdData, getItemDetails } from "./AppUtils";
 
 const db =   
     [
@@ -51,12 +51,12 @@ test ('should get pending', () => {
 });
 
 test ('should get item details', () => {
-    let farm1 = getIdData(1, db)
-    expect(farm1.farm).toBe("jk farms")
-    expect(farm1.product).toBe("steak")
-    expect(farm1.qty).toBe(1)
-    expect(farm1.date).toBe("2018-12-18")
-    expect(farm1.status).toBe("accepted")
+    let item1 = getItemDetails(1, db)
+    expect(item1.farm).toBe("jk farms")
+    expect(item1.product).toBe("steak")
+    expect(item1.qty).toBe(1)
+    expect(item1.date).toBe("2018-12-18")
+    expect(item1.status).toBe("accepted")
 });
 
 

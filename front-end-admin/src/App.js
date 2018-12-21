@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import ContainerDashboard from './Components/ContainerDashboard/ContainerDashboard';
-import { filterData, getIdData } from './AppUtils';
+import { filterData, getItemDetails } from './AppUtils';
 import ItemDetailComp from './Components/ItemDetailComp/ItemDetailComp';
 
 class App extends Component {
@@ -12,7 +12,7 @@ class App extends Component {
     this.sold = [];
     this.delivered = [];
     this.state = {
-      itemID: '',
+      itemDetails: {},
       data: [{
         "farm": "jk farms",
         "product": "steak",
@@ -109,11 +109,8 @@ class App extends Component {
     document.getElementById("item-overlay").style.display = "none";
     }
 
-    getItemDetails = (e) => {
-      console.log(e.target);
-      // getIdData(e.target.id, this.state.data);
-      // this.setState({itemID: e.target.id});
-      // console.log(this.state.itemID);
+    getItemObj = (e) => {
+      this.setState({ itemDetails: getItemDetails(parseInt(e.target.id), this.state.data) });
       document.getElementById("item-overlay").style.display = "block";
     }
 
@@ -125,32 +122,32 @@ class App extends Component {
           <h1>Welcome Dan!</h1>
         </header>
         <main>
-          <ItemDetailComp removeOverlay={this.removeOverlay}/>
+          <ItemDetailComp itemDetails={this.state.itemDetails} removeOverlay={this.removeOverlay}/>
           <div className="container">
             <div className="box-container">
               <div className="container-1">
                 <div className="container-title">
                   <h4>Items To Be Accepted Conditionally</h4>
                 </div>
-                <ContainerDashboard data={this.pending} itemID={this.getItemDetails}/>
+                <ContainerDashboard data={this.pending} itemObj={this.getItemObj}/>
               </div>
               <div className="container-1">
                 <div className="container-title">
                   <h4>Items Accepted Conditionally</h4>
                 </div>
-                <ContainerDashboard data={this.accepted} itemID={this.getItemDetails}/>
+                <ContainerDashboard data={this.accepted} itemObj={this.getItemObj}/>
               </div>
               <div className="container-1">
                 <div className="container-title">
                   <h4>Items Sold To Be Delivered</h4>
                 </div>
-                <ContainerDashboard data={this.sold} itemID={this.getItemDetails}/>
+                <ContainerDashboard data={this.sold} itemObj={this.getItemObj}/>
               </div>
               <div className="container-1">
                 <div className="container-title">
                   <h4>Items Delivered</h4>
                 </div>
-                <ContainerDashboard data={this.delivered} itemID={this.getItemDetails}/>
+                <ContainerDashboard data={this.delivered} itemObj={this.getItemObj}/>
               </div>
             </div>
           </div>

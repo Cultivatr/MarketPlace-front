@@ -3,27 +3,28 @@ import React from "react";
 class ItemDetailComp extends React.Component {
 
     render() {
+        console.log(this.props)
         return (
             <div className="container-items">
                 <div id="item-overlay">
                 <div className="item-detail-container">
                     <div className="item-title-container">
-                    <h4 className="items-title">ORDER {}</h4>
+                    <h4 className="items-title">ORDER #{this.props.itemDetails.id}</h4>
                     </div>
                     <div className="item-container">
                     <div className="farm-detail">
-                        <p>Farm: <i>{}</i></p>
+                        <p>Farm: <i>{this.props.itemDetails.farm}</i></p>
                         <p>Producer Name: <i>{}</i></p>
                         <p>Phone Number: </p>
                         <p>Email: </p>
                     </div>
                     <div className="item-detail">
                         <p>Type: </p>
-                        <p>Item: </p>
+                        <p>Item: <i>{this.props.itemDetails.product}</i></p>
                         <p>Weight: </p>
-                        <p>Qty: </p>
-                        <p>Date Submitted: </p>
-                        <p>Status:</p>
+                        <p>Qty: <i>{this.props.itemDetails.qty}</i></p>
+                        <p>Date Submitted: <i>{this.props.itemDetails.date}</i></p>
+                        <p>Status: <i>{this.props.itemDetails.status}</i></p>
                     </div>
                     </div>
                     <div className="item-buttons-container">

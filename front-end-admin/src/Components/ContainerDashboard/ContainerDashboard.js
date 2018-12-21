@@ -73,7 +73,7 @@ class ContainerDashboard extends React.Component {
                   Header: "",
                   id: "details",
                   width: 35,
-                  accessor: d => <span id={d.id} onClick={this.props.itemID}>&#x2295;</span>,
+                  accessor: d => <span id={d.id} onClick={this.props.itemObj}>&#x2295;</span>,
                   style: {
                     cursor: "pointer",
                     fontSize: 25,

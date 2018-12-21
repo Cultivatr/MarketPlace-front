@@ -18,10 +18,10 @@ export function filterData(data, pending ,accepted, sold, delivered) {
   })
 }
 
-export function getIdData(id, data) {
-  let farm = data.find((farmInfo) => {
-              return farmInfo.id === id;
+export function getItemDetails(id, data) {
+  let item = data.find((itemInfo) => {
+              return itemInfo.id === id;
   })
-  return farm;  
+  return item;  
 }
 
