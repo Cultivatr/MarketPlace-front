@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import ContainerDashboard from './Components/ContainerDashboard/ContainerDashboard';
+import { filterData } from './AppUtils';
 
 class App extends Component {
   constructor() {
@@ -10,6 +11,7 @@ class App extends Component {
     this.sold = [];
     this.delivered = [];
     this.state = {
+      itemID: '',
       data: [{
         "farm": "jk farms",
         "product": "steak",
@@ -106,125 +108,75 @@ class App extends Component {
     document.getElementById("item-overlay").style.display = "none";
     }
 
-  filterData = () => {
-    this.state.data.forEach(element => {
-      if (element.status === 'pending') {
-        this.pending.push(element);
-      } else if (element.status === 'accepted') {
-        this.accepted.push(element);
-      } else if (element.status === 'sold') {
-        this.sold.push(element);
-      } else if (element.status === 'delivered') {
-        this.delivered.push(element)
-      }
-    })}
-
-  populateOverlay = () => {
-    
-  }
+    getItemDetails = (e) => {
+      this.setState({itemID: e.target.id});
+      // console.log(this.state.itemID);
+      document.getElementById("item-overlay").style.display = "block";
+    }
 
   render() {
-    this.filterData()
+    filterData(this.state.data, this.pending, this.accepted, this.sold, this.delivered)
     return (
       <div className="App">
         <header>
           <h1>Welcome Dan!</h1>
         </header>
         <main>
+        <div className="container-items">
+          <div id="item-overlay">
+            <div className="item-detail-container">
+              <div className="item-title-container">
+                <h4 className="items-title">ORDER {}</h4>
+              </div>
+              <div className="item-container">
+                <div className="farm-detail">
+                  <p>Farm: <i>{this.state.data.farm}</i></p>
+                  <p>Producer Name: <i>{this.state.data.producer_name}</i></p>
+                  <p>Phone Number: </p>
+                  <p>Email: </p>
+                </div>
+                <div className="item-detail">
+                  <p>Type: </p>
+                  <p>Item: </p>
+                  <p>Weight: </p>
+                  <p>Qty: </p>
+                  <p>Date Submitted: </p>
+                  <p>Status:</p>
+                </div>
+              </div>
+              <div className="item-buttons-container">
+                <button className="item-buttons-accept" onClick={this.removeOverlay}>Accept</button>
+                <button className="item-buttons-deny" onClick={this.removeOverlay}>Deny</button>
+                <button className="item-buttons-cancel" onClick={this.removeOverlay}>Cancel</button>
+              </div>
+            </div>  
+          </div>  
+        </div>
           <div className="container">
             <div className="box-container">
               <div className="container-1">
                 <div className="container-title">
                   <h4>Items To Be Accepted Conditionally</h4>
                 </div>
-                <div className="container-items">
-                  <div id="item-overlay" onClick={this.removeOverlay}>
-                      <div id="items">
-                          <h3 className="items-title">Item Details</h3>
-                          <table className="center">
-                            <tbody>
-                                <tr>
-                                    <th>Farm</th>
-                                    <th>Product</th>
-                                    <th>Qty</th>
-                                    <th>Date</th>
-                                    <th>More Data</th>
-                                </tr>
-                                    {
-                                  
-                                    this.pending.map((pending, i) => {
-                                        return <tr key={pending.id}>
-                                                <td key={pending.farm}>{pending.farm}</td>
-                                                <td>{pending.product}</td>
-                                                <td>{pending.qty}</td>
-                                                <td>{pending.date}</td>
-                                                <td>{pending.status}</td>
-                                                </tr>
-                                    })
-                                    }
-                            </tbody>
-                        </table> 
-                      </div>
-                  </div>
-                </div>
-                <ContainerDashboard data={this.pending}/>
+                <ContainerDashboard data={this.pending} itemID={this.getItemDetails}/>
               </div>
               <div className="container-1">
-                <div className="conatiner-title">
+                <div className="container-title">
                   <h4>Items Accepted Conditionally</h4>
                 </div>
-                <div className="container-items">
-                  <div id="item-overlay" onClick={this.removeOverlay}>
-                      <div id="items">
-                          <h3 className="items-title">Item Details</h3>
-                          <table className="center">
-                            <tbody>
-                                <tr>
-                                    <th>Farm</th>
-                                    <th>Product</th>
-                                    <th>Qty</th>
-                                    <th>Date</th>
-                                    <th>More Data</th>
-                                </tr>
-                                    {
-                                    this.accepted.map((accepted, i) => {
-                                        return <tr key={accepted.id}>
-                                                <td key={accepted.farm}>{accepted.farm}</td>
-                                                <td>{accepted.product}</td>
-                                                <td>{accepted.qty}</td>
-                                                <td>{accepted.date}</td>
-                                                <td>{accepted.status}</td>
-                                                </tr>
-                                    })
-                                    }
-                            </tbody>
-                        </table> 
-                      </div>
-                  </div>
-                </div>
-                <ContainerDashboard data={this.accepted}/>
+                <ContainerDashboard data={this.accepted} itemID={this.getItemDetails}/>
               </div>
               <div className="container-1">
-                <h4>Items Sold To Be Delivered</h4>
-                <div className="container-items">
-                  <div id="item-overlay" onClick={this.removeOverlay}>
-                      <div id="items">
-                          <h3 className="items-title">Item Details</h3>
-                      </div>
-                  </div>
+                <div className="container-title">
+                  <h4>Items Sold To Be Delivered</h4>
                 </div>
-                <ContainerDashboard data={this.sold}/>
+                <ContainerDashboard data={this.sold} itemID={this.getItemDetails}/>
               </div>
               <div className="container-1">
-                <h4>Items Delivered</h4>
-                <div className="container-items">
-                  <div id="item-overlay" onClick={this.removeOverlay}>
-                      <div id="items">
-                          <h3 className="items-title">Item Details</h3>
-                      </div>
-                  </div>
+                <div className="container-title">
+                  <h4>Items Delivered</h4>
                 </div>
-                <ContainerDashboard data={this.delivered}/>
+                <ContainerDashboard data={this.delivered} itemID={this.getItemDetails}/>
               </div>
             </div>
           </div>
@@ -235,3 +187,4 @@ class App extends Component {
 }
 
 export default App;
+

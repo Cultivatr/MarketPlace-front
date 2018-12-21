@@ -8,7 +8,7 @@
 
 h4 {
   margin: 3px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 h1 {
@@ -65,46 +65,97 @@ main {
   left: 10%;
   right: 10%;
   bottom: 10%;
-  border-radius: 20px;
-  box-shadow: 0 0 30px lightsteelblue;
+  border-radius: 30px;
+  box-shadow: 0 0 50px black;
   background-color: rgba(0, 0, 0, 0.90);
   z-index: 100;
-  cursor: pointer;
   color:white;
 }
 
-table {
-  border-collapse: collapse;
-  border-radius: 10px;
-  width: 50%;
-  margin: 0 auto;
-  cursor: default;
+.item-detail-container {
+  display: inline-block;
+  margin-top: 2%;
+  height: 90%;
+  width: 90%;
 }
 
-table.draftTable {
-  border-collapse: collapse;
-  border-radius: 10px;
-  width: 80%;
-  margin: 0 auto;
-  cursor: default;
-}
-
-table.center {
-  margin-left: 0 auto;
-}
-
-tr, th {
-  font-weight: 300;
-}
-
-td, th,
-.ReactTable .rt-td {
-  border-bottom: 1px solid #dddddd;
+.item-title-container {
+  display: flex;
+  justify-content: center;
   text-align: center;
-  padding: 10px 10px;
+  height: 5%;
+  width: 100%;
+  margin-bottom: 5px;
 }
 
-tr:hover {
-  color: rgb(59, 59, 59);
-  background-color: #dddddd;
+.item-container {
+  display: flex;
+  height: 89%;
+  width: 100%;
+  align-content: center;
+  justify-content: center;
+}
+
+.farm-detail,
+.item-detail {
+  height: 100%;
+  width: 45%;
+  border: 1px solid white;
+  border-radius: 20px;
+  box-shadow: 0 0 20px white;
+  margin-left: 20px;
+  text-align: left;
+  padding-left: 10px;
+  font-weight: 200;
+}
+
+.item-buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+  height: 7%;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.item-buttons-accept,
+.item-buttons-deny,
+.item-buttons-cancel {
+  border-radius: 5px;
+  box-shadow: 0 0 10px white;
+  padding: 5px 20px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: transparent;
+  color: white;
+  transition: background-color 0.75s, border 0.75s, color 0.75s;
+}
+
+.item-buttons-accept:hover,
+.item-buttons-accept:active {
+    border: 1px solid #60bd3c;
+    box-shadow: 0 0 10px white;
+    color: black;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    background-color: #60bd3c;
+}
+
+.item-buttons-deny:hover,
+.item-buttons-deny:active {
+    border: 1px solid red;
+    box-shadow: 0 0 10px white;
+    color: white;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    background-color: red;
+}
+
+.item-buttons-cancel:hover,
+.item-buttons-cancel:active {
+    border: 1px solid darkgray;
+    box-shadow: 0 0 10px white;
+    color: black;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    background-color: darkgray;
 }

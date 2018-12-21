@@ -8,13 +8,8 @@ class ContainerDashboard extends React.Component {
     super();
     this.props = props;
     this.state = {
-      data: this.props.data
+      data: this.props.data,
     };
-  }
-
-  getItemDetails = (e) => {
-    console.log(e.target.id);
-    document.getElementById("item-overlay").style.display = "block";
   }
 
   render() {
@@ -32,9 +27,17 @@ class ContainerDashboard extends React.Component {
               Header: "click on headers to sort or type to filter",
               columns: [
                 {
+                  Header: "Order #",
+                  accessor: "id",
+                  width: 65,
+                  filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["id"] }),
+                  filterAll: true
+                },
+                {
                   Header: "Farm",
                   accessor: "farm",
-                  width: 210,
+                  width: 200,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["farm"] }),
                   filterAll: true
@@ -42,7 +45,7 @@ class ContainerDashboard extends React.Component {
                 {
                   Header: "Product",
                   id: "product",
-                  width: 230,
+                  width: 175,
                   accessor: d => d.product,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["product"] }),
@@ -70,7 +73,7 @@ class ContainerDashboard extends React.Component {
                   Header: "",
                   id: "details",
                   width: 35,
-                  accessor: d => <span id={d.id} onClick={this.getItemDetails}>&#x2295;</span>,
+                  accessor: d => <span id={d.id} onClick={this.props.itemID}>&#x2295;</span>,
                   style: {
                     cursor: "pointer",
                     fontSize: 25,
