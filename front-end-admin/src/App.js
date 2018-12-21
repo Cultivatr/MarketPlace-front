@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import ContainerDashboard from './Components/ContainerDashboard/ContainerDashboard';
 import { filterData } from './AppUtils';
+import ItemDetailComp from './Components/ItemDetailComp/ItemDetailComp';
 
 class App extends Component {
   constructor() {
@@ -122,36 +123,7 @@ class App extends Component {
           <h1>Welcome Dan!</h1>
         </header>
         <main>
-        <div className="container-items">
-          <div id="item-overlay">
-            <div className="item-detail-container">
-              <div className="item-title-container">
-                <h4 className="items-title">ORDER {}</h4>
-              </div>
-              <div className="item-container">
-                <div className="farm-detail">
-                  <p>Farm: <i>{this.state.data.farm}</i></p>
-                  <p>Producer Name: <i>{this.state.data.producer_name}</i></p>
-                  <p>Phone Number: </p>
-                  <p>Email: </p>
-                </div>
-                <div className="item-detail">
-                  <p>Type: </p>
-                  <p>Item: </p>
-                  <p>Weight: </p>
-                  <p>Qty: </p>
-                  <p>Date Submitted: </p>
-                  <p>Status:</p>
-                </div>
-              </div>
-              <div className="item-buttons-container">
-                <button className="item-buttons-accept" onClick={this.removeOverlay}>Accept</button>
-                <button className="item-buttons-deny" onClick={this.removeOverlay}>Deny</button>
-                <button className="item-buttons-cancel" onClick={this.removeOverlay}>Cancel</button>
-              </div>
-            </div>  
-          </div>  
-        </div>
+          <ItemDetailComp removeOverlay={this.removeOverlay}/>
           <div className="container">
             <div className="box-container">
               <div className="container-1">

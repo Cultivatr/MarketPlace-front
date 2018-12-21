@@ -50,4 +50,8 @@ test ('should get pending', () => {
     expect(sold[0].farm).toBe("ras farms")
 });
 
+test ('should get item details', () => {
+
+});
+
 

@@ -119,7 +119,8 @@ main {
 
 .item-buttons-accept,
 .item-buttons-deny,
-.item-buttons-cancel {
+.item-buttons-cancel,
+.item-buttons-modify {
   border-radius: 5px;
   box-shadow: 0 0 10px white;
   padding: 5px 20px;
@@ -138,6 +139,16 @@ main {
     animation-duration: 2s;
     animation-delay: 1s;
     background-color: #60bd3c;
+}
+
+.item-buttons-modify:hover,
+.item-buttons-modify:active {
+    border: 1px solid yellow;
+    box-shadow: 0 0 10px white;
+    color: black;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    background-color: yellow;
 }
 
 .item-buttons-deny:hover,
