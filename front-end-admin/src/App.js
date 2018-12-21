@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import ContainerDashboard from './Components/ContainerDashboard/ContainerDashboard';
-import { filterData } from './AppUtils';
+import { filterData, getIdData } from './AppUtils';
 import ItemDetailComp from './Components/ItemDetailComp/ItemDetailComp';
 
 class App extends Component {
@@ -110,7 +110,9 @@ class App extends Component {
     }
 
     getItemDetails = (e) => {
-      this.setState({itemID: e.target.id});
+      console.log(e.target);
+      // getIdData(e.target.id, this.state.data);
+      // this.setState({itemID: e.target.id});
       // console.log(this.state.itemID);
       document.getElementById("item-overlay").style.display = "block";
     }
