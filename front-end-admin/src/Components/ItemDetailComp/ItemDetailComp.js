@@ -9,7 +9,7 @@ class ItemDetailComp extends React.Component {
                 <div id="item-overlay">
                 <div className="item-detail-container">
                     <div className="item-title-container">
-                    <h4 className="items-title">ORDER #{this.props.itemDetails.id}</h4>
+                    <h4 className="items-title">ORDER #<i>{this.props.itemDetails.id}</i></h4>
                     </div>
                     <div className="item-container">
                     <div className="farm-detail">

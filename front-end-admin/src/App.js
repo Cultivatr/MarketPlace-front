@@ -105,17 +105,20 @@ class App extends Component {
     }
   }
 
+  componentWillMount(){
+    filterData(this.state.data, this.pending, this.accepted, this.sold, this.delivered)
+  }
+
   removeOverlay = (event) => {
     document.getElementById("item-overlay").style.display = "none";
     }
 
-    getItemObj = (e) => {
-      this.setState({ itemDetails: getItemDetails(parseInt(e.target.id), this.state.data) });
-      document.getElementById("item-overlay").style.display = "block";
-    }
+  getItemObj = (e) => {
+    this.setState({ itemDetails: getItemDetails(parseInt(e.target.id), this.state.data) });
+    document.getElementById("item-overlay").style.display = "block";
+  }
 
   render() {
-    filterData(this.state.data, this.pending, this.accepted, this.sold, this.delivered)
     return (
       <div className="App">
         <header>
