@@ -9,14 +9,13 @@ class App extends Component {
       display: 'signin'
    }
 
-
    onAdminClick = () => {
       this.setState({display:'admin'})
    }
-   onProducerClick = () => {
-         this.setState({display:'producer'})
-   }
 
+   onProducerClick = () => {
+      this.setState({display:'producer'})
+   }
 
    render() {
       let toShow;
@@ -31,9 +30,9 @@ class App extends Component {
       }
 
       return (
-         <div>
-            <button onClick={this.onAdminClick}>Admin</button>
-            <button onClick={this.onProducerClick}>Producer</button>
+         <div className="ui centered">
+            <button className="ui button primary" onClick={this.onAdminClick}>Admin</button>
+            <button className="ui button primary" onClick={this.onProducerClick}>Producer</button>
             {toShow}
          </div>
       )
