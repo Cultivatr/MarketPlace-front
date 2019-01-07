@@ -20,7 +20,7 @@ class App extends Component {
 
    render() {
       let toShow;
-      if (this.state.display === 'prdocuer') {
+      if (this.state.display === 'producer') {
          toShow = <Producer/>
       }
       else if (this.state.display === 'admin') {

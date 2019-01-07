@@ -7,7 +7,7 @@ import ProductDetail from './ProducerComponents/ProductDetail';
 import './ProducerComponents/Producer.css';
 // import { Route, Link, BrowserRouter } from 'react-router-dom';
 
-class App extends Component {
+class Producer extends Component {
     render() {
         return (
             <div className='ui container'>
@@ -16,14 +16,14 @@ class App extends Component {
                     <Route path='/producer-form' exact component={ProducerForm} />
                     <Route path='/producer-form' exact component={ProducerForm} />
                 </BrowserRouter> */}
-                {/* <SignIn/>
+                <SignIn/>
                 <User/>
                 <ContactUs/>
                 <ProducerForm/>
-                <ProductDetail/> */}
+                <ProductDetail/>
             </div>
         )
     }
 }
 
-export default App;
+export default Producer;
