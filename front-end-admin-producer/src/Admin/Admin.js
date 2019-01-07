@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
+import './admin.css';
 import ContainerDashboard from './Components/ContainerDashboard/ContainerDashboard';
-import { filterData, getItemDetails } from './AppUtils';
+import { filterData, getItemDetails } from '../AppUtils';
 import ItemDetailComp from './Components/ItemDetailComp/ItemDetailComp';
 
 class App extends Component {

@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('../../img/CultivatR-01.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+header {
+    /* height: 10vh;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95));  */
+}
+
+.logo {
+    width: 100px;
+}
