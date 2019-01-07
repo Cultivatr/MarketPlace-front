@@ -39,7 +39,8 @@ main {
 }
 
 .box-container {
-  display: inline-block;
+  border: 1px solid red;
+  display: flex;
   height: 100%;
   width: 100%;
 }
@@ -47,8 +48,8 @@ main {
 .container-1 {
   display: inline-flex;
   flex-wrap: wrap;
-  width: 49%;
-  height: 50%;
+  width: 90%;
+  height: 90vh;
   border: 1px solid black;
   margin: 2px;
   justify-content: center;

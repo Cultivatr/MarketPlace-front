@@ -15,7 +15,7 @@ class ContainerDashboard extends React.Component {
   render() {
     const { data } = this.state;
     return (
-      <div className="table" onDoubleClick={this.getItemDetails}>
+      <div className="table">
         <ReactTable
           data={data}
           noDataText="No items from producers!"

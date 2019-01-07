@@ -12,6 +12,7 @@ class App extends Component {
     this.sold = [];
     this.delivered = [];
     this.state = {
+      display: '',
       itemDetails: {},
       data: [{
         "farm": "jk farms",
@@ -119,6 +120,19 @@ class App extends Component {
   }
 
   render() {
+    let toShow;
+    if (this.state.display === 'toBeAccepted') {
+      toShow = <ContainerDashboard data={this.pending} itemObj={this.getItemObj}/>
+    }
+    else if (this.state.display === 'acceptedConditional') {
+      toShow = <ContainerDashboard data={this.accepted} itemObj={this.getItemObj}/>
+    }
+    else if (this.state.display === 'soldToBeDelivered') {
+      toShow = <ContainerDashboard data={this.sold} itemObj={this.getItemObj}/>
+    }
+    else if (this.state.display === 'delivered') {
+      toShow = <ContainerDashboard data={this.delivered} itemObj={this.getItemObj}/>
+    }
     return (
       <div className="App">
         <header>

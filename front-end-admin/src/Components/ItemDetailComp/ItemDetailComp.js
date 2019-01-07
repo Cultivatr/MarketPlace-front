@@ -1,9 +1,9 @@
 import React from "react";
+import "./itemDetailComp.css";
 
 class ItemDetailComp extends React.Component {
 
     render() {
-        console.log(this.props)
         return (
             <div className="container-items">
                 <div id="item-overlay">
