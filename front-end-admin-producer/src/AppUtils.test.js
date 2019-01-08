@@ -33,6 +33,14 @@ const db =
     "date": "2018-12-11",
     "id": 4,
     "status": "sold"
+    },
+    {
+    "farm": "pw farms",
+    "product": "steak",
+    "qty": 5,
+    "date": "2018-12-11",
+    "id": 4,
+    "status": "not accepted"
     }
 ]
 
@@ -43,11 +51,13 @@ test ('should get pending', () => {
     let accepted = [];
     let sold = [];
     let delivered = [];
-    filterData(db, pending, accepted, sold, delivered);
+    let notAccepted = [];
+    filterData(db, pending, accepted, sold, delivered, notAccepted);
     expect(pending[0].farm).toBe("ct farms")
     expect(accepted[0].farm).toBe("jk farms")
     expect(delivered[0].farm).toBe("lm farms")
     expect(sold[0].farm).toBe("ras farms")
+    expect(notAccepted[0].farm).toBe(" pw farms")
 });
 
 test ('should get item details', () => {

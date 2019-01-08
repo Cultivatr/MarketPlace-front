@@ -1,0 +1,23 @@
+.item-input {
+    border-radius: 5px;
+    background-color: transparent;
+    margin-left: 4px;
+    height: 20px;
+    color: white;
+    border: 1px solid white;
+    width: 150px;
+    text-align: center;
+    text-emphasis-color: white;
+    font-style: italic;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+.item-input:hover {
+    box-shadow: 0 0 15px white;
+}
+
+.item-input::placeholder{
+    color: white;
+    font-weight: 100;
+}

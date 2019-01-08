@@ -4,15 +4,16 @@ import ContainerDashboard from './Components/ContainerDashboard/ContainerDashboa
 import { filterData, getItemDetails } from '../AppUtils';
 import ItemDetailComp from './Components/ItemDetailComp/ItemDetailComp';
 
-class App extends Component {
+class Admin extends Component {
   constructor() {
     super();
     this.pending = [];
     this.accepted = [];
     this.sold = [];
     this.delivered = [];
+    this.notAccepted = [];
     this.state = {
-      display: '',
+      dataToShow: '',
       itemDetails: {},
       data: [{
         "farm": "jk farms",
@@ -60,7 +61,7 @@ class App extends Component {
         "qty": 1000,
         "date": "2018-12-24",
         "id": 6,
-        "status": "pending"
+        "status": "not accepted"
       },
       {
         "farm": "Edmonton farms",
@@ -107,7 +108,7 @@ class App extends Component {
   }
 
   componentWillMount(){
-    filterData(this.state.data, this.pending, this.accepted, this.sold, this.delivered)
+    filterData(this.state.data, this.pending, this.accepted, this.sold, this.delivered, this.notAccepted)
   }
 
   removeOverlay = (event) => {
@@ -119,19 +120,72 @@ class App extends Component {
     document.getElementById("item-overlay").style.display = "block";
   }
 
+  OnClickAccept = () => {
+    this.setState({ dataToShow: 'toBeAccepted' })
+  }
+
+  OnClickConditional = () => {
+    this.setState({ dataToShow: 'acceptedConditional' });
+  }
+
+  OnClickSold = () => {
+    this.setState({ dataToShow: 'soldToBeDelivered' });
+  }
+
+  OnClickDelivered = () => {
+    this.setState({ dataToShow: 'delivered' });
+  }
+
+  OnClickNotAccepted = () => {
+    this.setState({ dataToShow: 'notAccepted' });
+  }
+
   render() {
     let toShow;
-    if (this.state.display === 'toBeAccepted') {
-      toShow = <ContainerDashboard data={this.pending} itemObj={this.getItemObj}/>
+    if (this.state.dataToShow === 'toBeAccepted') {
+      toShow = 
+      <div className="container-2">
+        <div className="container-title">
+          <h4>Items To Be Accepted Conditionally</h4>
+        </div>
+        <ContainerDashboard data={this.pending} itemObj={this.getItemObj}/>
+      </div>
     }
-    else if (this.state.display === 'acceptedConditional') {
-      toShow = <ContainerDashboard data={this.accepted} itemObj={this.getItemObj}/>
+    else if (this.state.dataToShow === 'acceptedConditional') {
+      toShow = 
+      <div className="container-2">
+        <div className="container-title">
+          <h4>Items Accepted Conditionally</h4>
+        </div>
+        <ContainerDashboard data={this.accepted} itemObj={this.getItemObj}/>
+      </div>
     }
-    else if (this.state.display === 'soldToBeDelivered') {
-      toShow = <ContainerDashboard data={this.sold} itemObj={this.getItemObj}/>
+    else if (this.state.dataToShow === 'soldToBeDelivered') {
+      toShow = 
+      <div className="container-2">
+        <div className="container-title">
+          <h4>Items Sold To Be Delivered</h4>
+        </div>
+        <ContainerDashboard data={this.sold} itemObj={this.getItemObj}/>
+      </div>
     }
-    else if (this.state.display === 'delivered') {
-      toShow = <ContainerDashboard data={this.delivered} itemObj={this.getItemObj}/>
+    else if (this.state.dataToShow === 'delivered') {
+      toShow = 
+      <div className="container-2">
+        <div className="container-title">
+          <h4>Items Delivered</h4>
+        </div>
+        <ContainerDashboard data={this.delivered} itemObj={this.getItemObj}/>
+      </div>
+    }
+    else if (this.state.dataToShow === 'notAccepted') {
+      toShow = 
+      <div className="container-2">
+        <div className="container-title">
+          <h4>Items Not Accepted</h4>
+        </div>
+        <ContainerDashboard data={this.notAccepted} itemObj={this.getItemObj}/>
+      </div>
     }
     return (
       <div className="App">
@@ -142,29 +196,15 @@ class App extends Component {
           <ItemDetailComp itemDetails={this.state.itemDetails} removeOverlay={this.removeOverlay}/>
           <div className="container">
             <div className="box-container">
-              <div className="container-1">
-                <div className="container-title">
-                  <h4>Items To Be Accepted Conditionally</h4>
-                </div>
-                <ContainerDashboard data={this.pending} itemObj={this.getItemObj}/>
+              <div className='left-nav'>
+                <button className="button-admin" onClick={this.OnClickAccept}>Items To Accept</button>
+                <button className="button-admin" onClick={this.OnClickConditional}>Accepted Conditionally</button>
+                <button className="button-admin"onClick={this.OnClickSold}>Sold To Be Delivered</button>
+                <button className="button-admin" onClick={this.OnClickDelivered}>Delivered</button>
+                <button className="button-admin" onClick={this.OnClickNotAccepted}>Items Not Accepted</button>
               </div>
               <div className="container-1">
-                <div className="container-title">
-                  <h4>Items Accepted Conditionally</h4>
-                </div>
-                <ContainerDashboard data={this.accepted} itemObj={this.getItemObj}/>
-              </div>
-              <div className="container-1">
-                <div className="container-title">
-                  <h4>Items Sold To Be Delivered</h4>
-                </div>
-                <ContainerDashboard data={this.sold} itemObj={this.getItemObj}/>
-              </div>
-              <div className="container-1">
-                <div className="container-title">
-                  <h4>Items Delivered</h4>
-                </div>
-                <ContainerDashboard data={this.delivered} itemObj={this.getItemObj}/>
+                {toShow}
               </div>
             </div>
           </div>
@@ -174,5 +214,5 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Admin;
 
