@@ -57,7 +57,7 @@ test ('should get pending', () => {
     expect(accepted[0].farm).toBe("jk farms")
     expect(delivered[0].farm).toBe("lm farms")
     expect(sold[0].farm).toBe("ras farms")
-    expect(notAccepted[0].farm).toBe(" pw farms")
+    expect(notAccepted[0].farm).toBe("pw farms")
 });
 
 test ('should get item details', () => {
