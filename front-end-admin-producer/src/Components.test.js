@@ -15,8 +15,8 @@ import App from './App';
 describe('Renders of Components', () => {
 
     it('expect to render App component', () => {
-        expect(shallow(<App />).length).toEqual(1);
-        expect(shallow(<App />)).toMatchSnapshot();
+        const wrapper = shallow(<App />)
+        expect(wrapper.length).toEqual(1);
     })
 
     it('expect to render ContainerDashboard component', () => {
@@ -47,6 +47,12 @@ describe('Renders of Components', () => {
 
     it('expect to render Admin component', () => {
         expect(shallow(<Admin />).length).toEqual(1);
+    })
+
+    it('expect change state in Admin', () => {
+        const wrapper = shallow(<Admin />)
+        wrapper.find('[id="button-accept"]').simulate('click');
+        expect(wrapper.state().dataToShow).toEqual('toBeAccepted');
     })
 
     it('expect to render ItemDetailComp component', () => {

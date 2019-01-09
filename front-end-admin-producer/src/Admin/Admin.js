@@ -197,11 +197,11 @@ class Admin extends Component {
           <div className="container">
             <div className="box-container">
               <div className='left-nav'>
-                <button className="button-admin" onClick={this.OnClickAccept}>Items To Accept</button>
-                <button className="button-admin" onClick={this.OnClickConditional}>Accepted Conditionally</button>
-                <button className="button-admin"onClick={this.OnClickSold}>Sold To Be Delivered</button>
-                <button className="button-admin" onClick={this.OnClickDelivered}>Delivered</button>
-                <button className="button-admin" onClick={this.OnClickNotAccepted}>Items Not Accepted</button>
+                <button id="button-accept" className="button-admin" onClick={this.OnClickAccept}>Items To Accept</button>
+                <button id="button-conditional" className="button-admin" onClick={this.OnClickConditional}>Accepted Conditionally</button>
+                <button id="button-sold" className="button-admin"onClick={this.OnClickSold}>Sold To Be Delivered</button>
+                <button id="button-delivered" className="button-admin" onClick={this.OnClickDelivered}>Delivered</button>
+                <button id="button-notAccepted" className="button-admin" onClick={this.OnClickNotAccepted}>Items Not Accepted</button>
               </div>
               <div className="container-1">
                 {toShow}

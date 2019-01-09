@@ -1,22 +1,41 @@
-.ui.header:first-child {
-    margin-top: 20px;
-    margin-bottom: 20px;
+/* .ui.header:first-child {
+    border: 1px solid orange;
+    height: 10%;
+    align-items: center;
+    margin: 0;
+    padding: 25px;
+} */
+
+.table-header {
+    height: 10%;
+    padding: 2%;
 }
 
 .item-table {
     overflow-y: scroll;
-    height: 625px;
-    border: 1px solid lightgray;
+    height: 80%;
     width: 95%;
+    border: 1px solid lightgray;
     margin-left: 2.5%;
+}
+
+.item-detail-container {
+    height: 80%;
+    width: 80%;
+    background: white;
+    margin-top: 5%;
+    margin-left: 10%;
 }
 
 .item-buttons-container {
     display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    bottom: 0;
     justify-content: space-evenly;
-    height: 7%;
+    height: 10%;
     width: 100%;
-    margin-top: 15px;
+    padding: 10px;
 }
   
 .item-buttons-accept,
@@ -26,7 +45,7 @@
     border-radius: .28571429rem;
     box-shadow: 0 0 10px white;
     padding: .78571429em 1.5em .78571429em;
-    margin: 5px .25em 0 0;
+    margin: 2px 2px;
     font-weight: 700;
     cursor: pointer;
     background-color: #1ECE88;
