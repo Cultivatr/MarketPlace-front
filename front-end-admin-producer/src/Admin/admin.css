@@ -62,20 +62,20 @@
    margin: 2px;
    justify-content: center;
    font-weight: 400;
-   font-size: smaller;
+   font-size: medium;
  }
  
  #item-overlay {
    position: fixed;
    display: none;
-   width: 95%;
-   height: 95%;
-   top: 2.5%;
-   left: 2.5%;
-   right: 2.5%;
-   bottom: 2.5%;
-   border: 2px solid #1ECE88;
-   box-shadow: 5px 5px 5px #1ECE88;
+   width: 80%;
+   height: 80%;
+   top: 10%;
+   left: 10%;
+   right: 10%;
+   bottom: 10%;
+   border: 2px solid grey;
+   box-shadow: 0 0 30px 10px grey;
    background-color: white;
    z-index: 100;
    color:black;

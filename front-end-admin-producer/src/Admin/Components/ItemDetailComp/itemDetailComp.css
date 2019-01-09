@@ -3,18 +3,12 @@
     margin-bottom: 20px;
 }
 
-.ui.table {
+.item-table {
+    overflow-y: scroll;
+    height: 625px;
+    border: 1px solid lightgray;
     width: 95%;
     margin-left: 2.5%;
-}
-
-/* .item-detail-container {
-    border: 1px solid red;
-    height: 100%;
-} */
-
-.item-table {
-    
 }
 
 .item-buttons-container {

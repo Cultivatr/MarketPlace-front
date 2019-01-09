@@ -51,7 +51,7 @@ class ContainerDashboard extends React.Component {
                 {
                     Header: "Qty",
                     id: "qty",
-                    width: 65,
+                    width: 75,
                     accessor: d => d.qty,
                     filterMethod: (filter, rows) =>
                       matchSorter(rows, filter.value, { keys: ["qty"] }),
@@ -60,7 +60,7 @@ class ContainerDashboard extends React.Component {
                 {
                     Header: "Est.Date",
                     id: "date",
-                    width: 115,
+                    width: 150,
                     accessor: d => d.date,
                     filterMethod: (filter, rows) =>
                       matchSorter(rows, filter.value, { keys: ["date"] }),
@@ -84,7 +84,7 @@ class ContainerDashboard extends React.Component {
           defaultPageSize={20}
           className="-striped -highlight"
           style={{
-            height: "655px"
+            height: "100%"
           }}
         />
       </div>
