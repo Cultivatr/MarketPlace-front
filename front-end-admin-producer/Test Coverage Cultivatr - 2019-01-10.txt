@@ -1,0 +1,36 @@
+-----------------------------------------|----------|----------|----------|----------|-------------------|
+File                                     |  % Stmts | % Branch |  % Funcs |  % Lines | Uncovered Line #s |
+-----------------------------------------|----------|----------|----------|----------|-------------------|
+All files                                |     43.2 |    31.03 |    34.62 |     43.2 |                   |
+ src                                     |    34.25 |       25 |    22.73 |    34.25 |                   |
+  App.js                                 |    55.56 |       50 |    33.33 |    55.56 |       13,17,23,26 |
+  AppUtils.js                            |      100 |       90 |      100 |      100 |                17 |
+  index.js                               |        0 |      100 |      100 |        0 |      1,2,3,4,5,12 |
+  serviceWorker.js                       |        0 |        0 |        0 |        0 |... 23,130,131,132 |
+  setupTests.js                          |      100 |      100 |      100 |      100 |                   |
+ src/Admin                               |    59.26 |       60 |       40 |    59.26 |                   |
+  Admin.js                               |    59.26 |       60 |       40 |    59.26 |... 55,164,173,182 |
+ src/Admin/Components/ContainerDashboard |    26.67 |      100 |    16.67 |    26.67 |                   |
+  ContainerDashboard.js                  |    28.57 |      100 |    16.67 |    28.57 |... 55,57,64,66,73 |
+  ContainerDashboardUtil.js              |        0 |      100 |      100 |        0 |                 1 |
+ src/Admin/Components/ItemDetailComp     |      100 |      100 |      100 |      100 |                   |
+  ItemDetailComp.js                      |      100 |      100 |      100 |      100 |                   |
+ src/Producer                            |      100 |      100 |      100 |      100 |                   |
+  Producer.js                            |      100 |      100 |      100 |      100 |                   |
+ src/Producer/Components/addItemForm     |      100 |      100 |      100 |      100 |                   |
+  AddItemForm.js                         |      100 |      100 |      100 |      100 |                   |
+ src/Producer/Components/contactUs       |      100 |      100 |      100 |      100 |                   |
+  ContactUs.js                           |      100 |      100 |      100 |      100 |                   |
+ src/Producer/Components/productDetail   |      100 |      100 |      100 |      100 |                   |
+  ProductDetail.js                       |      100 |      100 |      100 |      100 |                   |
+ src/Producer/Components/summary         |      100 |      100 |      100 |      100 |                   |
+  Summary.js                             |      100 |      100 |      100 |      100 |                   |
+ src/SharedComponents                    |       75 |      100 |       50 |       75 |                   |
+  SignIn.js                              |       75 |      100 |       50 |       75 |                12 |
+-----------------------------------------|----------|----------|----------|----------|-------------------|
+
+Test Suites: 3 passed, 3 total
+Tests:       14 passed, 14 total
+Snapshots:   2 passed, 2 total
+Time:        1.97s
+Ran all test suites.

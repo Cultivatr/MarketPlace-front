@@ -248,7 +248,7 @@ ShallowWrapper {
         sortable={true}
         style={
           Object {
-            "height": "100%",
+            "height": "85vh",
           }
         }
         subRowsKey="_subRows"
@@ -469,7 +469,7 @@ ShallowWrapper {
         "showPaginationTop": false,
         "sortable": true,
         "style": Object {
-          "height": "100%",
+          "height": "85vh",
         },
         "subRowsKey": "_subRows",
       },
@@ -695,7 +695,7 @@ ShallowWrapper {
           sortable={true}
           style={
             Object {
-              "height": "100%",
+              "height": "85vh",
             }
           }
           subRowsKey="_subRows"
@@ -916,7 +916,7 @@ ShallowWrapper {
           "showPaginationTop": false,
           "sortable": true,
           "style": Object {
-            "height": "100%",
+            "height": "85vh",
           },
           "subRowsKey": "_subRows",
         },
@@ -976,10 +976,10 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": <div
-        id="item-overlay"
+        className="item-detail-container"
       >
         <div
-          className="item-detail-container"
+          className="table-header"
         >
           <h4
             class="ui horizontal divider header"
@@ -990,11 +990,215 @@ ShallowWrapper {
               1
             </i>
           </h4>
+        </div>
+        <div
+          className="item-table"
+        >
+          <table
+            class="ui definition table"
+          >
+            <tbody>
+              <tr>
+                <td
+                  class="two wide column"
+                >
+                  Type
+                </td>
+                <td>
+                  steak
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Breed
+                </td>
+                <td>
+                  Angus
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Birthdate
+                </td>
+                <td>
+                  Sept 20, 2017
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Registration Number
+                </td>
+                <td>
+                  12345
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  RFID Tag
+                </td>
+                <td>
+                  12345
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Est. Starting Weight
+                </td>
+                <td>
+                  500lbs
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Date on Feed
+                </td>
+                <td>
+                  Sept 20, 2017
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Feed Method
+                </td>
+                <td>
+                  Grass and Grain Finished
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Type of Pasture
+                </td>
+                <td>
+                  ---
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Type of Feed
+                </td>
+                <td>
+                  Grain
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Est. Completion Date
+                </td>
+                <td>
+                  Dec 20, 2018
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Est. Finished Date
+                </td>
+                <td>
+                  Jan 15, 2019
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Status
+                </td>
+                <td>
+                  accepted
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Status
+                </td>
+                <td>
+                  accepted
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Status
+                </td>
+                <td>
+                  accepted
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Status
+                </td>
+                <td>
+                  accepted
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Status
+                </td>
+                <td>
+                  accepted
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Status
+                </td>
+                <td>
+                  accepted
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          className="item-buttons-container"
+        >
+          <button
+            className="item-buttons-accept"
+          >
+            Accept
+          </button>
+          <button
+            className="item-buttons-modify"
+          >
+            Modify
+          </button>
+          <button
+            className="item-buttons-deny"
+          >
+            Deny
+          </button>
+          <button
+            className="item-buttons-cancel"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>,
+      "id": "item-overlay",
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="table-header"
+          >
+            <h4
+              class="ui horizontal divider header"
+            >
+              jk farms
+               | Order #
+              <i>
+                1
+              </i>
+            </h4>
+          </div>,
           <div
             className="item-table"
           >
             <table
-              class="ui definition table item-table"
+              class="ui definition table"
             >
               <tbody>
                 <tr>
@@ -1145,7 +1349,7 @@ ShallowWrapper {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div>,
           <div
             className="item-buttons-container"
           >
@@ -1169,13 +1373,1376 @@ ShallowWrapper {
             >
               Cancel
             </button>
-          </div>
-        </div>
-      </div>,
-      "className": "container-items",
+          </div>,
+        ],
+        "className": "item-detail-container",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <h4
+              class="ui horizontal divider header"
+            >
+              jk farms
+               | Order #
+              <i>
+                1
+              </i>
+            </h4>,
+            "className": "table-header",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                "jk farms",
+                " | Order #",
+                <i>
+                  1
+                </i>,
+              ],
+              "class": "ui horizontal divider header",
+            },
+            "ref": null,
+            "rendered": Array [
+              "jk farms",
+              " | Order #",
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": 1,
+                },
+                "ref": null,
+                "rendered": 1,
+                "type": "i",
+              },
+            ],
+            "type": "h4",
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <table
+              class="ui definition table"
+            >
+              <tbody>
+                <tr>
+                  <td
+                    class="two wide column"
+                  >
+                    Type
+                  </td>
+                  <td>
+                    steak
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Breed
+                  </td>
+                  <td>
+                    Angus
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Birthdate
+                  </td>
+                  <td>
+                    Sept 20, 2017
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Registration Number
+                  </td>
+                  <td>
+                    12345
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    RFID Tag
+                  </td>
+                  <td>
+                    12345
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Est. Starting Weight
+                  </td>
+                  <td>
+                    500lbs
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Date on Feed
+                  </td>
+                  <td>
+                    Sept 20, 2017
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Feed Method
+                  </td>
+                  <td>
+                    Grass and Grain Finished
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Type of Pasture
+                  </td>
+                  <td>
+                    ---
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Type of Feed
+                  </td>
+                  <td>
+                    Grain
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Est. Completion Date
+                  </td>
+                  <td>
+                    Dec 20, 2018
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Est. Finished Date
+                  </td>
+                  <td>
+                    Jan 15, 2019
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Status
+                  </td>
+                  <td>
+                    accepted
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Status
+                  </td>
+                  <td>
+                    accepted
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Status
+                  </td>
+                  <td>
+                    accepted
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Status
+                  </td>
+                  <td>
+                    accepted
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Status
+                  </td>
+                  <td>
+                    accepted
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Status
+                  </td>
+                  <td>
+                    accepted
+                  </td>
+                </tr>
+              </tbody>
+            </table>,
+            "className": "item-table",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <tbody>
+                <tr>
+                  <td
+                    class="two wide column"
+                  >
+                    Type
+                  </td>
+                  <td>
+                    steak
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Breed
+                  </td>
+                  <td>
+                    Angus
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Birthdate
+                  </td>
+                  <td>
+                    Sept 20, 2017
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Registration Number
+                  </td>
+                  <td>
+                    12345
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    RFID Tag
+                  </td>
+                  <td>
+                    12345
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Est. Starting Weight
+                  </td>
+                  <td>
+                    500lbs
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Date on Feed
+                  </td>
+                  <td>
+                    Sept 20, 2017
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Feed Method
+                  </td>
+                  <td>
+                    Grass and Grain Finished
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Type of Pasture
+                  </td>
+                  <td>
+                    ---
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Type of Feed
+                  </td>
+                  <td>
+                    Grain
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Est. Completion Date
+                  </td>
+                  <td>
+                    Dec 20, 2018
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Est. Finished Date
+                  </td>
+                  <td>
+                    Jan 15, 2019
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Status
+                  </td>
+                  <td>
+                    accepted
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Status
+                  </td>
+                  <td>
+                    accepted
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Status
+                  </td>
+                  <td>
+                    accepted
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Status
+                  </td>
+                  <td>
+                    accepted
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Status
+                  </td>
+                  <td>
+                    accepted
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Status
+                  </td>
+                  <td>
+                    accepted
+                  </td>
+                </tr>
+              </tbody>,
+              "class": "ui definition table",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <tr>
+                    <td
+                      class="two wide column"
+                    >
+                      Type
+                    </td>
+                    <td>
+                      steak
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Breed
+                    </td>
+                    <td>
+                      Angus
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Birthdate
+                    </td>
+                    <td>
+                      Sept 20, 2017
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Registration Number
+                    </td>
+                    <td>
+                      12345
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      RFID Tag
+                    </td>
+                    <td>
+                      12345
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Est. Starting Weight
+                    </td>
+                    <td>
+                      500lbs
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Date on Feed
+                    </td>
+                    <td>
+                      Sept 20, 2017
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Feed Method
+                    </td>
+                    <td>
+                      Grass and Grain Finished
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Type of Pasture
+                    </td>
+                    <td>
+                      ---
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Type of Feed
+                    </td>
+                    <td>
+                      Grain
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Est. Completion Date
+                    </td>
+                    <td>
+                      Dec 20, 2018
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Est. Finished Date
+                    </td>
+                    <td>
+                      Jan 15, 2019
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Status
+                    </td>
+                    <td>
+                      accepted
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Status
+                    </td>
+                    <td>
+                      accepted
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Status
+                    </td>
+                    <td>
+                      accepted
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Status
+                    </td>
+                    <td>
+                      accepted
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Status
+                    </td>
+                    <td>
+                      accepted
+                    </td>
+                  </tr>,
+                  <tr>
+                    <td>
+                      Status
+                    </td>
+                    <td>
+                      accepted
+                    </td>
+                  </tr>,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td
+                        class="two wide column"
+                      >
+                        Type
+                      </td>,
+                      <td>
+                        steak
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Type",
+                        "class": "two wide column",
+                      },
+                      "ref": null,
+                      "rendered": "Type",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "steak",
+                      },
+                      "ref": null,
+                      "rendered": "steak",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Breed
+                      </td>,
+                      <td>
+                        Angus
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Breed",
+                      },
+                      "ref": null,
+                      "rendered": "Breed",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Angus",
+                      },
+                      "ref": null,
+                      "rendered": "Angus",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Birthdate
+                      </td>,
+                      <td>
+                        Sept 20, 2017
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Birthdate",
+                      },
+                      "ref": null,
+                      "rendered": "Birthdate",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Sept 20, 2017",
+                      },
+                      "ref": null,
+                      "rendered": "Sept 20, 2017",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Registration Number
+                      </td>,
+                      <td>
+                        12345
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Registration Number",
+                      },
+                      "ref": null,
+                      "rendered": "Registration Number",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "12345",
+                      },
+                      "ref": null,
+                      "rendered": "12345",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        RFID Tag
+                      </td>,
+                      <td>
+                        12345
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "RFID Tag",
+                      },
+                      "ref": null,
+                      "rendered": "RFID Tag",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "12345",
+                      },
+                      "ref": null,
+                      "rendered": "12345",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Est. Starting Weight
+                      </td>,
+                      <td>
+                        500lbs
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Est. Starting Weight",
+                      },
+                      "ref": null,
+                      "rendered": "Est. Starting Weight",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "500lbs",
+                      },
+                      "ref": null,
+                      "rendered": "500lbs",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Date on Feed
+                      </td>,
+                      <td>
+                        Sept 20, 2017
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Date on Feed",
+                      },
+                      "ref": null,
+                      "rendered": "Date on Feed",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Sept 20, 2017",
+                      },
+                      "ref": null,
+                      "rendered": "Sept 20, 2017",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Feed Method
+                      </td>,
+                      <td>
+                        Grass and Grain Finished
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Feed Method",
+                      },
+                      "ref": null,
+                      "rendered": "Feed Method",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Grass and Grain Finished",
+                      },
+                      "ref": null,
+                      "rendered": "Grass and Grain Finished",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Type of Pasture
+                      </td>,
+                      <td>
+                        ---
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Type of Pasture",
+                      },
+                      "ref": null,
+                      "rendered": "Type of Pasture",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "---",
+                      },
+                      "ref": null,
+                      "rendered": "---",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Type of Feed
+                      </td>,
+                      <td>
+                        Grain
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Type of Feed",
+                      },
+                      "ref": null,
+                      "rendered": "Type of Feed",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Grain",
+                      },
+                      "ref": null,
+                      "rendered": "Grain",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Est. Completion Date
+                      </td>,
+                      <td>
+                        Dec 20, 2018
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Est. Completion Date",
+                      },
+                      "ref": null,
+                      "rendered": "Est. Completion Date",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Dec 20, 2018",
+                      },
+                      "ref": null,
+                      "rendered": "Dec 20, 2018",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Est. Finished Date
+                      </td>,
+                      <td>
+                        Jan 15, 2019
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Est. Finished Date",
+                      },
+                      "ref": null,
+                      "rendered": "Est. Finished Date",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Jan 15, 2019",
+                      },
+                      "ref": null,
+                      "rendered": "Jan 15, 2019",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Status
+                      </td>,
+                      <td>
+                        accepted
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Status",
+                      },
+                      "ref": null,
+                      "rendered": "Status",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "accepted",
+                      },
+                      "ref": null,
+                      "rendered": "accepted",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Status
+                      </td>,
+                      <td>
+                        accepted
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Status",
+                      },
+                      "ref": null,
+                      "rendered": "Status",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "accepted",
+                      },
+                      "ref": null,
+                      "rendered": "accepted",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Status
+                      </td>,
+                      <td>
+                        accepted
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Status",
+                      },
+                      "ref": null,
+                      "rendered": "Status",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "accepted",
+                      },
+                      "ref": null,
+                      "rendered": "accepted",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Status
+                      </td>,
+                      <td>
+                        accepted
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Status",
+                      },
+                      "ref": null,
+                      "rendered": "Status",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "accepted",
+                      },
+                      "ref": null,
+                      "rendered": "accepted",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Status
+                      </td>,
+                      <td>
+                        accepted
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Status",
+                      },
+                      "ref": null,
+                      "rendered": "Status",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "accepted",
+                      },
+                      "ref": null,
+                      "rendered": "accepted",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <td>
+                        Status
+                      </td>,
+                      <td>
+                        accepted
+                      </td>,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "Status",
+                      },
+                      "ref": null,
+                      "rendered": "Status",
+                      "type": "td",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "accepted",
+                      },
+                      "ref": null,
+                      "rendered": "accepted",
+                      "type": "td",
+                    },
+                  ],
+                  "type": "tr",
+                },
+              ],
+              "type": "tbody",
+            },
+            "type": "table",
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <button
+                className="item-buttons-accept"
+              >
+                Accept
+              </button>,
+              <button
+                className="item-buttons-modify"
+              >
+                Modify
+              </button>,
+              <button
+                className="item-buttons-deny"
+              >
+                Deny
+              </button>,
+              <button
+                className="item-buttons-cancel"
+              >
+                Cancel
+              </button>,
+            ],
+            "className": "item-buttons-container",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Accept",
+                "className": "item-buttons-accept",
+                "onClick": undefined,
+              },
+              "ref": null,
+              "rendered": "Accept",
+              "type": "button",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Modify",
+                "className": "item-buttons-modify",
+                "onClick": undefined,
+              },
+              "ref": null,
+              "rendered": "Modify",
+              "type": "button",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Deny",
+                "className": "item-buttons-deny",
+                "onClick": undefined,
+              },
+              "ref": null,
+              "rendered": "Deny",
+              "type": "button",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Cancel",
+                "className": "item-buttons-cancel",
+                "onClick": undefined,
+              },
+              "ref": null,
+              "rendered": "Cancel",
+              "type": "button",
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
     },
-    "ref": null,
-    "rendered": Object {
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
       "instance": null,
       "key": undefined,
       "nodeType": "host",
@@ -1183,20 +2750,24 @@ ShallowWrapper {
         "children": <div
           className="item-detail-container"
         >
-          <h4
-            class="ui horizontal divider header"
+          <div
+            className="table-header"
           >
-            jk farms
-             | Order #
-            <i>
-              1
-            </i>
-          </h4>
+            <h4
+              class="ui horizontal divider header"
+            >
+              jk farms
+               | Order #
+              <i>
+                1
+              </i>
+            </h4>
+          </div>
           <div
             className="item-table"
           >
             <table
-              class="ui definition table item-table"
+              class="ui definition table"
             >
               <tbody>
                 <tr>
@@ -1382,20 +2953,24 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": Array [
-            <h4
-              class="ui horizontal divider header"
+            <div
+              className="table-header"
             >
-              jk farms
-               | Order #
-              <i>
-                1
-              </i>
-            </h4>,
+              <h4
+                class="ui horizontal divider header"
+              >
+                jk farms
+                 | Order #
+                <i>
+                  1
+                </i>
+              </h4>
+            </div>,
             <div
               className="item-table"
             >
               <table
-                class="ui definition table item-table"
+                class="ui definition table"
               >
                 <tbody>
                   <tr>
@@ -1581,32 +3156,51 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": Array [
-                "jk farms",
-                " | Order #",
+              "children": <h4
+                class="ui horizontal divider header"
+              >
+                jk farms
+                 | Order #
                 <i>
                   1
-                </i>,
-              ],
-              "class": "ui horizontal divider header",
+                </i>
+              </h4>,
+              "className": "table-header",
             },
             "ref": null,
-            "rendered": Array [
-              "jk farms",
-              " | Order #",
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": 1,
-                },
-                "ref": null,
-                "rendered": 1,
-                "type": "i",
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  "jk farms",
+                  " | Order #",
+                  <i>
+                    1
+                  </i>,
+                ],
+                "class": "ui horizontal divider header",
               },
-            ],
-            "type": "h4",
+              "ref": null,
+              "rendered": Array [
+                "jk farms",
+                " | Order #",
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": 1,
+                  },
+                  "ref": null,
+                  "rendered": 1,
+                  "type": "i",
+                },
+              ],
+              "type": "h4",
+            },
+            "type": "div",
           },
           Object {
             "instance": null,
@@ -1614,7 +3208,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": <table
-                class="ui definition table item-table"
+                class="ui definition table"
               >
                 <tbody>
                   <tr>
@@ -1921,7 +3515,7 @@ ShallowWrapper {
                     </td>
                   </tr>
                 </tbody>,
-                "class": "ui definition table item-table",
+                "class": "ui definition table",
               },
               "ref": null,
               "rendered": Object {
@@ -2915,1960 +4509,6 @@ ShallowWrapper {
             "type": "div",
           },
         ],
-        "type": "div",
-      },
-      "type": "div",
-    },
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": <div
-          id="item-overlay"
-        >
-          <div
-            className="item-detail-container"
-          >
-            <h4
-              class="ui horizontal divider header"
-            >
-              jk farms
-               | Order #
-              <i>
-                1
-              </i>
-            </h4>
-            <div
-              className="item-table"
-            >
-              <table
-                class="ui definition table item-table"
-              >
-                <tbody>
-                  <tr>
-                    <td
-                      class="two wide column"
-                    >
-                      Type
-                    </td>
-                    <td>
-                      steak
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Breed
-                    </td>
-                    <td>
-                      Angus
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Birthdate
-                    </td>
-                    <td>
-                      Sept 20, 2017
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Registration Number
-                    </td>
-                    <td>
-                      12345
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      RFID Tag
-                    </td>
-                    <td>
-                      12345
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Est. Starting Weight
-                    </td>
-                    <td>
-                      500lbs
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Date on Feed
-                    </td>
-                    <td>
-                      Sept 20, 2017
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Feed Method
-                    </td>
-                    <td>
-                      Grass and Grain Finished
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Type of Pasture
-                    </td>
-                    <td>
-                      ---
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Type of Feed
-                    </td>
-                    <td>
-                      Grain
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Est. Completion Date
-                    </td>
-                    <td>
-                      Dec 20, 2018
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Est. Finished Date
-                    </td>
-                    <td>
-                      Jan 15, 2019
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Status
-                    </td>
-                    <td>
-                      accepted
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Status
-                    </td>
-                    <td>
-                      accepted
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Status
-                    </td>
-                    <td>
-                      accepted
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Status
-                    </td>
-                    <td>
-                      accepted
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Status
-                    </td>
-                    <td>
-                      accepted
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Status
-                    </td>
-                    <td>
-                      accepted
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div
-              className="item-buttons-container"
-            >
-              <button
-                className="item-buttons-accept"
-              >
-                Accept
-              </button>
-              <button
-                className="item-buttons-modify"
-              >
-                Modify
-              </button>
-              <button
-                className="item-buttons-deny"
-              >
-                Deny
-              </button>
-              <button
-                className="item-buttons-cancel"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>,
-        "className": "container-items",
-      },
-      "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": <div
-            className="item-detail-container"
-          >
-            <h4
-              class="ui horizontal divider header"
-            >
-              jk farms
-               | Order #
-              <i>
-                1
-              </i>
-            </h4>
-            <div
-              className="item-table"
-            >
-              <table
-                class="ui definition table item-table"
-              >
-                <tbody>
-                  <tr>
-                    <td
-                      class="two wide column"
-                    >
-                      Type
-                    </td>
-                    <td>
-                      steak
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Breed
-                    </td>
-                    <td>
-                      Angus
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Birthdate
-                    </td>
-                    <td>
-                      Sept 20, 2017
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Registration Number
-                    </td>
-                    <td>
-                      12345
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      RFID Tag
-                    </td>
-                    <td>
-                      12345
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Est. Starting Weight
-                    </td>
-                    <td>
-                      500lbs
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Date on Feed
-                    </td>
-                    <td>
-                      Sept 20, 2017
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Feed Method
-                    </td>
-                    <td>
-                      Grass and Grain Finished
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Type of Pasture
-                    </td>
-                    <td>
-                      ---
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Type of Feed
-                    </td>
-                    <td>
-                      Grain
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Est. Completion Date
-                    </td>
-                    <td>
-                      Dec 20, 2018
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Est. Finished Date
-                    </td>
-                    <td>
-                      Jan 15, 2019
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Status
-                    </td>
-                    <td>
-                      accepted
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Status
-                    </td>
-                    <td>
-                      accepted
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Status
-                    </td>
-                    <td>
-                      accepted
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Status
-                    </td>
-                    <td>
-                      accepted
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Status
-                    </td>
-                    <td>
-                      accepted
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Status
-                    </td>
-                    <td>
-                      accepted
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div
-              className="item-buttons-container"
-            >
-              <button
-                className="item-buttons-accept"
-              >
-                Accept
-              </button>
-              <button
-                className="item-buttons-modify"
-              >
-                Modify
-              </button>
-              <button
-                className="item-buttons-deny"
-              >
-                Deny
-              </button>
-              <button
-                className="item-buttons-cancel"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>,
-          "id": "item-overlay",
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": Array [
-              <h4
-                class="ui horizontal divider header"
-              >
-                jk farms
-                 | Order #
-                <i>
-                  1
-                </i>
-              </h4>,
-              <div
-                className="item-table"
-              >
-                <table
-                  class="ui definition table item-table"
-                >
-                  <tbody>
-                    <tr>
-                      <td
-                        class="two wide column"
-                      >
-                        Type
-                      </td>
-                      <td>
-                        steak
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Breed
-                      </td>
-                      <td>
-                        Angus
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Birthdate
-                      </td>
-                      <td>
-                        Sept 20, 2017
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Registration Number
-                      </td>
-                      <td>
-                        12345
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        RFID Tag
-                      </td>
-                      <td>
-                        12345
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Est. Starting Weight
-                      </td>
-                      <td>
-                        500lbs
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Date on Feed
-                      </td>
-                      <td>
-                        Sept 20, 2017
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Feed Method
-                      </td>
-                      <td>
-                        Grass and Grain Finished
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Type of Pasture
-                      </td>
-                      <td>
-                        ---
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Type of Feed
-                      </td>
-                      <td>
-                        Grain
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Est. Completion Date
-                      </td>
-                      <td>
-                        Dec 20, 2018
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Est. Finished Date
-                      </td>
-                      <td>
-                        Jan 15, 2019
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>,
-              <div
-                className="item-buttons-container"
-              >
-                <button
-                  className="item-buttons-accept"
-                >
-                  Accept
-                </button>
-                <button
-                  className="item-buttons-modify"
-                >
-                  Modify
-                </button>
-                <button
-                  className="item-buttons-deny"
-                >
-                  Deny
-                </button>
-                <button
-                  className="item-buttons-cancel"
-                >
-                  Cancel
-                </button>
-              </div>,
-            ],
-            "className": "item-detail-container",
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": Array [
-                  "jk farms",
-                  " | Order #",
-                  <i>
-                    1
-                  </i>,
-                ],
-                "class": "ui horizontal divider header",
-              },
-              "ref": null,
-              "rendered": Array [
-                "jk farms",
-                " | Order #",
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": 1,
-                  },
-                  "ref": null,
-                  "rendered": 1,
-                  "type": "i",
-                },
-              ],
-              "type": "h4",
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": <table
-                  class="ui definition table item-table"
-                >
-                  <tbody>
-                    <tr>
-                      <td
-                        class="two wide column"
-                      >
-                        Type
-                      </td>
-                      <td>
-                        steak
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Breed
-                      </td>
-                      <td>
-                        Angus
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Birthdate
-                      </td>
-                      <td>
-                        Sept 20, 2017
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Registration Number
-                      </td>
-                      <td>
-                        12345
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        RFID Tag
-                      </td>
-                      <td>
-                        12345
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Est. Starting Weight
-                      </td>
-                      <td>
-                        500lbs
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Date on Feed
-                      </td>
-                      <td>
-                        Sept 20, 2017
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Feed Method
-                      </td>
-                      <td>
-                        Grass and Grain Finished
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Type of Pasture
-                      </td>
-                      <td>
-                        ---
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Type of Feed
-                      </td>
-                      <td>
-                        Grain
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Est. Completion Date
-                      </td>
-                      <td>
-                        Dec 20, 2018
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Est. Finished Date
-                      </td>
-                      <td>
-                        Jan 15, 2019
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>,
-                "className": "item-table",
-              },
-              "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "children": <tbody>
-                    <tr>
-                      <td
-                        class="two wide column"
-                      >
-                        Type
-                      </td>
-                      <td>
-                        steak
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Breed
-                      </td>
-                      <td>
-                        Angus
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Birthdate
-                      </td>
-                      <td>
-                        Sept 20, 2017
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Registration Number
-                      </td>
-                      <td>
-                        12345
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        RFID Tag
-                      </td>
-                      <td>
-                        12345
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Est. Starting Weight
-                      </td>
-                      <td>
-                        500lbs
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Date on Feed
-                      </td>
-                      <td>
-                        Sept 20, 2017
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Feed Method
-                      </td>
-                      <td>
-                        Grass and Grain Finished
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Type of Pasture
-                      </td>
-                      <td>
-                        ---
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Type of Feed
-                      </td>
-                      <td>
-                        Grain
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Est. Completion Date
-                      </td>
-                      <td>
-                        Dec 20, 2018
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Est. Finished Date
-                      </td>
-                      <td>
-                        Jan 15, 2019
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Status
-                      </td>
-                      <td>
-                        accepted
-                      </td>
-                    </tr>
-                  </tbody>,
-                  "class": "ui definition table item-table",
-                },
-                "ref": null,
-                "rendered": Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": Array [
-                      <tr>
-                        <td
-                          class="two wide column"
-                        >
-                          Type
-                        </td>
-                        <td>
-                          steak
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Breed
-                        </td>
-                        <td>
-                          Angus
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Birthdate
-                        </td>
-                        <td>
-                          Sept 20, 2017
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Registration Number
-                        </td>
-                        <td>
-                          12345
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          RFID Tag
-                        </td>
-                        <td>
-                          12345
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Est. Starting Weight
-                        </td>
-                        <td>
-                          500lbs
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Date on Feed
-                        </td>
-                        <td>
-                          Sept 20, 2017
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Feed Method
-                        </td>
-                        <td>
-                          Grass and Grain Finished
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Type of Pasture
-                        </td>
-                        <td>
-                          ---
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Type of Feed
-                        </td>
-                        <td>
-                          Grain
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Est. Completion Date
-                        </td>
-                        <td>
-                          Dec 20, 2018
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Est. Finished Date
-                        </td>
-                        <td>
-                          Jan 15, 2019
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Status
-                        </td>
-                        <td>
-                          accepted
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Status
-                        </td>
-                        <td>
-                          accepted
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Status
-                        </td>
-                        <td>
-                          accepted
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Status
-                        </td>
-                        <td>
-                          accepted
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Status
-                        </td>
-                        <td>
-                          accepted
-                        </td>
-                      </tr>,
-                      <tr>
-                        <td>
-                          Status
-                        </td>
-                        <td>
-                          accepted
-                        </td>
-                      </tr>,
-                    ],
-                  },
-                  "ref": null,
-                  "rendered": Array [
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td
-                            class="two wide column"
-                          >
-                            Type
-                          </td>,
-                          <td>
-                            steak
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Type",
-                            "class": "two wide column",
-                          },
-                          "ref": null,
-                          "rendered": "Type",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "steak",
-                          },
-                          "ref": null,
-                          "rendered": "steak",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Breed
-                          </td>,
-                          <td>
-                            Angus
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Breed",
-                          },
-                          "ref": null,
-                          "rendered": "Breed",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Angus",
-                          },
-                          "ref": null,
-                          "rendered": "Angus",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Birthdate
-                          </td>,
-                          <td>
-                            Sept 20, 2017
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Birthdate",
-                          },
-                          "ref": null,
-                          "rendered": "Birthdate",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Sept 20, 2017",
-                          },
-                          "ref": null,
-                          "rendered": "Sept 20, 2017",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Registration Number
-                          </td>,
-                          <td>
-                            12345
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Registration Number",
-                          },
-                          "ref": null,
-                          "rendered": "Registration Number",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "12345",
-                          },
-                          "ref": null,
-                          "rendered": "12345",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            RFID Tag
-                          </td>,
-                          <td>
-                            12345
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "RFID Tag",
-                          },
-                          "ref": null,
-                          "rendered": "RFID Tag",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "12345",
-                          },
-                          "ref": null,
-                          "rendered": "12345",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Est. Starting Weight
-                          </td>,
-                          <td>
-                            500lbs
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Est. Starting Weight",
-                          },
-                          "ref": null,
-                          "rendered": "Est. Starting Weight",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "500lbs",
-                          },
-                          "ref": null,
-                          "rendered": "500lbs",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Date on Feed
-                          </td>,
-                          <td>
-                            Sept 20, 2017
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Date on Feed",
-                          },
-                          "ref": null,
-                          "rendered": "Date on Feed",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Sept 20, 2017",
-                          },
-                          "ref": null,
-                          "rendered": "Sept 20, 2017",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Feed Method
-                          </td>,
-                          <td>
-                            Grass and Grain Finished
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Feed Method",
-                          },
-                          "ref": null,
-                          "rendered": "Feed Method",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Grass and Grain Finished",
-                          },
-                          "ref": null,
-                          "rendered": "Grass and Grain Finished",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Type of Pasture
-                          </td>,
-                          <td>
-                            ---
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Type of Pasture",
-                          },
-                          "ref": null,
-                          "rendered": "Type of Pasture",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "---",
-                          },
-                          "ref": null,
-                          "rendered": "---",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Type of Feed
-                          </td>,
-                          <td>
-                            Grain
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Type of Feed",
-                          },
-                          "ref": null,
-                          "rendered": "Type of Feed",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Grain",
-                          },
-                          "ref": null,
-                          "rendered": "Grain",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Est. Completion Date
-                          </td>,
-                          <td>
-                            Dec 20, 2018
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Est. Completion Date",
-                          },
-                          "ref": null,
-                          "rendered": "Est. Completion Date",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Dec 20, 2018",
-                          },
-                          "ref": null,
-                          "rendered": "Dec 20, 2018",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Est. Finished Date
-                          </td>,
-                          <td>
-                            Jan 15, 2019
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Est. Finished Date",
-                          },
-                          "ref": null,
-                          "rendered": "Est. Finished Date",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Jan 15, 2019",
-                          },
-                          "ref": null,
-                          "rendered": "Jan 15, 2019",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Status
-                          </td>,
-                          <td>
-                            accepted
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Status",
-                          },
-                          "ref": null,
-                          "rendered": "Status",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "accepted",
-                          },
-                          "ref": null,
-                          "rendered": "accepted",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Status
-                          </td>,
-                          <td>
-                            accepted
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Status",
-                          },
-                          "ref": null,
-                          "rendered": "Status",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "accepted",
-                          },
-                          "ref": null,
-                          "rendered": "accepted",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Status
-                          </td>,
-                          <td>
-                            accepted
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Status",
-                          },
-                          "ref": null,
-                          "rendered": "Status",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "accepted",
-                          },
-                          "ref": null,
-                          "rendered": "accepted",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Status
-                          </td>,
-                          <td>
-                            accepted
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Status",
-                          },
-                          "ref": null,
-                          "rendered": "Status",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "accepted",
-                          },
-                          "ref": null,
-                          "rendered": "accepted",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Status
-                          </td>,
-                          <td>
-                            accepted
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Status",
-                          },
-                          "ref": null,
-                          "rendered": "Status",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "accepted",
-                          },
-                          "ref": null,
-                          "rendered": "accepted",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                    Object {
-                      "instance": null,
-                      "key": undefined,
-                      "nodeType": "host",
-                      "props": Object {
-                        "children": Array [
-                          <td>
-                            Status
-                          </td>,
-                          <td>
-                            accepted
-                          </td>,
-                        ],
-                      },
-                      "ref": null,
-                      "rendered": Array [
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "Status",
-                          },
-                          "ref": null,
-                          "rendered": "Status",
-                          "type": "td",
-                        },
-                        Object {
-                          "instance": null,
-                          "key": undefined,
-                          "nodeType": "host",
-                          "props": Object {
-                            "children": "accepted",
-                          },
-                          "ref": null,
-                          "rendered": "accepted",
-                          "type": "td",
-                        },
-                      ],
-                      "type": "tr",
-                    },
-                  ],
-                  "type": "tbody",
-                },
-                "type": "table",
-              },
-              "type": "div",
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": Array [
-                  <button
-                    className="item-buttons-accept"
-                  >
-                    Accept
-                  </button>,
-                  <button
-                    className="item-buttons-modify"
-                  >
-                    Modify
-                  </button>,
-                  <button
-                    className="item-buttons-deny"
-                  >
-                    Deny
-                  </button>,
-                  <button
-                    className="item-buttons-cancel"
-                  >
-                    Cancel
-                  </button>,
-                ],
-                "className": "item-buttons-container",
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": "Accept",
-                    "className": "item-buttons-accept",
-                    "onClick": undefined,
-                  },
-                  "ref": null,
-                  "rendered": "Accept",
-                  "type": "button",
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": "Modify",
-                    "className": "item-buttons-modify",
-                    "onClick": undefined,
-                  },
-                  "ref": null,
-                  "rendered": "Modify",
-                  "type": "button",
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": "Deny",
-                    "className": "item-buttons-deny",
-                    "onClick": undefined,
-                  },
-                  "ref": null,
-                  "rendered": "Deny",
-                  "type": "button",
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "children": "Cancel",
-                    "className": "item-buttons-cancel",
-                    "onClick": undefined,
-                  },
-                  "ref": null,
-                  "rendered": "Cancel",
-                  "type": "button",
-                },
-              ],
-              "type": "div",
-            },
-          ],
-          "type": "div",
-        },
         "type": "div",
       },
       "type": "div",
