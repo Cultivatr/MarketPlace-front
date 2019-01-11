@@ -7,12 +7,11 @@
  }
  
  h4 {
-   margin: 3px;
-   font-weight: 400;
+   font-weight: 700;
  }
  
  h1 {
-   font-weight: 200;
+   font-weight: 700;
  }
  
  header {
@@ -20,16 +19,11 @@
    height: 10vh;
    justify-content: center;
    align-items: center;
-   background-image: linear-gradient(rgb(76, 77, 79),rgb(96, 189, 60),rgb(255,255,255));
+
  }
  
  main {
    height: 90vh;
-   background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),url("../img/CultivatR-01.jpg");
-   background-size: cover;
-   background-position: center;
-   background-attachment: fixed;
-   background-color: black;
  }
  
  .container {
@@ -39,136 +33,78 @@
  }
  
  .box-container {
-   border: 1px solid red;
    display: flex;
+   justify-content: flex-end;
    height: 100%;
    width: 100%;
+ }
+ 
+ .left-nav {
+   display: inline-block;
+   width: 13%;
+   height: 90vh;
+   color: white;
+ }
+
+ .container-title {
+   height: 5%;
  }
  
  .container-1 {
-   display: inline-flex;
+   display: block;
    flex-wrap: wrap;
-   width: 90%;
+   width: 87%;
    height: 90vh;
-   border: 1px solid black;
+   border: 2px solid #1ECE88;
    margin: 2px;
    justify-content: center;
-   font-weight: 300;
-   font-size: smaller;
+   font-weight: 400;
+   font-size: medium;
+   background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),url("../img/CultivatR-01.jpg");
+   background-size: cover;
+   background-position: center;
+   background-attachment: fixed;
+   background-color: black;
+ }
+
+ .container-2 {
+   height: 100%;
  }
  
  #item-overlay {
-   position: fixed;
+   position: absolute;
    display: none;
-   width: 80%;
-   height: 80%;
-   top: 10%;
-   left: 10%;
-   right: 10%;
-   bottom: 10%;
-   border-radius: 30px;
-   box-shadow: 0 0 50px black;
-   background-color: rgba(0, 0, 0, 0.90);
-   z-index: 100;
-   color:white;
- }
- 
- .item-detail-container {
-   display: inline-block;
-   margin-top: 2%;
-   height: 90%;
-   width: 90%;
- }
- 
- .item-title-container {
-   display: flex;
-   justify-content: center;
-   text-align: center;
-   height: 5%;
    width: 100%;
-   margin-bottom: 5px;
- }
- 
- .item-container {
-   display: flex;
-   height: 89%;
-   width: 100%;
-   align-content: center;
-   justify-content: center;
- }
- 
- .farm-detail,
- .item-detail {
    height: 100%;
-   width: 45%;
-   border: 1px solid white;
-   border-radius: 20px;
-   box-shadow: 0 0 20px white;
-   margin-left: 20px;
-   text-align: left;
-   padding-left: 10px;
-   font-weight: 200;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: rgba(59, 59, 59, 0.5);
+   z-index: 100;
+   color:black;
  }
- 
- .item-buttons-container {
-   display: flex;
-   justify-content: space-evenly;
-   height: 7%;
-   width: 100%;
-   margin-top: 15px;
- }
- 
- .item-buttons-accept,
- .item-buttons-deny,
- .item-buttons-cancel,
- .item-buttons-modify {
-   border-radius: 5px;
-   box-shadow: 0 0 10px white;
-   padding: 5px 20px;
-   margin: 5px;
+
+ .button-admin{
+   background-color: #1ECE88;
+   color:white;
+   border-radius: .28571429rem;
+   font-weight: 700;
+   margin: 10px .25em 0 0;
+   padding: .78571429em 1.5em .78571429em;
+   font-family: 'Lato','Helvetica Neue',Arial,Helvetica,sans-serif;
+   line-height: 1em;
+   border: none;
+   width: 90%;
    cursor: pointer;
-   background-color: transparent;
-   color: white;
-   transition: background-color 0.75s, border 0.75s, color 0.75s;
  }
- 
- .item-buttons-accept:hover,
- .item-buttons-accept:active {
-     border: 1px solid #60bd3c;
-     box-shadow: 0 0 10px white;
-     color: black;
-     animation-duration: 2s;
-     animation-delay: 1s;
-     background-color: #60bd3c;
- }
- 
- .item-buttons-modify:hover,
- .item-buttons-modify:active {
-     border: 1px solid yellow;
-     box-shadow: 0 0 10px white;
-     color: black;
-     animation-duration: 2s;
-     animation-delay: 1s;
-     background-color: yellow;
- }
- 
- .item-buttons-deny:hover,
- .item-buttons-deny:active {
-     border: 1px solid red;
-     box-shadow: 0 0 10px white;
-     color: white;
-     animation-duration: 2s;
-     animation-delay: 1s;
-     background-color: red;
- }
- 
- .item-buttons-cancel:hover,
- .item-buttons-cancel:active {
-     border: 1px solid darkgray;
-     box-shadow: 0 0 10px white;
-     color: black;
-     animation-duration: 2s;
-     animation-delay: 1s;
-     background-color: darkgray;
- }
+
+ .button-admin:hover{
+  background-color: rgb(37, 228, 152);
+} 
+
+.rt-resizable-header-content {
+  font-weight: 700;
+  font-size: 15px;
+}
  

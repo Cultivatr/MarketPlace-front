@@ -7,13 +7,10 @@ class ContainerDashboard extends React.Component {
   constructor(props) {
     super();
     this.props = props;
-    this.state = {
-      data: this.props.data,
-    };
   }
 
   render() {
-    const { data } = this.state;
+    const { data } = this.props;
     return (
       <div className="table">
         <ReactTable
@@ -29,7 +26,7 @@ class ContainerDashboard extends React.Component {
                 {
                   Header: "Order #",
                   accessor: "id",
-                  width: 65,
+                  width: 70,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["id"] }),
                   filterAll: true
@@ -54,16 +51,16 @@ class ContainerDashboard extends React.Component {
                 {
                     Header: "Qty",
                     id: "qty",
-                    width: 65,
+                    width: 75,
                     accessor: d => d.qty,
                     filterMethod: (filter, rows) =>
                       matchSorter(rows, filter.value, { keys: ["qty"] }),
                     filterAll: true
                 },
                 {
-                    Header: "Date",
+                    Header: "Est.Date",
                     id: "date",
-                    width: 115,
+                    width: 150,
                     accessor: d => d.date,
                     filterMethod: (filter, rows) =>
                       matchSorter(rows, filter.value, { keys: ["date"] }),
@@ -84,10 +81,10 @@ class ContainerDashboard extends React.Component {
                 }
               ]}
               ]}
-          defaultPageSize={5}
+          defaultPageSize={20}
           className="-striped -highlight"
           style={{
-            height: "325px"
+            height: "85vh"
           }}
         />
       </div>

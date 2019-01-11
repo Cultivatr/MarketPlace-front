@@ -1,6 +1,6 @@
-import React from "react";
+// import React from "react";
 
-export function filterData(data, pending ,accepted, sold, delivered) {
+export function filterData(data, pending ,accepted, sold, delivered, notAccepted) {
   data.forEach(element => {
   if (element.status === 'pending') {
       pending.push(element);
@@ -12,8 +12,11 @@ export function filterData(data, pending ,accepted, sold, delivered) {
       sold.push(element);
       return sold;
     } else if (element.status === 'delivered') {
-      delivered.push(element)
+      delivered.push(element);
       return delivered;
+    } else if (element.status === 'not accepted') {
+      notAccepted.push(element);
+      return notAccepted;
     }
   })
 }

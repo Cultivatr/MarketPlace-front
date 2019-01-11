@@ -1,23 +1,94 @@
-.item-input {
-    border-radius: 5px;
-    background-color: transparent;
-    margin-left: 4px;
-    height: 20px;
-    color: white;
-    border: 1px solid white;
-    width: 150px;
-    text-align: center;
-    text-emphasis-color: white;
-    font-style: italic;
-    font-size: 15px;
-    font-weight: 100;
+/* .ui.header:first-child {
+    border: 1px solid orange;
+    height: 10%;
+    align-items: center;
+    margin: 0;
+    padding: 25px;
+} */
+
+.table-header {
+    height: 10%;
+    padding: 2%;
 }
 
-.item-input:hover {
-    box-shadow: 0 0 15px white;
+.item-table {
+    overflow-y: scroll;
+    height: 80%;
+    width: 95%;
+    border: 1px solid lightgray;
+    margin-left: 2.5%;
 }
 
-.item-input::placeholder{
+.item-detail-container {
+    height: 80%;
+    width: 80%;
+    background: white;
+    margin-top: 5%;
+    margin-left: 10%;
+}
+
+.item-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    bottom: 0;
+    justify-content: space-evenly;
+    height: 10%;
+    width: 100%;
+    padding: 10px;
+}
+  
+.item-buttons-accept,
+.item-buttons-deny,
+.item-buttons-cancel,
+.item-buttons-modify {
+    border-radius: .28571429rem;
+    box-shadow: 0 0 10px white;
+    padding: .78571429em 1.5em .78571429em;
+    margin: 2px 2px;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: #1ECE88;
     color: white;
-    font-weight: 100;
+    transition: background-color .5s, border .5s, color .5s;
+}
+  
+.item-buttons-accept:hover,
+.item-buttons-accept:active {
+    border: 1px solid rgb(74, 255, 182);
+    box-shadow: 0 0 10px white;
+    color: white;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    background-color: rgb(74, 255, 182);
+}
+  
+.item-buttons-modify:hover,
+.item-buttons-modify:active {
+    border: 1px solid yellow;
+    box-shadow: 0 0 10px white;
+    color: black;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    background-color: yellow;
+}
+
+.item-buttons-deny:hover,
+.item-buttons-deny:active {
+    border: 1px solid red;
+    box-shadow: 0 0 10px white;
+    color: white;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    background-color: red;
+}
+
+.item-buttons-cancel:hover,
+.item-buttons-cancel:active {
+    border: 1px solid darkgray;
+    box-shadow: 0 0 10px white;
+    color: black;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    background-color: darkgray;
 }

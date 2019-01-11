@@ -4,7 +4,7 @@ import Producer from './Producer/Producer';
 import SignIn from './SharedComponents/SignIn';
 
 class App extends Component {
-   
+
    state = {
       display: 'signin'
    }
