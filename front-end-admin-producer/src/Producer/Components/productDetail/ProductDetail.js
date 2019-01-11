@@ -5,14 +5,13 @@ class ProductDetail extends Component {
     render() {
         return (
             <div className='productDetails'>
-                <h4 class="ui horizontal divider header">
-                <i class="bar chart icon"></i>
+                <h4 className="ui horizontal divider header">
                     Details
                 </h4>
-                <table class="ui definition table">
+                <table className="ui definition table">
                 <tbody>
                     <tr>
-                        <td class="two wide column">Type</td>
+                        <td className="two wide column">Type</td>
                         <td>Beef</td>
                     </tr>
                     <tr>
@@ -58,6 +57,10 @@ class ProductDetail extends Component {
                     <tr>
                         <td>Est. Finished Date</td>
                         <td>Jan 15, 2019</td>
+                    </tr>
+                    <tr>
+                        <td>Final Price</td>
+                        <td></td>
                     </tr>
                 </tbody>
                 </table> 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import SignIn from '../SharedComponents/SignIn';
 import Summary from './Components/summary/Summary';
 import ContactUs from './Components/contactUs/ContactUs';
-import AddItemForm from './Components/addItemForm/AddItemForm';
+import AddItem from './Components/addItem/AddItem';
 import ProductDetail from './Components/productDetail/ProductDetail';
 
 // import { Route, Link, BrowserRouter } from 'react-router-dom';
@@ -19,7 +19,7 @@ class Producer extends Component {
                 <SignIn/>
                 <Summary/>
                 <ContactUs/>
-                <AddItemForm/>
+                <AddItem/>
                 <ProductDetail/>
             </div>
         )

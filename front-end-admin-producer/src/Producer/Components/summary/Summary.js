@@ -15,7 +15,7 @@ class UserForm extends Component {
                         <p>Farm Id: 12345</p>
                     </div>
 
-                    <table class="ui celled table">
+                    <table className="ui celled table">
                         <thead>
                             <tr><th>Type</th>
                             <th>Quantity</th>
