@@ -5,8 +5,6 @@ import SignIn from './SharedComponents/SignIn';
 
 class App extends Component {
 
-   // dummy comment
-   
    state = {
       display: 'signin'
    }
