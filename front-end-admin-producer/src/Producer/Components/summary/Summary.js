@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './summary.css'
+import './Summary.css'
 
 class UserForm extends Component {
     render() {
