@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Admin from './Admin/Admin';
 import Producer from './Producer/Producer';
 import SignIn from './SharedComponents/SignIn';
+import Facebook from './SharedComponents/Facebook';
 
 class App extends Component {
 
@@ -34,6 +35,7 @@ class App extends Component {
             <button className="ui button primary" onClick={this.onAdminClick}>Admin</button>
             <button className="ui button primary" onClick={this.onProducerClick}>Producer</button>
             {toShow}
+            <Facebook/>
          </div>
       )
    }
