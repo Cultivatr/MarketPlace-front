@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import "./itemDetailComp.css";
+import Class from "./itemDetailComp.module.css";
+import "./itemDetailComp.css"
 
 class ItemDetailComp extends Component {
     render() {
         return (
-            <div id="item-overlay">
-                <div className='item-detail-container'>
-                    <div className="table-header">
-                        <h4 class="ui horizontal divider header">{this.props.itemDetails.farm} | Order #<i>{this.props.itemDetails.id}</i></h4>
+            <div id="itemOverlay">
+                <div className={Class.itemDetailContainer}>
+                    <div className={Class.tableHeader}>
+                        <h4 className="ui horizontal divider header">{this.props.itemDetails.farm} | Order #<i>{this.props.itemDetails.id}</i></h4>
                     </div>
-                    <div className="item-table">
-                        <table class="ui definition table">
+                    <div className={Class.itemTable}>
+                        <table className="ui definition table">
                         <tbody>
                             <tr>
-                                <td class="two wide column">Type</td>
+                                <td className="two wide column">Type</td>
                                 <td>{this.props.itemDetails.product}</td>
                             </tr>
                             <tr>
@@ -88,11 +89,11 @@ class ItemDetailComp extends Component {
                         </tbody>
                         </table>
                     </div>
-                    <div className="item-buttons-container">
-                        <button className="item-buttons-accept" onClick={this.props.removeOverlay}>Accept</button>
-                        <button className="item-buttons-modify" onClick={this.props.removeOverlay}>Modify</button>
-                        <button className="item-buttons-deny" onClick={this.props.removeOverlay}>Deny</button>
-                        <button className="item-buttons-cancel" onClick={this.props.removeOverlay}>Cancel</button>
+                    <div className={Class.itemButtonsContainer}>
+                        <button className={Class.itemButtonsAccept} onClick={this.props.removeOverlay}>Accept</button>
+                        <button className={Class.itemButtonsModify} onClick={this.props.removeOverlay}>Modify</button>
+                        <button className={Class.itemButtonsDeny} onClick={this.props.removeOverlay}>Deny</button>
+                        <button className={Class.itemButtonsCancel} onClick={this.props.removeOverlay}>Cancel</button>
                     </div> 
                 </div>
             </div> 

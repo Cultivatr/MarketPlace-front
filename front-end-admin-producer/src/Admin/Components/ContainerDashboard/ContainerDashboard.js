@@ -26,55 +26,70 @@ class ContainerDashboard extends React.Component {
                 {
                   Header: "Order #",
                   accessor: "id",
-                  width: 70,
+                  width: 100,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["id"] }),
-                  filterAll: true
+                  filterAll: true,
+                  style: {
+                    textAlign: "center"
+                  }
                 },
                 {
                   Header: "Farm",
                   accessor: "farm",
-                  width: 200,
+                  width: 350,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["farm"] }),
-                  filterAll: true
+                  filterAll: true,
+                  style: {
+                    textAlign: "center"
+                  }
                 },
                 {
                   Header: "Product",
                   id: "product",
-                  width: 175,
+                  width: 400,
                   accessor: d => d.product,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["product"] }),
-                  filterAll: true
+                  filterAll: true,
+                  style: {
+                    textAlign: "center"
+                  }
                 },
                 {
                     Header: "Qty",
                     id: "qty",
-                    width: 75,
+                    width: 200,
                     accessor: d => d.qty,
                     filterMethod: (filter, rows) =>
                       matchSorter(rows, filter.value, { keys: ["qty"] }),
-                    filterAll: true
+                    filterAll: true,
+                    style: {
+                      textAlign: "center"
+                    }
                 },
                 {
                     Header: "Est.Date",
                     id: "date",
-                    width: 150,
+                    width: 340,
                     accessor: d => d.date,
                     filterMethod: (filter, rows) =>
                       matchSorter(rows, filter.value, { keys: ["date"] }),
-                    filterAll: true
+                    filterAll: true,
+                    style: {
+                      textAlign: "center"
+                    }
                 },
                 {
                   Header: "",
                   id: "details",
-                  width: 35,
-                  accessor: d => <span id={d.id} onClick={this.props.itemObj}>&#x2295;</span>,
+                  width: 50,
+                  accessor: d => <span className='detail-button' id={d.id} onClick={this.props.itemObj}>&#x2295;</span>,
                   style: {
                     cursor: "pointer",
                     fontSize: 25,
-                    padding: "0",
+                    padding: "5px 5px",
                     textAlign: "center",
                     userSelect: "none"
                   },

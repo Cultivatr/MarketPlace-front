@@ -1,0 +1,11 @@
+.buttonContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.addNewProdButton {
+  margin: 0 2em 0 0;
+}

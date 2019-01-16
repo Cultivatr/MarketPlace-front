@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import './admin.css';
+import Class from './admin.module.css';
 import ContainerDashboard from './Components/ContainerDashboard/ContainerDashboard';
 import { filterData, getItemDetails } from '../AppUtils';
 import ItemDetailComp from './Components/ItemDetailComp/ItemDetailComp';
+import AddNewProdComp from './Components/AddNewProdComp/AddNewProdComp';
 
 class Admin extends Component {
   constructor() {
@@ -112,12 +113,12 @@ class Admin extends Component {
   }
 
   removeOverlay = (event) => {
-    document.getElementById("item-overlay").style.display = "none";
+    document.getElementById("itemOverlay").style.display = "none";
     }
 
   getItemObj = (e) => {
     this.setState({ itemDetails: getItemDetails(parseInt(e.target.id), this.state.data) });
-    document.getElementById("item-overlay").style.display = "block";
+    document.getElementById("itemOverlay").style.display = "block";
   }
 
   OnClickAccept = () => {
@@ -140,12 +141,16 @@ class Admin extends Component {
     this.setState({ dataToShow: 'notAccepted' });
   }
 
+  OnClickNewProd = () => {
+    this.setState({ dataToShow: 'addNewProd' });
+  }
+
   render() {
     let toShow;
     if (this.state.dataToShow === 'toBeAccepted') {
       toShow = 
-      <div className="container-2">
-        <div className="container-title">
+      <div className={Class.container2}>
+        <div className={Class.containerTitle}>
           <h4>Items To Be Accepted Conditionally</h4>
         </div>
         <ContainerDashboard data={this.pending} itemObj={this.getItemObj}/>
@@ -153,8 +158,8 @@ class Admin extends Component {
     }
     else if (this.state.dataToShow === 'acceptedConditional') {
       toShow = 
-      <div className="container-2">
-        <div className="container-title">
+      <div className={Class.container2}>
+        <div className={Class.containerTitle}>
           <h4>Items Accepted Conditionally</h4>
         </div>
         <ContainerDashboard data={this.accepted} itemObj={this.getItemObj}/>
@@ -162,8 +167,8 @@ class Admin extends Component {
     }
     else if (this.state.dataToShow === 'soldToBeDelivered') {
       toShow = 
-      <div className="container-2">
-        <div className="container-title">
+      <div className={Class.container2}>
+        <div className={Class.containerTitle}>
           <h4>Items Sold To Be Delivered</h4>
         </div>
         <ContainerDashboard data={this.sold} itemObj={this.getItemObj}/>
@@ -171,8 +176,8 @@ class Admin extends Component {
     }
     else if (this.state.dataToShow === 'delivered') {
       toShow = 
-      <div className="container-2">
-        <div className="container-title">
+      <div className={Class.container2}>
+        <div className={Class.containerTitle}>
           <h4>Items Delivered</h4>
         </div>
         <ContainerDashboard data={this.delivered} itemObj={this.getItemObj}/>
@@ -180,11 +185,20 @@ class Admin extends Component {
     }
     else if (this.state.dataToShow === 'notAccepted') {
       toShow = 
-      <div className="container-2">
-        <div className="container-title">
+      <div className={Class.container2}>
+        <div className={Class.containerTitle}>
           <h4>Items Not Accepted</h4>
         </div>
         <ContainerDashboard data={this.notAccepted} itemObj={this.getItemObj}/>
+      </div>
+    }
+    else if (this.state.dataToShow === 'addNewProd') {
+      toShow = 
+      <div className={Class.container3}>
+        <div className={Class.containerTitle}>
+          <h4><u>Add New Producer</u></h4>
+        </div>
+        <AddNewProdComp />
       </div>
     }
     return (
@@ -194,16 +208,17 @@ class Admin extends Component {
         </header>
         <main>
           <ItemDetailComp itemDetails={this.state.itemDetails} removeOverlay={this.removeOverlay}/>
-          <div className="container">
-            <div className="box-container">
-              <div className='left-nav'>
-                <button id="button-accept" className="button-admin" onClick={this.OnClickAccept}>Items To Accept</button>
-                <button id="button-conditional" className="button-admin" onClick={this.OnClickConditional}>Accepted Conditionally</button>
-                <button id="button-sold" className="button-admin"onClick={this.OnClickSold}>Sold To Be Delivered</button>
-                <button id="button-delivered" className="button-admin" onClick={this.OnClickDelivered}>Delivered</button>
-                <button id="button-notAccepted" className="button-admin" onClick={this.OnClickNotAccepted}>Items Not Accepted</button>
+          <div className={Class.container}>
+            <div className={Class.boxContainer}>
+              <div className={Class.leftNav}>
+                <button id="button-accept" className={Class.buttonAdmin} onClick={this.OnClickAccept}>Items To Accept</button>
+                <button id="button-conditional" className={Class.buttonAdmin} onClick={this.OnClickConditional}>Accepted Conditionally</button>
+                <button id="button-sold" className={Class.buttonAdmin}onClick={this.OnClickSold}>Sold To Be Delivered</button>
+                <button id="button-delivered" className={Class.buttonAdmin} onClick={this.OnClickDelivered}>Delivered</button>
+                <button id="button-notAccepted" className={Class.buttonAdmin} onClick={this.OnClickNotAccepted}>Items Not Accepted</button>
+                <button id="button-newProducer" className={Class.buttonAdmin} onClick={this.OnClickNewProd}>Add New Producer</button>
               </div>
-              <div className="container-1">
+              <div className={Class.container1}>
                 {toShow}
               </div>
             </div>

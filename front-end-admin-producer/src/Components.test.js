@@ -11,6 +11,7 @@ import ProductDetail from './Producer/Components/productDetail/ProductDetail';
 import Summary from './Producer/Components/summary/Summary';
 import SignIn from './SharedComponents/SignIn';
 import App from './App';
+import AddNewProdComp from './Admin/Components/AddNewProdComp/AddNewProdComp';
 
 describe('Renders of Components', () => {
 
@@ -89,6 +90,10 @@ describe('Renders of Components', () => {
 
     it('expect to render SignIn component', () => {
         expect(shallow(<SignIn />).length).toEqual(1);
+    })
+    
+    it('expect to render Add New Producer component', () => {
+        expect(shallow(<AddNewProdComp />).length).toEqual(1);
     })
 })
 
