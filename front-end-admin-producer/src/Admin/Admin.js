@@ -70,7 +70,7 @@ class Admin extends Component {
         "qty": 600,
         "date": "2018-12-24",
         "id": 7,
-        "status": "sold"
+        "status": "pending"
       },
       {
         "farm": "Red Deer farms",
