@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Class from './AddNewProdComp.module.css';
-import Style from '../../admin.module.css'
-
 
 class AddNewProdComp extends Component {
     state = {
