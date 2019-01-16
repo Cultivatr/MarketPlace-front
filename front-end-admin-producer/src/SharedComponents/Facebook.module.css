@@ -1,0 +1,16 @@
+.facebook {
+   width: 400px;
+   margin: auto;
+   background: #f4f4f4;
+   padding: 20px;
+}
+
+.btnFacebook {
+   padding: 8.5px;
+   width: 150px;
+   background: #3b5998;
+   color: #fff;
+   border-radius: 5px;
+   outline: none;
+   border: none;
+ }
