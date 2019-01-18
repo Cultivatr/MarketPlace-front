@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './AddMeatForm.css';
+import './AddMeatForm.module.css';
 
 class ProducerForm extends Component {  
     state = {
