@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import matchSorter from 'match-sorter'
 import ReactTable from "react-table";
-import './Summary.css'
+import { Link } from 'react-router-dom';
+import './Summary.module.css'
 
 class Summary extends Component {
     state = {
@@ -14,6 +15,7 @@ class Summary extends Component {
     render() {
         return (
           <div className="table">
+            <Link to='/contact-us'>Contact Us</Link>
             <ReactTable
               data={this.state.data}
               noDataText="No items from producers!"
@@ -72,9 +74,9 @@ class Summary extends Component {
                     },
                     {
                         Header: "",
-                        id: "name",
+                        id: "MoreDetails",
                         width: 200,
-                        accessor: d => <button className='detail-button' id={d.id} onClick={this.props.itemObj}>More</button>,
+                        accessor: d => <Link to='/item-details' className='detailBtn' id={d.id}>More Details</Link>,
                         filterMethod: (filter, rows) =>
                           matchSorter(rows, filter.value, { keys: ["qty"] }),
                         filterAll: true,
@@ -84,9 +86,9 @@ class Summary extends Component {
                     },
                     {
                         Header: "",
-                        id: "name",
+                        id: "edit",
                         width: 200,
-                        accessor: d => <button className='detail-button' id={d.id} onClick={this.props.itemObj}>Edit</button>,
+                        accessor: d => <Link to='/' className='detailBtn' id={d.id}>Edit</Link>,
                         filterMethod: (filter, rows) =>
                           matchSorter(rows, filter.value, { keys: ["qty"] }),
                         filterAll: true,

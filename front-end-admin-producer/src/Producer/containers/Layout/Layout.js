@@ -9,11 +9,8 @@ const layout = () => {
    return (
    <Fragment>
       <Summary/>
-      <ContactUs/>
-      <AddItem/>
-      <ProductDetail/>
    </Fragment>
    )
 }
 
-export default layout
+export default layout;
