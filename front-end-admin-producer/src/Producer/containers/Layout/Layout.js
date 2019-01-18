@@ -8,7 +8,6 @@ import ProductDetail from '../../components/ProductDetail/ProductDetail';
 const layout = () => {
    return (
    <Fragment>
-      <SignIn/>
       <Summary/>
       <ContactUs/>
       <AddItem/>

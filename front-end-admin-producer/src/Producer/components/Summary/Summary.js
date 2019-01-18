@@ -1,138 +1,110 @@
 import React, { Component } from 'react';
+import matchSorter from 'match-sorter'
+import ReactTable from "react-table";
 import './Summary.css'
 
-class UserForm extends Component {
-    render() {
-        return (
-            <div className='userContainer'>
-                <div className='userH1'>
-                    <h1 className='ui header h1-header'>Welcome </h1>
-                    <a className='contactUs' href="#">Contact Us</a>
-                </div>
-                <div className='deliveryStatus'>
-                    <div className='userHeader'>
-                        <button className='ui button'>Add</button>
-                        <p>Farm Id: 12345</p>
-                    </div>
-
-                    <table className="ui celled table">
-                        <thead>
-                            <tr><th>Type</th>
-                            <th>Quantity</th>
-                            <th>Est. Finished</th>
-                            <th>Est. Delivered</th>
-                            <th>Order Status</th>
-                            <th></th>
-                            <th></th>
-                        </tr></thead>
-                        <tbody>
-                            <tr>
-                            <td data-label="Name">Cabbage</td>
-                            <td data-label="Age">24</td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td><button className='ui primary button'>More Details</button></td>
-                            <td><button className='ui yellow button'>Edit</button></td>
-                            </tr>
-                            <tr>
-                            <td data-label="Name">Potatoes</td>
-                            <td data-label="Age">26</td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td><button className='ui primary button'>More Details</button></td>
-                            <td><button className='ui yellow button'>Edit</button></td>
-                            </tr>
-                            <tr>
-                            <td data-label="Name"></td>
-                            <td data-label="Age">24</td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td><button className='ui primary button'>More Details</button></td>
-                            <td><button className='ui yellow button'>Edit</button></td>
-                            </tr>
-                            <tr>
-                            <td data-label="Name"></td>
-                            <td data-label="Age">24</td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td><button className='ui primary button'>More Details</button></td>
-                            <td><button className='ui yellow button'>Edit</button></td>
-                            </tr>
-                            <tr>
-                            <td data-label="Name"></td>
-                            <td data-label="Age">24</td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td><button className='ui primary button'>More Details</button></td>
-                            <td><button className='ui yellow button'>Edit</button></td>
-                            </tr>
-                            <tr>
-                            <td data-label="Name"></td>
-                            <td data-label="Age">24</td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td><button className='ui primary button'>More Details</button></td>
-                            <td><button className='ui yellow button'>Edit</button></td>
-                            </tr>
-                            <tr>
-                            <td data-label="Name"></td>
-                            <td data-label="Age">24</td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td><button className='ui primary button'>More Details</button></td>
-                            <td><button className='ui yellow button'>Edit</button></td>
-                            </tr>
-                            <tr>
-                            <td data-label="Name"></td>
-                            <td data-label="Age">24</td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td><button className='ui primary button'>More Details</button></td>
-                            <td><button className='ui yellow button'>Edit</button></td>
-                            </tr>
-                            <tr>
-                            <td data-label="Name"></td>
-                            <td data-label="Age">24</td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td><button className='ui primary button'>More Details</button></td>
-                            <td><button className='ui yellow button'>Edit</button></td>
-                            </tr>
-                            <tr>
-                            <td data-label="Name"></td>
-                            <td data-label="Age">24</td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td><button className='ui primary button'>More Details</button></td>
-                            <td><button className='ui yellow button'>Edit</button></td>
-                            </tr>
-                            <tr>
-                            <td data-label="Name"></td>
-                            <td data-label="Age">24</td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td data-label="Job"></td>
-                            <td><button className='ui primary button'>More Details</button></td>
-                            <td><button className='ui yellow button'>Edit</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        )
+class Summary extends Component {
+    state = {
+        data: 
+        [{
+            name: 'John'
+        }]
     }
 
+    render() {
+        return (
+          <div className="table">
+            <ReactTable
+              data={this.state.data}
+              noDataText="No items from producers!"
+              filterable
+              defaultFilterMethod={(filter, row) =>
+                String(row[filter.id]) === filter.value}
+              columns={[
+                {
+                  Header: "Click on headers to sort or type to filter",
+                  columns: [
+                    {
+                      Header: "Type",
+                      accessor: "id",
+                      width: 100,
+                      filterMethod: (filter, rows) =>
+                        matchSorter(rows, filter.value, { keys: ["id"] }),
+                      filterAll: true,
+                      style: {
+                        textAlign: "center"
+                      }
+                    },
+                    {
+                      Header: "Est. Finished",
+                      accessor: "farm",
+                      width: 350,
+                      filterMethod: (filter, rows) =>
+                        matchSorter(rows, filter.value, { keys: ["farm"] }),
+                      filterAll: true,
+                      style: {
+                        textAlign: "center"
+                      }
+                    },
+                    {
+                      Header: "Est. Delivered",
+                      id: "product",
+                      width: 400,
+                      accessor: d => d.product,
+                      filterMethod: (filter, rows) =>
+                        matchSorter(rows, filter.value, { keys: ["product"] }),
+                      filterAll: true,
+                      style: {
+                        textAlign: "center"
+                      }
+                    },
+                    {
+                        Header: "Order Status",
+                        id: "qty",
+                        width: 200,
+                        accessor: d => d.qty,
+                        filterMethod: (filter, rows) =>
+                          matchSorter(rows, filter.value, { keys: ["qty"] }),
+                        filterAll: true,
+                        style: {
+                          textAlign: "center"
+                        }
+                    },
+                    {
+                        Header: "",
+                        id: "name",
+                        width: 200,
+                        accessor: d => <button className='detail-button' id={d.id} onClick={this.props.itemObj}>More</button>,
+                        filterMethod: (filter, rows) =>
+                          matchSorter(rows, filter.value, { keys: ["qty"] }),
+                        filterAll: true,
+                        style: {
+                          textAlign: "center"
+                        }
+                    },
+                    {
+                        Header: "",
+                        id: "name",
+                        width: 200,
+                        accessor: d => <button className='detail-button' id={d.id} onClick={this.props.itemObj}>Edit</button>,
+                        filterMethod: (filter, rows) =>
+                          matchSorter(rows, filter.value, { keys: ["qty"] }),
+                        filterAll: true,
+                        style: {
+                          textAlign: "center"
+                        }
+                    }
+                  ]}
+                ]}
+              defaultPageSize={20}
+              className="-striped -highlight"
+              style={{
+                height: "85vh"
+              }}
+            />
+          </div>
+        );
+    }
 }
 
-export default UserForm;
+export default Summary;
