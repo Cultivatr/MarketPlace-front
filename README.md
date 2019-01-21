@@ -11,15 +11,23 @@
 
 3.b: \i scripts/create_table_r_status.sql
 
-3.c: \i scripts/create_table_users.sql
+3.c: \i scripts/create_table_r_facilities.sql
 
-3.d: \i scripts/populate_table_r_product.sql
+3.d: \i scripts/create_table_users.sql
 
-3.e: \i scripts/populate_table_r_status.sql
+3.e: \i scripts/populate_table_r_product.sql
 
-3.f: \i scripts/populate_table_users.sql
+3.f: \i scripts/populate_table_r_status.sql
 
-3.g: \i scripts/create_table_offered_item.sql
+3.g: \i scripts/populate_table_r_facilities.sql
 
-3.h: \i scripts/populate_table_offered_item.sql
+3.h: \i scripts/populate_table_users.sql
+
+3.i: \i scripts/create_table_offered_item.sql
+
+3.j: \i scripts/populate_table_offered_item.sql
+
+3.k: \i scripts/create_table_status_tracker.sql
+
+3.l: \i scripts/populate_table_status_tracker.sql
 
