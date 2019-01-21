@@ -38,172 +38,218 @@ class AddNewProdComp extends Component {
             <div className='ui grid'>
             <form onSubmit={this.onSubmit} className='ui row form'>
                 <div className='four wide column'>
-                    <div className='field'>
-                        <label>First Name</label>
-                        <input onChange={this.onChange} type="text" name="firstName"/>
+                    <div className={Class.field}>
+                        <div className='field'>
+                            <label>First Name</label>
+                            <input onChange={this.onChange} type="text" name="firstName"/>
+                        </div>
                     </div>
                 </div>
                 <div className='four wide column'>
-                    <div className='field'>
-                        <label>Last Name</label>
-                        <input onChange={this.onChange} type="text" name="lastName"/>
+                    <div className={Class.field}>
+                        <div className='field'>
+                            <label>Last Name</label>
+                            <input onChange={this.onChange} type="text" name="lastName"/>
+                        </div>
                     </div>
                 </div>
                 <div className='eight wide column'>
-                    <div className="field">
-                        <label>* Billing Address - Street</label>
-                        <input onChange={this.onChange} type="text" name="billingAddressStreet"/>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className='field'>
-                        <label>Primary Number</label>
-                        <input onChange={this.onChange} type="text" name="primaryNumber"/>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className='field'>
-                        <label>Secondary Number</label>
-                        <input onChange={this.onChange} type="text" name="secondaryNumber"/>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className='field'>
-                        <label>City</label>
-                        <input onChange={this.onChange} type="text" name="billingAddressCity"/>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className='field'>
-                        <label>Province</label>
-                            <select onChange={this.onChange} name="billingAddressProvince" multiple="" className="ui fluid dropdown">
-                                <option value="">Please choose an option</option>
-                                <option value="alberta">Alberta</option>
-                            </select>
-                    </div>
-                </div>
-                <div className='eight wide column'>
-                    <div className="field">
-                        <label>Email</label>
-                        <input onChange={this.onChange} type="email" name="email"/>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className="field">
-                        <label>Country</label>
-                        <select onChange={this.onChange} name="billingAddressCountry" multiple="" className="ui fluid dropdown">
-                            <option value="">Please choose an option</option>
-                            <option value="canada">Canada</option>
-                        </select>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className="field">
-                        <label>Postal Code</label>
-                        <input onChange={this.onChange} type="text" name="billingAddressPostalCode"/>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className="field">
-                        <label>Farm Name</label>
-                        <input onChange={this.onChange} type="text" name="farmName"/>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className="field">
-                        <label>Farm Location</label>
-                        <input onChange={this.onChange} type="text" name="farmLocation"/>
-                    </div>
-                </div>
-                <div className='eight wide column'>
-                    <div className="field">
-                        <label>* Mailing Address - Street</label>
-                        <input onChange={this.onChange} type="text" name="mailingAddressStreet"/>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className='field'>
-                        <label>Farm Type</label>
-                        <select onChange={this.onChange} name="feedMethod" multiple="" className="ui fluid dropdown">
-                            <option value="">Please choose an option</option>
-                            <option value="liveStock">Live Stock</option>
-                            <option value="produce">Produce</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className='field'>
-                        <label>Area</label>
-                        <select onChange={this.onChange} name="area" multiple="" className="ui fluid dropdown">
-                            <option value="">Please choose an option</option>
-                            <option value="test1">Southern AB</option>
-                            <option value="test2">Central AB</option>
-                            <option value="test3">Northern AB</option>
-                        </select>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className='field'>
-                        <label>City</label>
-                        <input onChange={this.onChange} type="text" name="mailingAddressCity"/>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className='field'>
-                        <label>Province</label>
-                            <select onChange={this.onChange} name="mailingAddressProvince" multiple="" className="ui fluid dropdown">
-                                <option value="">Please choose an option</option>
-                                <option value="alberta">Alberta</option>
-                            </select>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className='field'>
-                        <label>Rating</label>
-                        <select onChange={this.onChange} name="rating" multiple="" className="ui fluid dropdown">
-                            <option value="">Please choose an option</option>
-                            <option value="test1">5</option>
-                            <option value="test2">4</option>
-                            <option value="test3">3</option>
-                            <option value="test3">2</option>
-                            <option value="test3">1</option>
-                        </select>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className='field'>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className="field">
-                        <label>Country</label>
-                        <select onChange={this.onChange} name="mailingAddressCountry" multiple="" className="ui fluid dropdown">
-                            <option value="">Please choose an option</option>
-                            <option value="canada">Canada</option>
-                        </select>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className="field">
-                        <label>Postal Code</label>
-                        <input onChange={this.onChange} type="text" name="mailingAddressPostalCode"/>
-                    </div>
-                </div>
-                <div className='four wide column'>
-                    <div className="grouped fields">
-                        <label>Authorization Type</label>
+                    <div className={Class.field}>
                         <div className="field">
-                            <label><input type="checkbox"/> Administration</label>
-                            <label><input type="checkbox"/> Producer</label>
-                            <label><input type="checkbox"/> Other</label>
+                            <label>* Billing Address - Street</label>
+                            <input onChange={this.onChange} type="text" name="billingAddressStreet"/>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>   
+                        <div className='field'>
+                            <label>Primary Number</label>
+                            <input onChange={this.onChange} type="text" name="primaryNumber" placeholder="xxx-xxx-xxxx"/>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className='field'>
+                            <label>Secondary Number</label>
+                            <input onChange={this.onChange} type="text" name="secondaryNumber" placeholder="xxx-xxx-xxxx"/>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className='field'>
+                            <label>City</label>
+                            <input onChange={this.onChange} type="text" name="billingAddressCity"/>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className='field'>
+                            <label>Province</label>
+                                <select onChange={this.onChange} name="billingAddressProvince" multiple="" className="ui fluid dropdown">
+                                    <option value="">Please choose an option</option>
+                                    <option value="alberta">Alberta</option>
+                                </select>
+                        </div>
+                    </div>
+                </div>
+                <div className='eight wide column'>
+                    <div className={Class.field}>
+                        <div className="field">
+                            <label>Email</label>
+                            <input onChange={this.onChange} type="email" name="email" placeholder="must contain @ symbol"/>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className="field">
+                            <label>Country</label>
+                            <select onChange={this.onChange} name="billingAddressCountry" multiple="" className="ui fluid dropdown">
+                                <option value="">Please choose an option</option>
+                                <option value="canada">Canada</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className="field">
+                            <label>Postal Code</label>
+                            <input onChange={this.onChange} type="text" name="billingAddressPostalCode" placeholder="xxxxxx"/>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className="field">
+                            <label>Farm Name</label>
+                            <input onChange={this.onChange} type="text" name="farmName"/>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className="field">
+                            <label>Farm Location</label>
+                            <input onChange={this.onChange} type="text" name="farmLocation"/>
+                        </div>
+                    </div>
+                </div>
+                <div className='eight wide column'>
+                    <div className={Class.field}>
+                        <div className="field">
+                            <label>* Mailing Address - Street</label>
+                            <input onChange={this.onChange} type="text" name="mailingAddressStreet"/>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className='field'>
+                            <label>Farm Type</label>
+                            <select onChange={this.onChange} name="feedMethod" multiple="" className="ui fluid dropdown">
+                                <option value="">Please choose an option</option>
+                                <option value="liveStock">Live Stock</option>
+                                <option value="produce">Produce</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className='field'>
+                            <label>Area</label>
+                            <select onChange={this.onChange} name="area" multiple="" className="ui fluid dropdown">
+                                <option value="">Please choose an option</option>
+                                <option value="test1">Southern AB</option>
+                                <option value="test2">Central AB</option>
+                                <option value="test3">Northern AB</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className='field'>
+                            <label>City</label>
+                            <input onChange={this.onChange} type="text" name="mailingAddressCity"/>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className='field'>
+                            <label>Province</label>
+                                <select onChange={this.onChange} name="mailingAddressProvince" multiple="" className="ui fluid dropdown">
+                                    <option value="">Please choose an option</option>
+                                    <option value="alberta">Alberta</option>
+                                </select>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className='field'>
+                            <label>Rating</label>
+                            <select onChange={this.onChange} name="rating" multiple="" className="ui fluid dropdown">
+                                <option value="">Please choose an option</option>
+                                <option value="test1">5</option>
+                                <option value="test2">4</option>
+                                <option value="test3">3</option>
+                                <option value="test3">2</option>
+                                <option value="test3">1</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className='field'>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className="field">
+                            <label>Country</label>
+                            <select onChange={this.onChange} name="mailingAddressCountry" multiple="" className="ui fluid dropdown">
+                                <option value="">Please choose an option</option>
+                                <option value="canada">Canada</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className="field">
+                            <label>Postal Code</label>
+                            <input onChange={this.onChange} type="text" name="mailingAddressPostalCode" placeholder="xxxxxx"/>
+                        </div>
+                    </div>
+                </div>
+                <div className='four wide column'>
+                    <div className={Class.field}>
+                        <div className="grouped fields">
+                            <label>Authorization Type</label>
+                            <div className="field">
+                                <label><input type="checkbox"/> Administration</label>
+                                <label><input type="checkbox"/> Producer</label>
+                                <label><input type="checkbox"/> Other</label>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="twelve wide column">
-                    <div className="field">
-                        <label>Comments</label>
-                        <textarea placeholder="Tell us more" rows="3"></textarea>
+                    <div className={Class.field}>
+                        <div className="field">
+                            <label>Comments</label>
+                            <textarea placeholder="Tell us more" rows="3"></textarea>
+                        </div>
                     </div>
                 </div>
                 <div className={Class.buttonContainer}>
