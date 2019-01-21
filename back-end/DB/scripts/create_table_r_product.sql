@@ -1,7 +1,5 @@
-DROP TABLE R_Product;
-
-CREATE TABLE R_Product (
-  Name   TEXT,
-  Type   TEXT,
-  Qty_Unit TEXT
+create table R_Product (
+  Name   text,
+  Type   text,
+  Qty_unit numeric
 );

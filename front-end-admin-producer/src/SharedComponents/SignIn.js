@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Facebook from './Facebook';
 import FacebookLogin from 'react-facebook-login';
+import { Link } from 'react-router-dom';
 import './SignIn.css'
 import styles from './Facebook.module.css';
 
@@ -94,7 +95,7 @@ class SignIn extends Component {
                             <div className='rememberMeAndLoginBox'>
                                 <input type="checkbox"/> <span className='rememberMe'>Remember Me</span>
                                 {fbContent}
-                                <button className="ui button" type="submit">Login</button>
+                                <Link to='/producer' className="ui button" type="submit">Login</Link>
                             </div>
                             <div className='forgotPasswordAndRegisterBox'>
                                 <a>Forgot Password</a>
