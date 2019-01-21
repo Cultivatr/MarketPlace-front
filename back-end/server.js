@@ -20,9 +20,9 @@ Offered_item.belongsTo(Status);
 Status_tracker.belongsTo(Offered_item);
 Status_tracker.belongsTo(Status);
 
-// sequelize.sync({force:true});
+sequelize.sync({force:true});
 
 const port = 8080;
 app.listen(port, () => {
    console.log(`Server running on port ${port}`)
-});
+}); 
