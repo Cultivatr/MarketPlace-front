@@ -37,7 +37,7 @@ class App extends Component {
       return (
          <div>
             <Router>
-               <div className='ui container'>
+               <div>
                   <Link to='/admin'>Admin</Link>
                   <Link to='/producer'>Producer</Link>
 
