@@ -35,7 +35,7 @@ class App extends Component {
       // }
 
       return (
-         <div className="ui centered">
+         <div>
             <Router>
                <div className='ui container'>
                   <Link to='/admin'>Admin</Link>
