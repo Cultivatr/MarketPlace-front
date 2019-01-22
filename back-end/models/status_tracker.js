@@ -9,7 +9,7 @@ const Status_tracker = db.define('status_tracker', {
       primaryKey: true
    },
    start_date: Sequelize.DATE,
-   end_date: Sequelize.INTEGER
+   end_date: Sequelize.DATE
 });
 
 module.exports = Status_tracker;

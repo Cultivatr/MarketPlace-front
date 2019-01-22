@@ -12,15 +12,15 @@ const Facility = require('./models/facility');
 const app = express();
 
 // Relationships
-Product.belongsTo(User);
-User.hasMany(Product);
+// Product.belongsTo(User);
+// User.hasMany(Product);
 Offered_item.belongsTo(User);
 Offered_item.belongsTo(Product);
-Offered_item.belongsTo(Status);
+// Offered_item.belongsTo(Status);
 Status_tracker.belongsTo(Offered_item);
 Status_tracker.belongsTo(Status);
 
-// sequelize.sync({force:true});
+sequelize.sync({force:true});
 
 const port = 8080;
 app.listen(port, () => {

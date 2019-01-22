@@ -17,15 +17,15 @@ const User = db.define('user', {
       allowNull: false
    },
    primary_phone: {
-      type: Sequealize.INTEGER,
+      type: Sequealize.STRING,
       allowNull: false  
    },
    secondary_phone: {
-      type: Sequealize.INTEGER,
+      type: Sequealize.STRING,
       allowNull: false
    },
    email: {
-      type: Sequealize.INTEGER,
+      type: Sequealize.STRING,
       allowNull: false
    },
    farm_name: {
@@ -50,11 +50,44 @@ const User = db.define('user', {
    member_since: {
       type: Sequealize.DATE
    },
-   farm_typeL: {
+   farm_type: {
       type: Sequealize.STRING
    },
    rating: {
       type: Sequealize.INTEGER
+   },
+   mailing_street: {
+      type: Sequealize.STRING
+   },
+   mailing_city: {
+      type: Sequealize.STRING
+   },
+   mailing_province: {
+      type: Sequealize.STRING
+   },
+   mailing_country: {
+      type: Sequealize.STRING
+   },
+   mailing_postal_code: {
+      type: Sequealize.STRING
+   },
+   billing_street: {
+      type: Sequealize.STRING
+   },
+   billing_city: {
+      type: Sequealize.STRING
+   },
+   billing_province: {
+      type: Sequealize.STRING
+   },
+   billing_country: {
+      type: Sequealize.STRING
+   },
+   billing_postal_code: {
+      type: Sequealize.STRING
+   },
+   user_comments: {
+      type: Sequealize.TEXT
    }
 });
 
