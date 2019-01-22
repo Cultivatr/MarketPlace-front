@@ -20,7 +20,12 @@ Offered_item.belongsTo(R_product);
 Status_tracker.belongsTo(Offered_item);
 Status_tracker.belongsTo(R_status);
 
-sequelize.sync({force:true});
+// ****** this method will drop existing tables and re-create tables, you will lose your data
+// ****** comment this out when going into production
+
+sequelize.sync({force:true}); 
+
+// ******************************************************************************************
 
 const port = 8080;
 app.listen(port, () => {

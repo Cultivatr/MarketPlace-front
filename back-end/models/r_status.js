@@ -10,7 +10,9 @@ const R_status = db.define('r_status', {
    },
    status_name: Sequelize.STRING
    },
-   {tableName: "r_status"}
+   {tableName: "r_status",
+   timestamps: false
+   }
 );
 
 module.exports = R_status;

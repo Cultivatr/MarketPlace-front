@@ -10,8 +10,10 @@ const R_facility = db.define('r_facility', {
    },
    facility_name: Sequelize.STRING,
    type_of_facility: Sequelize.STRING
-},
-   {tableName: "r_facility"}
+   },
+   {tableName: "r_facility",
+   timestamps: false
+   }
 );
 
 module.exports = R_facility;

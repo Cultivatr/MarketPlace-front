@@ -90,7 +90,9 @@ const Users = db.define('user', {
       type: Sequealize.TEXT
    }
    },
-   {tableName: "users"}
+   {tableName: "users",
+   timestamps: false
+   }
    );
 
 module.exports = Users;

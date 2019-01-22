@@ -36,7 +36,9 @@ const Offered_item = db.define('offered_item', {
    delivered_date: Sequelize.DATE,
    delivered_to: Sequelize.DATE
    },
-   {tableName: "offered_item"}
+   {tableName: "offered_item",
+   timestamps: false
+   }
 );
 
 module.exports = Offered_item;

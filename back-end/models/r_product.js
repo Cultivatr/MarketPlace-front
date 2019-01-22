@@ -18,7 +18,9 @@ const R_product = db.define('r_product', {
    },
    qty_unit: Sequelize.STRING
    },
-   {tableName: "r_product"}
+   {tableName: "r_product",
+   timestamps: false
+   }
 );
 
 module.exports = R_product;
