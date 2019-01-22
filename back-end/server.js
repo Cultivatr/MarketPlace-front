@@ -14,11 +14,11 @@ const app = express();
 // Relationships
 // Product.belongsTo(User);
 // User.hasMany(Product);
-Offered_item.belongsTo(Users);
-Offered_item.belongsTo(R_product);
+Offered_item.belongsTo(Users, {foreignKey: "user_id"});
+Offered_item.belongsTo(R_product, {foreignKey: "product_id"});
 // Offered_item.belongsTo(Status);
-Status_tracker.belongsTo(Offered_item);
-Status_tracker.belongsTo(R_status);
+Status_tracker.belongsTo(Offered_item, {foreignKey: "offer_id"});
+Status_tracker.belongsTo(R_status, {foreignKey: "status_id"});
 
 // ****** this method will drop existing tables and re-create tables, you will lose your data
 // ****** comment this out when going into production
