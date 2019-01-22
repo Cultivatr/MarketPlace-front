@@ -35,7 +35,9 @@ const Offered_item = db.define('offered_item', {
    chargebacks: Sequelize.NUMERIC,
    delivered_date: Sequelize.DATE,
    delivered_to: Sequelize.DATE
-});
+   },
+   {tableName: "offered_item"}
+);
 
 module.exports = Offered_item;
 

@@ -1,14 +1,17 @@
 const Sequelize = require('sequelize');
 const db = require('../util/database');
 
-const Status = db.define('status', {
+const R_facility = db.define('r_facility', {
    id: {
       type: Sequelize.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
    },
-   status_name: Sequelize.STRING
-});
+   facility_name: Sequelize.STRING,
+   type_of_facility: Sequelize.STRING
+},
+   {tableName: "r_facility"}
+);
 
-module.exports = Status;
+module.exports = R_facility;

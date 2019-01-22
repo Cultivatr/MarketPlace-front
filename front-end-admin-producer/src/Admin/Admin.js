@@ -196,7 +196,7 @@ class Admin extends Component {
       toShow = 
       <div className={Class.container3}>
         <div className={Class.containerTitle}>
-          <h4><u>Add New Producer</u></h4>
+          <h4><u>Add New User</u></h4>
         </div>
         <AddNewProdComp />
       </div>

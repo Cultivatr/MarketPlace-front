@@ -10,6 +10,8 @@ const Status_tracker = db.define('status_tracker', {
    },
    start_date: Sequelize.DATE,
    end_date: Sequelize.DATE
-});
+   },
+   {tableName: "status_tracker"}
+);
 
 module.exports = Status_tracker;

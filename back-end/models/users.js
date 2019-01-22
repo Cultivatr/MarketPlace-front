@@ -1,7 +1,7 @@
 const Sequealize = require('sequelize');
 const db = require('../util/database');
 
-const User = db.define('user', {
+const Users = db.define('user', {
    id: {
       type: Sequealize.INTEGER,
       autoIncrement: true,
@@ -89,6 +89,8 @@ const User = db.define('user', {
    user_comments: {
       type: Sequealize.TEXT
    }
-});
+   },
+   {tableName: "users"}
+   );
 
-module.exports = User;
+module.exports = Users;
