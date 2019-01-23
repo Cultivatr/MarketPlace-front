@@ -5,13 +5,13 @@
 
 1. Navigate to Marketplace/back-end in console
 
-2. run npm install
+2. run **npm install**
 
-3. run psql evolveu
+3. run **psql evolveu**
 
-4. run CREATE DATABASE cultivatr
+4. run **CREATE DATABASE cultivatr**
 
-5. exit psql
+5. exit psql **\q**
 
 6. run node server.js *this will create tables and columns*
 
