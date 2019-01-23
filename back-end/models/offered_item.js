@@ -9,7 +9,7 @@ const Offered_item = db.define('offered_item', {
       primaryKey: true
    },
    quantity: Sequelize.INTEGER,
-   price_paid: Sequelize.INTEGER,
+   price_paid: Sequelize.NUMERIC,
    est_birthdate: Sequelize.DATE,
    registration_number: Sequelize.INTEGER,
    rfid_tag: Sequelize.INTEGER,
@@ -34,7 +34,7 @@ const Offered_item = db.define('offered_item', {
    qty_accepted_at_delivery: Sequelize.NUMERIC,
    chargebacks: Sequelize.NUMERIC,
    delivered_date: Sequelize.DATE,
-   delivered_to: Sequelize.DATE
+   delivered_to: Sequelize.STRING
    },
    {tableName: "offered_item",
    timestamps: false
