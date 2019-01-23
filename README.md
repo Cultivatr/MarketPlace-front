@@ -17,7 +17,7 @@
 
 7. exit server.js
 
-8. navigate to Marketplace/back-end/DB
+8. navigate to Marketplace/back-end/DB and get back into your psql console
 
 9. run script \i scripts/populate_tables.sql *this will populate tables with dummy data
 
