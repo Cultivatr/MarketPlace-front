@@ -1,33 +1,23 @@
 # MarketPlace
 
 # Setting up your local database:
-0. Pull a fresh copy of the repo :)
-1. In your terminal, nagivate to MarketPlace/back-end/DB
-2. Open a psql console.
+0. Git Pull fresh copy of the repository
 
-3. There will be several scripts to run that create and populated all the tables. It is important to run them in this order:
+1. Navigate to Marketplace/back-end in console
 
-3.a: \i scripts/create_table_r_product.sql
+2. run **npm install**
 
-3.b: \i scripts/create_table_r_status.sql
+3. run **psql evolveu**
 
-3.c: \i scripts/create_table_r_facilities.sql
+4. run **CREATE DATABASE cultivatr**
 
-3.d: \i scripts/create_table_users.sql
+5. exit psql **\q**
 
-3.e: \i scripts/populate_table_r_product.sql
+6. run node server.js *this will create tables and columns*
 
-3.f: \i scripts/populate_table_r_status.sql
+7. exit server.js
 
-3.g: \i scripts/populate_table_r_facilities.sql
+8. navigate to Marketplace/back-end/DB and get back into your psql console
 
-3.h: \i scripts/populate_table_users.sql
-
-3.i: \i scripts/create_table_offered_item.sql
-
-3.j: \i scripts/populate_table_offered_item.sql
-
-3.k: \i scripts/create_table_status_tracker.sql
-
-3.l: \i scripts/populate_table_status_tracker.sql
+9. run \i scripts/populate_tables.sql *this will populate tables with dummy data*
 
