@@ -9,7 +9,7 @@
 
 3. run psql evolveu
 
-4. run create DB cultivatr
+4. run CREATE DATABASE cultivatr
 
 5. exit psql
 
@@ -19,5 +19,5 @@
 
 8. navigate to Marketplace/back-end/DB and get back into your psql console
 
-9. run script \i scripts/populate_tables.sql *this will populate tables with dummy data*
+9. run \i scripts/populate_tables.sql *this will populate tables with dummy data*
 
