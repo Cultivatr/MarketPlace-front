@@ -11,13 +11,16 @@
 
 4. run **CREATE DATABASE cultivatr**
 
-5. exit psql **\q**
+THIS STEP (#5) IS GONNA BE ONLY FOR LINUX USERS
+5. run ** ALTER USER evolveu PASSWORD 'evolveu';
 
-6. run **node server.js** *this will create tables and columns*
+6. exit psql **\q**
 
-7. exit server.js **Ctrl c**
+7. run **node server.js** *this will create tables and columns*
 
-8. navigate to Marketplace/back-end/DB and get back into your psql console
+8. exit server.js **Ctrl c**
 
-9. run **\i scripts/populate_tables.sql** *this will populate tables with dummy data*
+9. navigate to Marketplace/back-end/DB and get back into your psql console
+
+10. run **\i scripts/populate_tables.sql** *this will populate tables with dummy data*
 
