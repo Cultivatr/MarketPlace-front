@@ -6,14 +6,16 @@ const R_status = require('../models/r_status');
 const Status_tracker = require('../models/status_tracker');
 const R_facility = require('../models/r_facility');
 
-const getOfferedItemById = async () => {
-	let offered_items;
-	const lemi = await Offered_item.findAll({
+const getOfferedItemById = async (user_id) => {
+	//let user_id;
+	const offered_items = await Offered_item.findAll({
+		raw: true,
 		where: {
-			user_id: 1
+			user_id: user_id
 		}
 	});
-	return lemi.length;
+	console.log('im in ', offered_items);
+	return offered_items;
 };
 
 module.exports = getOfferedItemById;
