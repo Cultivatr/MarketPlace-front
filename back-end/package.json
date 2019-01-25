@@ -1,19 +1,26 @@
 {
-  "name": "cultivatr",
-  "version": "1.0.0",
-  "description": "cultivatr backend",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "nodemon": "^1.18.9",
-    "pg": "^7.8.0",
-    "sequelize": "^4.42.0"
-  }
+	"name": "cultivatr",
+	"version": "1.0.0",
+	"description": "cultivatr backend",
+	"main": "server.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "nodemon server.js"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"body-parser": "^1.18.3",
+		"express": "^4.16.4",
+		"pg": "^7.8.0",
+		"sequelize": "^4.42.0"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-preset-env": "^1.7.0",
+		"jest": "^24.0.0",
+		"nodemon": "^1.18.9",
+		"superagent": "^4.1.0",
+		"supertest": "^3.4.2"
+	}
 }
