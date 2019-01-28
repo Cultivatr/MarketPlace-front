@@ -34,3 +34,9 @@ exports.addOfferedItemByUserId = async (user_id) => {
 
 	return add_newItem;
 };
+exports.deleteOfferedItemByBreed = async (user_id) => {
+	let deleteItem = await Offered_item.destroy({
+		where: { breed: 'lemi' }
+	});
+	return deleteItem;
+};
