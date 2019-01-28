@@ -30,7 +30,7 @@ app.get('/', function(req, res, next) {
 
 // Relationships
 // Product.belongsTo(User);
-// User.hasMany(Product);
+Users.hasMany(Offered_item, { foreignKey: 'user_id' });
 Offered_item.belongsTo(Users, { foreignKey: 'user_id' });
 Offered_item.belongsTo(R_product, { foreignKey: 'product_id' });
 // Offered_item.belongsTo(Status);

@@ -33,11 +33,11 @@ describe('read dummy data', () => {
 });
 
 describe('add dummy data', () => {
-	it('add offered item to user 1', async () => {
+	it('add offered item to user 1', async (user_id) => {
 		//expect.assertions(1);
 		let offeredItems = await crudData.addOfferedItemByUserId(1);
 		// console.log(offeredItems);
 		//expect(offeredItems).toBe(0);
-		//console.log(await crudData.getOfferedItemByUserId(1));
+		console.log(await crudData.getOfferedItemByUserId(1));
 	});
 });

@@ -17,37 +17,20 @@ exports.getOfferedItemByUserId = async (user_id) => {
 	return offered_items;
 };
 exports.addOfferedItemByUserId = async (user_id) => {
-	// let data = {
-	// 	user_id: '1',
-	// 	breed: 'lemi',
-	// 	type_of_feed: 'jeff'
-	// };
-	let add_newItem = await Offered_item.create({
-		// raw: true,
-		user_id: 1,
-		breed: 'lemi',
-		type_of_feed: 'jeff'
-		// });
-		// Users.findByPk(1).then((user) => {
-		// 	user
-		// 		.createOffered_item({
-		// 			breed: 'lemi',
-		// 			type_of_feed: 'jeff'
-		// 		})
-		// 		.then((result) => console.log(result));
-		// });
-		//console.log(getOfferedItemByUserId(1));
-		// const offered_items = await Offered_item.findAll({
-		// 	raw: true,
-		// 	where: {
-		// 		user_id: user_id
-		// 	}
-	});
+	let add_newItem = await Offered_item.create(
+		{
+			user_id: 1,
+			breed: 'lemi',
+			type_of_feed: 'jeff'
+		},
+		{
+			include: [
+				{
+					association: Offered_item.belongsTo(Users, { foreignKey: 'user_id' })
+				}
+			]
+		}
+	);
 
 	return add_newItem;
 };
-//console.log(getOfferedItemByUserId(1));
-
-//module.exports = getOfferedItemByUserId;
-
-//addOfferedItemByUserId: addOfferedItemByUserId
