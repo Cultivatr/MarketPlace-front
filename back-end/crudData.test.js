@@ -32,15 +32,17 @@ describe('read dummy data', () => {
 	});
 });
 
-describe('add dummy data', () => {
+describe('add/delete/update dummy data', () => {
 	it('add offered item to user 1', async () => {
-		expect.assertions(1);
+		expect.assertions(4);
 		let offeredItems = await crudData.addOfferedItemByUserId(1);
 		expect(offeredItems.breed).toBe('lemi');
-	});
-	it('delete offered item from user 1', async () => {
-		expect.assertions(1);
-		let deletedItems = await crudData.deleteOfferedItemByBreed(1);
+		let itemId = offeredItems.id;
+		let updateItems = await crudData.updateOfferedItemByItemId(itemId);
+		expect(updateItems).toEqual([ 1 ]);
+		let offeredItems2 = await crudData.getOfferedItemByUserId(1);
+		expect(offeredItems2[offeredItems2.length - 1].breed).toBe('barry');
+		let deletedItems = await crudData.deleteOfferedItemByItemId(1);
 		expect(deletedItems).toBe(1);
 	});
 });

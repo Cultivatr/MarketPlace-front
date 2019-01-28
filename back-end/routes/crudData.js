@@ -24,19 +24,23 @@ exports.addOfferedItemByUserId = async (user_id) => {
 			type_of_feed: 'jeff'
 		},
 		{
-			include: [
-				{
-					association: Offered_item.belongsTo(Users, { foreignKey: 'user_id' })
-				}
-			]
+			include: [ { association: Offered_item.belongsTo(Users, { foreignKey: 'user_id' }) } ]
 		}
 	);
 
 	return add_newItem;
 };
-exports.deleteOfferedItemByBreed = async (user_id) => {
+exports.deleteOfferedItemByItemId = async (user_id) => {
 	let deleteItem = await Offered_item.destroy({
-		where: { breed: 'lemi' }
+		where: { breed: 'barry' }
 	});
 	return deleteItem;
+};
+
+exports.updateOfferedItemByItemId = async (item_id) => {
+	const newData = {
+		breed: 'barry'
+	};
+	let offeredItems = await Offered_item.update(newData, { where: { id: item_id } });
+	return offeredItems;
 };
