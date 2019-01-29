@@ -1,4 +1,5 @@
 const express = require('express');
+const crudData = require('./routes/crudData.js');
 
 // models
 const sequelize = require('./util/database');
@@ -10,22 +11,27 @@ const Status_tracker = require('./models/status_tracker');
 const R_facility = require('./models/r_facility');
 
 const app = express();
-
+ifSecuredUser = async (token) => {
+	return true;
+};
 app.get('/', function(req, res, next) {
-	Users.findAll()
-		.then((lemi) =>
-			res.json({
-				error: false,
-				data: lemi
-			})
-		)
-		.catch((error) =>
-			res.json({
-				error: true,
-				data: [],
-				error: error
-			})
-		);
+	ifSecuredUser(req).then(
+		crudData
+			.getOfferedItemByUserId(1)
+			.then((lemi) =>
+				res.json({
+					error: false,
+					data: lemi
+				})
+			)
+			.catch((error) =>
+				res.json({
+					error: true,
+					data: [],
+					error: error
+				})
+			)
+	);
 });
 
 // Relationships
