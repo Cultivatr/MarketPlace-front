@@ -13,35 +13,12 @@ const R_facility = require('./models/r_facility');
 const app = express();
 const producerRoutes = require('./routes/producerRoutes');
 app.use('/producer', producerRoutes);
-// ifSecuredUser = async (token) => {
-// 	return true;
-// };
-// app.get('/', function(req, res, next) {
-// 	ifSecuredUser(req).then(
-// 		crudData
-// 			.getOfferedItemByUserId(1)
-// 			.then((lemi) =>
-// 				res.json({
-// 					error: false,
-// 					data: lemi
-// 				})
-// 			)
-// 			.catch((error) =>
-// 				res.json({
-// 					error: true,
-// 					data: [],
-// 					error: error
-// 				})
-// 			)
-// 	);
-// });
+
 
 // Relationships
-// Product.belongsTo(User);
 Users.hasMany(Offered_item, { foreignKey: 'user_id' });
 Offered_item.belongsTo(Users, { foreignKey: 'user_id' });
 Offered_item.belongsTo(R_product, { foreignKey: 'product_id' });
-// Offered_item.belongsTo(Status);
 Status_tracker.belongsTo(Offered_item, { foreignKey: 'offer_id' });
 Status_tracker.belongsTo(R_status, { foreignKey: 'status_id' });
 

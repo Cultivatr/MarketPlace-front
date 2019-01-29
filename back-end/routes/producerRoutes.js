@@ -3,26 +3,41 @@ const crudData = require('../routes/crudData.js');
 const express = require('express');
 const router = express.Router();
 
-//const sequelize = require('./util/database');
-// const Users = require('../models/users');
-// const R_product = require('../models/r_product');
-// const Offered_item = require('../models/offered_item');
-// const R_status = require('../models/r_status');
-// const Status_tracker = require('../models/status_tracker');
-// const R_facility = require('../models/r_facility');
-
 ifSecuredUser = async (token) => {
-	return true;
+	return 1;
 };
 
 router.get('/', function(req, res, next) {
-	ifSecuredUser(req).then(
-		crudData
-			.getOfferedItemByUserId(1)
-			.then((lemi) =>
+	ifSecuredUser(req).then((securedUser) => 
+		crudData.getOfferedItemByUserId(securedUser)
+		.then((lemi) =>
+			res.json({
+				error: false,
+				data: lemi
+			})
+		)
+		.catch((error) =>
+			res.json({
+				error: true,
+				data: [],
+				error: error
+			})
+		)
+	);
+});
+
+router.post('/addOfferedItem', function(req, res, next) {
+	ifSecuredUser(req).then((securedUser) => {
+		let data = {
+			user_id: securedUser,
+			breed: 'lemi',
+			type_of_feed: 'jeff'
+		};
+		crudData.addOfferedItemByUserId(data)
+			.then((newItem) =>
 				res.json({
-					error: false,
-					data: lemi
+					error:false,
+					data:newItem
 				})
 			)
 			.catch((error) =>
@@ -32,7 +47,7 @@ router.get('/', function(req, res, next) {
 					error: error
 				})
 			)
-	);
-});
+		});
+	});
 
 module.exports = router;
