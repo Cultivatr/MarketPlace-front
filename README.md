@@ -23,7 +23,7 @@ THIS STEP (#5) IS GONNA BE ONLY FOR LINUX USERS
 
 8.5 in server.js, comment out line 29, so that tables are persistent every time you run the server. 
 
-9. navigate to Marketplace/back-end/DB and get back into your psql console
+9. navigate to Marketplace/back-end/DB and get back into your psql console: **psql evolveu**
 
 10. run **\i scripts/populate_tables.sql** *this will populate tables with dummy data*
 
