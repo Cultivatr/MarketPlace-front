@@ -1,6 +1,9 @@
 const crudData = require('../routes/crudData.js');
-
+const bodyParser = require('body-parser');
 const express = require('express');
+const app = express();
+app.use(bodyParser)
+
 const router = express.Router();
 
 ifSecuredUser = async (token) => {
@@ -30,8 +33,8 @@ router.post('/addOfferedItem', function(req, res, next) {
 	ifSecuredUser(req).then((securedUser) => {
 		let data = {
 			user_id: securedUser,
-			breed: 'lemi',
-			type_of_feed: 'jeff'
+			breed: req.body.breed,
+			type_of_feed: req.body.type_of_feed
 		};
 		crudData.addOfferedItemByUserId(data)
 			.then((newItem) =>

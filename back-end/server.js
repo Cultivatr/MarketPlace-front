@@ -1,5 +1,6 @@
 const express = require('express');
 const crudData = require('./routes/crudData.js');
+//const bodyParser = require('body-parser');
 
 // models
 const sequelize = require('./util/database');
@@ -11,6 +12,8 @@ const Status_tracker = require('./models/status_tracker');
 const R_facility = require('./models/r_facility');
 
 const app = express();
+app.use(express.json());
+//app.use(bodyParser);
 const producerRoutes = require('./routes/producerRoutes');
 app.use('/producer', producerRoutes);
 
