@@ -12,7 +12,7 @@ const R_facility = require('./models/r_facility');
 
 const app = express();
 const producerRoutes = require('./routes/producerRoutes');
-app.use(producerRoutes);
+app.use('/producer', producerRoutes);
 // ifSecuredUser = async (token) => {
 // 	return true;
 // };
