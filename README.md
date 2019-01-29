@@ -12,7 +12,8 @@
 4. run **CREATE DATABASE cultivatr**
 
 THIS STEP (#5) IS GONNA BE ONLY FOR LINUX USERS
-5. run ** ALTER USER evolveu PASSWORD 'evolveu';
+
+5. run **ALTER USER evolveu PASSWORD 'evolveu';**
 
 6. exit psql **\q**
 
