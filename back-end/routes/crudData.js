@@ -16,31 +16,21 @@ exports.getOfferedItemByUserId = async (user_id) => {
 
 	return offered_items;
 };
-exports.addOfferedItemByUserId = async (user_id) => {
-	let add_newItem = await Offered_item.create(
-		{
-			user_id: 1,
-			breed: 'lemi',
-			type_of_feed: 'jeff'
-		},
-		{
-			include: [ { association: Offered_item.belongsTo(Users, { foreignKey: 'user_id' }) } ]
-		}
-	);
+exports.addOfferedItemByUserId = async (data) => {
+	let add_newItem = await Offered_item.create(data, {
+		include: [ { association: Offered_item.belongsTo(Users, { foreignKey: 'user_id' }) } ]
+	});
 
 	return add_newItem;
 };
-exports.deleteOfferedItemByItemId = async (user_id) => {
+exports.deleteOfferedItemByItemId = async (item_id) => {
 	let deleteItem = await Offered_item.destroy({
-		where: { breed: 'barry' }
+		where: { id: item_id }
 	});
 	return deleteItem;
 };
 
-exports.updateOfferedItemByItemId = async (item_id) => {
-	const newData = {
-		breed: 'barry'
-	};
+exports.updateOfferedItemByItemId = async (item_id, newData) => {
 	let offeredItems = await Offered_item.update(newData, { where: { id: item_id } });
 	return offeredItems;
 };

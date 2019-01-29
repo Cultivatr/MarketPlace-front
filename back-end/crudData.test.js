@@ -35,14 +35,22 @@ describe('read dummy data', () => {
 describe('add/delete/update dummy data', () => {
 	it('add offered item to user 1', async () => {
 		expect.assertions(4);
-		let offeredItems = await crudData.addOfferedItemByUserId(1);
+		let data = {
+			user_id: 1,
+			breed: 'lemi',
+			type_of_feed: 'jeff'
+		};
+		let offeredItems = await crudData.addOfferedItemByUserId(data);
 		expect(offeredItems.breed).toBe('lemi');
 		let itemId = offeredItems.id;
-		let updateItems = await crudData.updateOfferedItemByItemId(itemId);
+		const newData = {
+			breed: 'barry'
+		};
+		let updateItems = await crudData.updateOfferedItemByItemId(itemId, newData);
 		expect(updateItems).toEqual([ 1 ]);
 		let offeredItems2 = await crudData.getOfferedItemByUserId(1);
 		expect(offeredItems2[offeredItems2.length - 1].breed).toBe('barry');
-		let deletedItems = await crudData.deleteOfferedItemByItemId(1);
+		let deletedItems = await crudData.deleteOfferedItemByItemId(itemId);
 		expect(deletedItems).toBe(1);
 	});
 });
