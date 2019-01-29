@@ -1,11 +1,10 @@
 const crudData = require('../routes/crudData.js');
-const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
-app.use(bodyParser)
 
 const router = express.Router();
 
+// make this a real function in the future!
 ifSecuredUser = async (token) => {
 	return 1;
 };
