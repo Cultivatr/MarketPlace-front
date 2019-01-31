@@ -1,4 +1,5 @@
 const crudData = require('./routes/crudData.js');
+
 describe('read dummy data', () => {
 	it('expect to get Offered items for user Id 1', async () => {
 		expect.assertions(1);
@@ -30,6 +31,14 @@ describe('read dummy data', () => {
 		let offeredItems = await crudData.getOfferedItemByUserId(10);
 		expect(offeredItems.length).toBe(0);
 	});
+
+	it('test get item details by item id', async () => {
+		expect.assertions(2);
+		let itemDetails = await crudData.getItemDetailsByItemId(1);
+		expect(itemDetails.breed).toBe('Angus cattle');
+		let itemDetails2 = await crudData.getItemDetailsByItemId(2);
+		expect(itemDetails2.breed).toBe('Billowy');
+	});
 });
 
 describe('add/delete/update dummy data', () => {
@@ -54,3 +63,9 @@ describe('add/delete/update dummy data', () => {
 		expect(deletedItems).toBe(1);
 	});
 });
+
+// describe('', () => {
+// 	it('', async () => {
+
+// 	})
+// })

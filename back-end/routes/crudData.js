@@ -7,22 +7,36 @@ const Status_tracker = require('../models/status_tracker');
 const R_facility = require('../models/r_facility');
 
 exports.getOfferedItemByUserId = async (user_id) => {
-	const offered_items = await Offered_item.findAll({
+	const firstJoin = await Offered_item.findAll({
 		raw: true,
 		where: {
 			user_id: user_id
-		}
+		},
+		// include: [Status_tracker]
 	});
 
-	return offered_items;
+
+
+
+
+
+	// const offered_items_status = await // join Offered_item and Status tracker // 
+	// ({
+	// 	raw: true,
+	// 	where: {
+	// 		user_id: user_id
+	// 	}
+	// })
+	return firstJoin;
 };
+
 exports.addOfferedItemByUserId = async (data) => {
 	let add_newItem = await Offered_item.create(data, {
 		include: [ { association: Offered_item.belongsTo(Users, { foreignKey: 'user_id' }) } ]
 	});
-
 	return add_newItem;
 };
+
 exports.deleteOfferedItemByItemId = async (item_id) => {
 	let deleteItem = await Offered_item.destroy({
 		where: { id: item_id }
@@ -34,3 +48,15 @@ exports.updateOfferedItemByItemId = async (item_id, newData) => {
 	let offeredItems = await Offered_item.update(newData, { where: { id: item_id } });
 	return offeredItems;
 };
+
+exports.getItemDetailsByItemId = async (item_id) => {
+	let itemDetails = await Offered_item.findOne({
+		raw: true,
+		where: {
+			id: item_id
+		}
+	});
+		return itemDetails;
+};
+
+
