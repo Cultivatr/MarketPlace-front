@@ -64,8 +64,9 @@ describe('add/delete/update dummy data', () => {
 	});
 });
 
-// describe('', () => {
-// 	it('', async () => {
-
-// 	})
-// })
+describe('test joins', () => {
+	it('test full join with users and offered items', async () => {
+		let testFullJoin = await crudData.testJoin();
+		console.log(testFullJoin);
+	})
+})

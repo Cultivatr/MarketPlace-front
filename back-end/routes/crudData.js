@@ -11,22 +11,8 @@ exports.getOfferedItemByUserId = async (user_id) => {
 		raw: true,
 		where: {
 			user_id: user_id
-		},
-		// include: [Status_tracker]
+		}
 	});
-
-
-
-
-
-
-	// const offered_items_status = await // join Offered_item and Status tracker // 
-	// ({
-	// 	raw: true,
-	// 	where: {
-	// 		user_id: user_id
-	// 	}
-	// })
 	return firstJoin;
 };
 
@@ -58,5 +44,32 @@ exports.getItemDetailsByItemId = async (item_id) => {
 	});
 		return itemDetails;
 };
+
+// exports.testJoin = async () => {
+// 	let testJoin = await Offered_item.findAll({
+// 		include: [{
+// 			model: Users,
+// 			// as: 'offered_item',
+// 			where: {
+// 				id: 1
+// 			}
+// 			// required: true
+// 		}],
+// 		raw: true
+// 	})
+// 	return testJoin;
+// }
+
+exports.testJoin = async () => {
+	let queryText = "SELECT OFFERED_ITEM.*, STATUS_TRACKER.*, R_STATUS.STATUS_NAME \
+	FROM OFFERED_ITEM \
+	FULL JOIN STATUS_TRACKER \
+	ON OFFERED_ITEM.ID = STATUS_TRACKER.OFFER_ID \
+	INNER JOIN R_STATUS \
+	ON STATUS_TRACKER.STATUS_ID = R_STATUS.ID;"
+
+	let testJoin = await sequelize.query(queryText)
+	return testJoin[0];
+}
 
 
