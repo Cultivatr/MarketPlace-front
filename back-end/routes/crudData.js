@@ -7,13 +7,17 @@ const Status_tracker = require('../models/status_tracker');
 const R_facility = require('../models/r_facility');
 
 exports.getOfferedItemByUserId = async (user_id) => {
-	const firstJoin = await Offered_item.findAll({
-		raw: true,
-		where: {
-			user_id: user_id
-		}
-	});
-	return firstJoin;
+	let queryText = `SELECT OFFERED_ITEM.*, STATUS_TRACKER.*, R_STATUS.STATUS_NAME \
+	FROM OFFERED_ITEM \
+	FULL JOIN STATUS_TRACKER \
+	ON OFFERED_ITEM.ID = STATUS_TRACKER.OFFER_ID \
+	INNER JOIN R_STATUS \
+	ON STATUS_TRACKER.STATUS_ID = R_STATUS.ID \
+	WHERE USER_ID = ${user_id} \
+	AND END_DATE IS NULL;`
+
+	const firstJoin = await sequelize.query(queryText);
+	return firstJoin[0]; //sequelize.query returns [[results], [metadata]]
 };
 
 exports.addOfferedItemByUserId = async (data) => {
