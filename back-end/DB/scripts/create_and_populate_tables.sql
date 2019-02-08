@@ -70,7 +70,6 @@ ALTER TABLE users add column user_id SERIAL PRIMARY KEY;
 CREATE TABLE Offered_Item(
   user_id INT REFERENCES users ON DELETE RESTRICT,
   product_id INT REFERENCES r_product ON DELETE RESTRICT,
-  status_id INT REFERENCES r_status ON DELETE RESTRICT,
   Quantity INT,
   Price_paid MONEY,
   Est_birthdate DATE,
