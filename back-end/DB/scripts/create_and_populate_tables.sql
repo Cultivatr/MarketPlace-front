@@ -27,17 +27,27 @@ CREATE TABLE Users (
   Primary_phone TEXT,
   Secondary_phone TEXT,
   Email TEXT,
-  Mailing_address TEXT,
   Farm_name TEXT,
   Farm_location TEXT,
-  Billing_address TEXT,
   Area TEXT,
   Is_producer BOOLEAN,
   Is_admin BOOLEAN,
   Is_other BOOLEAN,
   Member_since DATE,
   Farm_type TEXT,
-  Rating INT
+  Rating INT,
+  Mailing_street TEXT,
+  Mailing_city TEXT,
+  Mailing_province TEXT,
+  Mailing_country TEXT,
+  Mailing_postal_code TEXT,
+  Billing_street TEXT,
+  Billing_city TEXT,
+  Billing_province TEXT,
+  Billing_country TEXT,
+  Billing_postal_code TEXT,
+  User_comments TEXT
+
 );
 
 \copy r_facilities FROM 'sample_files/r_facilities.tsv' WITH NULL ''
@@ -60,7 +70,6 @@ ALTER TABLE users add column user_id SERIAL PRIMARY KEY;
 CREATE TABLE Offered_Item(
   user_id INT REFERENCES users ON DELETE RESTRICT,
   product_id INT REFERENCES r_product ON DELETE RESTRICT,
-  status_id INT REFERENCES r_status ON DELETE RESTRICT,
   Quantity INT,
   Price_paid MONEY,
   Est_birthdate DATE,
