@@ -4,11 +4,11 @@ class Items:
     def __init__(self, id):
         self.id = id
 
-def get_all_offered_items_by_user_id(self,id):
+def get_all_offered_items_by_user_id():
     conn = psycopg2.connect("dbname=cultivatr")
     cur = conn.cursor()
 
-    cur.execute(f'SELECT product_id FROM offered_item where user_id = {id};')
+    cur.execute('SELECT * FROM offered_item;')
 
     offered_item_array = cur.fetchall()
     

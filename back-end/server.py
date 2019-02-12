@@ -10,7 +10,7 @@ app.config['SECRET_KEY'] = 'secret'
 @app.route("/all_items")
 def all_items():
 
-    items = server_func.get_all_offered_items_by_user_id(1)
+    items = server_func.get_all_offered_items_by_user_id()
     return jsonify(items)
 
 if __name__ == '__main__':
