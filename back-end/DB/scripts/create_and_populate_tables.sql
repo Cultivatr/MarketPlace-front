@@ -71,7 +71,7 @@ CREATE TABLE Offered_Item(
   user_id INT REFERENCES users ON DELETE RESTRICT,
   product_id INT REFERENCES r_product ON DELETE RESTRICT,
   Quantity INT,
-  Price_paid MONEY,
+  Price_paid NUMERIC,
   Est_birthdate DATE,
   Registration_number INT,
   RFID_tag INT,
@@ -83,7 +83,7 @@ CREATE TABLE Offered_Item(
   Starting_weight NUMERIC,
   Est_finished_weight NUMERIC,
   Hanging_weight NUMERIC,
-  Est_price_to_be_paid MONEY,
+  Est_price_to_be_paid NUMERIC,
   Date_planted DATE,
   Seed_type TEXT,
   Heirloom BOOLEAN,
@@ -94,7 +94,7 @@ CREATE TABLE Offered_Item(
   Estimated_finished_qty NUMERIC,
   Qty_accepted_for_listing NUMERIC,
   Qty_accepted_at_delivery NUMERIC,
-  Chargebacks MONEY,
+  Chargebacks NUMERIC,
   Delivered_date DATE,
   Delivered_to TEXT
 );
