@@ -16,6 +16,9 @@ class Summary extends Component {
         return (
           <div className="table">
             <Link to='/contact-us'>Contact Us</Link>
+            <Link to='/add-livestock'>Add Livestock</Link>
+            <br/>
+            <Link to='/add-produce'>Add Produce</Link>
             <ReactTable
               data={this.state.data}
               noDataText="No items from producers!"

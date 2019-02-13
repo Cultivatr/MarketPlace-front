@@ -4,7 +4,6 @@ from datetime import datetime
 import server_func
 import simplejson as json
 
-
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'secret'

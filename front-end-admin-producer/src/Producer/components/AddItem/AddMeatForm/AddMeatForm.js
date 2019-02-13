@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './AddMeatForm.module.css';
 
-class ProducerForm extends Component {  
+class LivestockForm extends Component {  
     state = {
         data: {
                 type: '',
@@ -35,7 +35,7 @@ class ProducerForm extends Component {
 
     render() {
         return (
-        <div className='ui grid'>
+        <div className='ui grid container'>
             <form onSubmit={this.onSubmit} className='ui row form'>
                 <div className='eight wide column'>
                     <div className='field'>
@@ -138,4 +138,4 @@ class ProducerForm extends Component {
     }
 }
 
-export default ProducerForm;
+export default LivestockForm;

@@ -9,6 +9,8 @@ import Producer from './Producer/Producer';
 import SignIn from './SharedComponents/SignIn';
 import Facebook from './SharedComponents/Facebook';
 import ProductDetail from './Producer/components/ProductDetail/ProductDetail';
+import AddMeatForm from './Producer/components/AddItem/AddMeatForm/AddMeatForm';
+import AddProduceForm from './Producer/components/AddItem/AddProduceForm/AddProduceForm';
 import ContactUs from './Producer/components/ContactUs/ContactUs';
 
 class App extends Component {
@@ -49,6 +51,8 @@ class App extends Component {
                   <Route path='/producer' exact component={Producer}/>
                   <Route path='/item-details' exact component={ProductDetail}/>
                   <Route path='/contact-us' exact component={ContactUs}/>
+                  <Route path='/add-livestock' exact component={AddMeatForm}/>
+                  <Route path='/add-produce' exact component={AddProduceForm}/>
                </div>
             </Router>
             {/* <button className="ui button primary" onClick={this.onAdminClick}>Admin</button>
