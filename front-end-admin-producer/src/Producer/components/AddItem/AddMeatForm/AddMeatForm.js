@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './AddMeatForm.module.css';
+import Button from '../../../../SharedComponents/UI/Button';
 
 class LivestockForm extends Component {  
     state = {
@@ -131,7 +132,7 @@ class LivestockForm extends Component {
                         <input onChange={this.onChange} type="number" name="estFinalPrice"/>
                     </div>
                 </div>
-            <button type="submit" className="ui button">Add</button>
+                <Button>Add</Button>
             </form>
         </div>
         )
