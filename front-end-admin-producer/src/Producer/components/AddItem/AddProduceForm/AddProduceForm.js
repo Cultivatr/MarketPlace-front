@@ -6,6 +6,8 @@ import styles from './AddProduceForm.module.css';
 class ProduceForm extends Component {  
     state = {
         data: {
+            type: '',
+            packageType: '',
             datePlanted: '',
             seedType: '',
             modifiedSeed: '',
@@ -46,6 +48,15 @@ class ProduceForm extends Component {
                                 <div className="field">
                                     <label>Type</label>
                                     <input onChange={this.onChange} type="text" name="type"/>
+                                </div>
+                                <div className='field'>
+                                    <label>Package Type</label>
+                                    <select onChange={this.onChange} name="modifiedSeed" multiple="" className="ui fluid dropdown">
+                                        <option value="">Please choose an option</option>
+                                        <option value="bunch">Bunch</option>
+                                        <option value="head">Head</option>
+                                        <option value="bag">Bag</option>
+                                    </select>
                                 </div>
                                 <div className="field">
                                     <label>Date Planted</label>
@@ -117,6 +128,7 @@ class ProduceForm extends Component {
                                     <label>Final Price Paid</label>
                                     <input onChange={this.onChange} type="number" name="finalPricePaid"/>
                                 </div>
+                                <input type="hidden" id="userId" name="userId" value="1"/>
                             </div>
                             <Button>Add</Button>
                         </form>
