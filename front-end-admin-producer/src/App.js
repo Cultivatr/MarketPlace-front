@@ -12,6 +12,7 @@ import ProductDetail from './Producer/components/ProductDetail/ProductDetail';
 import AddMeatForm from './Producer/components/AddItem/AddMeatForm/AddMeatForm';
 import AddProduceForm from './Producer/components/AddItem/AddProduceForm/AddProduceForm';
 import ContactUs from './Producer/components/ContactUs/ContactUs';
+import Toolbar from './SharedComponents/Navigation/Toolbar/Toolbar';
 
 class App extends Component {
 
@@ -43,6 +44,7 @@ class App extends Component {
          <div>
             <Router>
                <div>
+                  <Toolbar/>
                   <Link to='/admin'>Admin</Link>
                   <Link to='/producer'>Producer</Link>
 
