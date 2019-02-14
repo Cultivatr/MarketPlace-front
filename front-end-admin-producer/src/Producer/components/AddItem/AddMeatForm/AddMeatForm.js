@@ -73,7 +73,7 @@ class LivestockForm extends Component {
                                 </div>
                                 <div className="field">
                                     <label>Birthdate</label>
-                                    <input onChange={this.onChange} type="text" name="birthdate"/>
+                                    <input onChange={this.onChange} type="date" name="birthdate"/>
                                 </div>
                                 <div className="field">
                                     <label>Registration Number</label>
@@ -99,7 +99,7 @@ class LivestockForm extends Component {
                             <div className='eight wide column'>
                                 <div className="field">
                                     <label>Date on Feed</label>
-                                    <input onChange={this.onChange} type="text" name="dateOnFeed"/>
+                                    <input onChange={this.onChange} type="date" name="dateOnFeed"/>
                                 </div>
                                 <div className='field'>
                                     <label>Feed Method</label>
@@ -133,7 +133,7 @@ class LivestockForm extends Component {
                                 </div>
                                 <div className="field">
                                     <label>Est. Completion Date</label>
-                                    <input onChange={this.onChange} type="text" name="estCompletionDate"/>
+                                    <input onChange={this.onChange} type="date" name="estCompletionDate"/>
                                 </div>
                                 <div className="field">
                                     <label>Est. Finished Weight</label>

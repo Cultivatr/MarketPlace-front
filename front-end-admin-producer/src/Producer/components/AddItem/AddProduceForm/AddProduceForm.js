@@ -60,7 +60,7 @@ class ProduceForm extends Component {
                                 </div>
                                 <div className="field">
                                     <label>Date Planted</label>
-                                    <input onChange={this.onChange} type="text" name="datePlanted"/>
+                                    <input onChange={this.onChange} type="date" name="datePlanted"/>
                                 </div>
                                 <div className="field">
                                     <label>Seed Type</label>
@@ -90,12 +90,12 @@ class ProduceForm extends Component {
                                     <label>Pesticide Type Used</label>
                                     <input onChange={this.onChange} type="text" name="pesticideTypeUsed"/>
                                 </div>
+                            </div>
+                            <div className='eight wide column'>
                                 <div className="field">
                                     <label>Estimated Quantity Planted</label>
                                     <input onChange={this.onChange} type="text" name="estimatedQuantityPlanted"/>
                                 </div>
-                            </div>
-                            <div className='eight wide column'>
                                 <div className='field'>
                                     <label>GMO</label>
                                     <select onChange={this.onChange} name="gmo" multiple="" className="ui fluid dropdown">
