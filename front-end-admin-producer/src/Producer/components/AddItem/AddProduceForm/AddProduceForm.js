@@ -13,6 +13,8 @@ class ProduceForm extends Component {
             heirloom: '',
             fertilizerTypeUsed: '',
             pesticideTypeUsed: '',
+            estimatedQuantityPlanted: '',
+            gmo: '',
             estimatedFinishedQty: '',
             estPrice: '',
             qtyAcceptedForListing: '',
@@ -41,6 +43,10 @@ class ProduceForm extends Component {
                     <div className='ui grid container'>
                         <form onSubmit={this.onSubmit} className='ui row form'>
                             <div className='eight wide column'>
+                                <div className="field">
+                                    <label>Type</label>
+                                    <input onChange={this.onChange} type="text" name="type"/>
+                                </div>
                                 <div className="field">
                                     <label>Date Planted</label>
                                     <input onChange={this.onChange} type="text" name="datePlanted"/>
@@ -73,8 +79,20 @@ class ProduceForm extends Component {
                                     <label>Pesticide Type Used</label>
                                     <input onChange={this.onChange} type="text" name="pesticideTypeUsed"/>
                                 </div>
+                                <div className="field">
+                                    <label>Estimated Quantity Planted</label>
+                                    <input onChange={this.onChange} type="text" name="estimatedQuantityPlanted"/>
+                                </div>
                             </div>
                             <div className='eight wide column'>
+                                <div className='field'>
+                                    <label>GMO</label>
+                                    <select onChange={this.onChange} name="gmo" multiple="" className="ui fluid dropdown">
+                                        <option value="">Please choose an option</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </div>
                                 <div className="field">
                                     <label>Estimated Finished Qty</label>
                                     <input onChange={this.onChange} type="text" name="estimatedFinishedQty"/>

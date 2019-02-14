@@ -7,6 +7,7 @@ class LivestockForm extends Component {
         data: {
                 type: '',
                 breed: '',
+                singleBrand: '',
                 birthdate: '',
                 regNumber: '',
                 rfid: '',
@@ -60,6 +61,14 @@ class LivestockForm extends Component {
                                         <option value="angus">Angus</option>
                                         <option value="birkshire">Birkshire</option>
                                         <option value="custom">Custom</option>
+                                    </select>
+                                </div>
+                                <div className='field'>
+                                    <label>Single Brand</label>
+                                    <select onChange={this.onChange} name="singleBrand" multiple="" className="ui fluid dropdown">
+                                        <option value="">Please choose an option</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
                                     </select>
                                 </div>
                                 <div className="field">
