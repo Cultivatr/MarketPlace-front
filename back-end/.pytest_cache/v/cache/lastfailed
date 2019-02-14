@@ -1,1 +1,3 @@
-{}
+{
+  "test_api.py::TestApiCalls::test_adding_item": true
+}

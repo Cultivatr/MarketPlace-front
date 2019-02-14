@@ -1,3 +1,4 @@
 [
+  "test_api.py::TestApiCalls::test_adding_item",
   "test_api.py::TestApiCalls::test_offered_item"
 ]
