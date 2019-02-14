@@ -134,6 +134,10 @@ class LivestockForm extends Component {
                                     <label>Est. Final Price to be Paid</label>
                                     <input onChange={this.onChange} type="number" name="estFinalPrice"/>
                                 </div>
+                                <div className="field">
+                                    <label>Quantity</label>
+                                    <input onChange={this.onChange} type="text" name="quantity"/>
+                                </div>
                             </div>
                             <Button>Add</Button>
                         </form>
