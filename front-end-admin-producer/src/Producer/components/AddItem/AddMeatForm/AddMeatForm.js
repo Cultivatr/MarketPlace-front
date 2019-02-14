@@ -147,6 +147,7 @@ class LivestockForm extends Component {
                                     <label>Quantity</label>
                                     <input onChange={this.onChange} type="text" name="quantity"/>
                                 </div>
+                                <input type="hidden" id="userId" name="userId" value="1"/>
                             </div>
                             <Button>Add</Button>
                         </form>
