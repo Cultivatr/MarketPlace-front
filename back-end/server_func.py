@@ -1,14 +1,14 @@
+import psycopg2
+
 class Items:
     def __init__(self, id):
         self.id = id
 
-def get_all_offered_items_by_user_id():
-    import psycopg2
-    #import psycopg2 is here to fix error'no module name psycopg2' when running test
+def get_all_offered_items_by_user_id(id):
     conn = psycopg2.connect("dbname=cultivatr")
     cur = conn.cursor()
 
-    cur.execute('SELECT * FROM offered_item;')
+    cur.execute(f'SELECT * FROM offered_item where user_id = {id};')
 
     offered_item_array = cur.fetchall()
 
