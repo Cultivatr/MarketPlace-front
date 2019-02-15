@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Facebook from './Facebook';
+//import Facebook from './Facebook';
 import FacebookLogin from 'react-facebook-login';
 import { Link } from 'react-router-dom';
 import './SignIn.css'
@@ -12,8 +12,7 @@ class SignIn extends Component {
         password: '',
         isLoggedIn: false,
         userID: '',
-        name: '',
-        email: '',
+        name: ''
         //picture: ''
     }
 
@@ -74,7 +73,6 @@ class SignIn extends Component {
                 />
             </div>
             );
-            
         }
         return (
             <div>
@@ -98,8 +96,8 @@ class SignIn extends Component {
                                 <Link to='/producer' className="ui button" type="submit">Login</Link>
                             </div>
                             <div className='forgotPasswordAndRegisterBox'>
-                                <a>Forgot Password</a>
-                                <a>Register Now</a>
+                                {/* <a href="#">Forgot Password</a>
+                                <a href="#">Register Now</a> */}
                             </div>
                         </form>
                     </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './ProductDetail.module.css';
+//import styles from './ProductDetail.module.css';
 
 class ProductDetail extends Component {
     render() {

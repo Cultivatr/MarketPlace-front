@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import matchSorter from 'match-sorter'
 import ReactTable from "react-table";
 import { Link } from 'react-router-dom';
-import styles from './Summary.module.css'
+//import styles from './Summary.module.css'
 
 class Summary extends Component {
     state = {
