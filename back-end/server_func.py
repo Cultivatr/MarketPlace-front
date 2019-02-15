@@ -33,25 +33,101 @@ def get_all_offered_items_by_user_id(id):
 
     return offered_item_obj_array
 
-def add_offered_item_by_user_id(name, user_id, qty, est_birthday, registration_number,rfid_tag, breed, single_brand,\
-            starting_date_of_feed, type_of_feed, est_completion_date, starting_weight, est_finished_weight, hanging_weight,\
-            est_price_to_be_paid, date_planted, seed_type, heirloom, gmo, fertilizer_type_used, pesticide_type_used,\
-            estimated_qty_planted, estimated_finished_qty, qty_accepted_for_listing, qty_accepted_at_delivery, chargebacks):
+def add_offered_item_by_user_id(user_id,
+                                product_id,
+                                Quantity,
+                                Price_paid,
+                                Est_birthdate,
+                                Registration_number,
+                                RFID_tag,
+                                Breed,
+                                Single_brand,
+                                Starting_date_of_feed,
+                                Type_of_feed,
+                                Est_completion_date,
+                                Starting_weight,
+                                Est_finished_weight,
+                                Hanging_weight,
+                                Est_price_to_be_paid,
+                                Date_planted,
+                                Seed_type,
+                                Heirloom,
+                                GMO,
+                                Fertilizer_type_used,
+                                Pesticide_type_used,
+                                Estimated_qty_planted,
+                                Estimated_finished_qty,
+                                Qty_accepted_for_listing,
+                                Qty_accepted_at_delivery,
+                                Chargebacks,
+                                Delivered_date,
+                                Delivered_to):
+
     conn = psycopg2.connect("dbname=cultivatr")
     cur = conn.cursor()
 
-    cur.execute(f"INSERT INTO offered_item (name (select product_id from r_product), user_id, qty, est_birthday, registration_number,rfid_tag, breed, single_brand,\
-            starting_date_of_feed, type_of_feed, est_completion_date, starting_weight, est_finished_weight, hanging_weight,\
-            est_price_to_be_paid, date_planted, seed_type, heirloom, gmo, fertilizer_type_used, pesticide_type_used,\
-            estimated_qty_planted, estimated_finished_qty, qty_accepted_for_listing, qty_accepted_at_delivery, chargebacks),\
-            VALUES ('{name}','{user_id}','{qty}', '{est_birthday}', '{registration_number}', '{rfid_tag}', '{breed}',\
-            '{single_brand}', '{starting_date_of_feed}', '{type_of_feed}', '{est_completion_date}', '{starting_weight}',\
-            '{est_finished_weight}', '{hanging_weight}', '{est_price_to_be_paid}', '{date_planted}', '{seed_type}', '{heirloom}',\
-            '{gmo}', '{fertilizer_type_used}', '{pesticide_type_used}', '{estimated_qty_planted}', '{estimated_finished_qty}',\
-            '{qty_accepted_for_listing}', '{qty_accepted_at_delivery}', '{chargebacks}');")
+    insert_query = f"""INSERT INTO offered_item (
+                            user_id,
+                            product_id,
+                            Quantity,
+                            Price_paid,
+                            Est_birthdate,
+                            Registration_number,
+                            RFID_tag,
+                            Breed,
+                            Single_brand,
+                            Starting_date_of_feed,
+                            Type_of_feed,
+                            Est_completion_date,
+                            Starting_weight,
+                            Est_finished_weight,
+                            Hanging_weight,
+                            Est_price_to_be_paid,
+                            Date_planted,
+                            Seed_type,
+                            Heirloom,
+                            GMO,
+                            Fertilizer_type_used,
+                            Pesticide_type_used,
+                            Estimated_qty_planted,
+                            Estimated_finished_qty,
+                            Qty_accepted_for_listing,
+                            Qty_accepted_at_delivery,
+                            Chargebacks,
+                            Delivered_date,
+                            Delivered_to)
+                    VALUES(
+                            {user_id},
+                            {product_id},
+                            {Quantity},
+                            {Price_paid},
+                            {Est_birthdate},
+                            {Registration_number},
+                            {RFID_tag},
+                            {Breed},
+                            {Single_brand},
+                            {Starting_date_of_feed},
+                            {Type_of_feed},
+                            {Est_completion_date},
+                            {Starting_weight},
+                            {Est_finished_weight},
+                            {Hanging_weight},
+                            {Est_price_to_be_paid},
+                            {Date_planted},
+                            {Seed_type},
+                            {Heirloom},
+                            {GMO},
+                            {Fertilizer_type_used},
+                            {Pesticide_type_used},
+                            {Estimated_qty_planted},
+                            {Estimated_finished_qty},
+                            {Qty_accepted_for_listing},
+                            {Qty_accepted_at_delivery},
+                            {Chargebacks},
+                            {Delivered_date},
+                            {Delivered_to})"""
 
+    cur.execute(insert_query)
     conn.commit()
-
     cur.close()
     conn.close()
-
