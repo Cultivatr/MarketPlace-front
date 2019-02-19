@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 class ProductDetail extends Component {
     render() {
         return (
-            <div className='productDetails'>
+            <div className='productDetails ui container'>
                 <h4 className="ui horizontal divider header">
                     Details
                 </h4>
