@@ -15,10 +15,6 @@ class Summary extends Component {
     render() {
         return (
           <div className="table">
-            <Link to='/contact-us'>Contact Us</Link>
-            <Link to='/add-livestock'>Add Livestock</Link>
-            <br/>
-            <Link to='/add-produce'>Add Produce</Link>
             <ReactTable
               data={this.state.data}
               noDataText="No items from producers!"
@@ -91,7 +87,7 @@ class Summary extends Component {
                         Header: "",
                         id: "edit",
                         width: 200,
-                        accessor: d => <Link to='/' className='detailBtn' id={d.id}>Edit</Link>,
+                        accessor: d => <Link to='#' className='detailBtn' id={d.id}>Edit</Link>,
                         filterMethod: (filter, rows) =>
                           matchSorter(rows, filter.value, { keys: ["qty"] }),
                         filterAll: true,

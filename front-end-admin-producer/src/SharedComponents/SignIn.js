@@ -92,7 +92,7 @@ class SignIn extends Component {
                             </div>
                             <div className='rememberMeAndLoginBox'>
                                 <input type="checkbox"/> <span className='rememberMe'>Remember Me</span>
-                                {fbContent}
+                                {/* {fbContent} */}
                                 <Link to='/producer' className="ui button" type="submit">Login</Link>
                             </div>
                             <div className='forgotPasswordAndRegisterBox'>
