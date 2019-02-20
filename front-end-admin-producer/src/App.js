@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-import Admin from './Admin/Admin';
-import Producer from './Producer/Producer';
-import SignIn from './SharedComponents/SignIn';
-import ProductDetail from './Producer/components/ProductDetail/ProductDetail';
-import AddMeatForm from './Producer/components/AddItem/AddMeatForm/AddMeatForm';
-import AddProduceForm from './Producer/components/AddItem/AddProduceForm/AddProduceForm';
-import ContactUs from './Producer/components/ContactUs/ContactUs';
-import Toolbar from './SharedComponents/Navigation/Toolbar/Toolbar';
+// import Admin from './Admin/Admin';
+// import Producer from './Producer/Producer';
+// import SignIn from './SharedComponents/SignIn';
+// import ProductDetail from './Producer/components/ProductDetail/ProductDetail';
+// import AddMeatForm from './Producer/components/AddItem/AddMeatForm/AddMeatForm';
+// import AddProduceForm from './Producer/components/AddItem/AddProduceForm/AddProduceForm';
+// import ContactUs from './Producer/components/ContactUs/ContactUs';
+// import Toolbar from './SharedComponents/Navigation/Toolbar/Toolbar';
 
 class App extends Component {
 
@@ -38,7 +38,7 @@ class App extends Component {
 
       return (
          <div>
-            <h1>Hello world!</h1>
+            <h1>Hello World</h1>
             {/* <Router>
                <div>
                   <Toolbar/>
