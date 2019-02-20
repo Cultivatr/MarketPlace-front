@@ -25,6 +25,12 @@ class App extends Component {
                   <Route path='/add-produce' exact component={AddProduceForm}/>
                </div>
             </Router>
+<<<<<<< HEAD
+=======
+            {/* <button className="ui button primary" onClick={this.onAdminClick}>Admin</button>
+            <button className="ui button primary" onClick={this.onProducerClick}>Producer</button>
+            <Facebook/> */}
+>>>>>>> 5879c5dac8e7c8b671c1bbfe896ba86412668c27
          </div>
       )
    }
