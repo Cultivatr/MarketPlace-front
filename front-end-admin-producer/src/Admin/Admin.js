@@ -203,9 +203,7 @@ class Admin extends Component {
     }
     return (
       <div className="App">
-        <header>
-          <h1>Welcome Dan!</h1>
-        </header>
+        <h1 className={Class.heading}>Welcome Dan!</h1>
         <main>
           <ItemDetailComp itemDetails={this.state.itemDetails} removeOverlay={this.removeOverlay}/>
           <div className={Class.container}>
