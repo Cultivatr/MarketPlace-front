@@ -10,7 +10,6 @@ class SignIn extends Component {
         isLoggedIn: false,
         userID: '',
         name: ''
-        //picture: ''
     }
 
     onEmailChange = (e) => {

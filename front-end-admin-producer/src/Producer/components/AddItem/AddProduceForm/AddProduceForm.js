@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import './AddProduceForm.module.css';
 import Button from '../../../../SharedComponents/UI/Button';
 import styles from './AddProduceForm.module.css';
+import Toolbar from '../../../../SharedComponents/Navigation/Toolbar/Toolbar';
 
 class ProduceForm extends Component {  
     state = {
@@ -40,6 +41,7 @@ class ProduceForm extends Component {
     render() {
         return (
             <Fragment>
+            <Toolbar/>
             <h2>Add Produce</h2>
                 <div className={styles.wrapper}>
                     <div className='ui grid container'>

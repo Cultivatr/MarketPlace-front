@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Toolbar from '../../../SharedComponents/Navigation/Toolbar/Toolbar';
+import styles from './ContactUs.module.css';
 
 class ContactUs extends Component {
     state = {
@@ -26,7 +28,8 @@ class ContactUs extends Component {
     render() {
         return (
             <div>
-                <div className='loginBox'>
+                <Toolbar/>
+                <div className={styles.loginBox}>
                     <div className='h1-header'>
                         <h1 className='ui header'>Contact Us</h1>
                     </div>

@@ -5,6 +5,9 @@ import styles from './NavigationItems.module.css';
 const navigationItems = (props) => (
    <ul className={styles.list}>
       <li>
+         <NavigationItem link={'/producer'}>Home</NavigationItem>
+      </li>
+      <li>
          <NavigationItem link={'/add-livestock'}>Add Livestock</NavigationItem>
       </li>
       <li>

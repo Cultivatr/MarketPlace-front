@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styles from './AddMeatForm.module.css';
 import Button from '../../../../SharedComponents/UI/Button';
+import Toolbar from '../../../../SharedComponents/Navigation/Toolbar/Toolbar';
 
 class LivestockForm extends Component {  
     state = {
@@ -38,6 +39,7 @@ class LivestockForm extends Component {
     render() {
         return (
             <Fragment>
+                <Toolbar/>
                 <h2>Add Livestock</h2>
                 <div className={styles.wrapper}>
                     <div className='ui grid container'>

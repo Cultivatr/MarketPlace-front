@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import matchSorter from 'match-sorter'
 import ReactTable from "react-table";
 import { Link } from 'react-router-dom';
-//import styles from './Summary.module.css'
 
 class Summary extends Component {
     state = {
@@ -15,6 +14,7 @@ class Summary extends Component {
     render() {
         return (
           <div className="table">
+            <br/>
             <ReactTable
               data={this.state.data}
               noDataText="No items from producers!"
@@ -23,7 +23,7 @@ class Summary extends Component {
                 String(row[filter.id]) === filter.value}
               columns={[
                 {
-                  Header: "Click on headers to sort or type to filter",
+                  // Header: "Click on headers to sort or type to filter",
                   columns: [
                     {
                       Header: "Type",
