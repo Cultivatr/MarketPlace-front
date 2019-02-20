@@ -1,6 +1,3 @@
-//this is just a comment
-
-// jeff's comment to test
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
@@ -41,7 +38,8 @@ class App extends Component {
 
       return (
          <div>
-            <Router>
+            <h1>Hello world!</h1>
+            {/* <Router>
                <div>
                   <Toolbar/>
                   <Link to='/admin'>Admin</Link>
@@ -56,9 +54,9 @@ class App extends Component {
                   <Route path='/add-produce' exact component={AddProduceForm}/>
                </div>
             </Router>
-            {/* <button className="ui button primary" onClick={this.onAdminClick}>Admin</button>
-            <button className="ui button primary" onClick={this.onProducerClick}>Producer</button> */}
-            {/* <Facebook/> */}
+            <button className="ui button primary" onClick={this.onAdminClick}>Admin</button>
+            <button className="ui button primary" onClick={this.onProducerClick}>Producer</button>
+            <Facebook/> */}
          </div>
       )
    }
