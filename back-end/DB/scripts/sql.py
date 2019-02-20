@@ -17,11 +17,34 @@ def get_connect_string():
     # return os.environ.get('DATABASE_URL', 'xxx')
 
 
-get_connect_string()
+drop_users = """
+DROP TABLE Users;
+"""
+create_users = """
+CREATE TABLE Users (
+    Id SERIAL PRIMARY KEY,
+    First_name TEXT,
+    Last_name TEXT
+);
+"""
 
-# def init_users():
-#     drop_users = """
-#     DROP TABLE Users;
-#     """
-#     conn = psycopg2.connect("dbname=cultivatr")
-#     cur = conn.cursor()
+
+def init_users():
+    d = sql_util(drop_users, [])
+
+    r = sql_util(create_users, [])
+
+
+def sql_util(sql, parms):
+
+    results = []
+
+    conn = psycopg2.connect(get_connect_string(), sslmode='require')
+    cur = conn.cursor()
+    res = cur.execute(sql, parms)
+
+    conn.commit()
+
+    cur.close()
+    conn.close()
+    return results

@@ -1,6 +1,7 @@
 DROP TABLE Users;
 
 CREATE TABLE Users (
+  Id SERIAL PRIMARY KEY,
   First_name TEXT,
   Last_name TEXT,
   Primary_phone TEXT,

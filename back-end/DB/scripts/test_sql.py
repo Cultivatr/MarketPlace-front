@@ -15,5 +15,9 @@ class TestSql(unittest.TestCase):
         os.environ[sql.db_env] = "1"
 
         self.assertEqual(os.environ[sql.db_env], sql.get_connect_string())
-    # def test_users(self):
-    #     self.assertEqual('hey hey', sql.init_users())
+
+        del os.environ[sql.db_env]
+
+    def test_users(self):
+        # self.assertEqual('hey hey', sql.init_users())
+        sql.init_users()
