@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+<<<<<<< HEAD
 //import Facebook from './Facebook';
 //import FacebookLogin from 'react-facebook-login';
+=======
+>>>>>>> 66acd8a5b6b2beb89ff1e15c409b6c6c1b3491bc
 import { Link } from 'react-router-dom';
 import './SignIn.css'
-// import styles from './Facebook.module.css';
 
 class SignIn extends Component {
 
@@ -28,6 +30,7 @@ class SignIn extends Component {
         e.preventDefault();
         console.log('submitted')
     }
+<<<<<<< HEAD
     
     // responseFacebook = response => {
     //     //console.log(response);
@@ -40,40 +43,12 @@ class SignIn extends Component {
     //     });
     //   };
   
+=======
+
+>>>>>>> 66acd8a5b6b2beb89ff1e15c409b6c6c1b3491bc
     componentClicked = () => console.log('clicked');
-  
 
     render() {
-        // let fbContent;
-        // if(this.state.isLoggedIn) {
-        //     fbContent = (
-        //         <div className={styles.facebook}>
-        //           {/* <img src={this.state.picture} alt={this.state.name} /> */}
-        //           <h2>Welcome {this.state.name}</h2>
-        //           Email: {this.state.email}
-        //         </div>
-        //     );
-    
-        // } else {
-            // fbContent = (
-            // <div id='facebookBtn' style={{
-            //     display: 'flex',
-            //     flexWrap: 'wrap', 
-            //     padding: '2px',
-            //     width: '5px',
-            //     fontSize: '12px !important'
-            //     }} >  
-            //     <FacebookLogin
-            //       appId="367859947330605"
-            //       autoLoad={true}
-            //       cssClass={styles.btnFacebook}
-            //       fields="name,email,picture"
-            //       onClick={this.componentClicked}
-            //       callback={this.responseFacebook} 
-            //     />
-            // </div>
-            // );
-        // }
         return (
             <div>
                 <div className='loginBox'>
@@ -92,7 +67,6 @@ class SignIn extends Component {
                             </div>
                             <div className='rememberMeAndLoginBox'>
                                 <input type="checkbox"/> <span className='rememberMe'>Remember Me</span>
-                                {/* {fbContent} */}
                                 <Link to='/producer' className="ui button" type="submit">Login</Link>
                             </div>
                             <div className='forgotPasswordAndRegisterBox'>
