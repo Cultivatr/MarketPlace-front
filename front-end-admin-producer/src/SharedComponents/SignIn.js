@@ -1,9 +1,4 @@
 import React, {Component} from 'react';
-<<<<<<< HEAD
-//import Facebook from './Facebook';
-//import FacebookLogin from 'react-facebook-login';
-=======
->>>>>>> 66acd8a5b6b2beb89ff1e15c409b6c6c1b3491bc
 import { Link } from 'react-router-dom';
 import './SignIn.css'
 
@@ -29,22 +24,7 @@ class SignIn extends Component {
         e.preventDefault();
         console.log('submitted')
     }
-<<<<<<< HEAD
-    
-    // responseFacebook = response => {
-    //     //console.log(response);
-    //     this.setState({
-    //       isLoggedIn: true,
-    //       userID: response.userID,
-    //       name: response.name,
-    //       email: response.email,
-    //       //picture: response.picture.data.url
-    //     });
-    //   };
   
-=======
-
->>>>>>> 66acd8a5b6b2beb89ff1e15c409b6c6c1b3491bc
     componentClicked = () => console.log('clicked');
 
     render() {
