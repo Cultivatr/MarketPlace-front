@@ -39,7 +39,7 @@ class App extends Component {
       return (
          <div>
             <h1>Hello World</h1>
-            {/* <Router>
+            <Router>
                <div>
                   <Toolbar/>
                   <Link to='/admin'>Admin</Link>
@@ -54,7 +54,7 @@ class App extends Component {
                   <Route path='/add-produce' exact component={AddProduceForm}/>
                </div>
             </Router>
-            <button className="ui button primary" onClick={this.onAdminClick}>Admin</button>
+            {/* <button className="ui button primary" onClick={this.onAdminClick}>Admin</button>
             <button className="ui button primary" onClick={this.onProducerClick}>Producer</button>
             <Facebook/> */}
          </div>
