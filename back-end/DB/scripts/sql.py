@@ -52,14 +52,33 @@ CREATE TABLE Users (
 def init_users():
     r = sql_util(create_users, [])
 
-def add_user(user_dict):
+def add_user(new_user):
+
     pass
 
 def delete_user(user_id):
-    pass
+    conn = psycopg2.connect(get_connect_string())
+    cur = conn.cursor()
+
+    cur.execute(f"DELETE FROM users WHERE id={user_id};")
+    conn.commit()
+
+    cur.close()
+    conn.close()
+
+def get_all_users():
+    conn = psycopg2.connect(get_connect_string())
+    cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
+    cur.execute(f"SELECT * FROM users;")
+    users_dict = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return users_dict
 
 def get_user(user_id):
-    conn = psycopg2.connect("dbname=cultivatr")
+    conn = psycopg2.connect(get_connect_string())
     cur = conn.cursor(cursor_factory = psycopg2.extras.RealDictCursor)
     cur.execute(f"SELECT * FROM users WHERE id={user_id};")
     users_dict = cur.fetchall()
@@ -87,6 +106,21 @@ def sql_util(sql, parms):
     conn.close()
     return results
 
+delete_user(1)
 
 #init_users()
 print(get_user(2))
+for user in get_all_users():
+    for key in user:
+        print(f"{key}:{user[key]}")
+    print("###########ANOTHER USER################")
+
+
+# new_user = {
+# "First_name": "Henry"
+# "Last_name": "Ford"
+# "Primary_phone": 123-567-89-89
+# "Secondary_phone": 587-908-78-65
+# "Email": "ford@anything.com"
+# "Farm_name": "Ford Farm"
+# }
