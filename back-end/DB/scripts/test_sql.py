@@ -19,5 +19,23 @@ class TestSql(unittest.TestCase):
         del os.environ[sql.db_env]
 
     def test_users(self):
-        # self.assertEqual('hey hey', sql.init_users())
-        sql.init_users()
+        # sql.init_users()
+        #     self.assertEqual('hey hey', sql.init_users())
+
+        # def test_add_user(self):
+        # new_user = {
+        #     "first_name": "Henry",
+        #     "last_name": "Ford",
+        #     "primary_phone": '123-567-89-89',
+        #     "secondary_phone": '587-908-78-65',
+        #     "email": "ford@anything.com",
+        #     "farm_name": "Ford Farm"
+        # }
+        sql.add_user("Joe", "Bob", "test@gmail.com")
+        print('hey', )
+        # temp_user = {}
+        # temp_user.__dict__ = new_user
+        # print('new_user', temp_user.first_name)
+        # sql.add_user(new_user)
+    # def test_get_user(self):
+        # self.assertEqual({'first_name': "Joe"}, sql.get_user({1}))

@@ -1,6 +1,7 @@
 DROP TABLE Users;
 
-CREATE TABLE Users (
+CREATE TABLE Users
+(
   Id SERIAL PRIMARY KEY,
   First_name TEXT,
   Last_name TEXT,
@@ -28,3 +29,43 @@ CREATE TABLE Users (
   Billing_postal_code TEXT,
   User_comments TEXT
 );
+///////////////////
+Mailing_street,
+  Mailing_city,
+  Mailing_province,
+  Mailing_country,
+  Mailing_postal_code,
+  Farm_name,
+  Farm_location,
+  Billing_street,
+  Billing_city,
+  Billing_province,
+  Billing_country,
+  Billing_postal_code,
+  Area,
+  Is_producer,
+  Is_admin,
+  Is_other,
+  Member_since,
+  Farm_type,
+  Rating,
+  User_comments
+
+
+
+
+
+
+
+
+
+
+  "Test Pigs"
+                     "Priddis", "Southern Alberta", "1",
+                     "0", "0", "2019-01-31",
+                     "Ranch", "5", "123 test street",
+                     "Calgary", "AB", "Canada", "W3R4T6",
+                     "123 test street"
+                     "Lethbridge", "AB", "Canada",
+                     "J8I9L5",
+                     "anything could be here"
