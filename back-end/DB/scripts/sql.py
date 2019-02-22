@@ -60,9 +60,9 @@ def init_users():
 
 insert_users_string = """
 insert into users (
-First_name, 
-Last_name, 
-Email,
+first_name, 
+last_name, 
+email
 ) 
 values(%s,%s,%s)
   """
@@ -151,8 +151,9 @@ def sql_util(sql, parm):
     try:
         conn = psycopg2.connect(get_connect_string(), sslmode='require')
         cur = conn.cursor()
+        print('wtf is ', parm,
+              sql)
         res = cur.execute(sql, parm)
-        print('wtf is ', parm)
         # This may return the id of an inserted row
         # for r in cur:
         # 	results.append(r)

@@ -1,5 +1,5 @@
 [
   "DB/scripts/test_sql.py::TestSql::test_get_connect_string",
-  "DB/scripts/test_sql.py::TestSql::test_get_user",
-  "DB/scripts/test_sql.py::TestSql::test_hello"
+  "DB/scripts/test_sql.py::TestSql::test_hello",
+  "DB/scripts/test_sql.py::TestSql::test_users"
 ]
