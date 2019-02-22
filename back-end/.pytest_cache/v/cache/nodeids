@@ -1,4 +1,5 @@
 [
-  "test_api.py::TestApiCalls::test_adding_item",
-  "test_api.py::TestApiCalls::test_offered_item"
+  "DB/scripts/test_sql.py::TestSql::test_get_connect_string",
+  "DB/scripts/test_sql.py::TestSql::test_hello",
+  "DB/scripts/test_sql.py::TestSql::test_users"
 ]
