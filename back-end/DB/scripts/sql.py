@@ -3,24 +3,14 @@ import psycopg2.extras
 import os
 import sys
 import traceback
-
-
-def hello():
-    return 'hello world from SQL'
-
+import user
 
 default_connect = """
 dbname=cultivatr user=evolveu
 """
 db_env = 'DATABASE_URL'
 
-
-def get_connect_string():
-    return os.environ.get(db_env, default_connect)
-    # return os.environ.get('DATABASE_URL', 'xxx')
-
-
-create_users = """
+create_table_users_string = """
 DROP TABLE IF EXISTS Users CASCADE;
 
 CREATE TABLE Users (
@@ -53,11 +43,6 @@ CREATE TABLE Users (
 );
 """
 
-
-def init_users():
-    r = sql_util(create_users, [])
-
-
 insert_users_string = """
 insert into users (
 first_name, 
@@ -67,6 +52,23 @@ email
 values(%s,%s,%s)
   """
 
+drop_users_string = """
+DROP TABLE users;
+  """
+
+get_user_by_id_string = """
+SELECT * FROM users;
+"""
+
+def hello():
+    return 'hello world from SQL'
+
+def get_connect_string():
+    return os.environ.get(db_env, default_connect)
+    # return os.environ.get('DATABASE_URL', 'xxx')
+
+def init_users():
+    r = sql_util(create_table_users_string, [])
 
 # insert_statement = "Insert into users("
 #   for key in user_dict:
@@ -101,9 +103,17 @@ def add_user(
     insert a single user into the users table.
     """
     a = sql_util(insert_users_string, [First_name, Last_name, Email])
-    print('aaa', a)
     return a
 
+def get_users():
+    """
+    get a user by id
+    """
+    sql_results = select(get_user_by_id_string, None)
+    res = []
+    for r in sql_results:
+      res.append(user.User(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25]))
+    return res
 
 # def delete_user(user_id):
 #     conn = psycopg2.connect(get_connect_string())
@@ -141,7 +151,27 @@ def add_user(
 
 # def update_user(user_dict, user_id):
 #     pass
+def select(sql, parms):
+    """
+    Execute standard sql statements.
+    """
+    results = []
+    try:
+        conn = psycopg2.connect(get_connect_string(), sslmode='require')
+        cur = conn.cursor()
+        res = cur.execute(sql, parms)
+        for r in cur:
+            results.append(r)
 
+    except:
+        print('***We had a problem Huston...', sys.exc_info())
+        traceback.print_exception(sys.exc_info()[0],sys.exc_info()[1],sys.exc_info()[2])
+        raise
+    finally:
+        cur.close()
+        conn.close()
+
+    return results
 
 def sql_util(sql, parm):
     """ 
@@ -151,15 +181,11 @@ def sql_util(sql, parm):
     try:
         conn = psycopg2.connect(get_connect_string(), sslmode='require')
         cur = conn.cursor()
-        print('wtf is ', parm,
-              sql)
         res = cur.execute(sql, parm)
         # This may return the id of an inserted row
         # for r in cur:
         # 	results.append(r)
         conn.commit()
-        print('lemi', get_connect_string(), res)
-
     except:
         print('***We had a problem Huston...', sys.exc_info())
         traceback.print_exception(sys.exc_info()[0], sys.exc_info()[
@@ -168,11 +194,21 @@ def sql_util(sql, parm):
     finally:
         cur.close()
         conn.close()
-
-    print('end of sql')
-
-    print('hey hey', res)
     return res
+    
+def create_table_users():
+  """
+  creating table users
+  """
+  a = sql_util(create_table_users_string,[])
+  return a
+
+def delete_table_users():
+  """
+  deleting the table users
+  """
+  a = sql_util(drop_users_string, [])
+  return a
 
 # delete_user(1)
 
