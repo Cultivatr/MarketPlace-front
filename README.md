@@ -41,5 +41,7 @@ THIS STEP (#5) IS GONNA BE ONLY FOR LINUX USERS
 
 6. exit psql **\q**
 
-7. in server.js, comment out line 29, so that tables are persistent every time you run the server. 
+7. in server.js, comment out line 29, so that tables are persistent every time you run the server.
+/////////////////////////////////////////////////
+Admin email cultivatr3@gmail.com password cultivatr123@
 
