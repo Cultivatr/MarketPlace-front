@@ -1,6 +1,7 @@
 import React from 'react';
 import NavigationItem from './NavigationItem/NavigationItem';
 import styles from './NavigationItems.module.css';
+import GoogleAuth from '../../../GoogleAuth';
 
 const navigationItems = (props) => (
    <ul className={styles.list}>
@@ -16,6 +17,7 @@ const navigationItems = (props) => (
       <li>
          <NavigationItem link={'/contact-us'}>Contact Us</NavigationItem>
       </li>
+      <GoogleAuth/>
    </ul>
 )
 
