@@ -52,12 +52,47 @@ email
 values(%s,%s,%s)
   """
 
+update_users_string = """
+UPDATE users
+SET
+First_name = %s,
+Last_name = %s,
+Primary_phone = %s,
+Secondary_phone = %s,
+Email = %s,
+Farm_name = %s,
+Farm_location = %s,
+Area = %s,
+Is_producer = %s,
+Is_admin = %s,
+Is_other = %s,
+Member_since = %s,
+Farm_type = %s,
+Rating = %s,
+Mailing_street = %s,
+Mailing_city = %s,
+Mailing_province = %s,
+Mailing_country = %s,
+Mailing_postal_code = %s,
+Billing_street = %s,
+Billing_city = %s,
+Billing_province = %s,
+Billing_country = %s,
+Billing_postal_code = %s,
+User_comments = %s
+WHERE ID = %s;
+"""
+
 drop_users_string = """
 DROP TABLE users;
   """
 
-get_user_by_id_string = """
+get_all_users_string = """
 SELECT * FROM users;
+"""
+
+get_user_by_id_string = """
+SELECT * FROM users where id = %s;
 """
 
 def hello():
@@ -80,20 +115,6 @@ def init_users():
 #         insert_statement = [:-3]
 #         insert_statement += ");"
 
-
-# def add_user(user_dict):
-#     conn = psycopg2.connect(get_connect_string())
-#     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-
-#     cur.execute(insert_statement)
-#     user_dict = cur.fetchall()
-
-#     cur.close()
-#     conn.close()
-
-#     return user_dict
-
-
 def add_user(
     First_name,
     Last_name,
@@ -107,50 +128,40 @@ def add_user(
 
 def get_users():
     """
-    get a user by id
+    get all users
     """
-    sql_results = select(get_user_by_id_string, None)
+    sql_results = select(get_all_users_string, None)
     res = []
     for r in sql_results:
       res.append(user.User(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25]))
     return res
 
-# def delete_user(user_id):
-#     conn = psycopg2.connect(get_connect_string())
-#     cur = conn.cursor()
+def get_user(userID):
+    """
+    get a user by id
+    """
+    sql_results = select(get_user_by_id_string, [userID])
+    if sql_results:
+      r = sql_results[0]
+      return user.User(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25])
+    return None
 
-#     cur.execute(f"DELETE FROM users WHERE id={user_id};")
-#     conn.commit()
+# def delete_user(userID):
+#     """
+#     delete a user by id
+#     """
+#     return 0
 
-#     cur.close()
-#     conn.close()
+def update_user(first_name, last_name, p_number, s_number, email, f_name, f_location, area, is_producer, is_admin, is_other, member_since, f_type, rating, m_street, m_city, m_province, m_country, m_postal_code, b_street, b_city, b_province, b_country, b_postal_code, comments, userID):
+    """
+    update a user by id
+    """
+    sql_results = sql_util(update_users_string, [first_name, last_name, p_number, s_number, email, f_name, f_location, area, is_producer, is_admin, is_other, member_since, f_type, rating, m_street, m_city, m_province, m_country, m_postal_code, b_street, b_city, b_province, b_country, b_postal_code, comments, userID])
+    if sql_results:
+      r = sql_results[0]
+      return user.User(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25])
+    return None
 
-# def get_all_users():
-#     conn = psycopg2.connect(get_connect_string())
-#     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-#     cur.execute(f"SELECT * FROM users;")
-#     users_dict = cur.fetchall()
-
-#     cur.close()
-#     conn.close()
-
-#     return users_dict
-
-
-# def get_user(user_id):
-#     conn = psycopg2.connect(get_connect_string())
-#     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-#     cur.execute(f"SELECT * FROM users WHERE id={user_id};")
-#     user_dict = cur.fetchall()
-
-#     cur.close()
-#     conn.close()
-
-#     return user_dict
-
-
-# def update_user(user_dict, user_id):
-#     pass
 def select(sql, parms):
     """
     Execute standard sql statements.
@@ -162,7 +173,6 @@ def select(sql, parms):
         res = cur.execute(sql, parms)
         for r in cur:
             results.append(r)
-
     except:
         print('***We had a problem Huston...', sys.exc_info())
         traceback.print_exception(sys.exc_info()[0],sys.exc_info()[1],sys.exc_info()[2])
