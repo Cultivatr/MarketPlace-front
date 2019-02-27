@@ -28,7 +28,7 @@ class User(object):
 		self.comments = comments
 
 	def __str__(self):
-		return f'User=id: {self.id}, first name: {self.first_name}, last name: {self.last_name}, primary number: {self.p_number}, secondary number: {self.s_number}, email: {self.email}, farm name: {self.f_name}, farm location: {self.f_location}, area: {self.area}, is producer: {self.is_producer}, is admin: {self.is_admin}, is other: {self.is_other}, member since: {self.member_since}, farm type: {self.f_type}, rating: {self.rating}, mailing street: {self.m_street}, mailing city: {self.m_city}, mailing province: {self.m_province}, mailing country: {self.m_country}, mailing postal code: {self.m_postal_code}, billing street: {self.b_street}, billing city: {self.b_city}, billing province: {self.b_province}, billing country: {self.b_country}, billing postal code: {self.b_postal_code}, comments: {self.comments}'
+		return f'User-id: {self.id}, first name: {self.first_name}, last name: {self.last_name}, primary number: {self.p_number}, secondary number: {self.s_number}, email: {self.email}, farm name: {self.f_name}, farm location: {self.f_location}, area: {self.area}, is producer: {self.is_producer}, is admin: {self.is_admin}, is other: {self.is_other}, member since: {self.member_since}, farm type: {self.f_type}, rating: {self.rating}, mailing street: {self.m_street}, mailing city: {self.m_city}, mailing province: {self.m_province}, mailing country: {self.m_country}, mailing postal code: {self.m_postal_code}, billing street: {self.b_street}, billing city: {self.b_city}, billing province: {self.b_province}, billing country: {self.b_country}, billing postal code: {self.b_postal_code}, comments: {self.comments}'
 
 	def __repr__(self):
 		return self.__str__()

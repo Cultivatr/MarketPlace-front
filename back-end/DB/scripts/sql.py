@@ -4,6 +4,7 @@ import os
 import sys
 import traceback
 import user
+import offered_item
 
 # STRINGS FOR CREATING THE ENVIRONMENT
 default_connect = """
@@ -123,7 +124,77 @@ SELECT * FROM users where id = %s;
 create_table_offered_items_string = """
 DROP TABLE IF EXISTS offered_items CASCADE;
 
+CREATE TABLE offered_items (
+Id SERIAL PRIMARY KEY,
+users_id INT REFERENCES users ON DELETE RESTRICT,
+product_name TEXT,
+Quantity INT,
+Price_paid NUMERIC,
+Est_birthdate DATE,
+Registration_number INT,
+RFID_tag INT,
+Breed TEXT,
+Single_brand BOOLEAN,
+Starting_date_of_feed DATE,
+Type_of_feed TEXT,
+Est_completion_date DATE,
+Starting_weight NUMERIC,
+Est_finished_weight NUMERIC,
+Hanging_weight NUMERIC,
+Est_price_to_be_paid NUMERIC,
+Date_planted DATE,
+Seed_type TEXT,
+Heirloom BOOLEAN,
+GMO BOOLEAN,
+Fertilizer_type_used TEXT,
+Pesticide_type_used TEXT,
+Estimated_qty_planted NUMERIC,
+Estimated_finished_qty NUMERIC,
+Qty_accepted_for_listing NUMERIC,
+Qty_accepted_at_delivery NUMERIC,
+Chargebacks NUMERIC,
+Delivered_date DATE,
+Delivered_to TEXT
+);
+"""
 
+drop_offered_items_string = """
+DROP TABLE offered_items;
+"""
+
+add_offered_item_string = """
+INSERT INTO offered_items (
+users_id,
+product_name,
+Quantity,
+Price_paid,
+Est_birthdate,
+Registration_number,
+RFID_tag,
+Breed,
+Single_brand,
+Starting_date_of_feed,
+Type_of_feed,
+Est_completion_date,
+Starting_weight,
+Est_finished_weight,
+Hanging_weight,
+Est_price_to_be_paid,
+Date_planted,
+Seed_type,
+Heirloom,
+GMO,
+Fertilizer_type_used,
+Pesticide_type_used,
+Estimated_qty_planted,
+Estimated_finished_qty,
+Qty_accepted_for_listing,
+Qty_accepted_at_delivery,
+Chargebacks,
+Delivered_date,
+Delivered_to
+)
+VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
 """
 
 def hello():
@@ -132,7 +203,7 @@ def hello():
 def get_connect_string():
     return os.environ.get(db_env, default_connect)
 
-
+# FUNCTION FOR USERS
 def add_user(first_name, last_name, p_number, s_number, email, f_name, f_location, area, is_producer, is_admin, is_other, member_since, f_type, rating, m_street, m_city, m_province, m_country, m_postal_code, b_street, b_city, b_province, b_country, b_postal_code, comments):
     """
     insert a single user into the users table.
@@ -170,6 +241,15 @@ def update_user(first_name, last_name, p_number, s_number, email, f_name, f_loca
       return user.User(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25])
     return None
 
+# FUNCTIONS FOR OFFERED ITEMS
+def add_item_by_user_id(users_id,product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to):
+    """
+    add a item by the user id
+    """
+    sql_results = sql_util(add_offered_item_string, [users_id,product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to])
+    return sql_results
+
+# HELPER FUNCTIONS
 def select(sql, parms):
     """
     Execute standard sql statements.
@@ -214,11 +294,19 @@ def sql_util(sql, parm):
         conn.close()
     return res
 
+# CREATE AND DELETE TABLES
 def create_table_offered_items():
   """
   creating table offered items
   """
   a = sql_util(create_table_offered_items_string, [])
+  return a
+
+def delete_table_offered_items():
+  """
+  deleting the table users
+  """
+  a = sql_util(drop_offered_items_string, [])
   return a
     
 def create_table_users():
@@ -234,16 +322,6 @@ def delete_table_users():
   """
   a = sql_util(drop_users_string, [])
   return a
-
-# delete_user(1)
-
-# init_users()
-# print(get_user(2))
-# for user in get_all_users():
-#     for key in user:
-#         print(f"{key}:{user[key]}")
-#     print("###########ANOTHER USER################")
-
 
 # new_user = {
 #     "First_name": "Henry",
