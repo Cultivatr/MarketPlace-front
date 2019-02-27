@@ -37,7 +37,33 @@ class AddNewProdComp extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         // this.props.getFormData(this.state.data);
-        
+        fetch('http://localhost:5000/client', {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                billingAddressStreet: this.state.billingAddressStreet,
+                primaryNumber: this.state.primaryNumber,
+                secondaryNumber: this.state.secondaryNumber,
+                billingAddressCity: this.state.billingAddressCity,
+                billingAddressProvince: this.state.billingAddressProvince,
+                email: this.state.email,
+                billingAddressCountry: this.state.billingAddressCountry,
+                billingAddressPostalCode: this.state.billingAddressPostalCode,
+                farmName: this.state.farmName,
+                farmLocation: this.state.farmLocation,
+                mailingAddressStreet: this.state.mailingAddressStreet,
+                feedMethod: this.state.feedMethod,
+                area: this.state.area,
+                mailingAddressCity: this.state.mailingAddressCity,
+                mailingAddressProvince: this.state.mailingAddressProvince,
+                rating: this.state.rating,
+                mailingAddressCountry: this.state.mailingAddressCountry,
+                mailingAddressPostalCode: this.state.mailingAddressPostalCode,
+                comments: this.state.comments
+            })
+        })
     }
     
     render() {
