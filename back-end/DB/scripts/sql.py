@@ -5,11 +5,13 @@ import sys
 import traceback
 import user
 
+# STRINGS FOR CREATING THE ENVIRONMENT
 default_connect = """
 dbname=cultivatr user=evolveu
 """
 db_env = 'DATABASE_URL'
 
+# STRINGS FOR USERS TABLE
 create_table_users_string = """
 DROP TABLE IF EXISTS Users CASCADE;
 
@@ -45,11 +47,33 @@ CREATE TABLE Users (
 
 insert_users_string = """
 insert into users (
-first_name, 
-last_name, 
-email
+First_name,
+Last_name,
+Primary_phone,
+Secondary_phone,
+Email,
+Farm_name,
+Farm_location,
+Area,
+Is_producer,
+Is_admin,
+Is_other,
+Member_since,
+Farm_type,
+Rating,
+Mailing_street,
+Mailing_city,
+Mailing_province,
+Mailing_country,
+Mailing_postal_code,
+Billing_street,
+Billing_city,
+Billing_province,
+Billing_country,
+Billing_postal_code,
+User_comments
 ) 
-values(%s,%s,%s)
+values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
   """
 
 update_users_string = """
@@ -95,35 +119,25 @@ get_user_by_id_string = """
 SELECT * FROM users where id = %s;
 """
 
+# STRINGS FOR OFFERED ITEMS TABLE
+create_table_offered_items_string = """
+DROP TABLE IF EXISTS offered_items CASCADE;
+
+
+"""
+
 def hello():
     return 'hello world from SQL'
 
 def get_connect_string():
     return os.environ.get(db_env, default_connect)
-    # return os.environ.get('DATABASE_URL', 'xxx')
 
-def init_users():
-    r = sql_util(create_table_users_string, [])
 
-# insert_statement = "Insert into users("
-#   for key in user_dict:
-#       insert_statement += key + ","
-#     insert_statement = insert_statement[:-3]
-#     insert_statement += ")values("
-#        for key in user_dict:
-#             insert_statement += "'" + user_dict[key] + "',"
-#         insert_statement = [:-3]
-#         insert_statement += ");"
-
-def add_user(
-    First_name,
-    Last_name,
-    Email
-):
+def add_user(first_name, last_name, p_number, s_number, email, f_name, f_location, area, is_producer, is_admin, is_other, member_since, f_type, rating, m_street, m_city, m_province, m_country, m_postal_code, b_street, b_city, b_province, b_country, b_postal_code, comments):
     """
     insert a single user into the users table.
     """
-    a = sql_util(insert_users_string, [First_name, Last_name, Email])
+    a = sql_util(insert_users_string, [first_name, last_name, p_number, s_number, email, f_name, f_location, area, is_producer, is_admin, is_other, member_since, f_type, rating, m_street, m_city, m_province, m_country, m_postal_code, b_street, b_city, b_province, b_country, b_postal_code, comments])
     return a
 
 def get_users():
@@ -145,12 +159,6 @@ def get_user(userID):
       r = sql_results[0]
       return user.User(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25])
     return None
-
-# def delete_user(userID):
-#     """
-#     delete a user by id
-#     """
-#     return 0
 
 def update_user(first_name, last_name, p_number, s_number, email, f_name, f_location, area, is_producer, is_admin, is_other, member_since, f_type, rating, m_street, m_city, m_province, m_country, m_postal_code, b_street, b_city, b_province, b_country, b_postal_code, comments, userID):
     """
@@ -205,6 +213,13 @@ def sql_util(sql, parm):
         cur.close()
         conn.close()
     return res
+
+def create_table_offered_items():
+  """
+  creating table offered items
+  """
+  a = sql_util(create_table_offered_items_string, [])
+  return a
     
 def create_table_users():
   """

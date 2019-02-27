@@ -16,8 +16,8 @@ class TestSql(unittest.TestCase):
 
     def test_users(self):
         sql.create_table_users()
-        sql.add_user("Joe", "Bob", "test@gmail.com")
-        sql.add_user("Jim", "Greg", "test2@gmail.com")
+        sql.add_user("Joe", "Bob", "123-456-7890", "890-123-4567", "test@gmail.com", "jeff's farm", "calgary", "southern alberta", "TRUE", "TRUE", "TRUE", "2018-09-01", "livestock", "5", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "hellllooooo")
+        sql.add_user("Jim", "Greg", "123-456-7890", "890-123-4567", "test2@gmail.com", "jeff's farm", "calgary", "southern alberta", "TRUE", "TRUE", "TRUE", "2018-09-01", "livestock", "5", "none", "none", "none", "none", "none", "none", "none", "none", "none", "none", "hellllooooo")
         users=sql.get_users()
         self.assertEqual(2, len(users))
         self.assertEqual("Joe", users[0].first_name)
@@ -36,5 +36,8 @@ class TestSql(unittest.TestCase):
         self.assertEqual("jeff's farm", user.f_name)
         print(user.p_number)
         sql.delete_table_users()
+
+    def test_offered_items(self):
+        sql.create_table_offered_items()
     
 
