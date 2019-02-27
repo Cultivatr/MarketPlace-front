@@ -8,6 +8,32 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'secret'
 
+@app.route("/admin", methods=['GET','POST'])
+def add_new_user(''):
+    data: request.get_json('')
+    first_name: data.get('firstName')
+    last_name: data.get('lastName')
+    billing_street: data.get('billingAddressStreet')
+    primary_phone: data.get('primaryNumber')
+    secondary_phone: data.get('secondaryNumber')
+    billing_city: data.get('billingAddressCity')
+    billing_province: data.get('billingAddressProvince')
+    email: data.get('email')
+    billing_country: data.get('billingAddressCountry')
+    billing_postal_code: data.get('billingAddressPostalCode')
+    farm_name: data.get('farmName')
+    farm_location: data.get('farmLocation')
+    mailingAddressStreet: data.get('mailingAddressStreet')
+    feedMethod: data.get('feedMethod')
+    area: data.get('area')
+    mailing_city: data.get('mailingAddressCity')
+    mailing_province: data.get('mailingAddressProvince')
+    rating: data.get('rating')
+    mailing_country: data.get('mailingAddressCountry')
+    mailing_postal_code: data.get('mailingAddressPostalCode')
+    user_comments: data.get('comments')
+    return jsonify()
+
 @app.route("/all_items/<user_id>", methods=['GET'])
 def all_items(user_id):
 
@@ -19,7 +45,7 @@ def all_items(user_id):
 
 @app.route("/add_items/<user_id>", methods=['POST', 'GET'])
 def add_items(user_id):
-    data = request.get_json()
+    data = request.get_json('')
     user_id = data.get('userId')
     name = data.get('type')
     qty = data.get('quantity')
