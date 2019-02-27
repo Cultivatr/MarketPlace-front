@@ -3,35 +3,42 @@ import Class from './AddNewProdComp.module.css';
 
 class AddNewProdComp extends Component {
     state = {
-        // data: {
-        //         type: '',
-        //         breed: '',
-        //         birthdate: '',
-        //         regNumber: '',
-        //         rfid: '',
-        //         estStartingWeight: '',
-        //         hangingWeight: '',
-        //         chargebacks: '',
-        //         dateOnFeed: '',
-        //         feedMethod: '',
-        //         typeOfPasture: '',
-        //         typeOfFeed: '',
-        //         estCompletionDate: '',
-        //         estFinishedWeight: '',
-        //         estFinalPrice: ''
-        //     }
+        data: {
+            firstName: '',
+            lastName: '',
+            billingAddressStreet: '',
+            primaryNumber: '',
+            secondaryNumber: '',
+            billingAddressCity: '',
+            billingAddressProvince: '',
+            email: '',
+            billingAddressCountry: '',
+            billingAddressPostalCode: '',
+            farmName: '',
+            farmLocation: '',
+            mailingAddressStreet: '',
+            feedMethod: '',
+            area: '',
+            mailingAddressCity: '',
+            mailingAddressProvince: '',
+            rating: '',
+            mailingAddressCountry: '',
+            mailingAddressPostalCode: '',
+            comments: ''
+        }
     }
 
-    // onChange = (e) => {
-    //     let data = this.state.data;
-    //     let newdata = { ...data, [e.target.name]: e.target.value }
-    //     this.setState({ data: newdata })
-    // }
+    onChange = (e) => {
+        let data = this.state.data;
+        let newdata = { ...data, [e.target.name]: e.target.value };
+        this.setState({ data: newdata });
+    }
 
-    // onSubmit = (e) => {
-    //     e.preventDefault();
-    //     this.props.getFormData(this.state.data);
-    // }
+    onSubmit = (e) => {
+        e.preventDefault();
+        // this.props.getFormData(this.state.data);
+        
+    }
     
     render() {
         return (
@@ -248,7 +255,7 @@ class AddNewProdComp extends Component {
                     <div className={Class.field}>
                         <div className="field">
                             <label>Comments</label>
-                            <textarea placeholder="Tell us more" rows="3"></textarea>
+                            <textarea onChange={this.onChange} placeholder="Tell us more" rows="3" name="comments"></textarea>
                         </div>
                     </div>
                 </div>
