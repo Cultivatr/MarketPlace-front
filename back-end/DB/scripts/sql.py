@@ -3,8 +3,8 @@ import psycopg2.extras
 import os
 import sys
 import traceback
-# import user
-# import offered_item
+from . import user
+from . import offered_item
 
 # STRINGS FOR CREATING THE ENVIRONMENT
 default_connect = """

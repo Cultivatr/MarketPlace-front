@@ -1,25 +1,35 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from datetime import datetime
-import server_func
+import os
+# import server_func
 import simplejson as json
 from DB.scripts import sql as sql
 app = Flask(__name__)
+app.secret_key = os.urandom(16)
 CORS(app, supports_credentials=True)
 
 
-app.config['SECRET_KEY'] = 'secret'
+# app.config['SECRET_KEY'] = 'secret'
+
 
 @app.route("/admin", methods=['GET','POST'])
+# @cross_origin(supports_credentials=True)
 def add_new_user():
     data = request.get_json()
-    first_name = data.get('firstName')
-    last_name = data.get('lastName')
-    p_number = data.get('primaryNumber')
+    print(f'data========== {data}')
+    print(f'request.method=========== {request.method}')
+    print(f'request.cookies======== {request.cookies}')
+    print(f'request.data========== {request.data}')
+    print(f'request=========== {request}')
+    firstName = data.get('firstName')
+    print(f'firstName=========== {firstName}' )
+    lastName = data.get('lastName')
+    primaryNumber = data.get('primaryNumber')
     s_number = data.get('secondaryNumber')
     email = data.get('email')
-    f_name = data.get('farmName')
-    f_location = data.get('farmLocation')
+    farmName = data.get('farmName')
+    farmLocation = data.get('farmLocation')
     area = data.get('area')
     f_type = data.get('farmType')
     rating = data.get('rating')
@@ -34,7 +44,9 @@ def add_new_user():
     b_country = data.get('billingAddressCountry')
     b_postal_code = data.get('billingAddressPostalCode')
     comments = data.get('comments')
-    
+    is_admin = data.get('isAdmin')
+    is_producer = data.get('isProducer')
+    is_other = data.get('isOther')
     query = sql.add_user(
         first_name,
         last_name,
@@ -45,6 +57,9 @@ def add_new_user():
         f_name,
         f_location,
         area,
+        is_producer,
+        is_admin,
+        is_other,
         f_type,
         rating,
         m_street,
@@ -59,7 +74,8 @@ def add_new_user():
         b_postal_code,
         comments
         )
-    return jsonify(query);
+    print(f'query {query}')
+    return jsonify(query)
 
 @app.route("/all_items/<user_id>", methods=['GET'])
 def all_items(user_id):
