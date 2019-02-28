@@ -154,7 +154,8 @@ Qty_accepted_for_listing NUMERIC,
 Qty_accepted_at_delivery NUMERIC,
 Chargebacks NUMERIC,
 Delivered_date DATE,
-Delivered_to TEXT
+Delivered_to TEXT,
+Status TEXT
 );
 """
 
@@ -192,9 +193,10 @@ Qty_accepted_for_listing,
 Qty_accepted_at_delivery,
 Chargebacks,
 Delivered_date,
-Delivered_to
+Delivered_to,
+Status
 )
-VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
 """
 
 get_offered_items_by_id_string = """
@@ -240,7 +242,8 @@ Qty_accepted_for_listing = %s,
 Qty_accepted_at_delivery = %s,
 Chargebacks = %s,
 Delivered_date = %s,
-Delivered_to = %s
+Delivered_to = %s,
+Status = %s
 WHERE ID = %s;
 """
 
@@ -289,11 +292,11 @@ def update_user(first_name, last_name, p_number, s_number, email, f_name, f_loca
     return None
 
 # FUNCTIONS FOR OFFERED ITEMS
-def add_item_by_user_id(users_id,product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to):
+def add_item_by_user_id(users_id,product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to,Status):
     """
     add a item by the user id
     """
-    sql_results = sql_util(add_offered_item_string, [users_id,product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to])
+    sql_results = sql_util(add_offered_item_string, [users_id,product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to,Status])
     return sql_results
 
 def get_offered_items_by_id(userID):
@@ -303,7 +306,7 @@ def get_offered_items_by_id(userID):
     sql_results = select(get_offered_items_by_id_string, [userID])
     res=[]
     for r in sql_results:
-      res.append(offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29]))
+      res.append(offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29], r[30]))
     return res
 
 def get_offered_items_details_by_id(itemID):
@@ -313,7 +316,7 @@ def get_offered_items_details_by_id(itemID):
     sql_results = select(get_offered_items_detail_by_id_string, [itemID])
     if sql_results:
       r = sql_results[0]
-      return offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29])
+      return offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29], r[30])
     return None
 
 def get_all_offered_items():
@@ -323,17 +326,17 @@ def get_all_offered_items():
     sql_results = select(get_all_offered_items_string, None)
     res = []
     for r in sql_results:
-      res.append(offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29]))
+      res.append(offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29], r[30]))
     return res
 
-def update_offered_items_detail(Users_id,Product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to, ItemID):
+def update_offered_items_detail(Users_id,Product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to,Status, ItemID):
     """
     updating the details for offered items
     """
-    sql_results = sql_util(update_offered_items_details_string, [Users_id,Product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to, ItemID])
+    sql_results = sql_util(update_offered_items_details_string, [Users_id,Product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to,Status, ItemID])
     if sql_results:
       r = sql_results[0]
-      return offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29])
+      return offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29], r[30])
     return None
 
 # HELPER FUNCTIONS
