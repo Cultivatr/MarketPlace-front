@@ -198,6 +198,10 @@ VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,
 """
 
 get_offered_items_by_id_string = """
+SELECT * FROM Offered_items WHERE Users_id = %s;
+"""
+
+get_offered_items_detail_by_id_string="""
 SELECT * FROM Offered_items WHERE ID = %s;
 """
 
@@ -262,6 +266,17 @@ def get_offered_items_by_id(userID):
     for r in sql_results:
       res.append(offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29]))
     return res
+
+def get_offered_items_details_by_id(itemID):
+    """
+    get a offered item by offered item id
+    """
+    sql_results = select(get_offered_items_detail_by_id_string, [itemID])
+    if sql_results:
+      r = sql_results[0]
+      return offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29])
+    return None
+
 
 # HELPER FUNCTIONS
 def select(sql, parms):
