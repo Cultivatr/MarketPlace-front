@@ -28,3 +28,10 @@ export function getItemDetails(id, data) {
   return item;  
 }
 
+export function getUserDetails(id, data) {
+  let user = data.find((userInfo) => {
+              return userInfo.id === id;
+  })
+  return user;  
+}
+

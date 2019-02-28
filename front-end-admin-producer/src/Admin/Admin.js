@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Class from './admin.module.css';
 import ContainerDashboard from './Components/ContainerDashboard/ContainerDashboard';
-import { filterData, getItemDetails } from '../AppUtils';
+import { filterData, getItemDetails, getUserDetails } from '../AppUtils';
 import ItemDetailComp from './Components/ItemDetailComp/ItemDetailComp';
 import AddNewProdComp from './Components/AddNewProdComp/AddNewProdComp';
+import ProducersComp from './Components/ProducersComp/ProducersComp';
+import UserDetailComp from './Components/UserDetailComp/UserDetailComp';
 
 class Admin extends Component {
   constructor() {
@@ -16,6 +18,7 @@ class Admin extends Component {
     this.state = {
       dataToShow: '',
       itemDetails: {},
+      userDetails:{},
       data: [{
         "farm": "jk farms",
         "product": "steak",
@@ -114,11 +117,17 @@ class Admin extends Component {
 
   removeOverlay = (event) => {
     document.getElementById("itemOverlay").style.display = "none";
-    }
+    document.getElementById("userOverlay").style.display = "none";
+  }
 
   getItemObj = (e) => {
     this.setState({ itemDetails: getItemDetails(parseInt(e.target.id), this.state.data) });
     document.getElementById("itemOverlay").style.display = "block";
+  }
+
+  getProducerObj = (e) => {
+    this.setState({ userDetails: getUserDetails(parseInt(e.target.id), this.state.data) });
+    document.getElementById("userOverlay").style.display = "block";
   }
 
   OnClickAccept = () => {
@@ -141,8 +150,12 @@ class Admin extends Component {
     this.setState({ dataToShow: 'notAccepted' });
   }
 
-  OnClickNewProd = () => {
-    this.setState({ dataToShow: 'addNewProd' });
+  OnClickListUsers = () => {
+    this.setState({ dataToShow: 'listUsers' });
+  }
+
+  OnClickAddUser = () => {
+    this.setState({ dataToShow: 'addNewProd' })
   }
 
   render() {
@@ -192,11 +205,21 @@ class Admin extends Component {
         <ContainerDashboard data={this.notAccepted} itemObj={this.getItemObj}/>
       </div>
     }
+    else if (this.state.dataToShow === 'listUsers') {
+      toShow = 
+      <div className={Class.container2}>
+        <div className={Class.containerTitle}>
+          <h4><u>Users In The System</u></h4>
+          <button onClick={this.OnClickAddUser}>Add User</button>
+        </div>
+        <ProducersComp data={this.users} producerObj={this.getProducerObj}/>
+      </div>
+    }
     else if (this.state.dataToShow === 'addNewProd') {
       toShow = 
       <div className={Class.container3}>
         <div className={Class.containerTitle}>
-          <h4><u>Add New User</u></h4>
+          <h4><u>Add New Users</u></h4>
         </div>
         <AddNewProdComp />
       </div>
@@ -206,6 +229,7 @@ class Admin extends Component {
         <h1 className={Class.heading}>Welcome Dan!</h1>
         <main>
           <ItemDetailComp itemDetails={this.state.itemDetails} removeOverlay={this.removeOverlay}/>
+          <UserDetailComp userDetails={this.state.userDetails} removeOverlay={this.removeOverlay} />
           <div className={Class.container}>
             <div className={Class.boxContainer}>
               <div className={Class.leftNav}>
@@ -214,7 +238,7 @@ class Admin extends Component {
                 <button id="button-sold" className={Class.buttonAdmin}onClick={this.OnClickSold}>Sold To Be Delivered</button>
                 <button id="button-delivered" className={Class.buttonAdmin} onClick={this.OnClickDelivered}>Delivered</button>
                 <button id="button-notAccepted" className={Class.buttonAdmin} onClick={this.OnClickNotAccepted}>Items Not Accepted</button>
-                <button id="button-newProducer" className={Class.buttonAdmin} onClick={this.OnClickNewProd}>Add New Producer</button>
+                <button id="button-listUsers" className={Class.buttonAdmin} onClick={this.OnClickListUsers}>List Users</button>
               </div>
               <div className={Class.container1}>
                 {toShow}
