@@ -1,4 +1,4 @@
-import { filterData, getIdData, getItemDetails } from "./AppUtils";
+import { filterData, getUserDetails, getItemDetails } from "./AppUtils";
 
 const db =   
     [
