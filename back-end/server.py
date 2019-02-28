@@ -3,36 +3,62 @@ from flask_cors import CORS
 from datetime import datetime
 import server_func
 import simplejson as json
+from DB.scripts import sql as sql
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'secret'
 
 @app.route("/admin", methods=['GET','POST'])
-def add_new_user(''):
-    data: request.get_json('')
-    first_name: data.get('firstName')
-    last_name: data.get('lastName')
-    billing_street: data.get('billingAddressStreet')
-    primary_phone: data.get('primaryNumber')
-    secondary_phone: data.get('secondaryNumber')
-    billing_city: data.get('billingAddressCity')
-    billing_province: data.get('billingAddressProvince')
-    email: data.get('email')
-    billing_country: data.get('billingAddressCountry')
-    billing_postal_code: data.get('billingAddressPostalCode')
-    farm_name: data.get('farmName')
-    farm_location: data.get('farmLocation')
-    mailingAddressStreet: data.get('mailingAddressStreet')
-    feedMethod: data.get('feedMethod')
-    area: data.get('area')
-    mailing_city: data.get('mailingAddressCity')
-    mailing_province: data.get('mailingAddressProvince')
-    rating: data.get('rating')
-    mailing_country: data.get('mailingAddressCountry')
-    mailing_postal_code: data.get('mailingAddressPostalCode')
-    user_comments: data.get('comments')
-    return jsonify()
+def add_new_user():
+    data = request.get_json()
+    first_name = data.get('firstName')
+    last_name = data.get('lastName')
+    p_number = data.get('primaryNumber')
+    s_number = data.get('secondaryNumber')
+    email = data.get('email')
+    f_name = data.get('farmName')
+    f_location = data.get('farmLocation')
+    area = data.get('area')
+    f_type = data.get('farmType')
+    rating = data.get('rating')
+    m_street = data.get('mailingAddressStreet')
+    m_city = data.get('mailingAddressCity')
+    m_province = data.get('mailingAddressProvince')
+    m_country = data.get('mailingAddressCountry')
+    m_postal_code = data.get('mailingAddressPostalCode')
+    b_street = data.get('billingAddressStreet')
+    b_city = data.get('billingAddressCity')
+    b_province = data.get('billingAddressProvince')
+    b_country = data.get('billingAddressCountry')
+    b_postal_code = data.get('billingAddressPostalCode')
+    comments = data.get('comments')
+    
+    query = sql.add_user(
+        first_name,
+        last_name,
+        p_number,
+        s_number,
+        last_name,
+        email,
+        f_name,
+        f_location,
+        area,
+        f_type,
+        rating,
+        m_street,
+        m_city,
+        m_province,
+        m_country,
+        m_postal_code,
+        b_street,
+        b_city,
+        b_province,
+        b_country,
+        b_postal_code,
+        comments
+        )
+    return jsonify(query);
 
 @app.route("/all_items/<user_id>", methods=['GET'])
 def all_items(user_id):

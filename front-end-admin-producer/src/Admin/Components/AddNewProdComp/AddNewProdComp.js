@@ -16,6 +16,7 @@ class AddNewProdComp extends Component {
             billingAddressPostalCode: '',
             farmName: '',
             farmLocation: '',
+            farmType: '',
             mailingAddressStreet: '',
             feedMethod: '',
             area: '',
@@ -36,34 +37,39 @@ class AddNewProdComp extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        // this.props.getFormData(this.state.data);
-        fetch('http://localhost:5000/client', {
+        // console.log(this.state.data)
+        fetch('http://localhost:5000/admin', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
-                billingAddressStreet: this.state.billingAddressStreet,
-                primaryNumber: this.state.primaryNumber,
-                secondaryNumber: this.state.secondaryNumber,
-                billingAddressCity: this.state.billingAddressCity,
-                billingAddressProvince: this.state.billingAddressProvince,
-                email: this.state.email,
-                billingAddressCountry: this.state.billingAddressCountry,
-                billingAddressPostalCode: this.state.billingAddressPostalCode,
-                farmName: this.state.farmName,
-                farmLocation: this.state.farmLocation,
-                mailingAddressStreet: this.state.mailingAddressStreet,
-                feedMethod: this.state.feedMethod,
-                area: this.state.area,
-                mailingAddressCity: this.state.mailingAddressCity,
-                mailingAddressProvince: this.state.mailingAddressProvince,
-                rating: this.state.rating,
-                mailingAddressCountry: this.state.mailingAddressCountry,
-                mailingAddressPostalCode: this.state.mailingAddressPostalCode,
-                comments: this.state.comments
+                firstName: this.state.data.firstName,
+                lastName: this.state.data.lastName,
+                billingAddressStreet: this.state.data.billingAddressStreet,
+                primaryNumber: this.state.data.primaryNumber,
+                secondaryNumber: this.state.data.secondaryNumber,
+                billingAddressCity: this.state.data.billingAddressCity,
+                billingAddressProvince: this.state.data.billingAddressProvince,
+                email: this.state.data.email,
+                billingAddressCountry: this.state.data.billingAddressCountry,
+                billingAddressPostalCode: this.state.data.billingAddressPostalCode,
+                farmName: this.state.data.farmName,
+                farmLocation: this.state.data.farmLocation,
+                mailingAddressStreet: this.state.data.mailingAddressStreet,
+                feedMethod: this.state.data.feedMethod,
+                area: this.state.data.area,
+                mailingAddressCity: this.state.data.mailingAddressCity,
+                mailingAddressProvince: this.state.data.mailingAddressProvince,
+                rating: this.state.data.rating,
+                mailingAddressCountry: this.state.data.mailingAddressCountry,
+                mailingAddressPostalCode: this.state.data.mailingAddressPostalCode,
+                comments: this.state.data.comments
             })
         })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+        .catch(error => console.log(error))
     }
     
     render() {
@@ -184,7 +190,7 @@ class AddNewProdComp extends Component {
                     <div className={Class.field}>
                         <div className='field'>
                             <label>Farm Type</label>
-                            <select onChange={this.onChange} name="feedMethod" multiple="" className="ui fluid dropdown">
+                            <select onChange={this.onChange} name="farmMethod" multiple="" className="ui fluid dropdown">
                                 <option value="">Please choose an option</option>
                                 <option value="liveStock">Live Stock</option>
                                 <option value="produce">Produce</option>
