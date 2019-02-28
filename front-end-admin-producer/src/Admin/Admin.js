@@ -209,10 +209,7 @@ class Admin extends Component {
       toShow = 
       <div className={Class.container2}>
         <div className={Class.containerTitle}>
-          <div>
-            <button className={Class.buttonAddUser} onClick={this.OnClickAddUser}>Add User</button>
-          </div>
-          <h4><u>Users In The System</u></h4>
+          <button className={Class.buttonAddUser} onClick={this.OnClickAddUser}>Add User</button>
         </div>
         <UsersComp data={this.users} producerObj={this.getProducerObj}/>
       </div>

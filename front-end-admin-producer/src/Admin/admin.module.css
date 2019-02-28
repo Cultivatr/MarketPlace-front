@@ -50,7 +50,7 @@
  .containerTitle {
    height: 5%;
    display: flex;
-   justify-content: center;
+   justify-content: space-between;
    align-items: center;
  }
  
@@ -104,12 +104,12 @@
   color:white;
   border-radius: .28571429rem;
   font-weight: 700;
-  margin: 10px .25em 0 10px;
-  padding: .78571429em 1.5em .78571429em;
+  margin: 0px .25em 0 20px;
+  padding: .5em 1.5em .5em;
   font-family: 'Lato','Helvetica Neue',Arial,Helvetica,sans-serif;
   line-height: 1em;
   border: none;
-  width: 10%;
+  width: 8%;
   cursor: pointer;
 }
 

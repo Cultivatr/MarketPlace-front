@@ -21,7 +21,7 @@ class UsersComp extends Component {
             String(row[filter.id]) === filter.value}
           columns={[
             {
-              Header: "click on headers to sort or type to filter",
+              Header: "LIST OF USERS",
               columns: [
                 {
                   Header: "User ID",
