@@ -370,9 +370,6 @@ def sql_util(sql, parm):
         conn = psycopg2.connect(get_connect_string(), sslmode='require')
         cur = conn.cursor()
         res = cur.execute(sql, parm)
-        # This may return the id of an inserted row
-        # for r in cur:
-        # 	results.append(r)
         conn.commit()
     except:
         print('***We had a problem Huston...', sys.exc_info())
@@ -412,12 +409,3 @@ def delete_table_users():
   """
   a = sql_util(drop_users_string, [])
   return a
-
-# new_user = {
-#     "First_name": "Henry",
-#     "Last_name": "Ford",
-#     "Primary_phone": '123-567-89-89',
-#     "Secondary_phone": '587-908-78-65',
-#     "Email": "ford@anything.com",
-#     "Farm_name": "Ford Farm"
-# }
