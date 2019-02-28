@@ -209,6 +209,41 @@ get_all_offered_items_string="""
 SELECT * FROM Offered_items
 """
 
+update_offered_items_details_string="""
+UPDATE Offered_items
+SET
+Users_id = %s,
+Product_name = %s,
+Quantity = %s,
+Price_paid = %s,
+Est_birthdate = %s,
+Registration_number = %s,
+RFID_tag = %s,
+Breed = %s,
+Single_brand = %s,
+Starting_date_of_feed = %s,
+Type_of_feed = %s,
+Est_completion_date = %s,
+Starting_weight = %s,
+Est_finished_weight = %s,
+Hanging_weight = %s,
+Est_price_to_be_paid = %s,
+Date_planted = %s,
+Seed_type = %s,
+Heirloom = %s,
+GMO = %s,
+Fertilizer_type_used = %s,
+Pesticide_type_used = %s,
+Estimated_qty_planted = %s,
+Estimated_finished_qty = %s,
+Qty_accepted_for_listing = %s,
+Qty_accepted_at_delivery = %s,
+Chargebacks = %s,
+Delivered_date = %s,
+Delivered_to = %s
+WHERE ID = %s;
+"""
+
 def hello():
     return 'hello world from SQL'
 
@@ -291,6 +326,15 @@ def get_all_offered_items():
       res.append(offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29]))
     return res
 
+def update_offered_items_detail(Users_id,Product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to, ItemID):
+    """
+    updating the details for offered items
+    """
+    sql_results = sql_util(update_offered_items_details_string, [Users_id,Product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to, ItemID])
+    if sql_results:
+      r = sql_results[0]
+      return offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29])
+    return None
 
 # HELPER FUNCTIONS
 def select(sql, parms):
