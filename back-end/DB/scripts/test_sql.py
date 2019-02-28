@@ -51,6 +51,9 @@ class TestSql(unittest.TestCase):
         offered_items_detail=sql.get_offered_items_details_by_id(2)
         print(offered_items_detail)
         self.assertEqual("Pig", offered_items_detail.Product_name)
+        all_offered_items=sql.get_all_offered_items()
+        print(all_offered_items)
+        self.assertEqual(3, len(all_offered_items))
         sql.delete_table_offered_items()
         sql.delete_table_users()
 
