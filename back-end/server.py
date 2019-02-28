@@ -4,8 +4,9 @@ from datetime import datetime
 import server_func
 import simplejson as json
 from DB.scripts import sql as sql
-
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
+
 
 app.config['SECRET_KEY'] = 'secret'
 
