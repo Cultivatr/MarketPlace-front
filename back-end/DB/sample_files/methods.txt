@@ -28,4 +28,17 @@ Remaining Methods required
 
 ** MAINTENANCE
 - UPDATE README FOR BACKEND (WINDOWS, MAC, LINUX)
-- 
+
+
+cur.execute(f'SELECT * FROM offered_item where user_id = {id};')
+    # select statement will need to be refactored
+    # sql statement from node file is as follows:
+    # `SELECT OFFERED_ITEM.*, STATUS_TRACKER.*, R_STATUS.STATUS_NAME \
+    # FROM OFFERED_ITEM \
+    # FULL JOIN STATUS_TRACKER \
+    # ON OFFERED_ITEM.ID = STATUS_TRACKER.OFFER_ID \
+    # INNER JOIN R_STATUS \
+    # ON STATUS_TRACKER.STATUS_ID = R_STATUS.ID \
+    # WHERE USER_ID = ${user_id} \
+    # AND END_DATE IS NULL;
+    # above is not for MVP but will be required to keep history of offered items and status

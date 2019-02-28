@@ -47,7 +47,7 @@ CREATE TABLE Users (
 """
 
 insert_users_string = """
-insert into users (
+INSERT INTO Users (
 First_name,
 Last_name,
 Primary_phone,
@@ -74,11 +74,11 @@ Billing_country,
 Billing_postal_code,
 User_comments
 ) 
-values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
   """
 
 update_users_string = """
-UPDATE users
+UPDATE Users
 SET
 First_name = %s,
 Last_name = %s,
@@ -109,25 +109,25 @@ WHERE ID = %s;
 """
 
 drop_users_string = """
-DROP TABLE users;
+DROP TABLE Users;
   """
 
 get_all_users_string = """
-SELECT * FROM users;
+SELECT * FROM Users;
 """
 
 get_user_by_id_string = """
-SELECT * FROM users where id = %s;
+SELECT * FROM Users WHERE ID = %s;
 """
 
 # STRINGS FOR OFFERED ITEMS TABLE
 create_table_offered_items_string = """
-DROP TABLE IF EXISTS offered_items CASCADE;
+DROP TABLE IF EXISTS Offered_items CASCADE;
 
-CREATE TABLE offered_items (
+CREATE TABLE Offered_items (
 Id SERIAL PRIMARY KEY,
-users_id INT REFERENCES users ON DELETE RESTRICT,
-product_name TEXT,
+Users_id INT REFERENCES Users ON DELETE RESTRICT,
+Product_name TEXT,
 Quantity INT,
 Price_paid NUMERIC,
 Est_birthdate DATE,
@@ -159,13 +159,13 @@ Delivered_to TEXT
 """
 
 drop_offered_items_string = """
-DROP TABLE offered_items;
+DROP TABLE Offered_items;
 """
 
 add_offered_item_string = """
-INSERT INTO offered_items (
-users_id,
-product_name,
+INSERT INTO Offered_items (
+Users_id,
+Product_name,
 Quantity,
 Price_paid,
 Est_birthdate,
@@ -195,6 +195,10 @@ Delivered_date,
 Delivered_to
 )
 VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+"""
+
+get_offered_items_by_id_string = """
+SELECT * FROM Offered_items WHERE ID = %s;
 """
 
 def hello():
@@ -248,6 +252,16 @@ def add_item_by_user_id(users_id,product_name,Quantity,Price_paid,Est_birthdate,
     """
     sql_results = sql_util(add_offered_item_string, [users_id,product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to])
     return sql_results
+
+def get_offered_items_by_id(userID):
+    """
+    get a offered items by id
+    """
+    sql_results = select(get_offered_items_by_id_string, [userID])
+    res=[]
+    for r in sql_results:
+      res.append(offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29]))
+    return res
 
 # HELPER FUNCTIONS
 def select(sql, parms):
