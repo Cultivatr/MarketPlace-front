@@ -4,7 +4,7 @@ import ContainerDashboard from './Components/ContainerDashboard/ContainerDashboa
 import { filterData, getItemDetails, getUserDetails } from '../AppUtils';
 import ItemDetailComp from './Components/ItemDetailComp/ItemDetailComp';
 import AddNewProdComp from './Components/AddNewProdComp/AddNewProdComp';
-import ProducersComp from './Components/ProducersComp/ProducersComp';
+import UsersComp from './Components/UsersComp/UsersComp';
 import UserDetailComp from './Components/UserDetailComp/UserDetailComp';
 
 class Admin extends Component {
@@ -209,10 +209,12 @@ class Admin extends Component {
       toShow = 
       <div className={Class.container2}>
         <div className={Class.containerTitle}>
+          <div>
+            <button className={Class.buttonAddUser} onClick={this.OnClickAddUser}>Add User</button>
+          </div>
           <h4><u>Users In The System</u></h4>
-          <button onClick={this.OnClickAddUser}>Add User</button>
         </div>
-        <ProducersComp data={this.users} producerObj={this.getProducerObj}/>
+        <UsersComp data={this.users} producerObj={this.getProducerObj}/>
       </div>
     }
     else if (this.state.dataToShow === 'addNewProd') {

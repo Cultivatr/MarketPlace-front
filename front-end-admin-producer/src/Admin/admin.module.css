@@ -99,6 +99,24 @@
   background-color: rgb(37, 228, 152);
 } 
 
+.buttonAddUser{
+  background-color: #1ECE88;
+  color:white;
+  border-radius: .28571429rem;
+  font-weight: 700;
+  margin: 10px .25em 0 10px;
+  padding: .78571429em 1.5em .78571429em;
+  font-family: 'Lato','Helvetica Neue',Arial,Helvetica,sans-serif;
+  line-height: 1em;
+  border: none;
+  width: 10%;
+  cursor: pointer;
+}
+
+.buttonAdmin:hover{
+ background-color: rgb(37, 228, 152);
+} 
+
 .rt-resizable-header-content {
   font-weight: 700;
   font-size: 15px;
