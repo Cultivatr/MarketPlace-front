@@ -18,7 +18,6 @@ class Admin extends Component {
     this.state = {
       dataToShow: '',
       itemDetails: {},
-      userDetails:{},
       users:[],
       data: [{
         "farm": "jk farms",
@@ -217,7 +216,7 @@ class Admin extends Component {
         <div className={Class.containerTitle}>
           <button className={Class.buttonAddUser} onClick={this.OnClickAddUser}>Add User</button>
         </div>
-        <UsersComp data={this.state.users}/>
+        <UsersComp data={this.state.users} removeOverlay={this.removeOverlay}/>
       </div>
     }
     else if (this.state.dataToShow === 'addNewProd') {
@@ -234,7 +233,6 @@ class Admin extends Component {
         <h1 className={Class.heading}>Welcome Dan!</h1>
         <main>
           <ItemDetailComp itemDetails={this.state.itemDetails} removeOverlay={this.removeOverlay}/>
-          <UserDetailComp userDetails={this.state.userDetails} removeOverlay={this.removeOverlay} />
           <div className={Class.container}>
             <div className={Class.boxContainer}>
               <div className={Class.leftNav}>

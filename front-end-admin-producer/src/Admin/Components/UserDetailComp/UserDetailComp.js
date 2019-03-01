@@ -4,88 +4,71 @@ import "./userDetailComp.css"
 
 class UserDetailComp extends Component {
     render() {
+        const { id, first_name, last_name, p_number, s_number, email, f_name, f_location,
+                area, is_producer, is_admin, is_other, member_since, f_type, rating,
+                m_street, m_city, m_province, m_country, m_postal_code,
+                b_street, b_city, b_province, b_country, b_postal_code, comments } = this.props.userDetails;
         return (
             <div id="userOverlay">
                 <div className={Class.itemDetailContainer}>
                     <div className={Class.tableHeader}>
-                        <h4 className="ui horizontal divider header">{this.props.userDetails.farm} | User #<i>{this.props.userDetails.id}</i></h4>
+                        <h4 className="ui horizontal divider header">{first_name} {last_name} | User #<i>{id}</i></h4>
                     </div>
                     <div className={Class.userTable}>
                         <table className="ui definition table">
                         <tbody>
                             <tr>
-                                <td className="two wide column">Type</td>
-                                <td>{this.props.userDetails.product}</td>
+                                <td className="two wide column">Primary Number</td>
+                                <td>{p_number}</td>
                             </tr>
                             <tr>
-                                <td>Breed</td>
-                                <td>Angus</td>
+                                <td>Second Number</td>
+                                <td>{s_number}</td>
                             </tr>
                             <tr>
-                                <td>Birthdate</td>
-                                <td>Sept 20, 2017</td>
+                                <td>Email</td>
+                                <td>{email}</td>
                             </tr>
                             <tr>
-                                <td>Registration Number</td>
-                                <td>12345</td>
+                                <td>Member Since</td>
+                                <td>{member_since}</td>
                             </tr>
                             <tr>
-                                <td>RFID Tag</td>
-                                <td>12345</td>
+                                <td>Farm Name</td>
+                                <td>{f_name}</td>
                             </tr>
                             <tr>
-                                <td>Est. Starting Weight</td>
-                                <td>500lbs</td>
+                                <td>Area</td>
+                                <td>{area}</td>
                             </tr>
                             <tr>
-                                <td>Date on Feed</td>
-                                <td>Sept 20, 2017</td>
+                                <td>Farm Location</td>
+                                <td>{f_location}</td>
                             </tr>
                             <tr>
-                                <td>Feed Method</td>
-                                <td>Grass and Grain Finished</td>
+                                <td>Farm Type</td>
+                                <td>{f_type}</td>
                             </tr>
                             <tr>
-                                <td>Type of Pasture</td>
-                                <td>---</td>
+                                <td>Mailing Address</td>
+                                <td>Street: {m_street} City: {m_city} Province: {m_province} Postal Code: {m_postal_code} Country: {m_country}</td>
                             </tr>
                             <tr>
-                                <td>Type of Feed</td>
-                                <td>Grain</td>
+                                <td>Billing Address</td>
+                                <td>Street: {b_street} City: {b_city} Province: {b_province} Postal Code: {b_postal_code} Country: {b_country}</td>
                             </tr>
                             <tr>
-                                <td>Est. Completion Date</td>
-                                <td>Dec 20, 2018</td>
+                                <td>Rating</td>
+                                <td>{rating}</td>
                             </tr>
                             <tr>
-                                <td>Est. Finished Date</td>
-                                <td>Jan 15, 2019</td>
+                                <td>Authorization</td>
+                                <td>Administrator: {is_admin} Producer: {is_producer} Both: {is_other}</td>
                             </tr>
                             <tr>
-                                <td>Status</td>
-                                <td>{this.props.userDetails.status}</td>
+                                <td>Comments</td>
+                                <td>{comments}</td>
                             </tr>
-                            <tr>
-                                <td>Status</td>
-                                <td>{this.props.userDetails.status}</td>
-                            </tr>
-                            <tr>
-                                <td>Status</td>
-                                <td>{this.props.userDetails.status}</td>
-                            </tr>
-                            <tr>
-                                <td>Status</td>
-                                <td>{this.props.userDetails.status}</td>
-                            </tr>
-                            <tr>
-                                <td>Status</td>
-                                <td>{this.props.userDetails.status}</td>
-                            </tr>
-                            <tr>
-                                <td>Status</td>
-                                <td>{this.props.userDetails.status}</td>
-                            </tr>
-                            
                         </tbody>
                         </table>
                     </div>

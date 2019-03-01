@@ -3,18 +3,21 @@ import matchSorter from 'match-sorter'
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import { getUserDetails } from '../../../AppUtils';
+import UserDetailComp from '../UserDetailComp/UserDetailComp';
 
 class UsersComp extends Component {
   constructor(props) {
     super();
     this.props = props;
     this.state = {
-      data: this.props
+      data: this.props,
+      userDetails: {}
     }
   }
 
   getProducerObj = (e) => {
-    this.setState({ userDetails: getUserDetails(parseInt(e.target.id), this.state.data) });
+    this.setState({ userDetails: getUserDetails(parseInt(e.target.id), this.state.data.data.users) });
+    console.log(this.state.userDetails)
     document.getElementById("userOverlay").style.display = "block";
   }
 
@@ -113,6 +116,7 @@ class UsersComp extends Component {
             height: "85vh"
           }}
         />
+        <UserDetailComp userDetails={this.state.userDetails} removeOverlay={this.props.removeOverlay}/>
       </div>
     );
   }

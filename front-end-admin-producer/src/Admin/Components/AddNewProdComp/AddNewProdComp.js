@@ -43,7 +43,6 @@ class AddNewProdComp extends Component {
  
     onSubmit = (e) => {
         e.preventDefault();
-        // console.log(this.state.data)
         fetch('http://localhost:5000/admin', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },

@@ -32,6 +32,6 @@ export function getUserDetails(id, data) {
   let user = data.find((userInfo) => {
               return userInfo.id === id;
   })
-  return user;  
+  return user;
 }
 

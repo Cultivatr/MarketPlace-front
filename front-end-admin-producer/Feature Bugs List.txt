@@ -1,0 +1,14 @@
+*** PRIORITY ***
+- Changing User details to input type fields so we can update user details
+- Add a new item
+- Fetching all items in the system
+- Fetching item details per item id
+- Updating item details if need be
+- Changing status of item details onClick
+
+**** BACK LOG ***
+- cancel button on AddProdComp.js should reroute to UsersComp.js
+- after adding a new user, currently need to refresh to get new list ( will need to refactor how and when the usersComp re-renders)
+- refactor, refactor, refactor (code was put together quickly for functionality, it is not DRY or optimal)
+- make website responsive
+- fix the fact that web page scrolls slightly on the admin side, and that the window doesn't go down to bottom of screen
