@@ -19,6 +19,7 @@ class Admin extends Component {
       dataToShow: '',
       itemDetails: {},
       userDetails:{},
+      users:[],
       data: [{
         "farm": "jk farms",
         "product": "steak",
@@ -111,6 +112,16 @@ class Admin extends Component {
     }
   }
 
+  componentDidMount = () => {
+    fetch(`http://localhost:5000/admin/users`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json'}
+    })
+    .then(response => response.json())
+    .then(data => this.setState({ users: data }))
+    .catch(err => console.log(err,'error'))
+  }
+
   componentWillMount(){
     filterData(this.state.data, this.pending, this.accepted, this.sold, this.delivered, this.notAccepted)
   }
@@ -123,11 +134,6 @@ class Admin extends Component {
   getItemObj = (e) => {
     this.setState({ itemDetails: getItemDetails(parseInt(e.target.id), this.state.data) });
     document.getElementById("itemOverlay").style.display = "block";
-  }
-
-  getProducerObj = (e) => {
-    this.setState({ userDetails: getUserDetails(parseInt(e.target.id), this.state.data) });
-    document.getElementById("userOverlay").style.display = "block";
   }
 
   OnClickAccept = () => {
@@ -211,7 +217,7 @@ class Admin extends Component {
         <div className={Class.containerTitle}>
           <button className={Class.buttonAddUser} onClick={this.OnClickAddUser}>Add User</button>
         </div>
-        <UsersComp data={this.users} producerObj={this.getProducerObj}/>
+        <UsersComp data={this.state.users}/>
       </div>
     }
     else if (this.state.dataToShow === 'addNewProd') {

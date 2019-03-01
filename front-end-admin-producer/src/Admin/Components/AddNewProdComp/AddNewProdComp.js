@@ -22,19 +22,25 @@ class AddNewProdComp extends Component {
             area: '',
             mailingAddressCity: '',
             mailingAddressProvince: '',
-            rating: '',
+            rating: 0,
             mailingAddressCountry: '',
             mailingAddressPostalCode: '',
-            comments: ''
+            comments: '',
+            isAdmin: '',
+            isProducer: '',
+            isOther: ''
         }
     }
 
     onChange = (e) => {
         let data = this.state.data;
+        data.isAdmin = document.getElementById("isAdmin").checked;
+        data.isProducer = document.getElementById("isProd").checked;
+        data.isOther = document.getElementById("isOther").checked;
         let newdata = { ...data, [e.target.name]: e.target.value };
         this.setState({ data: newdata });
     }
-
+ 
     onSubmit = (e) => {
         e.preventDefault();
         // console.log(this.state.data)
@@ -62,7 +68,10 @@ class AddNewProdComp extends Component {
                 rating: this.state.data.rating,
                 mailingAddressCountry: this.state.data.mailingAddressCountry,
                 mailingAddressPostalCode: this.state.data.mailingAddressPostalCode,
-                comments: this.state.data.comments
+                comments: this.state.data.comments,
+                isAdmin: this.state.data.isAdmin,
+                isProducer: this.state.data.isProducer,
+                isOther: this.state.data.isOther
             })
         })
         .then(response => response.json())
@@ -205,9 +214,9 @@ class AddNewProdComp extends Component {
                             <label>Area</label>
                             <select onChange={this.onChange} name="area" multiple="" className="ui fluid dropdown">
                                 <option value="">Please choose an option</option>
-                                <option value="test1">Southern AB</option>
-                                <option value="test2">Central AB</option>
-                                <option value="test3">Northern AB</option>
+                                <option value="southern AB">Southern AB</option>
+                                <option value="central AB">Central AB</option>
+                                <option value="northern AB">Northern AB</option>
                             </select>
                         </div>
                     </div>
@@ -237,11 +246,11 @@ class AddNewProdComp extends Component {
                             <label>Rating</label>
                             <select onChange={this.onChange} name="rating" multiple="" className="ui fluid dropdown">
                                 <option value="">Please choose an option</option>
-                                <option value="test1">5</option>
-                                <option value="test2">4</option>
-                                <option value="test3">3</option>
-                                <option value="test3">2</option>
-                                <option value="test3">1</option>
+                                <option value="5">5</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
                             </select>
                         </div>
                     </div>
@@ -276,9 +285,9 @@ class AddNewProdComp extends Component {
                         <div className="grouped fields">
                             <label>Authorization Type</label>
                             <div className="field">
-                                <label><input type="checkbox"/> Administration</label>
-                                <label><input type="checkbox"/> Producer</label>
-                                <label><input type="checkbox"/> Other</label>
+                                <label><input type="checkbox" id="isAdmin" onChange={this.onChange} /> Administration</label>
+                                <label><input type="checkbox" id="isProd" onChange={this.onChange} /> Producer</label>
+                                <label><input type="checkbox" id="isOther" onChange={this.onChange} /> Other</label>
                             </div>
                         </div>
                     </div>
@@ -293,7 +302,7 @@ class AddNewProdComp extends Component {
                 </div>
                 <div className={Class.buttonContainer}>
                     <div className={Class.addNewProdButton}>
-                        <button type="submit" className="ui button">Add</button>
+                        <button type="submit" className="ui button" >Add</button>
                     </div>
                     <div className={Class.addNewProdButton}>
                         <button type="cancel" className="ui button">Cancel</button>

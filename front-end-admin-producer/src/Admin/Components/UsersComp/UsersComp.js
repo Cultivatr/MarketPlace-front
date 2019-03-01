@@ -2,19 +2,28 @@ import React, { Component } from "react";
 import matchSorter from 'match-sorter'
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import { getUserDetails } from '../../../AppUtils';
 
 class UsersComp extends Component {
   constructor(props) {
     super();
     this.props = props;
+    this.state = {
+      data: this.props
+    }
+  }
+
+  getProducerObj = (e) => {
+    this.setState({ userDetails: getUserDetails(parseInt(e.target.id), this.state.data) });
+    document.getElementById("userOverlay").style.display = "block";
   }
 
   render() {
-    const { data } = this.props;
+    const data = this.state.data.data;
     return (
       <div className="table">
         <ReactTable
-          data={data}
+          data={data.users}
           noDataText="No Users!"
           filterable
           defaultFilterMethod={(filter, row) =>
@@ -25,8 +34,9 @@ class UsersComp extends Component {
               columns: [
                 {
                   Header: "User ID",
-                  accessor: "id",
+                  id: "id",
                   width: 100,
+                  accessor: d => d.id,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["id"] }),
                   filterAll: true,
@@ -36,10 +46,11 @@ class UsersComp extends Component {
                 },
                 {
                   Header: "First Name",
-                  accessor: "First_name",
+                  id: "first_name",
                   width: 250,
+                  accessor: d => d.first_name,
                   filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["First_name"] }),
+                    matchSorter(rows, filter.value, { keys: ["first_name"] }),
                   filterAll: true,
                   style: {
                     textAlign: "center"
@@ -47,11 +58,11 @@ class UsersComp extends Component {
                 },
                 {
                   Header: "Last Name",
-                  id: "Last_name",
+                  id: "last_name",
                   width: 250,
-                  accessor: d => d.product,
+                  accessor: d => d.last_name,
                   filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["Last_name"] }),
+                    matchSorter(rows, filter.value, { keys: ["last_name"] }),
                   filterAll: true,
                   style: {
                     textAlign: "center"
@@ -59,11 +70,11 @@ class UsersComp extends Component {
                 },
                 {
                     Header: "Primary Number",
-                    id: "P_number",
+                    id: "p_number",
                     width: 250,
-                    accessor: d => d.qty,
+                    accessor: d => d.p_number,
                     filterMethod: (filter, rows) =>
-                      matchSorter(rows, filter.value, { keys: ["P_number"] }),
+                      matchSorter(rows, filter.value, { keys: ["p_number"] }),
                     filterAll: true,
                     style: {
                       textAlign: "center"
@@ -71,11 +82,11 @@ class UsersComp extends Component {
                 },
                 {
                     Header: "Email",
-                    id: "Email",
+                    id: "email",
                     width: 500,
-                    accessor: d => d.date,
+                    accessor: d => d.email,
                     filterMethod: (filter, rows) =>
-                      matchSorter(rows, filter.value, { keys: ["Email"] }),
+                      matchSorter(rows, filter.value, { keys: ["email"] }),
                     filterAll: true,
                     style: {
                       textAlign: "center"
@@ -85,7 +96,7 @@ class UsersComp extends Component {
                   Header: "Details",
                   id: "details",
                   width: 100,
-                  accessor: d => <span className='detail-button' id={d.id} onClick={this.props.getProducerObj}>&#x2295;</span>,
+                  accessor: d => <span className='detail-button' id={d.id} onClick={this.getProducerObj}>&#x2295;</span>,
                   style: {
                     cursor: "pointer",
                     fontSize: 25,
