@@ -1,47 +1,32 @@
 # MarketPlace
 
-## Setting up your local database:
-0. Git Pull fresh copy of the repository
+**** STARTING THE SERVER ****
 
-1. in your console, navigate to Marketplace/back-end 
+0. Navigate to Marketplace/
 
-2. run **npm install**
+1. run git pull 
 
-3. run **psql evolveu**
+2. navigate to Marketplace/back-end
 
-4. run **CREATE DATABASE cultivatr**
+3. run pipenv shell install (should install dependencies for environment)
 
-THIS STEP (#5) IS GONNA BE ONLY FOR LINUX USERS
+4. run pipenv shell (should get you into the environent)
 
-5. run **ALTER USER evolveu PASSWORD 'evolveu';**
+5. run python server.py (should start your flask server)
 
-6. exit psql **\q**
+** TO BE ABLE TO ADD USERS OR OFFERED ITEMS BE SURE TO HAVE A CULTIVATR DATABASE WHERE EVOLVEU IS A SUPERUSER
+** RUN THE SQL CREATE TABLE COMMANDS INSIDE Marketplace/back-end/DB/scripts/sql.py
 
-7. run **npm start** *this will create tables and columns*
+**** FOR TESTING ****
 
-8. exit the server **Ctrl c**
+1. navigate to Martketplace/back-end/
 
-8.5 in server.js, comment out line 29, so that tables are persistent every time you run the server. 
+2. run pipenv shell
 
-9. navigate to Marketplace/back-end/DB and get back into your psql console: **psql cultivatr**
+3. navigate to Marketplace/back-end/DB/scripts
 
-10. run **\i scripts/populate_tables.sql** *this will populate tables with dummy data*
+4. run pytest -s
 
-## Refreshing your database
-
-1. in server.js, uncomment line 29. 
-
-2. in your console, navigate to Marketplace/back-end and run **npm start** *this will drop all tables and create new (empty) ones*
-
-3. exit the server **Ctrl c**
-
-4. navigate to Marketplace/back-end/DB and run **psql cultivatr**
-
-5. run **\i scripts/populate_tables.sql** *this will re-populate tables with dummy data*
-
-6. exit psql **\q**
-
-7. in server.js, comment out line 29, so that tables are persistent every time you run the server.
 /////////////////////////////////////////////////
 Admin email cultivatr3@gmail.com password cultivatr123@
 
