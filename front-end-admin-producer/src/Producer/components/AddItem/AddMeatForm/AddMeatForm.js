@@ -21,7 +21,12 @@ class LivestockForm extends Component {
                 typeOfFeed: '',
                 estCompletionDate: '',
                 estFinishedWeight: '',
-                estFinalPrice: ''
+                estFinalPrice: '',
+                finalPrice:'',
+                deliveredDate: '',
+                deliveredTo: '',
+                comments: '',
+                status: 'Pending Approval'
             }
     }
 
@@ -97,6 +102,14 @@ class LivestockForm extends Component {
                                     <label>Chargebacks</label>
                                     <input onChange={this.onChange} type="text" name="chargebacks"/>
                                 </div>
+                                <div className="field">
+                                    <label>Delivered To</label>
+                                    <input onChange={this.onChange} type="text" name="deliveredTo"/>
+                                </div>
+                                <div className="field">
+                                    <label>Comments</label>
+                                    <textarea onChange={this.onChange} placeholder="Tell us more" rows="3" name="comments"></textarea>
+                                </div>
                             </div>
                             <div className='eight wide column'>
                                 <div className="field">
@@ -111,17 +124,16 @@ class LivestockForm extends Component {
                                         <option value="grassBarley">Grass and Barley Finished</option>
                                         <option value="grassGrain">Grass and Grain Finished</option>
                                         <option value="freeRange">Free Range</option>
-                                        <option value="custom">Custom</option>
+                                        <option value="other">Other</option>
                                     </select>
                                 </div>
                                 <div className='field'>
                                     <label>Type of Pasture</label>
                                     <select onChange={this.onChange} name="typeOfPasture" multiple="" className="ui fluid dropdown">
                                         <option value="">Please choose an option</option>
-                                        <option value="test1">test</option>
-                                        <option value="test2">test</option>
-                                        <option value="test3">test</option>
-                                        <option value="custom">Custom</option>
+                                        <option value="Timothy">Timothy</option>
+                                        <option value="Alfa">Alfa</option>
+                                        <option value="other">Other</option>
                                     </select>
                                 </div>
                                 <div className='field'>
@@ -130,7 +142,7 @@ class LivestockForm extends Component {
                                         <option value="">Please choose an option</option>
                                         <option value="grain">Grain</option>
                                         <option value="barley">Barley</option>
-                                        <option value="custom">Custom</option>
+                                        <option value="other">Other</option>
                                     </select>
                                 </div>
                                 <div className="field">
@@ -148,6 +160,14 @@ class LivestockForm extends Component {
                                 <div className="field">
                                     <label>Quantity</label>
                                     <input onChange={this.onChange} type="text" name="quantity"/>
+                                </div>
+                                <div className="field">
+                                    <label>Final Price</label>
+                                    <input onChange={this.onChange} type="text" name="finalPrice"/>
+                                </div>
+                                <div className="field">
+                                    <label>Delivered Date</label>
+                                    <input onChange={this.onChange} type="text" name="deliveredDate"/>
                                 </div>
                                 <input type="hidden" id="userId" name="userId" value="1"/>
                             </div>

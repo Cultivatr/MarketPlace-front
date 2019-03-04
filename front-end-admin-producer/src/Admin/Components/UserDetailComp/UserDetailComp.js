@@ -51,11 +51,11 @@ class UserDetailComp extends Component {
                             </tr>
                             <tr>
                                 <td>Mailing Address</td>
-                                <td>Street: {m_street} City: {m_city} Province: {m_province} Postal Code: {m_postal_code} Country: {m_country}</td>
+                                <td><b>Street:</b> {m_street} <b>City:</b> {m_city} <b>Province:</b> {m_province} <b>Postal Code:</b> {m_postal_code} <b>Country:</b> {m_country}</td>
                             </tr>
                             <tr>
                                 <td>Billing Address</td>
-                                <td>Street: {b_street} City: {b_city} Province: {b_province} Postal Code: {b_postal_code} Country: {b_country}</td>
+                                <td><b>Street:</b> {b_street} <b>City:</b> {b_city} <b>Province:</b> {b_province} <b>Postal Code:</b> {b_postal_code} <b>Country:</b> {b_country}</td>
                             </tr>
                             <tr>
                                 <td>Rating</td>
@@ -63,7 +63,7 @@ class UserDetailComp extends Component {
                             </tr>
                             <tr>
                                 <td>Authorization</td>
-                                <td>Administrator: {is_admin} Producer: {is_producer} Both: {is_other}</td>
+                                <td><b>Administrator:</b> {is_admin} <b>Producer:</b> {is_producer} <b>Both:</b> {is_other}</td>
                             </tr>
                             <tr>
                                 <td>Comments</td>

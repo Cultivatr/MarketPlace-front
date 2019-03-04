@@ -12,7 +12,6 @@ class ProduceForm extends Component {
             datePlanted: '',
             seedType: '',
             modifiedSeed: '',
-            regNumber: '',
             heirloom: '',
             fertilizerTypeUsed: '',
             pesticideTypeUsed: '',
@@ -23,7 +22,11 @@ class ProduceForm extends Component {
             qtyAcceptedForListing: '',
             qtyAcceptedAtDelivery: '',
             chargebacks: '',
-            finalPricePaid: ''
+            finalPricePaid: '',
+            deliveredTo: '',
+            deliveredDate: '',
+            comments:'',
+            status: 'Pending Approval'
         }
     }
 
@@ -92,6 +95,14 @@ class ProduceForm extends Component {
                                     <label>Pesticide Type Used</label>
                                     <input onChange={this.onChange} type="text" name="pesticideTypeUsed"/>
                                 </div>
+                                <div className="field">
+                                    <label>Delivered Date</label>
+                                    <input onChange={this.onChange} type="text" name="deliveredDate"/>
+                                </div>
+                                <div className="field">
+                                    <label>Comments</label>
+                                    <textarea onChange={this.onChange} placeholder="Tell us more" rows="3" name="comments"></textarea>
+                                </div>
                             </div>
                             <div className='eight wide column'>
                                 <div className="field">
@@ -130,7 +141,12 @@ class ProduceForm extends Component {
                                     <label>Final Price Paid</label>
                                     <input onChange={this.onChange} type="number" name="finalPricePaid"/>
                                 </div>
+                                <div className="field">
+                                    <label>Delivered To</label>
+                                    <input onChange={this.onChange} type="text" name="deliveredTo"/>
+                                </div>
                                 <input type="hidden" id="userId" name="userId" value="1"/>
+
                             </div>
                             <Button>Add</Button>
                         </form>

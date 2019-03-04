@@ -138,7 +138,7 @@ class AddNewProdComp extends Component {
                             <label>Province</label>
                                 <select onChange={this.onChange} name="billingAddressProvince" multiple="" className="ui fluid dropdown">
                                     <option value="">Please choose an option</option>
-                                    <option value="alberta">Alberta</option>
+                                    <option value="Alberta">Alberta</option>
                                 </select>
                         </div>
                     </div>
@@ -157,7 +157,7 @@ class AddNewProdComp extends Component {
                             <label>Country</label>
                             <select onChange={this.onChange} name="billingAddressCountry" multiple="" className="ui fluid dropdown">
                                 <option value="">Please choose an option</option>
-                                <option value="canada">Canada</option>
+                                <option value="Canada">Canada</option>
                             </select>
                         </div>
                     </div>
@@ -200,9 +200,9 @@ class AddNewProdComp extends Component {
                             <label>Farm Type</label>
                             <select onChange={this.onChange} name="farmMethod" multiple="" className="ui fluid dropdown">
                                 <option value="">Please choose an option</option>
-                                <option value="liveStock">Live Stock</option>
-                                <option value="produce">Produce</option>
-                                <option value="other">Other</option>
+                                <option value="LiveStock">Live Stock</option>
+                                <option value="Produce">Produce</option>
+                                <option value="Other">Other</option>
                             </select>
                         </div>
                     </div>
@@ -213,9 +213,9 @@ class AddNewProdComp extends Component {
                             <label>Area</label>
                             <select onChange={this.onChange} name="area" multiple="" className="ui fluid dropdown">
                                 <option value="">Please choose an option</option>
-                                <option value="southern AB">Southern AB</option>
-                                <option value="central AB">Central AB</option>
-                                <option value="northern AB">Northern AB</option>
+                                <option value="Southern AB">Southern AB</option>
+                                <option value="Central AB">Central AB</option>
+                                <option value="Northern AB">Northern AB</option>
                             </select>
                         </div>
                     </div>
@@ -234,7 +234,7 @@ class AddNewProdComp extends Component {
                             <label>Province</label>
                                 <select onChange={this.onChange} name="mailingAddressProvince" multiple="" className="ui fluid dropdown">
                                     <option value="">Please choose an option</option>
-                                    <option value="alberta">Alberta</option>
+                                    <option value="Alberta">Alberta</option>
                                 </select>
                         </div>
                     </div>

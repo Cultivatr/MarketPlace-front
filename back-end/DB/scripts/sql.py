@@ -3,8 +3,8 @@ import psycopg2.extras
 import os
 import sys
 import traceback
-from . import user
-from . import offered_item
+import user
+import offered_item_produce
 
 # STRINGS FOR CREATING THE ENVIRONMENT
 default_connect = """
@@ -120,129 +120,102 @@ get_user_by_id_string = """
 SELECT * FROM Users WHERE ID = %s;
 """
 
-# STRINGS FOR OFFERED ITEMS TABLE
-create_table_offered_items_string = """
-DROP TABLE IF EXISTS Offered_items CASCADE;
+# STRINGS FOR OFFERED ITEMS PRODUCE TABLE
+create_table_offered_items_produce_string = """
+DROP TABLE IF EXISTS Offered_items_produce CASCADE;
 
-CREATE TABLE Offered_items (
+CREATE TABLE Offered_items_produce (
 Id SERIAL PRIMARY KEY,
 Users_id INT REFERENCES Users ON DELETE RESTRICT,
 Product_name TEXT,
-Quantity INT,
-Price_paid NUMERIC,
-Est_birthdate DATE,
-Registration_number INT,
-RFID_tag INT,
-Breed TEXT,
-Single_brand BOOLEAN,
-Starting_date_of_feed DATE,
-Type_of_feed TEXT,
-Est_completion_date DATE,
-Starting_weight NUMERIC,
-Est_finished_weight NUMERIC,
-Hanging_weight NUMERIC,
-Est_price_to_be_paid NUMERIC,
+Package_type TEXT,
 Date_planted DATE,
 Seed_type TEXT,
+Modified_seed BOOLEAN,
 Heirloom BOOLEAN,
-GMO BOOLEAN,
 Fertilizer_type_used TEXT,
 Pesticide_type_used TEXT,
 Estimated_qty_planted NUMERIC,
+GMO BOOLEAN,
 Estimated_finished_qty NUMERIC,
+Est_price_to_be_paid NUMERIC,
 Qty_accepted_for_listing NUMERIC,
 Qty_accepted_at_delivery NUMERIC,
 Chargebacks NUMERIC,
+Price_paid NUMERIC,
 Delivered_date DATE,
 Delivered_to TEXT,
+Comments TEXT,
 Status TEXT
 );
 """
 
-drop_offered_items_string = """
-DROP TABLE Offered_items;
+drop_offered_items_produce_string = """
+DROP TABLE Offered_items_produce;
 """
 
-add_offered_item_string = """
-INSERT INTO Offered_items (
+add_offered_item_produce_string = """
+INSERT INTO Offered_items_produce (
 Users_id,
 Product_name,
-Quantity,
-Price_paid,
-Est_birthdate,
-Registration_number,
-RFID_tag,
-Breed,
-Single_brand,
-Starting_date_of_feed,
-Type_of_feed,
-Est_completion_date,
-Starting_weight,
-Est_finished_weight,
-Hanging_weight,
-Est_price_to_be_paid,
+Package_type,
 Date_planted,
 Seed_type,
+Modified_seed,
 Heirloom,
-GMO,
 Fertilizer_type_used,
 Pesticide_type_used,
 Estimated_qty_planted,
+GMO,
 Estimated_finished_qty,
+Est_price_to_be_paid,
 Qty_accepted_for_listing,
 Qty_accepted_at_delivery,
 Chargebacks,
+Price_paid,
 Delivered_date,
 Delivered_to,
+Comments,
 Status
 )
-VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
 """
 
-get_offered_items_by_id_string = """
-SELECT * FROM Offered_items WHERE Users_id = %s;
+get_offered_items_produce_by_id_string = """
+SELECT * FROM Offered_items_produce WHERE Users_id = %s;
 """
 
-get_offered_items_detail_by_id_string="""
-SELECT * FROM Offered_items WHERE ID = %s;
+get_offered_items_produce_detail_by_id_string="""
+SELECT * FROM Offered_items_produce WHERE ID = %s;
 """
 
-get_all_offered_items_string="""
-SELECT * FROM Offered_items
+get_all_offered_items_produce_string="""
+SELECT * FROM Offered_items_produce
 """
 
-update_offered_items_details_string="""
-UPDATE Offered_items
+update_offered_items_produce_details_string="""
+UPDATE Offered_items_produce
 SET
 Users_id = %s,
 Product_name = %s,
-Quantity = %s,
-Price_paid = %s,
-Est_birthdate = %s,
-Registration_number = %s,
-RFID_tag = %s,
-Breed = %s,
-Single_brand = %s,
-Starting_date_of_feed = %s,
-Type_of_feed = %s,
-Est_completion_date = %s,
-Starting_weight = %s,
-Est_finished_weight = %s,
-Hanging_weight = %s,
-Est_price_to_be_paid = %s,
+Package_type = %s,
 Date_planted = %s,
 Seed_type = %s,
+Modified_seed = %s,
 Heirloom = %s,
-GMO = %s,
 Fertilizer_type_used = %s,
 Pesticide_type_used = %s,
 Estimated_qty_planted = %s,
+GMO = %s,
 Estimated_finished_qty = %s,
+Est_price_to_be_paid = %s,
 Qty_accepted_for_listing = %s,
 Qty_accepted_at_delivery = %s,
 Chargebacks = %s,
+Price_paid = %s,
 Delivered_date = %s,
 Delivered_to = %s,
+Comments = %s,
 Status = %s
 WHERE ID = %s;
 """
@@ -291,52 +264,52 @@ def update_user(first_name, last_name, p_number, s_number, email, f_name, f_loca
       return user.User(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25])
     return None
 
-# FUNCTIONS FOR OFFERED ITEMS
-def add_item_by_user_id(users_id,product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to,Status):
+# FUNCTIONS FOR OFFERED ITEMS PRODUCE
+def add_produce_item_by_user_id(Users_id,Product_name,Package_type,Date_planted,Seed_type,Modified_seed,Heirloom,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,GMO,Estimated_finished_qty,Est_price_to_be_paid,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Price_paid,Delivered_date,Delivered_to,Comments,Status):
     """
     add a item by the user id
     """
-    sql_results = sql_util(add_offered_item_string, [users_id,product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to,Status])
+    sql_results = sql_util(add_offered_item_produce_string, [Users_id,Product_name,Package_type,Date_planted,Seed_type,Modified_seed,Heirloom,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,GMO,Estimated_finished_qty,Est_price_to_be_paid,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Price_paid,Delivered_date,Delivered_to,Comments,Status])
     return sql_results
 
-def get_offered_items_by_id(userID):
+def get_offered_items_produce_by_id(userID):
     """
     get a offered items by id
     """
-    sql_results = select(get_offered_items_by_id_string, [userID])
+    sql_results = select(get_offered_items_produce_by_id_string, [userID])
     res=[]
     for r in sql_results:
-      res.append(offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29], r[30]))
+      res.append(offered_item_produce.Offered_item_produce(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21]))
     return res
 
-def get_offered_items_details_by_id(itemID):
+def get_offered_items_produce_details_by_id(itemID):
     """
     get a offered item by offered item id
     """
-    sql_results = select(get_offered_items_detail_by_id_string, [itemID])
+    sql_results = select(get_offered_items_produce_detail_by_id_string, [itemID])
     if sql_results:
       r = sql_results[0]
-      return offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29], r[30])
+      return offered_item_produce.Offered_item_produce(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21])
     return None
 
-def get_all_offered_items():
+def get_all_offered_items_produce():
     """
     get all offered items available
     """
-    sql_results = select(get_all_offered_items_string, None)
+    sql_results = select(get_all_offered_items_produce_string, None)
     res = []
     for r in sql_results:
-      res.append(offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29], r[30]))
+      res.append(offered_item_produce.Offered_item_produce(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21]))
     return res
 
-def update_offered_items_detail(Users_id,Product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to,Status, ItemID):
+def update_offered_items_produce_detail(Users_id,Product_name,Package_type,Date_planted,Seed_type,Modified_seed,Heirloom,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,GMO,Estimated_finished_qty,Est_price_to_be_paid,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Price_paid,Delivered_date,Delivered_to,Comments,Status,ItemID):
     """
-    updating the details for offered items
+    updating the details for offered items produce
     """
-    sql_results = sql_util(update_offered_items_details_string, [Users_id,Product_name,Quantity,Price_paid,Est_birthdate,Registration_number,RFID_tag,Breed,Single_brand,Starting_date_of_feed,Type_of_feed,Est_completion_date,Starting_weight,Est_finished_weight,Hanging_weight,Est_price_to_be_paid,Date_planted,Seed_type,Heirloom,GMO,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,Estimated_finished_qty,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Delivered_date,Delivered_to,Status, ItemID])
+    sql_results = sql_util(update_offered_items_produce_details_string, [Users_id,Product_name,Package_type,Date_planted,Seed_type,Modified_seed,Heirloom,Fertilizer_type_used,Pesticide_type_used,Estimated_qty_planted,GMO,Estimated_finished_qty,Est_price_to_be_paid,Qty_accepted_for_listing,Qty_accepted_at_delivery,Chargebacks,Price_paid,Delivered_date,Delivered_to,Comments,Status, ItemID])
     if sql_results:
       r = sql_results[0]
-      return offered_item.Offered_item(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23], r[24], r[25], r[26], r[27], r[28], r[29], r[30])
+      return offered_item_produce.Offered_item_produce(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21]. r[22])
     return None
 
 # HELPER FUNCTIONS
@@ -382,18 +355,18 @@ def sql_util(sql, parm):
     return res
 
 # CREATE AND DELETE TABLES
-def create_table_offered_items():
+def create_table_offered_items_produce():
   """
   creating table offered items
   """
-  a = sql_util(create_table_offered_items_string, [])
+  a = sql_util(create_table_offered_items_produce_string, [])
   return a
 
-def delete_table_offered_items():
+def delete_table_offered_items_produce():
   """
   deleting the table users
   """
-  a = sql_util(drop_offered_items_string, [])
+  a = sql_util(drop_offered_items_produce_string, [])
   return a
     
 def create_table_users():
