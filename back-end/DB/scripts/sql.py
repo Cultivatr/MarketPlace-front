@@ -3,8 +3,9 @@ import psycopg2.extras
 import os
 import sys
 import traceback
-import user
-import offered_item_produce
+from . import user
+from . import offered_item_produce
+from . import offered_item_livestock
 
 # STRINGS FOR CREATING THE ENVIRONMENT
 default_connect = """
@@ -220,6 +221,111 @@ Status = %s
 WHERE ID = %s;
 """
 
+# STRINGS FOR OFFERED ITEMS LIVESTOCK TABLE
+create_table_offered_items_livestock_string = """
+DROP TABLE IF EXISTS Offered_items_livestock CASCADE;
+
+CREATE TABLE Offered_items_livestock (
+Id SERIAL PRIMARY KEY,
+Users_id INT REFERENCES Users ON DELETE RESTRICT,
+Product_name TEXT,
+Breed TEXT,
+Single_brand BOOLEAN,
+Est_birthdate DATE,
+Registration_number INT,
+RFID_tag INT,
+Starting_weight NUMERIC,
+Hanging_weight NUMERIC,
+Chargebacks NUMERIC,
+Delivered_to TEXT,
+Starting_date_of_feed DATE,
+Feed_method TEXT,
+Type_of_pasture TEXT,
+Type_of_feed TEXT,
+Est_completion_date DATE,
+Est_finished_weight NUMERIC,
+Est_price_to_be_paid NUMERIC,
+Quantity INT,
+Price_paid NUMERIC,
+Delivered_date DATE,
+Comments TEXT,
+Status TEXT
+);
+"""
+
+drop_offered_items_livestock_string = """
+DROP TABLE Offered_items_livestock;
+"""
+add_offered_item_livestock_string = """
+INSERT INTO Offered_items_livestock (
+Users_id,
+Product_name,
+Breed,
+Single_brand,
+Est_birthdate,
+Registration_number,
+RFID_tag,
+Starting_weight,
+Hanging_weight,
+Chargebacks,
+Delivered_to,
+Starting_date_of_feed,
+Feed_method,
+Type_of_pasture,
+Type_of_feed,
+Est_completion_date,
+Est_finished_weight,
+Est_price_to_be_paid,
+Quantity,
+Price_paid,
+Delivered_date,
+Comments,
+Status
+)
+VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+"""
+
+get_offered_items_livestock_by_id_string = """
+SELECT * FROM Offered_items_livestock WHERE Users_id = %s;
+"""
+
+get_offered_items_livestock_detail_by_id_string="""
+SELECT * FROM Offered_items_livestock WHERE ID = %s;
+"""
+
+get_all_offered_items_livestock_string="""
+SELECT * FROM Offered_items_livestock
+"""
+
+update_offered_items_livestock_details_string="""
+UPDATE Offered_items_livestock
+SET
+Users_id = %s,
+Product_name = %s,
+Breed = %s,
+Single_brand = %s,
+Est_birthdate = %s,
+Registration_number = %s,
+RFID_tag = %s,
+Starting_weight = %s,
+Hanging_weight = %s,
+Chargebacks = %s,
+Delivered_to = %s,
+Starting_date_of_feed = %s,
+Feed_method = %s,
+Type_of_pasture = %s,
+Type_of_feed = %s,
+Est_completion_date = %s,
+Est_finished_weight = %s,
+Est_price_to_be_paid = %s,
+Quantity = %s,
+Price_paid = %s,
+Delivered_date = %s,
+Comments = %s,
+Status = %s
+WHERE ID = %s;
+"""
+
 def hello():
     return 'hello world from SQL'
 
@@ -312,6 +418,54 @@ def update_offered_items_produce_detail(Users_id,Product_name,Package_type,Date_
       return offered_item_produce.Offered_item_produce(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21]. r[22])
     return None
 
+# FUNCTIONS FOR OFFERED ITEMS LIVESTOCK
+def add_livestock_item_by_user_id(Users_id,Product_name,Breed,Single_brand,Est_birthdate,Registration_number,RFID_tag,Starting_weight,Hanging_weight,Chargebacks,Delivered_to,Starting_date_of_feed,Feed_method,Type_of_pasture,Type_of_feed,Est_completion_date,Est_finished_weight,Est_price_to_be_paid,Quantity,Price_paid,Delivered_date,Comments,Status):
+    """
+    add a item by the user id
+    """
+    sql_results = sql_util(add_offered_item_livestock_string, [Users_id,Product_name,Breed,Single_brand,Est_birthdate,Registration_number,RFID_tag,Starting_weight,Hanging_weight,Chargebacks,Delivered_to,Starting_date_of_feed,Feed_method,Type_of_pasture,Type_of_feed,Est_completion_date,Est_finished_weight,Est_price_to_be_paid,Quantity,Price_paid,Delivered_date,Comments,Status])
+    return sql_results
+
+def get_offered_items_livestock_by_id(userID):
+    """
+    get a offered items by id
+    """
+    sql_results = select(get_offered_items_livestock_by_id_string, [userID])
+    res=[]
+    for r in sql_results:
+      res.append(offered_item_livestock.Offered_item_livestock(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23]))
+    return res
+
+def get_offered_items_livestock_details_by_id(itemID):
+    """
+    get a offered item by offered item id
+    """
+    sql_results = select(get_offered_items_livestock_detail_by_id_string, [itemID])
+    if sql_results:
+      r = sql_results[0]
+      return offered_item_livestock.Offered_item_livestock(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23])
+    return None
+
+def get_all_offered_items_livestock():
+    """
+    get all offered items available
+    """
+    sql_results = select(get_all_offered_items_livestock_string, None)
+    res = []
+    for r in sql_results:
+      res.append(offered_item_livestock.Offered_item_livestock(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23]))
+    return res
+
+def update_offered_items_livestock_detail(Users_id,Product_name,Breed,Single_brand,Est_birthdate,Registration_number,RFID_tag,Starting_weight,Hanging_weight,Chargebacks,Delivered_to,Starting_date_of_feed,Feed_method,Type_of_pasture,Type_of_feed,Est_completion_date,Est_finished_weight,Est_price_to_be_paid,Quantity,Price_paid,Delivered_date,Comments,Status,ItemID):
+    """
+    updating the details for offered items produce
+    """
+    sql_results = sql_util(update_offered_items_livestock_details_string, [Users_id,Product_name,Breed,Single_brand,Est_birthdate,Registration_number,RFID_tag,Starting_weight,Hanging_weight,Chargebacks,Delivered_to,Starting_date_of_feed,Feed_method,Type_of_pasture,Type_of_feed,Est_completion_date,Est_finished_weight,Est_price_to_be_paid,Quantity,Price_paid,Delivered_date,Comments,Status,ItemID])
+    if sql_results:
+      r = sql_results[0]
+      return offered_item_livestock.Offered_item_livestock(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21]. r[22], r[23], r[24])
+    return None
+
 # HELPER FUNCTIONS
 def select(sql, parms):
     """
@@ -355,9 +509,23 @@ def sql_util(sql, parm):
     return res
 
 # CREATE AND DELETE TABLES
+def create_table_offered_items_livestock():
+  """
+  creating table offered items livestock
+  """
+  a = sql_util(create_table_offered_items_livestock_string, [])
+  return a
+
+def delete_table_offered_items_livestock():
+  """
+  delete table offered items livestock
+  """
+  a = sql_util(drop_offered_items_livestock_string, [])
+  return a
+
 def create_table_offered_items_produce():
   """
-  creating table offered items
+  creating table offered items produce
   """
   a = sql_util(create_table_offered_items_produce_string, [])
   return a
