@@ -7,6 +7,7 @@ import Toolbar from '../../../../SharedComponents/Navigation/Toolbar/Toolbar';
 class ProduceForm extends Component {
     state = {
         data: {
+            userId: 1,
             type: '',
             packageType: '',
             datePlanted: '',
@@ -38,7 +39,39 @@ class ProduceForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.getFormData(this.state.data);
+        const { userId, type, packageType, datePlanted, seedType, modifiedSeed,heirloom,fertilizerTypeUsed,pesticideTypeUsed,estimatedQuantityPlanted,gmo,estimatedFinishedQty,estPrice,qtyAcceptedForListing,qtyAcceptedAtDelivery,chargebacks,finalPricePaid,deliveredTo,deliveredDate,comments,status} = this.state.data
+        fetch('http://localhost:5000/add_items/produce/<user_id>', {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+                userId: userId,
+                type: type,
+                packageType: packageType,
+                datePlanted: datePlanted,
+                seedType: seedType,
+                modifiedSeed: modifiedSeed,
+                heirloom: heirloom,
+                fertilizerTypeUsed: fertilizerTypeUsed,
+                pesticideTypeUsed: pesticideTypeUsed,
+                estimatedQuantityPlanted: estimatedQuantityPlanted,
+                gmo: gmo,
+                estimatedFinishedQty: estimatedFinishedQty,
+                estPrice: estPrice,
+                qtyAcceptedForListing: qtyAcceptedForListing,
+                qtyAcceptedAtDelivery: qtyAcceptedAtDelivery,
+                chargebacks: chargebacks,
+                finalPricePaid: finalPricePaid,
+                deliveredTo: deliveredTo,
+                deliveredDate: deliveredDate,
+                comments: comments,
+                status: status
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+        .catch(error => console.log(error))
     }
 
     render() {
@@ -145,7 +178,7 @@ class ProduceForm extends Component {
                                     <label>Delivered To</label>
                                     <input onChange={this.onChange} type="text" name="deliveredTo"/>
                                 </div>
-                                <input type="hidden" id="userId" name="userId" value="1"/>
+                                <input onChange={this.onChange} type="hidden" id="userId" name="userId" value="1"/>
 
                             </div>
                             <Button>Add</Button>

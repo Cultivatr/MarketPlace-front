@@ -43,34 +43,35 @@ class AddNewProdComp extends Component {
  
     onSubmit = (e) => {
         e.preventDefault();
+        const { firstName,lastName,billingAddressCity,primaryNumber,secondaryNumber,billingAddressStreet,billingAddressProvince,email,billingAddressCountry,billingAddressPostalCode,farmName,farmLocation,mailingAddressCity,mailingAddressStreet,feedMethod,area,mailingAddressProvince,rating,mailingAddressCountry,mailingAddressPostalCode,comments,isAdmin,isProducer,isOther} = this.state.data;
         fetch('http://localhost:5000/admin', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({
-                firstName: this.state.data.firstName,
-                lastName: this.state.data.lastName,
-                billingAddressStreet: this.state.data.billingAddressStreet,
-                primaryNumber: this.state.data.primaryNumber,
-                secondaryNumber: this.state.data.secondaryNumber,
-                billingAddressCity: this.state.data.billingAddressCity,
-                billingAddressProvince: this.state.data.billingAddressProvince,
-                email: this.state.data.email,
-                billingAddressCountry: this.state.data.billingAddressCountry,
-                billingAddressPostalCode: this.state.data.billingAddressPostalCode,
-                farmName: this.state.data.farmName,
-                farmLocation: this.state.data.farmLocation,
-                mailingAddressStreet: this.state.data.mailingAddressStreet,
-                feedMethod: this.state.data.feedMethod,
-                area: this.state.data.area,
-                mailingAddressCity: this.state.data.mailingAddressCity,
-                mailingAddressProvince: this.state.data.mailingAddressProvince,
-                rating: this.state.data.rating,
-                mailingAddressCountry: this.state.data.mailingAddressCountry,
-                mailingAddressPostalCode: this.state.data.mailingAddressPostalCode,
-                comments: this.state.data.comments,
-                isAdmin: this.state.data.isAdmin,
-                isProducer: this.state.data.isProducer,
-                isOther: this.state.data.isOther
+                firstName: firstName,
+                lastName: lastName,
+                billingAddressStreet: billingAddressStreet,
+                primaryNumber: primaryNumber,
+                secondaryNumber: secondaryNumber,
+                billingAddressCity: billingAddressCity,
+                billingAddressProvince: billingAddressProvince,
+                email: email,
+                billingAddressCountry: billingAddressCountry,
+                billingAddressPostalCode: billingAddressPostalCode,
+                farmName: farmName,
+                farmLocation: farmLocation,
+                mailingAddressStreet: mailingAddressStreet,
+                feedMethod: feedMethod,
+                area: area,
+                mailingAddressCity: mailingAddressCity,
+                mailingAddressProvince: mailingAddressProvince,
+                rating: rating,
+                mailingAddressCountry: mailingAddressCountry,
+                mailingAddressPostalCode: mailingAddressPostalCode,
+                comments: comments,
+                isAdmin: isAdmin,
+                isProducer: isProducer,
+                isOther: isOther
             })
         })
         .then(response => response.json())

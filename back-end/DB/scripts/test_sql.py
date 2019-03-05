@@ -78,7 +78,7 @@ class TestSql(unittest.TestCase):
         # print(offered_items_detail)
         self.assertEqual("Birkshire", offered_items_detail.Breed)
         all_offered_items=sql.get_all_offered_items_livestock()
-        # print(all_offered_items)
+        print(all_offered_items)
         self.assertEqual(3, len(all_offered_items))
         sql.update_offered_items_livestock_detail("1","Beef", "Birkshire","True","2019-03-02","12345", "678", "500","600","1","Calgary","2019-02-01","Grass", "Alfa", "Barley", "2019-03-05","600","800","1","1000","2019-04-05","Hellllooooo","Pending Approval", "1")
         offered_items_detail=sql.get_offered_items_livestock_details_by_id(1)

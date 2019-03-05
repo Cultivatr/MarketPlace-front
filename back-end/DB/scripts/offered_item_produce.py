@@ -22,7 +22,7 @@ class Offered_item_produce(object):
                 Delivered_to,
                 Comments,
                 Status):
-                self.id = id
+                self.id = Id
                 self.Users_id = Users_id
                 self.Product_name = Product_name
                 self.Package_type = Package_type

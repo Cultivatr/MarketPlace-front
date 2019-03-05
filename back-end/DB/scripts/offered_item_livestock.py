@@ -24,7 +24,7 @@ class Offered_item_livestock(object):
                 Delivered_date,
                 Delivered_to,
                 Status):
-                self.id = id
+                self.id = Id
                 self.Users_id = Users_id
                 self.Product_name = Product_name
                 self.Breed = Breed

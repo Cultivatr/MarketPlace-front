@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Class from './admin.module.css';
 import ContainerDashboard from './Components/ContainerDashboard/ContainerDashboard';
-import { filterData, getItemDetails, getUserDetails } from '../AppUtils';
+import { filterData, getItemDetails } from '../AppUtils';
 import ItemDetailComp from './Components/ItemDetailComp/ItemDetailComp';
 import AddNewProdComp from './Components/AddNewProdComp/AddNewProdComp';
 import UsersComp from './Components/UsersComp/UsersComp';
-import UserDetailComp from './Components/UserDetailComp/UserDetailComp';
+// import UserDetailComp from './Components/UserDetailComp/UserDetailComp';
 
 class Admin extends Component {
   constructor() {

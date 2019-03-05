@@ -6,6 +6,7 @@ import Toolbar from '../../../../SharedComponents/Navigation/Toolbar/Toolbar';
 class LivestockForm extends Component {  
     state = {
         data: {
+                userId: 1,
                 type: '',
                 breed: '',
                 singleBrand: '',
@@ -38,7 +39,40 @@ class LivestockForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.getFormData(this.state.data);
+        const { userId, type, breed, singleBrand, birthdate, regNumber,rfid,estStartingWeight,hangingWeight,chargebacks,dateOnFeed,feedMethod,typeOfPasture,typeOfFeed,estCompletionDate,estFinishedWeight,estFinalPrice,finalPrice,deliveredDate,deliveredTo,comments,status} = this.state.data
+        fetch('http://localhost:5000/add_items/livestock/<user_id>', {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({
+                userId: userId,
+                type: type,
+                breed: breed,
+                singleBrand: singleBrand,
+                birthdate: birthdate,
+                regNumber: regNumber,
+                rfid: rfid,
+                estStartingWeight: estStartingWeight,
+                hangingWeight: hangingWeight,
+                chargebacks: chargebacks,
+                dateOnFeed: dateOnFeed,
+                feedMethod: feedMethod,
+                typeOfPasture: typeOfPasture,
+                typeOfFeed: typeOfFeed,
+                estCompletionDate: estCompletionDate,
+                estFinishedWeight: estFinishedWeight,
+                estFinalPrice: estFinalPrice,
+                finalPrice: finalPrice,
+                deliveredDate: deliveredDate,
+                deliveredTo: deliveredTo,
+                comments: comments,
+                status: status
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+        .catch(error => console.log(error))
     }
 
     render() {

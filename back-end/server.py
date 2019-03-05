@@ -110,6 +110,41 @@ def add_livestock_items(user_id):
     newItem = sql.add_livestock_item_by_user_id(user_id, name,breed,singleBrand,birthdate,regNumber,rfid,estStartingWeight,hangingWeight,chargebacks,deliveredTo,dateOnFeed,feedMethod,typeOfPasture,typeOfFeed,estCompletionDate,estFinishedWeight,estFinalPrice,quantity,finalPrice,deliveredDate,comments,status)
     return jsonify(newItem)
 
+@app.route('/items_livestock', methods=['GET'])
+def get_items_livestock():
+    items_livestock = sql.get_all_offered_items_livestock()
+    output = []
+    # print(users)
+    for item_livestock in items_livestock:
+        item_livestock_data = {}
+        item_livestock_data['id'] = item_livestock.id 
+        item_livestock_data['userId'] = item_livestock.Users_id
+        item_livestock_data['type'] = item_livestock.Product_name
+        item_livestock_data['breed'] = item_livestock.Breed
+        item_livestock_data['singleBrand'] = item_livestock.Single_brand
+        item_livestock_data['birthdate'] = item_livestock.Est_birthdate
+        item_livestock_data['regNumber'] = item_livestock.Registration_number
+        item_livestock_data['rfid'] = item_livestock.RFID_tag
+        item_livestock_data['estStartingWeight'] = item_livestock.Starting_weight
+        item_livestock_data['hangingWeight'] = item_livestock.Hanging_weight
+        item_livestock_data['chargebacks'] = item_livestock.Chargebacks
+        item_livestock_data['comments'] = item_livestock.Comments
+        item_livestock_data['deliveredTo'] = item_livestock.Delivered_to
+        item_livestock_data['dateOnFeed'] = item_livestock.Starting_date_of_feed
+        item_livestock_data['feedMethod'] = item_livestock.Feed_method
+        item_livestock_data['typeOfPasture'] = item_livestock.Type_of_pasture
+        item_livestock_data['typeOfFeed'] = item_livestock.Type_of_feed
+        item_livestock_data['estCompletionDate'] = item_livestock.Est_completion_date
+        item_livestock_data['estFinishedWeight'] = item_livestock.Est_finished_weight
+        item_livestock_data['estFinalPrice'] = item_livestock.Est_price_to_be_paid
+        item_livestock_data['quantity'] = item_livestock.Quantity
+        item_livestock_data['finalPrice'] = item_livestock.Price_paid
+        item_livestock_data['deliveredDate'] = item_livestock.Delivered_date
+        item_livestock_data['status'] = item_livestock.Status
+
+        output.append(item_livestock_data)
+    return jsonify({ 'items_livestock': output })
+
 @app.route("/add_items/produce/<user_id>", methods=['POST', 'GET'])
 def add_produce_items(user_id):
     data = request.get_json('')
@@ -137,6 +172,39 @@ def add_produce_items(user_id):
 
     newItem = sql.add_produce_item_by_user_id(user_id,name, packageType,datePlanted,seedType,modifiedSeed,heirloom,fertilizerTypeUsed,pesticideTypeUsed,estQuantityPlanted,gmo,estFinishedQty,estPrice,qtyAcceptedForListing,qtyAcceptedAtDelivery,chargebacks,finalPricePaid,deliveredDate,deliveredTo,comments,status)
     return jsonify(newItem)
+
+@app.route('/items_produce', methods=['GET'])
+def get_items_produce():
+    items_produce = sql.get_all_offered_items_produce()
+    output = []
+    # print(users)
+    for item_produce in items_produce:
+        item_produce_data = {}
+        item_produce_data['id'] = item_produce.id 
+        item_produce_data['userId'] = item_produce.Users_id
+        item_produce_data['type'] = item_produce.Product_name
+        item_produce_data['packageType'] = item_produce.Package_type
+        item_produce_data['datePlanted'] = item_produce.Date_planted
+        item_produce_data['seedType'] = item_produce.Seed_type
+        item_produce_data['modifiedSeed'] = item_produce.Modified_seed
+        item_produce_data['heirloom'] = item_produce.Heirloom
+        item_produce_data['fertilizerTypeUsed'] = item_produce.Fertilizer_type_used
+        item_produce_data['pesticideTypeUsed'] = item_produce.Pesticide_type_used
+        item_produce_data['deliveredDate'] = item_produce.Delivered_date
+        item_produce_data['comments'] = item_produce.Comments
+        item_produce_data['estQuantityPlanted'] = item_produce.Estimated_qty_planted
+        item_produce_data['gmo'] = item_produce.GMO
+        item_produce_data['estFinishedQty'] = item_produce.Estimated_finished_qty
+        item_produce_data['estPrice'] = item_produce.Est_price_to_be_paid
+        item_produce_data['qtyAcceptedForListing'] = item_produce.Qty_accepted_for_listing
+        item_produce_data['qtyAcceptedAtDelivery'] = item_produce.Qty_accepted_at_delivery
+        item_produce_data['chargebacks'] = item_produce.Chargebacks
+        item_produce_data['finalPricePaid'] = item_produce.Price_paid
+        item_produce_data['deliveredTo'] = item_produce.Delivered_to
+        item_produce_data['status'] = item_produce.Status
+
+        output.append(item_produce_data)
+    return jsonify({ 'items_produce': output })
 
 if __name__ == '__main__':
     app.run(debug=True)
