@@ -4,7 +4,7 @@ import Button from '../../../../SharedComponents/UI/Button';
 import styles from './AddProduceForm.module.css';
 import Toolbar from '../../../../SharedComponents/Navigation/Toolbar/Toolbar';
 
-class ProduceForm extends Component {  
+class ProduceForm extends Component {
     state = {
         data: {
             type: '',
@@ -80,8 +80,8 @@ class ProduceForm extends Component {
                                     </select>
                                 </div>
                                 <div className='field'>
-                                    <label>Hierloom</label>
-                                    <select onChange={this.onChange} name="hierloom" multiple="" className="ui fluid dropdown">
+                                    <label>Heirloom</label>
+                                    <select onChange={this.onChange} name="heirloom" multiple="" className="ui fluid dropdown">
                                         <option value="">Please choose an option</option>
                                         <option value="yes">Yes</option>
                                         <option value="no">No</option>
