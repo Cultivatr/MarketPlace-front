@@ -2,16 +2,14 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from datetime import datetime
 import os
-# import server_func
 import simplejson as json
 from DB.scripts import sql as sql
+
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
 CORS(app, supports_credentials=True)
 
-
 # app.config['SECRET_KEY'] = 'secret'
-
 
 @app.route("/admin", methods=['GET','POST'])
 # @cross_origin(supports_credentials=True)
@@ -42,33 +40,8 @@ def add_new_user():
     is_producer = data.get('isProducer')
     is_other = data.get('isOther')
     member_since = datetime.today()
-    query = sql.add_user(
-        first_name,
-        last_name,
-        p_number,
-        s_number,
-        email,
-        f_name,
-        f_location,
-        area,
-        is_producer,
-        is_admin,
-        is_other,
-        member_since,
-        f_type,
-        rating,
-        m_street,
-        m_city,
-        m_province,
-        m_country,
-        m_postal_code,
-        b_street,
-        b_city,
-        b_province,
-        b_country,
-        b_postal_code,
-        comments
-        )
+    
+    query = sql.add_user(first_name,last_name,p_number,s_number,email,f_name,f_location,area,is_producer,is_admin,is_other,member_since,f_type,rating,m_street,m_city,m_province,m_country,m_postal_code,b_street,b_city,b_province,b_country,b_postal_code,comments)
     return jsonify(query)
 
 @app.route('/admin/users', methods=['GET'])
@@ -107,55 +80,63 @@ def get_users():
         output.append(user_data)
     return jsonify({ 'users': output })
 
-# @app.route("/all_items/<user_id>", methods=['GET'])
-# def all_items(user_id):
-
-#     items = server_func.get_all_offered_items_by_user_id(user_id)
-#     #json.dumps is used to fix previous serialize error,
-#     #it converts date and decimal to string
-#     # dump = json.dumps(items,  indent=0, default=str)
-#     return jsonify(items)
-
 @app.route("/add_items/livestock/<user_id>", methods=['POST', 'GET'])
+def add_livestock_items(user_id):
+    data = request.get_json('')
+    user_id = data.get('userId')
+    name = data.get('type')
+    breed = data.get('breed')
+    singleBrand = data.get('singleBrand')
+    birthdate = data.get('birthdate')
+    regNumber = data.get('regNumber')
+    rfid = data.get('rfid')
+    estStartingWeight = data.get('estStartingWeight')
+    hangingWeight = data.get('hangingWeight')
+    chargebacks = data.get('chargebacks')
+    deliveredTo = data.get('deliveredTo')
+    comments = data.get('comments')
+    dateOnFeed = data.get('dateOnFeed')
+    feedMethod = data.get('feedMethod')
+    typeOfPasture = data.get('typeOfPasture')
+    typeOfFeed = data.get('typeOfFeed')
+    estCompletionDate = data.get('estCompletionDate')
+    estFinishedWeight = data.get('estFinishedWeight')
+    estFinalPrice = data.get('estFinalPrice')
+    quantity = data.get('quantity')
+    finalPrice = data.get('finalPrice')
+    deliveredDate = data.get('deliveredDate')
+    status = "Pending Approval"
+
+    newItem = sql.add_livestock_item_by_user_id(user_id, name,breed,singleBrand,birthdate,regNumber,rfid,estStartingWeight,hangingWeight,chargebacks,deliveredTo,dateOnFeed,feedMethod,typeOfPasture,typeOfFeed,estCompletionDate,estFinishedWeight,estFinalPrice,quantity,finalPrice,deliveredDate,comments,status)
+    return jsonify(newItem)
+
+@app.route("/add_items/produce/<user_id>", methods=['POST', 'GET'])
 def add_produce_items(user_id):
-    # data = request.get_json('')
-    # user_id = data.get('userId')
-    # name = data.get('type')
-    # qty = data.get('quantity')
-    # est_birthday = data.get('birthdate')
-    # registration_number = data.get('regNumber')
-    # rfid_tag = data.get('rfid')
-    # breed = data.get('breed')
-    # single_brand = data.get('')
-    # starting_date_of_feed = data.get('dateOnFeed')
-    # type_of_feed = data.get('typeOfFeed')
-    # est_completion_date = data.get('estCompletionData')
-    # starting_weight = data.get('estStartingWeight')
-    # est_finished_weight = data.get('estFinishedWeight')
-    # hanging_weight = data.get('hangingWeight')
-    # est_price_to_be_paid = data.get('estFinalPrice')
+    data = request.get_json('')
+    user_id = data.get('userId')
+    name = data.get('type')
+    packageType = data.get('packageType')
+    datePlanted = data.get('datePlanted')
+    seedType = data.get('seedType')
+    modifiedSeed = data.get('modifiedSeed')
+    heirloom = data.get('heirloom')
+    fertilizerTypeUsed = data.get('fertilizerTypeUsed')
+    pesticideTypeUsed = data.get('pesticideTypeUsed')
+    deliveredDate = data.get('deliveredDate')
+    comments = data.get('comments')
+    estQuantityPlanted = data.get('estQuantityPlanted')
+    gmo = data.get('gmo')
+    estFinishedQty = data.get('estFinishedQty')
+    estPrice = data.get('estPrice')
+    qtyAcceptedForListing = data.get('qtyAcceptedForListing')
+    qtyAcceptedAtDelivery = data.get('qtyAcceptedAtDelivery')
+    chargebacks = data.get('chargebacks')
+    finalPricePaid = data.get('finalPricePaid')
+    deliveredTo = data.get('deliveredTo')
+    status = "Pending Approval"
 
-    
-
-    # newItems = sql.add_item_by_user_id(name, user_id, qty, est_birthday, registration_number,rfid_tag, breed, single_brand,
-    #     starting_date_of_feed, type_of_feed, est_completion_date, starting_weight, est_finished_weight, hanging_weight,
-    #     est_price_to_be_paid, date_planted, seed_type, heirloom, gmo, fertilizer_type_used, pesticide_type_used,
-    #     estimated_qty_planted, estimated_finished_qty, qty_accepted_for_listing, qty_accepted_at_delivery, chargebacks)
-
-    # return jsonify(newItems)
-
-    # date_planted = data.get('datePlanted')
-    # seed_type = data.get('seedType')
-    # heirloom = data.get('heirloom')
-    # gmo = data.get('gmo')
-    # fertilizer_type_used = data.get('fertilizerTypeUsed')
-    # pesticide_type_used = data.get('pesticideTypeUsed')
-    # estimated_qty_planted = data.get('estimatedQtyPlanted')
-    # estimated_finished_qty = data.get('estimatedFinishedQty')
-    # qty_accepted_for_listing = data.get('qtyAcceptedForListing')
-    # qty_accepted_at_delivery = data.get('qtyAcceptedAtDelivery')
-    # chargebacks = data.get('chargebacks')
-
+    newItem = sql.add_produce_item_by_user_id(user_id,name, packageType,datePlanted,seedType,modifiedSeed,heirloom,fertilizerTypeUsed,pesticideTypeUsed,estQuantityPlanted,gmo,estFinishedQty,estPrice,qtyAcceptedForListing,qtyAcceptedAtDelivery,chargebacks,finalPricePaid,deliveredDate,deliveredTo,comments,status)
+    return jsonify(newItem)
 
 if __name__ == '__main__':
     app.run(debug=True)

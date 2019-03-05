@@ -58,7 +58,7 @@ class LivestockForm extends Component {
                                         <option value="chicken">Chicken</option>
                                         <option value="lamb">Lamb</option>
                                         <option value="goat">Goat</option>
-                                        <option value="custom">Custom</option>
+                                        <option value="beef">Beef</option>
                                     </select>
                                 </div>
                                 <div className='field'>

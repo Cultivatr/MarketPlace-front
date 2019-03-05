@@ -56,7 +56,7 @@ class ProduceForm extends Component {
                                 </div>
                                 <div className='field'>
                                     <label>Package Type</label>
-                                    <select onChange={this.onChange} name="modifiedSeed" multiple="" className="ui fluid dropdown">
+                                    <select onChange={this.onChange} name="packageType" multiple="" className="ui fluid dropdown">
                                         <option value="">Please choose an option</option>
                                         <option value="bunch">Bunch</option>
                                         <option value="head">Head</option>
@@ -107,7 +107,7 @@ class ProduceForm extends Component {
                             <div className='eight wide column'>
                                 <div className="field">
                                     <label>Estimated Quantity Planted</label>
-                                    <input onChange={this.onChange} type="text" name="estimatedQuantityPlanted"/>
+                                    <input onChange={this.onChange} type="text" name="estQuantityPlanted"/>
                                 </div>
                                 <div className='field'>
                                     <label>GMO</label>
@@ -119,7 +119,7 @@ class ProduceForm extends Component {
                                 </div>
                                 <div className="field">
                                     <label>Estimated Finished Qty</label>
-                                    <input onChange={this.onChange} type="text" name="estimatedFinishedQty"/>
+                                    <input onChange={this.onChange} type="text" name="estFinishedQty"/>
                                 </div>
                                 <div className="field">
                                     <label>Est Price</label>
