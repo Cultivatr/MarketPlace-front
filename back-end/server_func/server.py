@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from datetime import datetime
-import offered_items
+import offered_item
 import simplejson as json
 
 app = Flask(__name__)
