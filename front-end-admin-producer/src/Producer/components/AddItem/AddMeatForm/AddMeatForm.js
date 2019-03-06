@@ -88,28 +88,28 @@ class LivestockForm extends Component {
                                     <label>Type</label>
                                     <select onChange={this.onChange} name="type" multiple="" className="ui fluid dropdown">
                                         <option value="">Please choose an option</option>
-                                        <option value="pork">Pork</option>
-                                        <option value="chicken">Chicken</option>
-                                        <option value="lamb">Lamb</option>
-                                        <option value="goat">Goat</option>
-                                        <option value="beef">Beef</option>
+                                        <option value="Pork">Pork</option>
+                                        <option value="Chicken">Chicken</option>
+                                        <option value="Lamb">Lamb</option>
+                                        <option value="Goat">Goat</option>
+                                        <option value="Beef">Beef</option>
                                     </select>
                                 </div>
                                 <div className='field'>
                                     <label>Breed</label>
                                     <select onChange={this.onChange} name="breed" multiple="" className="ui fluid dropdown">
                                         <option value="">Please choose an option</option>
-                                        <option value="angus">Angus</option>
-                                        <option value="birkshire">Birkshire</option>
-                                        <option value="custom">Custom</option>
+                                        <option value="Angus">Angus</option>
+                                        <option value="Birkshire">Birkshire</option>
+                                        <option value="Other">Other</option>
                                     </select>
                                 </div>
                                 <div className='field'>
                                     <label>Single Brand</label>
                                     <select onChange={this.onChange} name="singleBrand" multiple="" className="ui fluid dropdown">
                                         <option value="">Please choose an option</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
                                     </select>
                                 </div>
                                 <div className="field">
@@ -154,11 +154,11 @@ class LivestockForm extends Component {
                                     <label>Feed Method</label>
                                     <select onChange={this.onChange} name="feedMethod" multiple="" className="ui fluid dropdown">
                                         <option value="">Please choose an option</option>
-                                        <option value="grass">Grass</option>
-                                        <option value="grassBarley">Grass and Barley Finished</option>
-                                        <option value="grassGrain">Grass and Grain Finished</option>
-                                        <option value="freeRange">Free Range</option>
-                                        <option value="other">Other</option>
+                                        <option value="Grass">Grass</option>
+                                        <option value="GrassBarley">Grass and Barley Finished</option>
+                                        <option value="GrassGrain">Grass and Grain Finished</option>
+                                        <option value="FreeRange">Free Range</option>
+                                        <option value="Other">Other</option>
                                     </select>
                                 </div>
                                 <div className='field'>
@@ -167,16 +167,16 @@ class LivestockForm extends Component {
                                         <option value="">Please choose an option</option>
                                         <option value="Timothy">Timothy</option>
                                         <option value="Alfa">Alfa</option>
-                                        <option value="other">Other</option>
+                                        <option value="Other">Other</option>
                                     </select>
                                 </div>
                                 <div className='field'>
                                     <label>Type of Feed</label>
                                     <select onChange={this.onChange} name="typeOfFeed" multiple="" className="ui fluid dropdown">
                                         <option value="">Please choose an option</option>
-                                        <option value="grain">Grain</option>
-                                        <option value="barley">Barley</option>
-                                        <option value="other">Other</option>
+                                        <option value="Grain">Grain</option>
+                                        <option value="Barley">Barley</option>
+                                        <option value="Other">Other</option>
                                     </select>
                                 </div>
                                 <div className="field">

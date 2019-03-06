@@ -1,32 +1,52 @@
 import React, { Component } from 'react';
 import matchSorter from 'match-sorter'
 import ReactTable from "react-table";
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { getItemProduceDetails, getItemLivestockDetails } from '../../../AppUtils';
+import ProductProduceDetail from '../ProductDetail/ProductProduceDetail';
+import ProductLivestockDetail from '../ProductDetail/ProductLivestockDetail';
+import Class from "./Summary.module.css";
 
 class Summary extends Component {
   constructor() {
     super();
+    this.produceItems = [];
+    this.livestockItems = [];
     this.data = [];
     this.state = {
         data: {},
         items_produce: [], 
-        items_livestock: []
+        items_livestock: [],
+        itemProduceDetails: {},
+        itemLivestockDetails: {}
     }
   }
 
-  async componentDidMount() {
-    try {
-      const response = await fetch(`https://api.coinmarketcap.com/v1/ticker/?limit=10`);
-      if (!response.ok) {
-        throw Error(response.statusText);
+  getItemObj = async (e) => {
+    let i;
+    for (i = 0; i < this.state.data.length; i++) {
+      if (this.state.data[i].datePlanted) {
+        this.produceItems.push(this.state.data[i]);
+        this.setState({ itemProduceDetails: getItemProduceDetails(parseInt(e.target.id), this.produceItems) });
+      } else if (this.state.data[i].breed) {
+        this.livestockItems.push(this.state.data[i]);
+        this.setState({ itemLivestockDetails: getItemLivestockDetails(parseInt(e.target.id), this.livestockItems) });
       }
-      const json = await response.json();
-      this.setState({ data: json });
-    } catch (error) {
-      console.log(error);
     }
+    await this.showOverlay();
   }
 
+  showOverlay = () => {
+    console.log("in show overlay");
+    console.log(this.state.itemLivestockDetails);
+    console.log(this.state.itemProduceDetails);
+    // if (this.state.itemProduceDetails.datePlanted) {
+    //   document.getElementById("produceOverlay").style.display = "block";
+    // } else if (this.state.itemProduceDetails.breed) {
+    //   document.getElementById("livestockOverlay").style.display = "block";
+    // }
+  }
+    
     componentDidMount = async () => {
       try {
         const response = await fetch(`http://localhost:5000/items_produce`, {
@@ -60,6 +80,10 @@ class Summary extends Component {
       this.setState({data: this.data})
     }
 
+    removeOverlay = (event) => {
+      document.getElementById("produceOverlay").style.display = "none";
+      document.getElementById("livestockOverlay").style.display = "none";
+    }
     
     render() {
       const data = this.data;
@@ -80,7 +104,7 @@ class Summary extends Component {
                       Header: "Item #",
                       id: "Id",
                       width: 75,
-                      accessor: d => d.id,
+                      accessor: d => d.produce_id || d.livestock_id,
                       filterMethod: (filter, rows) =>
                         matchSorter(rows, filter.value, { keys: ["id"] }),
                       filterAll: true,
@@ -140,7 +164,7 @@ class Summary extends Component {
                         Header: "Details",
                         id: "MoreDetails",
                         width: 75,
-                        accessor: d => <Link to='/item-details' className='detailBtn' id={d.id}>&#9673;</Link>,
+                        accessor: d => <span className={Class.detailButton} id={d.produce_id || d.livestock_id} onClick={this.getItemObj}>&#9673;</span>,
                         filterMethod: (filter, rows) =>
                           matchSorter(rows, filter.value, { keys: ["qty"] }),
                         filterAll: true,
@@ -156,6 +180,8 @@ class Summary extends Component {
                 height: "85vh"
               }}
             />
+            <ProductProduceDetail itemProduceDetails={this.state.itemProduceDetails} removeOverlay={this.removeOverlay}/>
+            <ProductLivestockDetail itemLivestockDetails={this.state.itemLivestockDetails} removeOverlay={this.removeOverlay}/>
           </div>
         );
     }

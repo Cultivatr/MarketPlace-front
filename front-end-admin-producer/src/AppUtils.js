@@ -21,11 +21,25 @@ export function filterData(data, pending ,accepted, sold, delivered, notAccepted
   })
 }
 
+export function getItemProduceDetails(produce_id, data) {
+  let item = data.find((itemInfo) => {
+              return itemInfo.produce_id === produce_id;
+  })
+  return item;  
+}
+
+export function getItemLivestockDetails(livestock_id, data) {
+  let item = data.find((itemInfo) => {
+              return itemInfo.livestock_id === livestock_id;
+  })
+  return item; 
+}
+
 export function getItemDetails(id, data) {
   let item = data.find((itemInfo) => {
               return itemInfo.id === id;
   })
-  return item;  
+  return item; 
 }
 
 export function getUserDetails(id, data) {

@@ -91,9 +91,9 @@ class ProduceForm extends Component {
                                     <label>Package Type</label>
                                     <select onChange={this.onChange} name="packageType" multiple="" className="ui fluid dropdown">
                                         <option value="">Please choose an option</option>
-                                        <option value="bunch">Bunch</option>
-                                        <option value="head">Head</option>
-                                        <option value="bag">Bag</option>
+                                        <option value="Bunch">Bunch</option>
+                                        <option value="Head">Head</option>
+                                        <option value="Bag">Bag</option>
                                     </select>
                                 </div>
                                 <div className="field">
@@ -108,16 +108,16 @@ class ProduceForm extends Component {
                                     <label>Modified Seed</label>
                                     <select onChange={this.onChange} name="modifiedSeed" multiple="" className="ui fluid dropdown">
                                         <option value="">Please choose an option</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
                                     </select>
                                 </div>
                                 <div className='field'>
                                     <label>Heirloom</label>
                                     <select onChange={this.onChange} name="heirloom" multiple="" className="ui fluid dropdown">
                                         <option value="">Please choose an option</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
                                     </select>
                                 </div>
                                 <div className="field">
@@ -146,8 +146,8 @@ class ProduceForm extends Component {
                                     <label>GMO</label>
                                     <select onChange={this.onChange} name="gmo" multiple="" className="ui fluid dropdown">
                                         <option value="">Please choose an option</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
                                     </select>
                                 </div>
                                 <div className="field">
