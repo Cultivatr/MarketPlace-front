@@ -1,7 +1,7 @@
 
 export function filterData(data, pending ,accepted, sold, delivered, notAccepted) {
   data.forEach(element => {
-  if (element.status === 'pending') {
+  if (element.status === 'Pending Approval') {
       pending.push(element);
       return pending;
     } else if (element.status === 'accepted') {

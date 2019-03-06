@@ -31,7 +31,6 @@ class Summary extends Component {
       } 
     }
     if (e.target.id.search("P") === 0) {
-      console.log("in if")
       await this.setState({ itemProduceDetails: getItemDetails(e.target.id, this.produceItems) });
       this.showOverlayProduce();
     } else if (e.target.id.search("L") === 0) {
@@ -48,45 +47,45 @@ class Summary extends Component {
     document.getElementById("livestockOverlay").style.display = "block";
   }
     
-    componentDidMount = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/items_produce`, {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json'}
-        })
-        const json = await response.json();
-        this.setState({ items_produce: json });
-        const response2 = await fetch(`http://localhost:5000/items_livestock`, {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json'}
-        })
-        const json2 = await response2.json();
-        this.setState({ items_livestock: json2 });
-      } catch (error) {
-        console.log(error);
-      }
-      await this.createData();
+  componentDidMount = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/items_produce`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json'}
+      })
+      const json = await response.json();
+      this.setState({ items_produce: json });
+      const response2 = await fetch(`http://localhost:5000/items_livestock`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json'}
+      })
+      const json2 = await response2.json();
+      this.setState({ items_livestock: json2 });
+    } catch (error) {
+      console.log(error);
     }
+    await this.createData();
+  }
 
-    createData = () => {
-      let i;
-      if (this.state.items_produce.items_produce.length > 0 || this.state.items_livestock.items_livestock.length > 0) {
-        for (i = 0; i < this.state.items_produce.items_produce.length; i++) {
-          this.data.push(this.state.items_produce.items_produce[i]);
-        }
-        for (i = 0; i < this.state.items_livestock.items_livestock.length; i++) {
-          this.data.push(this.state.items_livestock.items_livestock[i]);
-        }
-      } else {
-        this.setState({data: this.data})
+  createData = () => {
+    let i;
+    if (this.state.items_produce.items_produce.length > 0 || this.state.items_livestock.items_livestock.length > 0) {
+      for (i = 0; i < this.state.items_produce.items_produce.length; i++) {
+        this.data.push(this.state.items_produce.items_produce[i]);
       }
+      for (i = 0; i < this.state.items_livestock.items_livestock.length; i++) {
+        this.data.push(this.state.items_livestock.items_livestock[i]);
+      }
+    } else {
       this.setState({data: this.data})
     }
+    this.setState({data: this.data})
+  }
 
-    removeOverlay = (event) => {
-      document.getElementById("produceOverlay").style.display = "none";
-      document.getElementById("livestockOverlay").style.display = "none";
-    }
+  removeOverlay = (event) => {
+    document.getElementById("produceOverlay").style.display = "none";
+    document.getElementById("livestockOverlay").style.display = "none";
+  }
     
     render() {
       const data = this.data;

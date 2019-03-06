@@ -21,6 +21,10 @@ class UsersComp extends Component {
     document.getElementById("userOverlay").style.display = "block";
   }
 
+  removeOverlay = (event) => {
+    document.getElementById("userOverlay").style.display = "none";
+  }
+
   render() {
     const data = this.state.data.data;
     return (
@@ -116,7 +120,7 @@ class UsersComp extends Component {
             height: "85vh"
           }}
         />
-        <UserDetailComp userDetails={this.state.userDetails} removeOverlay={this.props.removeOverlay}/>
+        <UserDetailComp userDetails={this.state.userDetails} removeOverlay={this.removeOverlay}/>
       </div>
     );
   }

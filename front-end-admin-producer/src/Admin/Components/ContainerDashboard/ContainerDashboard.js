@@ -47,11 +47,11 @@ class ContainerDashboard extends React.Component {
                 },
                 {
                   Header: "Product",
-                  id: "product",
+                  id: "type",
                   width: 400,
-                  accessor: d => d.product,
+                  accessor: d => d.type,
                   filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["product"] }),
+                    matchSorter(rows, filter.value, { keys: ["type"] }),
                   filterAll: true,
                   style: {
                     textAlign: "center"
@@ -59,11 +59,11 @@ class ContainerDashboard extends React.Component {
                 },
                 {
                     Header: "Qty",
-                    id: "qty",
+                    id: "quantity",
                     width: 200,
-                    accessor: d => d.qty,
+                    accessor: d => d.quantity,
                     filterMethod: (filter, rows) =>
-                      matchSorter(rows, filter.value, { keys: ["qty"] }),
+                      matchSorter(rows, filter.value, { keys: ["quantity"] }),
                     filterAll: true,
                     style: {
                       textAlign: "center"
@@ -71,11 +71,11 @@ class ContainerDashboard extends React.Component {
                 },
                 {
                     Header: "Est.Date",
-                    id: "date",
+                    id: "estCompletionDate",
                     width: 340,
-                    accessor: d => d.date,
+                    accessor: d => d.feedMethod,
                     filterMethod: (filter, rows) =>
-                      matchSorter(rows, filter.value, { keys: ["date"] }),
+                      matchSorter(rows, filter.value, { keys: ["feedMethod"] }),
                     filterAll: true,
                     style: {
                       textAlign: "center"

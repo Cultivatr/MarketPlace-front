@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import Class from './admin.module.css';
 import ContainerDashboard from './Components/ContainerDashboard/ContainerDashboard';
 import { filterData, getItemDetails } from '../AppUtils';
-import ItemDetailComp from './Components/ItemDetailComp/ItemDetailComp';
+import ItemDetailLiveStockComp from './Components/ItemDetailComp/ItemDetailLiveStockComp';
+import ItemDetailProduceComp from './Components/ItemDetailComp/ItemDetailProduceComp';
 import AddNewProdComp from './Components/AddNewProdComp/AddNewProdComp';
 import UsersComp from './Components/UsersComp/UsersComp';
-// import UserDetailComp from './Components/UserDetailComp/UserDetailComp';
 
 class Admin extends Component {
   constructor() {
     super();
+    this.produceItems = [];
+    this.livestockItems = [];
+    this.data = [];
     this.pending = [];
     this.accepted = [];
     this.sold = [];
@@ -17,122 +20,89 @@ class Admin extends Component {
     this.notAccepted = [];
     this.state = {
       dataToShow: '',
-      itemDetails: {},
-      users:[],
-      data: [{
-        "farm": "jk farms",
-        "product": "steak",
-        "qty": 1,
-        "date": "2018-12-18",
-        "id": 1,
-        "status": "accepted"
-      },
-      {
-        "farm": "ct farms",
-        "product": "carrots",
-        "qty": 100,
-        "date": "2018-12-10",
-        "id": 2,
-        "status": "pending"
-      },
-      {
-        "farm": "lm farms",
-        "product": "cabbage",
-        "qty": 50,
-        "date": "2018-12-12",
-        "id": 3,
-        "status": "delivered"
-      },
-      {
-        "farm": "ras farms",
-        "product": "steak",
-        "qty": 5,
-        "date": "2018-12-11",
-        "id": 4,
-        "status": "sold"
-      },
-      {
-        "farm": "evolveU farms",
-        "product": "apples",
-        "qty": 25,
-        "date": "2018-12-24",
-        "id": 5,
-        "status": "pending"
-      },
-      {
-        "farm": "Calgary farms",
-        "product": "oranges",
-        "qty": 1000,
-        "date": "2018-12-24",
-        "id": 6,
-        "status": "not accepted"
-      },
-      {
-        "farm": "Edmonton farms",
-        "product": "corn",
-        "qty": 600,
-        "date": "2018-12-24",
-        "id": 7,
-        "status": "pending"
-      },
-      {
-        "farm": "Red Deer farms",
-        "product": "peanuts",
-        "qty": 10000,
-        "date": "2018-12-24",
-        "id": 8,
-        "status": "pending"
-      },
-      {
-        "farm": "Lethbridge farms",
-        "product": "wheat",
-        "qty": 500,
-        "date": "2018-12-24",
-        "id": 9,
-        "status": "accepted"
-      },
-      {
-        "farm": "Medicine Hat farms",
-        "product": "chicken",
-        "qty": 125,
-        "date": "2018-12-24",
-        "id": 10,
-        "status": "pending"
-      },
-      {
-        "farm": "Blackfalds farms",
-        "product": "buffalo",
-        "qty": 2,
-        "date": "2018-12-24",
-        "id": 11,
-        "status": "delivered"
-      }
-      ],
-    }
+      data: {},
+      items_produce: [], 
+      items_livestock: [],
+      itemProduceDetails: {},
+      itemLivestockDetails: {},
+      users:[]
   }
+}
 
-  componentDidMount = () => {
-    fetch(`http://localhost:5000/admin/users`, {
+componentDidMount = async () => {
+  try {
+    const response3 = await fetch(`http://localhost:5000/admin/users`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    })
+    const json3 = await response3.json();
+    this.setState({ users: json3 })
+    const response = await fetch(`http://localhost:5000/items_produce`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json'}
     })
-    .then(response => response.json())
-    .then(data => this.setState({ users: data }))
-    .catch(err => console.log(err,'error'))
+    const json = await response.json();
+    this.setState({ items_produce: json });
+    const response2 = await fetch(`http://localhost:5000/items_livestock`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json'}
+    })
+    const json2 = await response2.json();
+    this.setState({ items_livestock: json2 });
+    
+  } catch (error) {
+    console.log(error);
   }
+  await this.createData();
+}
 
-  componentWillMount(){
-    filterData(this.state.data, this.pending, this.accepted, this.sold, this.delivered, this.notAccepted)
+createData = () => {
+  let i;
+  if (this.state.items_produce.items_produce.length > 0 || this.state.items_livestock.items_livestock.length > 0) {
+    for (i = 0; i < this.state.items_produce.items_produce.length; i++) {
+      this.data.push(this.state.items_produce.items_produce[i]);
+    }
+    for (i = 0; i < this.state.items_livestock.items_livestock.length; i++) {
+      this.data.push(this.state.items_livestock.items_livestock[i]);
+    }
+  } else {
+    this.setState({data: this.data})
   }
+  this.setState({data: this.data})
+  filterData(this.state.data, this.pending, this.accepted, this.sold, this.delivered, this.notAccepted)
+}
 
   removeOverlay = (event) => {
-    document.getElementById("itemOverlay").style.display = "none";
-    document.getElementById("userOverlay").style.display = "none";
+    document.getElementById("itemProduceOverlay").style.display = "none";
+    document.getElementById("itemLivestockOverlay").style.display = "none";
   }
 
-  getItemObj = (e) => {
-    this.setState({ itemDetails: getItemDetails(parseInt(e.target.id), this.state.data) });
-    document.getElementById("itemOverlay").style.display = "block";
+  getItemObj = async (e) => {
+    let i;
+    for (i = 0; i < this.state.data.length; i++) {
+      if (this.state.data[i].datePlanted) {
+        this.produceItems.push(this.state.data[i]);
+      } else if (this.state.data[i].breed) {
+        this.livestockItems.push(this.state.data[i]);
+      } 
+    }
+    if (e.target.id.search("P") === 0) {
+      await this.setState({ itemProduceDetails: getItemDetails(e.target.id, this.produceItems) });
+      console.log(this.state.itemProduceDetails);
+      this.showOverlayProduce();
+    } else if (e.target.id.search("L") === 0) {
+      await this.setState({ itemLivestockDetails: getItemDetails(e.target.id, this.livestockItems) });
+      console.log(this.state.itemLivestockDetails);
+      this.showOverlayLivestock();
+    }
+  }
+
+  showOverlayProduce = () => {
+    document.getElementById("itemProduceOverlay").style.display = "block";
+  }
+
+  showOverlayLivestock = () => {
+    document.getElementById("itemLivestockOverlay").style.display = "block";
   }
 
   OnClickAccept = () => {
@@ -232,7 +202,8 @@ class Admin extends Component {
       <div className="App">
         <h1 className={Class.heading}>Welcome Dan!</h1>
         <main>
-          <ItemDetailComp itemDetails={this.state.itemDetails} removeOverlay={this.removeOverlay}/>
+          <ItemDetailLiveStockComp itemProduceDetails={this.state.itemProduceDetails} removeOverlay={this.removeOverlay}/>
+          <ItemDetailProduceComp itemLivestockDetails={this.state.itemLivestockDetails} removeOverlay={this.removeOverlay}/>
           <div className={Class.container}>
             <div className={Class.boxContainer}>
               <div className={Class.leftNav}>

@@ -1,8 +1,5 @@
 *** PRIORITY ***
 - Changing User details to input type fields so we can update user details
-- Add a new item
-- Fetching all items in the system
-- Fetching item details per item id
 - Updating item details if need be
 - Changing status of item details onClick
 
@@ -16,3 +13,98 @@
 - formatting date coming from back end to yyyy-mm-dd format ... currently showing Fri 01, Mar 2019 00:00GMT when it comes back from database
 - bringing in an error message if field is not filled out that is required
 - fixing the removeoverlay function on the admin side
+- refactoring createData() to not show anything if there is no array sent to it
+- fixing the difference in size between the "more details" icon in admin and producer side
+- need to look at order of how we bring back livestock data back, ex. estCompletionDate getting mixed up with feedMethod tags
+
+
+data: [{
+        "farm": "jk farms",
+        "product": "steak",
+        "qty": 1,
+        "date": "2018-12-18",
+        "id": 1,
+        "status": "accepted"
+      },
+      {
+        "farm": "ct farms",
+        "product": "carrots",
+        "qty": 100,
+        "date": "2018-12-10",
+        "id": 2,
+        "status": "pending"
+      },
+      {
+        "farm": "lm farms",
+        "product": "cabbage",
+        "qty": 50,
+        "date": "2018-12-12",
+        "id": 3,
+        "status": "delivered"
+      },
+      {
+        "farm": "ras farms",
+        "product": "steak",
+        "qty": 5,
+        "date": "2018-12-11",
+        "id": 4,
+        "status": "sold"
+      },
+      {
+        "farm": "evolveU farms",
+        "product": "apples",
+        "qty": 25,
+        "date": "2018-12-24",
+        "id": 5,
+        "status": "pending"
+      },
+      {
+        "farm": "Calgary farms",
+        "product": "oranges",
+        "qty": 1000,
+        "date": "2018-12-24",
+        "id": 6,
+        "status": "not accepted"
+      },
+      {
+        "farm": "Edmonton farms",
+        "product": "corn",
+        "qty": 600,
+        "date": "2018-12-24",
+        "id": 7,
+        "status": "pending"
+      },
+      {
+        "farm": "Red Deer farms",
+        "product": "peanuts",
+        "qty": 10000,
+        "date": "2018-12-24",
+        "id": 8,
+        "status": "pending"
+      },
+      {
+        "farm": "Lethbridge farms",
+        "product": "wheat",
+        "qty": 500,
+        "date": "2018-12-24",
+        "id": 9,
+        "status": "accepted"
+      },
+      {
+        "farm": "Medicine Hat farms",
+        "product": "chicken",
+        "qty": 125,
+        "date": "2018-12-24",
+        "id": 10,
+        "status": "pending"
+      },
+      {
+        "farm": "Blackfalds farms",
+        "product": "buffalo",
+        "qty": 2,
+        "date": "2018-12-24",
+        "id": 11,
+        "status": "delivered"
+      }
+      ],
+    }
