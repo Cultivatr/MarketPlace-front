@@ -14,3 +14,5 @@
 - fix the fact that web page scrolls slightly on the admin side, and that the window doesn't go down to bottom of screen
 - have data verification for phone numbers being 10 numbers long and formatting (x-xxx-xxx-xxxx)the input before it gets to database
 - formatting date coming from back end to yyyy-mm-dd format ... currently showing Fri 01, Mar 2019 00:00GMT when it comes back from database
+- bringing in an error message if field is not filled out that is required
+- fixing the removeoverlay function on the admin side

@@ -5,75 +5,99 @@ import "./ProductProduceDetail.css"
 class ProductProduceDetail extends Component {
     
     render() {
-        const { id, type } = this.props.itemProduceDetails;
+        const { id, type, packageType, datePlanted, seedType, modifiedSeed, heirloom, fertilizerTypeUsed,
+                pesticideTypeUsed, deliveredDate, comments, estQuantityPlanted, gmo, estFinishedQty, estPrice,
+                qtyAcceptedForListing, qtyAcceptedAtDelivery, chargebacks, finalPricePaid, deliveredTo, status } = this.props.itemProduceDetails;
         return (
             <div id="produceOverlay">
                 <div className={Class.itemDetailContainer}>
                     <div className={Class.tableHeader}>
-                        <h4 className="ui horizontal divider header">{type} | Item #<i>{id}</i></h4>
+                        <h4 className="ui horizontal divider header">{type} | Item # <i>{id}</i></h4>
                     </div>
                     <div className={Class.userTable}>
                         <table className="ui definition table">
                         <tbody>
                             <tr>
-                                <td className="two wide column">Breed</td>
-                                <td>{"Breed"}</td>
+                                <td>Status</td>
+                                <td>{status}</td>
                             </tr>
                             <tr>
-                                <td>Single Brand</td>
-                                <td>{"Single_brand"}</td>
+                                <td className="two wide column">Package Type</td>
+                                <td>{packageType}</td>
                             </tr>
                             <tr>
-                                <td>Estimated Birthdate</td>
-                                <td>{"Est_birthdate"}</td>
+                                <td className="two wide column">Date Planted</td>
+                                <td>{datePlanted}</td>
                             </tr>
                             <tr>
-                                <td>Member Since</td>
-                                <td>{"member_since"}</td>
+                                <td>Seed Type</td>
+                                <td>{seedType}</td>
                             </tr>
                             <tr>
-                                <td>Farm Name</td>
-                                <td>{"f_name"}</td>
+                                <td>Modified Seed</td>
+                                <td>{modifiedSeed}</td>
                             </tr>
                             <tr>
-                                <td>Area</td>
-                                <td>{"area"}</td>
+                                <td>Heirloom</td>
+                                <td>{heirloom}</td>
                             </tr>
                             <tr>
-                                <td>Farm Location</td>
-                                <td>{"f_location"}</td>
+                                <td>Fertilizer Type</td>
+                                <td>{fertilizerTypeUsed}</td>
                             </tr>
                             <tr>
-                                <td>Farm Type</td>
-                                <td>{"f_type"}</td>
+                                <td>Pesticide Type</td>
+                                <td>{pesticideTypeUsed}</td>
                             </tr>
                             <tr>
-                                <td>Mailing Address</td>
-                                <td><b>Street:</b> {"m_street"} <b>City:</b> {"m_city"} <b>Province:</b> {"m_province"} <b>Postal Code:</b> {"m_postal_code"} <b>Country:</b> {"m_country"}</td>
+                                <td>Est. Quantity Planted</td>
+                                <td>{estQuantityPlanted}</td>
                             </tr>
                             <tr>
-                                <td>Billing Address</td>
-                                <td><b>Street:</b> {"b_street"} <b>City:</b> {"b_city"} <b>Province:</b> {"b_province"} <b>Postal Code:</b> {"b_postal_code"} <b>Country:</b> {"b_country"}</td>
+                                <td>GMO</td>
+                                <td>{gmo}</td>
                             </tr>
                             <tr>
-                                <td>Rating</td>
-                                <td>{"rating"}</td>
+                                <td>Est. Finished Qty</td>
+                                <td>{estFinishedQty}</td>
                             </tr>
                             <tr>
-                                <td>Authorization</td>
-                                <td><b>Administrator:</b> {"is_admin"} <b>Producer:</b> {"is_producer"} <b>Both:</b> {"is_other"}</td>
+                                <td>Est. Price</td>
+                                <td>{estPrice}</td>
+                            </tr>
+                            <tr>
+                                <td>Qty Accepted For Listing</td>
+                                <td>{qtyAcceptedForListing}</td>
+                            </tr>
+                            <tr>
+                                <td>Qty Accepted At Delivery</td>
+                                <td>{qtyAcceptedAtDelivery}</td>
+                            </tr>
+                            <tr>
+                                <td>Final Price Paid</td>
+                                <td>{finalPricePaid}</td>
+                            </tr>
+                            <tr>
+                                <td>Delivered Date</td>
+                                <td>{deliveredDate}</td>
+                            </tr>
+                            <tr>
+                                <td>Delivered To</td>
+                                <td>{deliveredTo}</td>
+                            </tr>
+                            <tr>
+                                <td>Chargebacks</td>
+                                <td>{chargebacks}</td>
                             </tr>
                             <tr>
                                 <td>Comments</td>
-                                <td>{"Comments"}</td>
+                                <td>{comments}</td>
                             </tr>
                         </tbody>
                         </table>
                     </div>
                     <div className={Class.itemButtonsContainer}>
-                        <button className={Class.itemButtonsAccept} onClick={this.props.removeOverlay}>Accept</button>
                         <button className={Class.itemButtonsModify} onClick={this.props.removeOverlay}>Modify</button>
-                        <button className={Class.itemButtonsDeny} onClick={this.props.removeOverlay}>Deny</button>
                         <button className={Class.itemButtonsCancel} onClick={this.props.removeOverlay}>Cancel</button>
                     </div> 
                 </div>

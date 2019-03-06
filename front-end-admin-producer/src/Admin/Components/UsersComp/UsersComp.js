@@ -99,7 +99,7 @@ class UsersComp extends Component {
                   Header: "Details",
                   id: "details",
                   width: 75,
-                  accessor: d => <span className='detail-button' id={d.id} onClick={this.getProducerObj}>	&#9673;</span>,
+                  accessor: d => <span className='detailButton' id={d.id} onClick={this.getProducerObj}>&#9673;</span>,
                   style: {
                     cursor: "pointer",
                     fontSize: 25,
