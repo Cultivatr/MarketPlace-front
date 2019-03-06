@@ -117,7 +117,8 @@ def get_items_livestock():
     # print(users)
     for item_livestock in items_livestock:
         item_livestock_data = {}
-        item_livestock_data['livestock_id'] = item_livestock.id 
+        x = item_livestock.id
+        item_livestock_data['id'] = "L-%s"%(x) 
         item_livestock_data['userId'] = item_livestock.Users_id
         item_livestock_data['type'] = item_livestock.Product_name
         item_livestock_data['breed'] = item_livestock.Breed
@@ -180,7 +181,8 @@ def get_items_produce():
     # print(users)
     for item_produce in items_produce:
         item_produce_data = {}
-        item_produce_data['produce_id'] = item_produce.id 
+        x = item_produce.id
+        item_produce_data['id'] = "P-%s"%(x)
         item_produce_data['userId'] = item_produce.Users_id
         item_produce_data['type'] = item_produce.Product_name
         item_produce_data['packageType'] = item_produce.Package_type

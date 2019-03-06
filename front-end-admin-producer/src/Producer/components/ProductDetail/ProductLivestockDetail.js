@@ -5,13 +5,12 @@ import "./ProductLivestockDetail.css"
 class ProductLivestockDetail extends Component {
     
     render() {
-        // console.log(this.props.itemDetails);
-        const { livestock_id, Users_id, type, Breed, Single_brand, } = this.props.itemLivestockDetails;
+        const { id, type, Breed, Single_brand, } = this.props.itemLivestockDetails;
         return (
             <div id="livestockOverlay">
                 <div className={Class.itemDetailContainer}>
                     <div className={Class.tableHeader}>
-                        <h4 className="ui horizontal divider header">{type} | Item #<i>{livestock_id}</i></h4>
+                        <h4 className="ui horizontal divider header">{type} | Item #<i>{id}</i></h4>
                     </div>
                     <div className={Class.userTable}>
                         <table className="ui definition table">

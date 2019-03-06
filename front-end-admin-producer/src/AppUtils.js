@@ -21,30 +21,30 @@ export function filterData(data, pending ,accepted, sold, delivered, notAccepted
   })
 }
 
-export function getItemProduceDetails(produce_id, data) {
-  let item = data.find((itemInfo) => {
-              return itemInfo.produce_id === produce_id;
-  })
-  return item;  
-}
+// export function getItemProduceDetails(produce_id, data) {
+//   let item = data.find((itemInfo) => {
+//               return itemInfo.produce_id === produce_id;
+//   })
+//   return item;  
+// }
 
-export function getItemLivestockDetails(livestock_id, data) {
-  let item = data.find((itemInfo) => {
-              return itemInfo.livestock_id === livestock_id;
-  })
-  return item; 
-}
+// export function getItemLivestockDetails(livestock_id, data) {
+//   let item = data.find((itemInfo) => {
+//               return itemInfo.livestock_id === livestock_id;
+//   })
+//   return item; 
+// }
 
 export function getItemDetails(id, data) {
   let item = data.find((itemInfo) => {
-              return itemInfo.id === id;
+    return itemInfo.id === id;
   })
   return item; 
 }
 
 export function getUserDetails(id, data) {
   let user = data.find((userInfo) => {
-              return userInfo.id === id;
+    return userInfo.id === id;
   })
   return user;
 }

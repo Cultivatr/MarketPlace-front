@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import matchSorter from 'match-sorter'
 import ReactTable from "react-table";
-// import { Link } from 'react-router-dom';
-import { getItemProduceDetails, getItemLivestockDetails } from '../../../AppUtils';
+import { getItemDetails } from '../../../AppUtils';
 import ProductProduceDetail from '../ProductDetail/ProductProduceDetail';
 import ProductLivestockDetail from '../ProductDetail/ProductLivestockDetail';
 import Class from "./Summary.module.css";
@@ -27,24 +26,26 @@ class Summary extends Component {
     for (i = 0; i < this.state.data.length; i++) {
       if (this.state.data[i].datePlanted) {
         this.produceItems.push(this.state.data[i]);
-        this.setState({ itemProduceDetails: getItemProduceDetails(parseInt(e.target.id), this.produceItems) });
       } else if (this.state.data[i].breed) {
         this.livestockItems.push(this.state.data[i]);
-        this.setState({ itemLivestockDetails: getItemLivestockDetails(parseInt(e.target.id), this.livestockItems) });
-      }
+      } 
     }
-    await this.showOverlay();
+    if (e.target.id.search("P") === 0) {
+      console.log("in if")
+      await this.setState({ itemProduceDetails: getItemDetails(e.target.id, this.produceItems) });
+      this.showOverlayProduce();
+    } else if (e.target.id.search("L") === 0) {
+      await this.setState({ itemLivestockDetails: getItemDetails(e.target.id, this.livestockItems) });
+      this.showOverlayLivestock();
+    }
   }
 
-  showOverlay = () => {
-    console.log("in show overlay");
-    console.log(this.state.itemLivestockDetails);
-    console.log(this.state.itemProduceDetails);
-    // if (this.state.itemProduceDetails.datePlanted) {
-    //   document.getElementById("produceOverlay").style.display = "block";
-    // } else if (this.state.itemProduceDetails.breed) {
-    //   document.getElementById("livestockOverlay").style.display = "block";
-    // }
+  showOverlayProduce = () => {
+    document.getElementById("produceOverlay").style.display = "block";
+  }
+
+  showOverlayLivestock = () => {
+    document.getElementById("livestockOverlay").style.display = "block";
   }
     
     componentDidMount = async () => {
@@ -76,6 +77,8 @@ class Summary extends Component {
         for (i = 0; i < this.state.items_livestock.items_livestock.length; i++) {
           this.data.push(this.state.items_livestock.items_livestock[i]);
         }
+      } else {
+        this.setState({data: this.data})
       }
       this.setState({data: this.data})
     }
@@ -104,7 +107,7 @@ class Summary extends Component {
                       Header: "Item #",
                       id: "Id",
                       width: 75,
-                      accessor: d => d.produce_id || d.livestock_id,
+                      accessor: d => d.id,
                       filterMethod: (filter, rows) =>
                         matchSorter(rows, filter.value, { keys: ["id"] }),
                       filterAll: true,
@@ -164,7 +167,7 @@ class Summary extends Component {
                         Header: "Details",
                         id: "MoreDetails",
                         width: 75,
-                        accessor: d => <span className={Class.detailButton} id={d.produce_id || d.livestock_id} onClick={this.getItemObj}>&#9673;</span>,
+                        accessor: d => <span className={Class.detailButton} id={d.id} onClick={this.getItemObj}>&#9673;</span>,
                         filterMethod: (filter, rows) =>
                           matchSorter(rows, filter.value, { keys: ["qty"] }),
                         filterAll: true,

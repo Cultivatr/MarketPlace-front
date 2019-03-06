@@ -5,12 +5,12 @@ import "./ProductProduceDetail.css"
 class ProductProduceDetail extends Component {
     
     render() {
-        const { produce_id, Users_id, type } = this.props.itemProduceDetails;
+        const { id, type } = this.props.itemProduceDetails;
         return (
             <div id="produceOverlay">
                 <div className={Class.itemDetailContainer}>
                     <div className={Class.tableHeader}>
-                        <h4 className="ui horizontal divider header">{type} | Item #<i>{produce_id}</i></h4>
+                        <h4 className="ui horizontal divider header">{type} | Item #<i>{id}</i></h4>
                     </div>
                     <div className={Class.userTable}>
                         <table className="ui definition table">
