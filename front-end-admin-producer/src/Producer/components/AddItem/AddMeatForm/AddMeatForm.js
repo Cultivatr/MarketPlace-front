@@ -3,7 +3,7 @@ import styles from './AddMeatForm.module.css';
 import Button from '../../../../SharedComponents/UI/Button';
 import Toolbar from '../../../../SharedComponents/Navigation/Toolbar/Toolbar';
 
-class LivestockForm extends Component {  
+class LivestockForm extends Component {
     state = {
         data: {
                 userId: 1,
@@ -189,7 +189,7 @@ class LivestockForm extends Component {
                                 </div>
                                 <div className="field">
                                     <label>Est. Final Price to be Paid</label>
-                                    <input onChange={this.onChange} type="number" name="estFinalPrice"/>
+                                    <input onChange={this.onChange} type="text" name="estFinalPrice"/>
                                 </div>
                                 <div className="field">
                                     <label>Quantity</label>
@@ -201,7 +201,7 @@ class LivestockForm extends Component {
                                 </div>
                                 <div className="field">
                                     <label>Delivered Date</label>
-                                    <input onChange={this.onChange} type="text" name="deliveredDate"/>
+                                    <input onChange={this.onChange} type="date" name="deliveredDate"/>
                                 </div>
                                 <input type="hidden" id="userId" name="userId" value="1"/>
                             </div>
