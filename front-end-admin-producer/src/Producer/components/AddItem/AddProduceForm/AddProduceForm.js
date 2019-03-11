@@ -130,7 +130,7 @@ class ProduceForm extends Component {
                                 </div>
                                 <div className="field">
                                     <label>Delivered Date</label>
-                                    <input onChange={this.onChange} type="text" name="deliveredDate"/>
+                                    <input onChange={this.onChange} type="date" name="deliveredDate"/>
                                 </div>
                                 <div className="field">
                                     <label>Comments</label>
@@ -172,7 +172,7 @@ class ProduceForm extends Component {
                                 </div>
                                 <div className="field">
                                     <label>Final Price Paid</label>
-                                    <input onChange={this.onChange} type="number" name="finalPricePaid"/>
+                                    <input onChange={this.onChange} type="text" name="finalPricePaid"/>
                                 </div>
                                 <div className="field">
                                     <label>Delivered To</label>
