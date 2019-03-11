@@ -85,3 +85,13 @@
     animation-delay: 1s;
     background-color: darkgray;
 }
+
+.row {
+    padding: 0 0 0 0 !important;
+}
+
+.tableRow {
+    height: 40px;
+    width: 100%;
+    font-size: 100%;
+}
