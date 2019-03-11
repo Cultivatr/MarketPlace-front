@@ -39,6 +39,7 @@ class ProduceForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
+        const form = e.target;
         const { userId, type, packageType, datePlanted, seedType, modifiedSeed,heirloom,fertilizerTypeUsed,pesticideTypeUsed,estimatedQuantityPlanted,gmo,estimatedFinishedQty,estPrice,qtyAcceptedForListing,qtyAcceptedAtDelivery,chargebacks,finalPricePaid,deliveredTo,deliveredDate,comments,status} = this.state.data
         fetch('http://localhost:5000/add_items/produce/<user_id>', {
             method: 'POST',
@@ -71,6 +72,7 @@ class ProduceForm extends Component {
         .then(data => {
             console.log(data)
         })
+        .then(form.reset())
         .catch(error => console.log(error))
     }
 

@@ -39,6 +39,7 @@ class LivestockForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
+        const form = e.target;
         const { userId, type, breed, singleBrand, birthdate, regNumber,rfid,estStartingWeight,hangingWeight,chargebacks,dateOnFeed,feedMethod,typeOfPasture,typeOfFeed,estCompletionDate,estFinishedWeight,estFinalPrice,finalPrice,deliveredDate,deliveredTo,comments,status} = this.state.data
         fetch('http://localhost:5000/add_items/livestock/<user_id>', {
             method: 'POST',
@@ -72,6 +73,7 @@ class LivestockForm extends Component {
         .then(data => {
             console.log(data)
         })
+        .then(form.reset())
         .catch(error => console.log(error))
     }
 
