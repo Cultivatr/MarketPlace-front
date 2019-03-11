@@ -14,7 +14,7 @@ class ItemDetailLivestockComp extends Component {
                     <div className={Class.tableHeader}>
                         <h4 className="ui horizontal divider header">{type} | Item # <i>{id}</i></h4>
                     </div>
-                    <div className={Class.userTable}>
+                    <div className={Class.itemTable}>
                         <table className="ui definition table">
                             <tbody>
                                 <tr>
