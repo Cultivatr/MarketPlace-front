@@ -19,79 +19,79 @@ class ProductProduceDetail extends Component {
                         <tbody>
                             <tr>
                                 <td>Status</td>
-                                <td>{status}</td>
+                                <td className={Class.row}>{status}</td>
                             </tr>
                             <tr>
                                 <td className="two wide column">Package Type</td>
-                                <td>{packageType}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={packageType} /></td>
                             </tr>
                             <tr>
                                 <td className="two wide column">Date Planted</td>
-                                <td>{datePlanted}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={datePlanted} /></td>
                             </tr>
                             <tr>
                                 <td>Seed Type</td>
-                                <td>{seedType}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={seedType} /></td>
                             </tr>
                             <tr>
                                 <td>Modified Seed</td>
-                                <td>{modifiedSeed}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={modifiedSeed} /></td>
                             </tr>
                             <tr>
                                 <td>Heirloom</td>
-                                <td>{heirloom}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={heirloom} /></td>
                             </tr>
                             <tr>
                                 <td>Fertilizer Type</td>
-                                <td>{fertilizerTypeUsed}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={fertilizerTypeUsed} /></td>
                             </tr>
                             <tr>
                                 <td>Pesticide Type</td>
-                                <td>{pesticideTypeUsed}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={pesticideTypeUsed} /></td>
                             </tr>
                             <tr>
                                 <td>Est. Quantity Planted</td>
-                                <td>{estQuantityPlanted}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={estQuantityPlanted} /></td>
                             </tr>
                             <tr>
                                 <td>GMO</td>
-                                <td>{gmo}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={gmo} /></td>
                             </tr>
                             <tr>
                                 <td>Est. Finished Qty</td>
-                                <td>{estFinishedQty}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={estFinishedQty} /></td>
                             </tr>
                             <tr>
                                 <td>Est. Price</td>
-                                <td>{estPrice}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={estPrice} /></td>
                             </tr>
                             <tr>
                                 <td>Qty Accepted For Listing</td>
-                                <td>{qtyAcceptedForListing}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={qtyAcceptedForListing} /></td>
                             </tr>
                             <tr>
                                 <td>Qty Accepted At Delivery</td>
-                                <td>{qtyAcceptedAtDelivery}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={qtyAcceptedAtDelivery} /></td>
                             </tr>
                             <tr>
                                 <td>Final Price Paid</td>
-                                <td>{finalPricePaid}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={finalPricePaid} /></td>
                             </tr>
                             <tr>
                                 <td>Delivered Date</td>
-                                <td>{deliveredDate}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={deliveredDate} /></td>
                             </tr>
                             <tr>
                                 <td>Delivered To</td>
-                                <td>{deliveredTo}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={deliveredTo} /></td>
                             </tr>
                             <tr>
                                 <td>Chargebacks</td>
-                                <td>{chargebacks}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={chargebacks} /></td>
                             </tr>
                             <tr>
                                 <td>Comments</td>
-                                <td>{comments}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={comments} /></td>
                             </tr>
                         </tbody>
                         </table>

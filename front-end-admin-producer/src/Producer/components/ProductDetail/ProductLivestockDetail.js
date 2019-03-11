@@ -3,9 +3,27 @@ import Class from "./ProductLivestockDetail.module.css";
 import "./ProductLivestockDetail.css"
 
 class ProductLivestockDetail extends Component {
+
+    getBreedValue = () => {
+        if (this.props.itemLivestockDetails.breed === "Angus" || this.props.itemLivestockDetails.breed === "angus") {
+            document.getElementById("breed").value = "Angus";
+        } else if (this.props.itemLivestockDetails.breed === "Birkshire" || this.props.itemLivestockDetails.breed === "birkshire") {
+            document.getElementById("breed").value = "Birkshire";
+        } else if (this.props.itemLivestockDetails.breed === "Other" || this.props.itemLivestockDetails.breed === "other") {
+            document.getElementById("breed").value = "Other";
+        }
+    }
+
+    getSingleBrandValue = () => {
+        if (this.props.itemLivestockDetails.singleBrand === true ) {
+            document.getElementById("singleBrand").value = "Yes";
+        } else if (this.props.itemLivestockDetails.singleBrand === false) {
+            document.getElementById("singleBrand").value = "No";
+        }
+    }
     
     render() {
-        const { id, type, breed, singleBrand, birthdate, regNumber, rfid, estStartingWeight, hangingWeight, 
+        const { id, type, birthdate, regNumber, rfid, estStartingWeight, hangingWeight, 
                 chargebacks, comments, deliveredTo, deliveredDate, dateOnFeed, feedMethod, typeOfPasture,
                 typeOfFeed, estCompletionDate, estFinishedWeight, estFinalPrice, quantity, finalPrice, status} = this.props.itemLivestockDetails;
         return (
@@ -18,88 +36,101 @@ class ProductLivestockDetail extends Component {
                         <table className="ui definition table">
                         <tbody>
                             <tr>
-                                <td>Status</td>
-                                <td>{status}</td>
+                                <td className="three wide column">Status</td>
+                                <td className={Class.row}>{status}</td>
                             </tr>
                             <tr>
-                                <td className="two wide column">Breed</td>
-                                <td>{breed}</td>
+                                <td>Breed</td>
+                                <td className={Class.row}>
+                                    <select onChange={this.onChange} id="breed" name="breed" multiple="" className="ui fluid dropdown">
+                                        <option value="Angus">Angus</option>
+                                        <option value="Birkshire">Birkshire</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    {this.getBreedValue()}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Single Brand</td>
-                                <td>{singleBrand}</td>
+                                <td className={Class.row}>
+                                    <select onChange={this.onChange} id="singleBrand" name="singleBrand" multiple="" className="ui fluid dropdown">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                    {this.getSingleBrandValue()}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Estimated Birthdate</td>
-                                <td>{birthdate}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="date" value={birthdate} /></td>
                             </tr>
                             <tr>
                                 <td>Registration Number</td>
-                                <td>{regNumber}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={regNumber} /></td>
                             </tr>
                             <tr>
                                 <td>RFID Tag</td>
-                                <td>{rfid}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={rfid} /></td>
                             </tr>
                             <tr>
                                 <td>Date On Feed</td>
-                                <td>{dateOnFeed}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={dateOnFeed} /></td>
                             </tr>
                             <tr>
                                 <td>Feed Method</td>
-                                <td>{feedMethod}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={feedMethod} /></td>
                             </tr>
                             <tr>
                                 <td>Type Of Pasture</td>
-                                <td>{typeOfPasture}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={typeOfPasture} /></td>
                             </tr>
                             <tr>
                                 <td>Type Of Feed</td>
-                                <td>{typeOfFeed}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={typeOfFeed} /></td>
                             </tr>
                             <tr>
                                 <td>Est Starting Weight</td>
-                                <td>{estStartingWeight}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={estStartingWeight} /></td>
                             </tr>
                             <tr>
                                 <td>Quantity</td>
-                                <td>{quantity}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={quantity} /></td>
                             </tr>
                             <tr>
                                 <td>Est Completion Date</td>
-                                <td>{estCompletionDate}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={estCompletionDate} /></td>
                             </tr>
                             <tr>
                                 <td>Est Finished Weight</td>
-                                <td>{estFinishedWeight}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={estFinishedWeight} /></td>
                             </tr>
                             <tr>
                                 <td>Est Final Price</td>
-                                <td>{estFinalPrice}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={estFinalPrice} /></td>
                             </tr>
                             <tr>
                                 <td>Hanging Weight</td>
-                                <td>{hangingWeight}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={hangingWeight} /></td>
                             </tr>
                             <tr>
                                 <td>Final Price</td>
-                                <td>{finalPrice}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={finalPrice} /></td>
                             </tr>
                             <tr>
                                 <td>Delivered Date</td>
-                                <td>{deliveredDate}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={deliveredDate} /></td>
                             </tr>
                             <tr>
                                 <td>Delivered To</td>
-                                <td>{deliveredTo}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={deliveredTo} /></td>
                             </tr>
                             <tr>
                                 <td>Charge Backs</td>
-                                <td>{chargebacks}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={chargebacks} /></td>
                             </tr>
                             <tr>
                                 <td>Comments</td>
-                                <td>{comments}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={comments} /></td>
                             </tr>
                         </tbody>
                         </table>
