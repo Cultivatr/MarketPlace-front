@@ -1,5 +1,5 @@
 button {
-   padding: 8px 30px;
+   padding: 8px 30px !important ; 
    background: #1ECE88 !important ;
    color: #fff !important ;
    outline: none !important ;
