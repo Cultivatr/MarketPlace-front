@@ -41,6 +41,7 @@ class ProduceForm extends Component {
         e.preventDefault();
         const form = e.target;
         const { userId, type, packageType, datePlanted, seedType, modifiedSeed,heirloom,fertilizerTypeUsed,pesticideTypeUsed,estimatedQuantityPlanted,gmo,estimatedFinishedQty,estPrice,qtyAcceptedForListing,qtyAcceptedAtDelivery,chargebacks,finalPricePaid,deliveredTo,deliveredDate,comments,status} = this.state.data
+        document.getElementById("submitBtn").className += ' loading';
         fetch('http://localhost:5000/add_items/produce/<user_id>', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
@@ -73,6 +74,7 @@ class ProduceForm extends Component {
             console.log(data)
         })
         .then(form.reset())
+        .then(setTimeout(function() {document.getElementById("submitBtn").className = 'ui button';}, 2000))
         .catch(error => console.log(error))
     }
 

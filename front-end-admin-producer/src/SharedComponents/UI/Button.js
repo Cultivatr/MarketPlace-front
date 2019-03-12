@@ -1,11 +1,12 @@
 import React from 'react';
-import styles from './Button.module.css'
+import './Button.module.css';
 
 const Button = (props) => (
    <button
       type="submit"
       onClick={props.clicked}
-      className={styles.button}>
+      className="ui button"
+      id="submitBtn">
       {props.children}
    </button>
 )

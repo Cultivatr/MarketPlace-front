@@ -41,7 +41,8 @@ class LivestockForm extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
-        const { userId, type, breed, singleBrand, birthdate, regNumber,rfid,estStartingWeight,hangingWeight,chargebacks,dateOnFeed,feedMethod,typeOfPasture,typeOfFeed,estCompletionDate,estFinishedWeight,estFinalPrice,finalPrice,deliveredDate,deliveredTo,comments,status, quantity} = this.state.data
+        const { userId, type, breed, singleBrand, birthdate, regNumber,rfid,estStartingWeight,hangingWeight,chargebacks,dateOnFeed,feedMethod,typeOfPasture,typeOfFeed,estCompletionDate,estFinishedWeight,estFinalPrice,finalPrice,deliveredDate,deliveredTo,comments,status, quantity} = this.state.data;
+        document.getElementById("submitBtn").className += ' loading';
         fetch('http://localhost:5000/add_items/livestock/<user_id>', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
@@ -76,6 +77,7 @@ class LivestockForm extends Component {
             console.log(data)
         })
         .then(form.reset())
+        .then(setTimeout(function() {document.getElementById("submitBtn").className = 'ui button';}, 2000))
         .catch(error => console.log(error))
     }
 
