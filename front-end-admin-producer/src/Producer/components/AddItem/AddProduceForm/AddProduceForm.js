@@ -16,9 +16,9 @@ class ProduceForm extends Component {
             heirloom: '',
             fertilizerTypeUsed: '',
             pesticideTypeUsed: '',
-            estimatedQuantityPlanted: '',
+            estQuantityPlanted: '',
             gmo: '',
-            estimatedFinishedQty: '',
+            estFinishedQty: '',
             estPrice: '',
             qtyAcceptedForListing: '',
             qtyAcceptedAtDelivery: '',
@@ -40,7 +40,7 @@ class ProduceForm extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
-        const { userId, type, packageType, datePlanted, seedType, modifiedSeed,heirloom,fertilizerTypeUsed,pesticideTypeUsed,estimatedQuantityPlanted,gmo,estimatedFinishedQty,estPrice,qtyAcceptedForListing,qtyAcceptedAtDelivery,chargebacks,finalPricePaid,deliveredTo,deliveredDate,comments,status} = this.state.data
+        const { userId, type, packageType, datePlanted, seedType, modifiedSeed,heirloom,fertilizerTypeUsed,pesticideTypeUsed,estQuantityPlanted,gmo,estFinishedQty,estPrice,qtyAcceptedForListing,qtyAcceptedAtDelivery,chargebacks,finalPricePaid,deliveredTo,deliveredDate,comments,status} = this.state.data
         document.getElementById("submitBtn").className += ' loading';
         fetch('http://localhost:5000/add_items/produce/<user_id>', {
             method: 'POST',
@@ -55,9 +55,9 @@ class ProduceForm extends Component {
                 heirloom: heirloom,
                 fertilizerTypeUsed: fertilizerTypeUsed,
                 pesticideTypeUsed: pesticideTypeUsed,
-                estimatedQuantityPlanted: estimatedQuantityPlanted,
+                estQuantityPlanted: estQuantityPlanted,
                 gmo: gmo,
-                estimatedFinishedQty: estimatedFinishedQty,
+                estFinishedQty: estFinishedQty,
                 estPrice: estPrice,
                 qtyAcceptedForListing: qtyAcceptedForListing,
                 qtyAcceptedAtDelivery: qtyAcceptedAtDelivery,

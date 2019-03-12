@@ -5,55 +5,93 @@ import "./ProductLivestockDetail.css"
 class ProductLivestockDetail extends Component {
 
     getBreedValue = () => {
-        if (this.props.itemLivestockDetails.breed === "Angus" || this.props.itemLivestockDetails.breed === "angus") {
-            document.getElementById("breed").value = "Angus";
-        } else if (this.props.itemLivestockDetails.breed === "Birkshire" || this.props.itemLivestockDetails.breed === "birkshire") {
-            document.getElementById("breed").value = "Birkshire";
-        } else if (this.props.itemLivestockDetails.breed === "Other" || this.props.itemLivestockDetails.breed === "other") {
-            document.getElementById("breed").value = "Other";
-        }
-    }
-
-    getSingleBrandValue = () => {
-        if (this.props.itemLivestockDetails.singleBrand === true ) {
-            document.getElementById("singleBrand").value = "Yes";
-        } else if (this.props.itemLivestockDetails.singleBrand === false) {
-            document.getElementById("singleBrand").value = "No";
-        }
-    }
-
-    getFeedMethodValue = () => {
-        console.log(this.props.itemLivestockDetails);
-        switch (this.props.itemLivestockDetails.feedMethod) {
-            case "Grass":
-                console.log("in case grass");
-                document.getElementById("feedMethod").value = "Grass";
+        const element = document.getElementById("breed");
+        switch (this.props.itemLivestockDetails.breed) {
+            case "Angus":
+                element.value = "Angus";
                 break;
-            case "GrassBarley":
-                console.log("in case grass barley");
-                document.getElementById("feedMethod").value = "GrassBarley";
-                break;
-            case "GrassGrain":
-                console.log("in case grass grain");
-                document.getElementById("feedMethod").value = "GrassGrain";
-                break;
-            case "FreeRange":
-                console.log("in free range");
-                document.getElementById("feedMethod").value = "FreeRange";
+            case "Birkshire":
+                element.value = "Birkshire";
                 break;
             case "Other":
-                console.log("in other");
-                document.getElementById("feedMethod").value = "Other";
+                element.value = "Other";
                 break;
             default:
                 console.log("couldn't find value");
         }
     }
+
+    getSingleBrandValue = () => {
+        const propSingleBrand = this.props.itemLivestockDetails.singleBrand;
+        const element = document.getElementById("singleBrand");
+        if (propSingleBrand === true ) {
+            element.value = "Yes";
+        } else if (propSingleBrand === false) {
+            element.value = "No";
+        }
+    }
+
+    getFeedMethodValue = () => {
+        const element = document.getElementById("feedMethod");
+        switch (this.props.itemLivestockDetails.feedMethod) {
+            case "Grass":
+                element.value = "Grass";
+                break;
+            case "GrassBarley":
+                element.value = "GrassBarley";
+                break;
+            case "GrassGrain":
+                element.value = "GrassGrain";
+                break;
+            case "FreeRange":
+                element.value = "FreeRange";
+                break;
+            case "Other":
+                element.value = "Other";
+                break;
+            default:
+                console.log("couldn't find value");
+        }
+    }
+
+    getTypeOfPastureValue = () => {
+        const element = document.getElementById("typeOfPasture");
+        switch (this.props.itemLivestockDetails.typeOfPasture) {
+            case "Timothy":
+                element.value = "Timothy";
+                break;
+            case "Alfa":
+                element.value = "Alfa";
+                break;
+            case "Other":
+                element.value = "Other";
+                break;
+            default:
+                console.log("couldn't find value");
+        }
+    }
+
+    getTypeOfFeedValue = () => {
+        const element = document.getElementById("typeOfFeed");
+        switch (this.props.itemLivestockDetails.typeOfFeed) {
+            case "Grain":
+                element.value = "Grain";
+                break;
+            case "Barley":
+                element.value = "Barley";
+                break;
+            case "Other":
+                element.value = "Other";
+                break;
+            default:
+            console.log("couldn't find value");
+        }
+    }
     
     render() {
-        const { id, type, birthdate, regNumber, rfid, estStartingWeight, hangingWeight, 
-                chargebacks, comments, deliveredTo, deliveredDate, dateOnFeed, feedMethod, typeOfPasture,
-                typeOfFeed, estCompletionDate, estFinishedWeight, estFinalPrice, quantity, finalPrice, status} = this.props.itemLivestockDetails;
+        const { id, type, birthdate, regNumber, rfid, estStartingWeight, hangingWeight, chargebacks, comments, 
+                deliveredTo, deliveredDate, dateOnFeed, estCompletionDate, estFinishedWeight, estFinalPrice, 
+                quantity, finalPrice, status} = this.props.itemLivestockDetails;
         return (
             <div id="livestockOverlay">
                 <div className={Class.itemDetailContainer}>
@@ -119,11 +157,25 @@ class ProductLivestockDetail extends Component {
                             </tr>
                             <tr>
                                 <td>Type Of Pasture</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={typeOfPasture} /></td>
+                                <td className={Class.row}>
+                                    <select onChange={this.onChange} id="typeOfPasture" name="typeOfPasture" multiple="" className="ui fluid dropdown">
+                                        <option value="Timothy">Timothy</option>
+                                        <option value="Alfa">Alfa</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    {this.getTypeOfPastureValue()}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Type Of Feed</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={typeOfFeed} /></td>
+                                <td className={Class.row}>
+                                    <select onChange={this.onChange} id="typeOfFeed" name="typeOfFeed" multiple="" className="ui fluid dropdown">
+                                        <option value="Grain">Grain</option>
+                                        <option value="Barley">Barley</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    {this.getTypeOfFeedValue()}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Est Starting Weight</td>

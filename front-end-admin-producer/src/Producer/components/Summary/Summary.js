@@ -130,7 +130,7 @@ class Summary extends Component {
                       Header: "Est. Finished Qty",
                       id: "estFinishedQty",
                       width: 250,
-                      accessor: d => d.estFinishedQty,
+                      accessor: d => d.estFinishedQty || d.quantity,
                       filterMethod: (filter, rows) =>
                         matchSorter(rows, filter.value, { keys: ["estFinishedQty"] }),
                       filterAll: true,
@@ -139,12 +139,12 @@ class Summary extends Component {
                       }
                     },
                     {
-                      Header: "Est. Delivered Date",
+                      Header: "Delivered Date",
                       id: "product",
                       width: 250,
-                      accessor: d => d.estDeliveredDate,
+                      accessor: d => d.deliveredDate,
                       filterMethod: (filter, rows) =>
-                        matchSorter(rows, filter.value, { keys: ["estDeliveredDate"] }),
+                        matchSorter(rows, filter.value, { keys: ["DeliveredDate"] }),
                       filterAll: true,
                       style: {
                         textAlign: "center"

@@ -3,9 +3,56 @@ import Class from "./ProductProduceDetail.module.css";
 import "./ProductProduceDetail.css"
 
 class ProductProduceDetail extends Component {
+
+    getPackageTypeValue = () => {
+        const element = document.getElementById("packageType");
+        switch (this.props.itemProduceDetails.packageType) {
+            case "Bunch":
+                element.value = "Bunch";
+                break;
+            case "Head":
+                element.value = "Head";
+                break;
+            case "Bag":
+                element.value = "Bag";
+                break;
+            default:
+                console.log("couldn't find value");
+        }
+    }
+
+    getModifiedSeedValue = () => {
+        const propModifiedSeed = this.props.itemProduceDetails.modifiedSeed;
+        const element = document.getElementById("modifiedSeed");
+        if (propModifiedSeed === true ) {
+            element.value = "Yes";
+        } else if (propModifiedSeed === false) {
+            element.value = "No";
+        }
+    }
+
+    getHeirloomValue = () => {
+        const propHeirloom = this.props.itemProduceDetails.heirloom;
+        const element = document.getElementById("heirloom");
+        if (propHeirloom === true) {
+            element.value = "Yes";
+        } else if (propHeirloom === false) {
+            element.value = "No";
+        }
+    }
+
+    getGmoValue = () => {
+        const propGmo = this.props.itemProduceDetails.gmo;
+        const element = document.getElementById("gmo");
+        if (propGmo === true) {
+            element.value = "Yes";
+        } else if (propGmo === false) {
+            element.value = "No";
+        }
+    }
     
     render() {
-        const { id, type, packageType, datePlanted, seedType, modifiedSeed, heirloom, fertilizerTypeUsed,
+        const { id, type, datePlanted, seedType, fertilizerTypeUsed,
                 pesticideTypeUsed, deliveredDate, comments, estQuantityPlanted, gmo, estFinishedQty, estPrice,
                 qtyAcceptedForListing, qtyAcceptedAtDelivery, chargebacks, finalPricePaid, deliveredTo, status } = this.props.itemProduceDetails;
         return (
@@ -23,7 +70,14 @@ class ProductProduceDetail extends Component {
                             </tr>
                             <tr>
                                 <td className="two wide column">Package Type</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={packageType} /></td>
+                                <td className={Class.row}>
+                                    <select onChange={this.onChange} id="packageType" name="packageType" multiple="" className="ui fluid dropdown">
+                                        <option value="Bunch">Bunch</option>
+                                        <option value="Head">Head</option>
+                                        <option value="Bag">Bag</option>
+                                    </select>
+                                    {this.getPackageTypeValue()}
+                                </td>
                             </tr>
                             <tr>
                                 <td className="two wide column">Date Planted</td>
@@ -35,11 +89,23 @@ class ProductProduceDetail extends Component {
                             </tr>
                             <tr>
                                 <td>Modified Seed</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={modifiedSeed} /></td>
+                                <td className={Class.row}>
+                                    <select onChange={this.onChange} id="modifiedSeed" name="modifiedSeed" multiple="" className="ui fluid dropdown">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                    {this.getModifiedSeedValue()}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Heirloom</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={heirloom} /></td>
+                                <td className={Class.row}>
+                                    <select onChange={this.onChange} id="heirloom" name="heirloom" multiple="" className="ui fluid dropdown">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                    {this.getHeirloomValue()}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Fertilizer Type</td>
@@ -55,7 +121,13 @@ class ProductProduceDetail extends Component {
                             </tr>
                             <tr>
                                 <td>GMO</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={gmo} /></td>
+                                <td className={Class.row}>
+                                    <select onChange={this.onChange} id="gmo" name="gmo" multiple="" className="ui fluid dropdown">
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                    {this.getGmoValue()}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Est. Finished Qty</td>
