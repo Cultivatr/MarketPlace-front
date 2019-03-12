@@ -237,7 +237,6 @@ RFID_tag INT,
 Starting_weight NUMERIC,
 Hanging_weight NUMERIC,
 Chargebacks NUMERIC,
-Delivered_to TEXT,
 Starting_date_of_feed DATE,
 Feed_method TEXT,
 Type_of_pasture TEXT,
@@ -246,9 +245,10 @@ Est_completion_date DATE,
 Est_finished_weight NUMERIC,
 Est_price_to_be_paid NUMERIC,
 Quantity INT,
+Comments TEXT,
 Price_paid NUMERIC,
 Delivered_date DATE,
-Comments TEXT,
+Delivered_to TEXT,
 Status TEXT
 );
 """
@@ -268,7 +268,6 @@ RFID_tag,
 Starting_weight,
 Hanging_weight,
 Chargebacks,
-Delivered_to,
 Starting_date_of_feed,
 Feed_method,
 Type_of_pasture,
@@ -277,9 +276,10 @@ Est_completion_date,
 Est_finished_weight,
 Est_price_to_be_paid,
 Quantity,
+Comments,
 Price_paid,
 Delivered_date,
-Comments,
+Delivered_to,
 Status
 )
 VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
@@ -310,7 +310,6 @@ RFID_tag = %s,
 Starting_weight = %s,
 Hanging_weight = %s,
 Chargebacks = %s,
-Delivered_to = %s,
 Starting_date_of_feed = %s,
 Feed_method = %s,
 Type_of_pasture = %s,
@@ -319,9 +318,10 @@ Est_completion_date = %s,
 Est_finished_weight = %s,
 Est_price_to_be_paid = %s,
 Quantity = %s,
+Comments = %s,
 Price_paid = %s,
 Delivered_date = %s,
-Comments = %s,
+Delivered_to = %s,
 Status = %s
 WHERE ID = %s;
 """
@@ -419,11 +419,11 @@ def update_offered_items_produce_detail(Users_id,Product_name,Package_type,Date_
     return None
 
 # FUNCTIONS FOR OFFERED ITEMS LIVESTOCK
-def add_livestock_item_by_user_id(Users_id,Product_name,Breed,Single_brand,Est_birthdate,Registration_number,RFID_tag,Starting_weight,Hanging_weight,Chargebacks,Delivered_to,Starting_date_of_feed,Feed_method,Type_of_pasture,Type_of_feed,Est_completion_date,Est_finished_weight,Est_price_to_be_paid,Quantity,Price_paid,Delivered_date,Comments,Status):
+def add_livestock_item_by_user_id(Users_id,Product_name,Breed,Single_brand,Est_birthdate,Registration_number,RFID_tag,Starting_weight,Hanging_weight,Chargebacks,Starting_date_of_feed,Feed_method,Type_of_pasture,Type_of_feed,Est_completion_date,Est_finished_weight,Est_price_to_be_paid,Quantity,Comments,Price_paid,Delivered_date,Delivered_to,Status):
     """
     add a item by the user id
     """
-    sql_results = sql_util(add_offered_item_livestock_string, [Users_id,Product_name,Breed,Single_brand,Est_birthdate,Registration_number,RFID_tag,Starting_weight,Hanging_weight,Chargebacks,Delivered_to,Starting_date_of_feed,Feed_method,Type_of_pasture,Type_of_feed,Est_completion_date,Est_finished_weight,Est_price_to_be_paid,Quantity,Price_paid,Delivered_date,Comments,Status])
+    sql_results = sql_util(add_offered_item_livestock_string, [Users_id,Product_name,Breed,Single_brand,Est_birthdate,Registration_number,RFID_tag,Starting_weight,Hanging_weight,Chargebacks,Starting_date_of_feed,Feed_method,Type_of_pasture,Type_of_feed,Est_completion_date,Est_finished_weight,Est_price_to_be_paid,Quantity,Comments,Price_paid,Delivered_date,Delivered_to,Status])
     return sql_results
 
 def get_offered_items_livestock_by_id(userID):
@@ -456,11 +456,11 @@ def get_all_offered_items_livestock():
       res.append(offered_item_livestock.Offered_item_livestock(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21], r[22], r[23]))
     return res
 
-def update_offered_items_livestock_detail(Users_id,Product_name,Breed,Single_brand,Est_birthdate,Registration_number,RFID_tag,Starting_weight,Hanging_weight,Chargebacks,Delivered_to,Starting_date_of_feed,Feed_method,Type_of_pasture,Type_of_feed,Est_completion_date,Est_finished_weight,Est_price_to_be_paid,Quantity,Price_paid,Delivered_date,Comments,Status,ItemID):
+def update_offered_items_livestock_detail(Users_id,Product_name,Breed,Single_brand,Est_birthdate,Registration_number,RFID_tag,Starting_weight,Hanging_weight,Chargebacks,Starting_date_of_feed,Feed_method,Type_of_pasture,Type_of_feed,Est_completion_date,Est_finished_weight,Est_price_to_be_paid,Quantity,Comments,Price_paid,Delivered_date,Delivered_to,Status,ItemID):
     """
     updating the details for offered items produce
     """
-    sql_results = sql_util(update_offered_items_livestock_details_string, [Users_id,Product_name,Breed,Single_brand,Est_birthdate,Registration_number,RFID_tag,Starting_weight,Hanging_weight,Chargebacks,Delivered_to,Starting_date_of_feed,Feed_method,Type_of_pasture,Type_of_feed,Est_completion_date,Est_finished_weight,Est_price_to_be_paid,Quantity,Price_paid,Delivered_date,Comments,Status,ItemID])
+    sql_results = sql_util(update_offered_items_livestock_details_string, [Users_id,Product_name,Breed,Single_brand,Est_birthdate,Registration_number,RFID_tag,Starting_weight,Hanging_weight,Chargebacks,Starting_date_of_feed,Feed_method,Type_of_pasture,Type_of_feed,Est_completion_date,Est_finished_weight,Est_price_to_be_paid,Quantity,Comments,Price_paid,Delivered_date,Delivered_to,Status,ItemID])
     if sql_results:
       r = sql_results[0]
       return offered_item_livestock.Offered_item_livestock(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9], r[10], r[11], r[12], r[13], r[14], r[15], r[16], r[17], r[18], r[19], r[20], r[21]. r[22], r[23], r[24])

@@ -21,6 +21,34 @@ class ProductLivestockDetail extends Component {
             document.getElementById("singleBrand").value = "No";
         }
     }
+
+    getFeedMethodValue = () => {
+        console.log(this.props.itemLivestockDetails);
+        switch (this.props.itemLivestockDetails.feedMethod) {
+            case "Grass":
+                console.log("in case grass");
+                document.getElementById("feedMethod").value = "Grass";
+                break;
+            case "GrassBarley":
+                console.log("in case grass barley");
+                document.getElementById("feedMethod").value = "GrassBarley";
+                break;
+            case "GrassGrain":
+                console.log("in case grass grain");
+                document.getElementById("feedMethod").value = "GrassGrain";
+                break;
+            case "FreeRange":
+                console.log("in free range");
+                document.getElementById("feedMethod").value = "FreeRange";
+                break;
+            case "Other":
+                console.log("in other");
+                document.getElementById("feedMethod").value = "Other";
+                break;
+            default:
+                console.log("couldn't find value");
+        }
+    }
     
     render() {
         const { id, type, birthdate, regNumber, rfid, estStartingWeight, hangingWeight, 
@@ -62,7 +90,7 @@ class ProductLivestockDetail extends Component {
                             </tr>
                             <tr>
                                 <td>Estimated Birthdate</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="date" value={birthdate} /></td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={birthdate} /></td>
                             </tr>
                             <tr>
                                 <td>Registration Number</td>
@@ -78,7 +106,16 @@ class ProductLivestockDetail extends Component {
                             </tr>
                             <tr>
                                 <td>Feed Method</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={feedMethod} /></td>
+                                <td className={Class.row}>
+                                    <select onChange={this.onChange} id="feedMethod" name="feedMethod" multiple="" className="ui fluid dropdown">
+                                        <option value="Grass">Grass</option>
+                                        <option value="GrassBarley">Grass and Barley Finished</option>
+                                        <option value="GrassGrain">Grass and Grain Finished</option>
+                                        <option value="FreeRange">Free Range</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    {this.getFeedMethodValue()}
+                                </td>
                             </tr>
                             <tr>
                                 <td>Type Of Pasture</td>

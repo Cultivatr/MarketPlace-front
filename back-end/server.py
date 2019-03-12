@@ -93,8 +93,6 @@ def add_livestock_items(user_id):
     estStartingWeight = data.get('estStartingWeight')
     hangingWeight = data.get('hangingWeight')
     chargebacks = data.get('chargebacks')
-    deliveredTo = data.get('deliveredTo')
-    comments = data.get('comments')
     dateOnFeed = data.get('dateOnFeed')
     feedMethod = data.get('feedMethod')
     typeOfPasture = data.get('typeOfPasture')
@@ -103,11 +101,13 @@ def add_livestock_items(user_id):
     estFinishedWeight = data.get('estFinishedWeight')
     estFinalPrice = data.get('estFinalPrice')
     quantity = data.get('quantity')
+    comments = data.get('comments')
     finalPrice = data.get('finalPrice')
     deliveredDate = data.get('deliveredDate')
+    deliveredTo = data.get('deliveredTo')
     status = "Pending Approval"
 
-    newItem = sql.add_livestock_item_by_user_id(user_id, name,breed,singleBrand,birthdate,regNumber,rfid,estStartingWeight,hangingWeight,chargebacks,deliveredTo,dateOnFeed,feedMethod,typeOfPasture,typeOfFeed,estCompletionDate,estFinishedWeight,estFinalPrice,quantity,finalPrice,deliveredDate,comments,status)
+    newItem = sql.add_livestock_item_by_user_id(user_id, name,breed,singleBrand,birthdate,regNumber,rfid,estStartingWeight,hangingWeight,chargebacks,dateOnFeed,feedMethod,typeOfPasture,typeOfFeed,estCompletionDate,estFinishedWeight,estFinalPrice,quantity,comments,finalPrice,deliveredDate, deliveredTo,status)
     return jsonify(newItem)
 
 @app.route('/items_livestock', methods=['GET'])
@@ -129,8 +129,6 @@ def get_items_livestock():
         item_livestock_data['estStartingWeight'] = item_livestock.Starting_weight
         item_livestock_data['hangingWeight'] = item_livestock.Hanging_weight
         item_livestock_data['chargebacks'] = item_livestock.Chargebacks
-        item_livestock_data['comments'] = item_livestock.Comments
-        item_livestock_data['deliveredTo'] = item_livestock.Delivered_to
         item_livestock_data['dateOnFeed'] = item_livestock.Starting_date_of_feed
         item_livestock_data['feedMethod'] = item_livestock.Feed_method
         item_livestock_data['typeOfPasture'] = item_livestock.Type_of_pasture
@@ -139,8 +137,10 @@ def get_items_livestock():
         item_livestock_data['estFinishedWeight'] = item_livestock.Est_finished_weight
         item_livestock_data['estFinalPrice'] = item_livestock.Est_price_to_be_paid
         item_livestock_data['quantity'] = item_livestock.Quantity
+        item_livestock_data['comments'] = item_livestock.Comments
         item_livestock_data['finalPrice'] = item_livestock.Price_paid
         item_livestock_data['deliveredDate'] = item_livestock.Delivered_date
+        item_livestock_data['deliveredTo'] = item_livestock.Delivered_to
         item_livestock_data['status'] = item_livestock.Status
 
         output.append(item_livestock_data)
