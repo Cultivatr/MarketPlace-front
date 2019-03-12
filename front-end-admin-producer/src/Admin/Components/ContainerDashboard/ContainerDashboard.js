@@ -61,7 +61,7 @@ class ContainerDashboard extends React.Component {
                     Header: "Qty",
                     id: "quantity",
                     width: 200,
-                    accessor: d => d.quantity,
+                    accessor: d => d.quantity || d.estFinishedQty,
                     filterMethod: (filter, rows) =>
                       matchSorter(rows, filter.value, { keys: ["quantity"] }),
                     filterAll: true,

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Class from './admin.module.css';
 import ContainerDashboard from './Components/ContainerDashboard/ContainerDashboard';
 import { filterData, getItemDetails } from '../AppUtils';
-import ItemDetailLiveStockComp from './Components/ItemDetailComp/ItemDetailLiveStockComp';
-import ItemDetailProduceComp from './Components/ItemDetailComp/ItemDetailProduceComp';
 import AddNewProdComp from './Components/AddNewProdComp/AddNewProdComp';
 import UsersComp from './Components/UsersComp/UsersComp';
+import ProductLiveStockDetail from '../Producer/components/ProductDetail/ProductLivestockDetail';
+import ProductProduceDetail from '../Producer/components/ProductDetail/ProductProduceDetail';
 
 class Admin extends Component {
   constructor() {
@@ -73,8 +73,8 @@ class Admin extends Component {
   }
 
   removeOverlay = (event) => {
-    document.getElementById("itemProduceOverlay").style.display = "none";
-    document.getElementById("itemLivestockOverlay").style.display = "none";
+    document.getElementById("produceOverlay").style.display = "none";
+    document.getElementById("livestockOverlay").style.display = "none";
   }
 
   getItemObj = async (e) => {
@@ -98,11 +98,11 @@ class Admin extends Component {
   }
 
   showOverlayProduce = () => {
-    document.getElementById("itemProduceOverlay").style.display = "block";
+    document.getElementById("produceOverlay").style.display = "block";
   }
 
   showOverlayLivestock = () => {
-    document.getElementById("itemLivestockOverlay").style.display = "block";
+    document.getElementById("livestockOverlay").style.display = "block";
   }
 
   OnClickAccept = () => {
@@ -203,8 +203,8 @@ class Admin extends Component {
       <div className="App">
         <h1 className={Class.heading}>Welcome Dan!</h1>
         <main>
-          <ItemDetailProduceComp itemProduceDetails={this.state.itemProduceDetails} removeOverlay={this.removeOverlay} />
-          <ItemDetailLiveStockComp itemLivestockDetails={this.state.itemLivestockDetails} removeOverlay={this.removeOverlay} />
+          <ProductProduceDetail itemProduceDetails={this.state.itemProduceDetails} removeOverlay={this.removeOverlay} />
+          <ProductLiveStockDetail itemLivestockDetails={this.state.itemLivestockDetails} removeOverlay={this.removeOverlay} />
           <div className={Class.container}>
             <div className={Class.boxContainer}>
               <div className={Class.leftNav}>
