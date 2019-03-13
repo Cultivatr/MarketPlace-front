@@ -18,7 +18,7 @@ class AddNewProdComp extends Component {
             farmLocation: '',
             farmType: '',
             mailingAddressStreet: '',
-            feedMethod: '',
+            farmType: '',
             area: '',
             mailingAddressCity: '',
             mailingAddressProvince: '',
@@ -43,7 +43,7 @@ class AddNewProdComp extends Component {
  
     onSubmit = (e) => {
         e.preventDefault();
-        const { firstName,lastName,billingAddressCity,primaryNumber,secondaryNumber,billingAddressStreet,billingAddressProvince,email,billingAddressCountry,billingAddressPostalCode,farmName,farmLocation,mailingAddressCity,mailingAddressStreet,feedMethod,area,mailingAddressProvince,rating,mailingAddressCountry,mailingAddressPostalCode,comments,isAdmin,isProducer,isOther} = this.state.data;
+        const { firstName,lastName,billingAddressCity,primaryNumber,secondaryNumber,billingAddressStreet,billingAddressProvince,email,billingAddressCountry,billingAddressPostalCode,farmName,farmLocation,mailingAddressCity,mailingAddressStreet,farmType,area,mailingAddressProvince,rating,mailingAddressCountry,mailingAddressPostalCode,comments,isAdmin,isProducer,isOther} = this.state.data;
         fetch('http://localhost:5000/admin', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
@@ -61,7 +61,7 @@ class AddNewProdComp extends Component {
                 farmName: farmName,
                 farmLocation: farmLocation,
                 mailingAddressStreet: mailingAddressStreet,
-                feedMethod: feedMethod,
+                farmType: farmType,
                 area: area,
                 mailingAddressCity: mailingAddressCity,
                 mailingAddressProvince: mailingAddressProvince,
@@ -75,9 +75,7 @@ class AddNewProdComp extends Component {
             })
         })
         .then(response => response.json())
-        .then(data => {
-            console.log(data)
-        })
+        .then(data => { console.log(data) })
         .catch(error => console.log(error))
     }
     
@@ -199,7 +197,7 @@ class AddNewProdComp extends Component {
                     <div className={Class.field}>
                         <div className='field'>
                             <label>Farm Type</label>
-                            <select onChange={this.onChange} name="farmMethod" multiple="" className="ui fluid dropdown">
+                            <select onChange={this.onChange} name="farmType" multiple="" className="ui fluid dropdown">
                                 <option value="">Please choose an option</option>
                                 <option value="LiveStock">Live Stock</option>
                                 <option value="Produce">Produce</option>
@@ -251,6 +249,7 @@ class AddNewProdComp extends Component {
                                 <option value="3">3</option>
                                 <option value="2">2</option>
                                 <option value="1">1</option>
+                                <option value="0">0</option>
                             </select>
                         </div>
                     </div>
@@ -267,7 +266,7 @@ class AddNewProdComp extends Component {
                             <label>Country</label>
                             <select onChange={this.onChange} name="mailingAddressCountry" multiple="" className="ui fluid dropdown">
                                 <option value="">Please choose an option</option>
-                                <option value="canada">Canada</option>
+                                <option value="Canada">Canada</option>
                             </select>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Class from "./ItemProduceDetail.module.css";
-import "./ItemProduceDetail.css"
+import Class from "./ItemDetail.module.css";
+import "./ItemDetail.css"
 
 class ProductProduceDetail extends Component {
 
@@ -66,7 +66,7 @@ class ProductProduceDetail extends Component {
                         <tbody>
                             <tr>
                                 <td>Status</td>
-                                <td className={Class.row}>{status}</td>
+                                <td className={Class.noInput}>{status}</td>
                             </tr>
                             <tr>
                                 <td className="three wide column">Package Type</td>

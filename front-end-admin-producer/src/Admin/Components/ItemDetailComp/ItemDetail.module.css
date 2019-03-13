@@ -94,4 +94,9 @@
     height: 40px;
     width: 100%;
     font-size: 100%;
+    padding-left: 10px;
+}
+
+.noInput {
+    padding-left: 10px;
 }

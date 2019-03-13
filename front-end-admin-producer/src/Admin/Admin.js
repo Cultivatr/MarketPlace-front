@@ -88,12 +88,23 @@ class Admin extends Component {
     }
     if (e.target.id.search("P") === 0) {
       await this.setState({ itemProduceDetails: getItemDetails(e.target.id, this.produceItems) });
-      console.log(this.state.itemProduceDetails);
       this.showOverlayProduce();
     } else if (e.target.id.search("L") === 0) {
       await this.setState({ itemLivestockDetails: getItemDetails(e.target.id, this.livestockItems) });
-      console.log(this.state.itemLivestockDetails);
       this.showOverlayLivestock();
+    }
+  }
+
+  getUsers = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/admin/users`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      })
+      const json = await response.json();
+      this.setState({ users: json })
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -125,8 +136,9 @@ class Admin extends Component {
     this.setState({ dataToShow: 'notAccepted' });
   }
 
-  OnClickListUsers = () => {
-    this.setState({ dataToShow: 'listUsers' });
+  OnClickListUsers = async () => {
+    const response = await this.getUsers();
+    const view = await this.setState({ dataToShow: 'listUsers' });
   }
 
   OnClickAddUser = () => {
