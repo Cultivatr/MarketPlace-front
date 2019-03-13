@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Class from "./ProductDetail.module.css";
-import "./ProductDetail.css"
+import Class from "./ItemProduceDetail.module.css";
+import "./ItemProduceDetail.css"
 
 class ProductProduceDetail extends Component {
 
@@ -17,7 +17,7 @@ class ProductProduceDetail extends Component {
                 element.value = "Bag";
                 break;
             default:
-                break;
+                console.log("couldn't find value");
         }
     }
 
@@ -52,11 +52,11 @@ class ProductProduceDetail extends Component {
     }
     
     render() {
-        const { id, type, datePlanted, seedType, fertilizerTypeUsed, pesticideTypeUsed, deliveredDate, 
-                comments, estQuantityPlanted, gmo, estFinishedQty, estPrice, qtyAcceptedForListing, 
-                qtyAcceptedAtDelivery, finalPricePaid, deliveredTo, status } = this.props.itemProduceDetails;
+        const { id, type, datePlanted, seedType, fertilizerTypeUsed,
+                pesticideTypeUsed, deliveredDate, comments, estQuantityPlanted, gmo, estFinishedQty, estPrice,
+                qtyAcceptedForListing, qtyAcceptedAtDelivery, chargebacks, finalPricePaid, deliveredTo, status } = this.props.itemProduceDetails;
         return (
-            <div id="produceOverlay">
+            <div id="itemProduceOverlay">
                 <div className={Class.itemDetailContainer}>
                     <div className={Class.tableHeader}>
                         <h4 className="ui horizontal divider header">{type} | Item # <i>{id}</i></h4>
@@ -65,11 +65,11 @@ class ProductProduceDetail extends Component {
                         <table className="ui definition table">
                         <tbody>
                             <tr>
-                                <td className="three wide column">Status</td>
-                                <td className={Class.noInput}>{status}</td>
+                                <td>Status</td>
+                                <td className={Class.row}>{status}</td>
                             </tr>
                             <tr>
-                                <td>Package Type</td>
+                                <td className="three wide column">Package Type</td>
                                 <td className={Class.row}>
                                     <select onChange={this.onChange} id="packageType" name="packageType" multiple="" className="ui fluid dropdown">
                                         <option value="Bunch">Bunch</option>
@@ -135,27 +135,31 @@ class ProductProduceDetail extends Component {
                             </tr>
                             <tr>
                                 <td>Est. Price</td>
-                                <td className={Class.noInput}>{estPrice}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={estPrice} /></td>
                             </tr>
                             <tr>
                                 <td>Qty Accepted For Listing</td>
-                                <td className={Class.noInput}>{qtyAcceptedForListing}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={qtyAcceptedForListing} /></td>
                             </tr>
                             <tr>
                                 <td>Qty Accepted At Delivery</td>
-                                <td className={Class.noInput}>{qtyAcceptedAtDelivery}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={qtyAcceptedAtDelivery} /></td>
                             </tr>
                             <tr>
                                 <td>Final Price Paid</td>
-                                <td className={Class.noInput}>{finalPricePaid}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={finalPricePaid} /></td>
                             </tr>
                             <tr>
                                 <td>Delivered Date</td>
-                                <td className={Class.noInput}>{deliveredDate}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={deliveredDate} /></td>
                             </tr>
                             <tr>
                                 <td>Delivered To</td>
-                                <td className={Class.noInput}>{deliveredTo}</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={deliveredTo} /></td>
+                            </tr>
+                            <tr>
+                                <td>Chargebacks</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={chargebacks} /></td>
                             </tr>
                             <tr>
                                 <td>Comments</td>

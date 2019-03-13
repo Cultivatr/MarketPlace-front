@@ -1,0 +1,104 @@
+
+.tableHeader {
+    height: 10%;
+    padding: 2%;
+}
+
+.userTable {
+    overflow-y: scroll;
+    height: 80%;
+    width: 95%;
+    border: 1px solid lightgray;
+    margin-left: 2.5%;
+}
+
+.itemDetailContainer {
+    height: 80%;
+    width: 80%;
+    background: white;
+    margin-top: 5%;
+    margin-left: 10%;
+}
+
+.itemButtonsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    bottom: 0;
+    justify-content: space-evenly;
+    height: 10%;
+    width: 100%;
+    padding: 10px;
+}
+  
+.itemButtonsAccept,
+.itemButtonsDeny,
+.itemButtonsCancel,
+.itemButtonsModify {
+    border-radius: .28571429rem;
+    box-shadow: 0 0 10px white;
+    padding: .78571429em 1.5em .78571429em;
+    margin: 2px 2px;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: #1ECE88;
+    color: white;
+    transition: background-color .5s, border .5s, color .5s;
+}
+  
+.itemButtonsAccept:hover,
+.itemButtonsAccept:active {
+    border: 1px solid rgb(74, 255, 182);
+    box-shadow: 0 0 10px white;
+    color: white;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    background-color: rgb(74, 255, 182);
+}
+  
+.itemButtonsModify:hover,
+.itemButtonsModify:active {
+    border: 1px solid yellow;
+    box-shadow: 0 0 10px white;
+    color: black;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    background-color: yellow;
+}
+
+.itemButtonsDeny:hover,
+.itemButtonsDeny:active {
+    border: 1px solid red;
+    box-shadow: 0 0 10px white;
+    color: white;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    background-color: red;
+}
+
+.itemButtonsCancel:hover,
+.itemButtonsCancel:active {
+    border: 1px solid darkgray;
+    box-shadow: 0 0 10px white;
+    color: black;
+    animation-duration: 2s;
+    animation-delay: 1s;
+    background-color: darkgray;
+}
+
+.row {
+    padding: 0 0 0 0 !important;
+}
+
+.tableRow {
+    height: 40px;
+    width: 100%;
+    font-size: 100%;
+    padding-left: 10px;
+}
+
+.noInput {
+    padding-left: 10px;
+}
+
+

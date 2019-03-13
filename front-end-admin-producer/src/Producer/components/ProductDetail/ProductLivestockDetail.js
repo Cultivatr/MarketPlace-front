@@ -1,97 +1,25 @@
 import React, { Component } from 'react';
-import Class from "./ProductLivestockDetail.module.css";
-import "./ProductLivestockDetail.css"
+import Class from "./ProductDetail.module.css";
+import "./ProductDetail.css"
 
 class ProductLivestockDetail extends Component {
 
-    getBreedValue = () => {
-        const element = document.getElementById("breed");
-        switch (this.props.itemLivestockDetails.breed) {
-            case "Angus":
-                element.value = "Angus";
-                break;
-            case "Birkshire":
-                element.value = "Birkshire";
-                break;
-            case "Other":
-                element.value = "Other";
-                break;
-            default:
-                console.log("couldn't find value");
-        }
-    }
-
-    getSingleBrandValue = () => {
-        const propSingleBrand = this.props.itemLivestockDetails.singleBrand;
-        const element = document.getElementById("singleBrand");
-        if (propSingleBrand === true ) {
-            element.value = "Yes";
-        } else if (propSingleBrand === false) {
-            element.value = "No";
-        }
-    }
-
-    getFeedMethodValue = () => {
-        const element = document.getElementById("feedMethod");
-        switch (this.props.itemLivestockDetails.feedMethod) {
-            case "Grass":
-                element.value = "Grass";
-                break;
-            case "GrassBarley":
-                element.value = "GrassBarley";
-                break;
-            case "GrassGrain":
-                element.value = "GrassGrain";
-                break;
-            case "FreeRange":
-                element.value = "FreeRange";
-                break;
-            case "Other":
-                element.value = "Other";
-                break;
-            default:
-                console.log("couldn't find value");
-        }
-    }
-
-    getTypeOfPastureValue = () => {
-        const element = document.getElementById("typeOfPasture");
-        switch (this.props.itemLivestockDetails.typeOfPasture) {
-            case "Timothy":
-                element.value = "Timothy";
-                break;
-            case "Alfa":
-                element.value = "Alfa";
-                break;
-            case "Other":
-                element.value = "Other";
-                break;
-            default:
-                console.log("couldn't find value");
-        }
-    }
-
-    getTypeOfFeedValue = () => {
-        const element = document.getElementById("typeOfFeed");
-        switch (this.props.itemLivestockDetails.typeOfFeed) {
-            case "Grain":
-                element.value = "Grain";
-                break;
-            case "Barley":
-                element.value = "Barley";
-                break;
-            case "Other":
-                element.value = "Other";
-                break;
-            default:
-            console.log("couldn't find value");
+    getBrandValue = () => {
+        const value = this.props.itemLivestockDetails.singleBrand;
+        if (value === true) {
+            let brandValue = value.toString();  
+            return brandValue;
+        } else if (value === false) {
+            let brandValue = value.toString();
+            return brandValue;
         }
     }
     
     render() {
-        const { id, type, birthdate, regNumber, rfid, estStartingWeight, hangingWeight, chargebacks, comments, 
-                deliveredTo, deliveredDate, dateOnFeed, estCompletionDate, estFinishedWeight, estFinalPrice, 
-                quantity, finalPrice, status} = this.props.itemLivestockDetails;
+        const { id, type, breed, feedMethod, typeOfPasture, typeOfFeed, birthdate, regNumber, rfid,
+                estStartingWeight, hangingWeight, chargebacks, comments, deliveredTo, deliveredDate, 
+                dateOnFeed, estCompletionDate, estFinishedWeight, estFinalPrice, quantity, finalPrice,
+                status} = this.props.itemLivestockDetails;
         return (
             <div id="livestockOverlay">
                 <div className={Class.itemDetailContainer}>
@@ -103,90 +31,55 @@ class ProductLivestockDetail extends Component {
                         <tbody>
                             <tr>
                                 <td className="three wide column">Status</td>
-                                <td className={Class.row}>{status}</td>
+                                <td className={Class.noInput}>{status}</td>
                             </tr>
                             <tr>
                                 <td>Breed</td>
-                                <td className={Class.row}>
-                                    <select onChange={this.onChange} id="breed" name="breed" multiple="" className="ui fluid dropdown">
-                                        <option value="Angus">Angus</option>
-                                        <option value="Birkshire">Birkshire</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                    {this.getBreedValue()}
-                                </td>
+                                <td className={Class.noInput}>{breed}</td>
                             </tr>
                             <tr>
                                 <td>Single Brand</td>
-                                <td className={Class.row}>
-                                    <select onChange={this.onChange} id="singleBrand" name="singleBrand" multiple="" className="ui fluid dropdown">
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                    </select>
-                                    {this.getSingleBrandValue()}
-                                </td>
+                                <td className={Class.noInput}>{this.getBrandValue()}</td>
+                                
                             </tr>
                             <tr>
                                 <td>Estimated Birthdate</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={birthdate} /></td>
+                                <td className={Class.noInput}>{birthdate}</td>
                             </tr>
                             <tr>
                                 <td>Registration Number</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={regNumber} /></td>
+                                <td className={Class.noInput}>{regNumber}</td>
                             </tr>
                             <tr>
                                 <td>RFID Tag</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={rfid} /></td>
+                                <td className={Class.noInput}>{rfid}</td>
                             </tr>
                             <tr>
                                 <td>Date On Feed</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={dateOnFeed} /></td>
+                                <td className={Class.noInput}>{dateOnFeed}</td>
                             </tr>
                             <tr>
                                 <td>Feed Method</td>
-                                <td className={Class.row}>
-                                    <select onChange={this.onChange} id="feedMethod" name="feedMethod" multiple="" className="ui fluid dropdown">
-                                        <option value="Grass">Grass</option>
-                                        <option value="GrassBarley">Grass and Barley Finished</option>
-                                        <option value="GrassGrain">Grass and Grain Finished</option>
-                                        <option value="FreeRange">Free Range</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                    {this.getFeedMethodValue()}
-                                </td>
+                                <td className={Class.noInput}>{feedMethod}</td>
                             </tr>
                             <tr>
                                 <td>Type Of Pasture</td>
-                                <td className={Class.row}>
-                                    <select onChange={this.onChange} id="typeOfPasture" name="typeOfPasture" multiple="" className="ui fluid dropdown">
-                                        <option value="Timothy">Timothy</option>
-                                        <option value="Alfa">Alfa</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                    {this.getTypeOfPastureValue()}
-                                </td>
+                                <td className={Class.noInput}>{typeOfPasture}</td>
                             </tr>
                             <tr>
                                 <td>Type Of Feed</td>
-                                <td className={Class.row}>
-                                    <select onChange={this.onChange} id="typeOfFeed" name="typeOfFeed" multiple="" className="ui fluid dropdown">
-                                        <option value="Grain">Grain</option>
-                                        <option value="Barley">Barley</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                    {this.getTypeOfFeedValue()}
-                                </td>
+                                <td className={Class.noInput}>{typeOfFeed}</td>
                             </tr>
                             <tr>
                                 <td>Est Starting Weight</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={estStartingWeight} /></td>
+                                <td className={Class.noInput}>{estStartingWeight}</td>
                             </tr>
                             <tr>
                                 <td>Quantity</td>
                                 <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={quantity} /></td>
                             </tr>
                             <tr>
-                                <td>Est Completion Date</td>
+                                <td>Est Completion Date</td> 
                                 <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={estCompletionDate} /></td>
                             </tr>
                             <tr>
@@ -195,27 +88,27 @@ class ProductLivestockDetail extends Component {
                             </tr>
                             <tr>
                                 <td>Est Final Price</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={estFinalPrice} /></td>
+                                <td className={Class.noInput}>{estFinalPrice}</td>
                             </tr>
                             <tr>
                                 <td>Hanging Weight</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={hangingWeight} /></td>
+                                <td className={Class.noInput}>{hangingWeight}</td>
                             </tr>
                             <tr>
                                 <td>Final Price</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={finalPrice} /></td>
+                                <td className={Class.noInput}>{finalPrice}</td>
                             </tr>
                             <tr>
                                 <td>Delivered Date</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={deliveredDate} /></td>
+                                <td className={Class.noInput}>{deliveredDate}</td>
                             </tr>
                             <tr>
                                 <td>Delivered To</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={deliveredTo} /></td>
+                                <td className={Class.noInput}>{deliveredTo}</td>
                             </tr>
                             <tr>
                                 <td>Charge Backs</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={chargebacks} /></td>
+                                <td className={Class.noInput}>{chargebacks}</td>
                             </tr>
                             <tr>
                                 <td>Comments</td>

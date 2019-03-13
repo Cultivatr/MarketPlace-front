@@ -22,7 +22,7 @@ class ProduceForm extends Component {
             estPrice: '',
             qtyAcceptedForListing: '',
             qtyAcceptedAtDelivery: '',
-            chargebacks: '',
+            chargebacks: 0,
             finalPricePaid: '',
             deliveredTo: '',
             deliveredDate: '',
@@ -133,10 +133,6 @@ class ProduceForm extends Component {
                                     <input onChange={this.onChange} type="text" name="pesticideTypeUsed"/>
                                 </div>
                                 <div className="field">
-                                    <label>Delivered Date</label>
-                                    <input onChange={this.onChange} type="date" name="deliveredDate"/>
-                                </div>
-                                <div className="field">
                                     <label>Comments</label>
                                     <textarea onChange={this.onChange} placeholder="Tell us more" rows="3" name="comments"></textarea>
                                 </div>
@@ -171,16 +167,16 @@ class ProduceForm extends Component {
                                     <input onChange={this.onChange} type="text" name="qtyAcceptedAtDelivery"/>
                                 </div>
                                 <div className="field">
-                                    <label>Chargebacks</label>
-                                    <input onChange={this.onChange} type="text" name="chargebacks"/>
-                                </div>
-                                <div className="field">
                                     <label>Final Price Paid</label>
                                     <input onChange={this.onChange} type="text" name="finalPricePaid"/>
                                 </div>
                                 <div className="field">
                                     <label>Delivered To</label>
                                     <input onChange={this.onChange} type="text" name="deliveredTo"/>
+                                </div>
+                                <div className="field">
+                                    <label>Delivered Date</label>
+                                    <input onChange={this.onChange} type="date" name="deliveredDate"/>
                                 </div>
                                 <input onChange={this.onChange} type="hidden" id="userId" name="userId" value="1"/>
 
