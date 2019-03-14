@@ -137,8 +137,10 @@ class Admin extends Component {
   }
 
   OnClickListUsers = async () => {
-    const response = await this.getUsers();
-    const view = await this.setState({ dataToShow: 'listUsers' });
+    console.log("in fucntion");
+    await this.getUsers();
+    await this.setState({ dataToShow: 'listUsers' });
+    this.forceUpdate();
   }
 
   OnClickAddUser = () => {
@@ -199,7 +201,7 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <button className={Class.buttonAddUser} onClick={this.OnClickAddUser}>Add User</button>
           </div>
-          <UsersComp data={this.state.users} removeOverlay={this.removeOverlay} />
+          <UsersComp data={this.state.users} getUsers={this.OnClickListUsers} />
         </div>
     }
     else if (this.state.dataToShow === 'addNewProd') {

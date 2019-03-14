@@ -18,7 +18,6 @@ class AddNewProdComp extends Component {
             farmLocation: '',
             farmType: '',
             mailingAddressStreet: '',
-            farmType: '',
             area: '',
             mailingAddressCity: '',
             mailingAddressProvince: '',

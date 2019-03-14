@@ -17,7 +17,7 @@ class ProductLivestockDetail extends Component {
                 element.value = "Other";
                 break;
             default:
-                console.log("couldn't find value");
+                break;
         }
     }
 
@@ -50,7 +50,7 @@ class ProductLivestockDetail extends Component {
                 element.value = "Other";
                 break;
             default:
-                console.log("couldn't find value");
+                break;
         }
     }
 
@@ -67,7 +67,7 @@ class ProductLivestockDetail extends Component {
                 element.value = "Other";
                 break;
             default:
-                console.log("couldn't find value");
+                break;
         }
     }
 
@@ -84,7 +84,7 @@ class ProductLivestockDetail extends Component {
                 element.value = "Other";
                 break;
             default:
-            console.log("couldn't find value");
+                break;
         }
     }
     

@@ -17,13 +17,27 @@ class UsersComp extends Component {
 
   getProducerObj = (e) => {
     this.setState({ userDetails: getUserDetails(parseInt(e.target.id), this.state.data.data.users) });
-    console.log(this.state.userDetails)
     document.getElementById("userOverlay").style.display = "block";
   }
 
   removeOverlay = (event) => {
     document.getElementById("userOverlay").style.display = "none";
   }
+
+  // getUpdatedUsers = async () => {
+  //   try {
+  //     const response = await fetch(`http://localhost:5000/admin/users`, {
+  //       method: 'GET',
+  //       headers: { 'Content-Type': 'application/json' }
+  //     })
+  //     const data = await response.json();
+  //     const data1 = await { data }
+  //     await this.setState({ data: data1 })
+  //     console.log(this.state.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   render() {
     const data = this.state.data.data;
@@ -55,7 +69,7 @@ class UsersComp extends Component {
                   Header: "First Name",
                   id: "first_name",
                   width: 250,
-                  accessor: d => d.first_name,
+                  accessor: d => d.firstName,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["first_name"] }),
                   filterAll: true,
@@ -67,7 +81,7 @@ class UsersComp extends Component {
                   Header: "Last Name",
                   id: "last_name",
                   width: 250,
-                  accessor: d => d.last_name,
+                  accessor: d => d.lastName,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["last_name"] }),
                   filterAll: true,
@@ -79,7 +93,7 @@ class UsersComp extends Component {
                     Header: "Primary Number",
                     id: "p_number",
                     width: 250,
-                    accessor: d => d.p_number,
+                    accessor: d => d.primaryNumber,
                     filterMethod: (filter, rows) =>
                       matchSorter(rows, filter.value, { keys: ["p_number"] }),
                     filterAll: true,
@@ -120,7 +134,7 @@ class UsersComp extends Component {
             height: "85vh"
           }}
         />
-        <UserDetailComp userDetails={this.state.userDetails} removeOverlay={this.removeOverlay}/>
+        <UserDetailComp userDetails={this.state.userDetails} removeOverlay={this.removeOverlay} getUsers={this.props.getUsers}/>
       </div>
     );
   }

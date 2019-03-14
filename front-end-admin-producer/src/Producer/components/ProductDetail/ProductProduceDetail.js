@@ -53,7 +53,7 @@ class ProductProduceDetail extends Component {
     
     render() {
         const { id, type, datePlanted, seedType, fertilizerTypeUsed, pesticideTypeUsed, deliveredDate, 
-                comments, estQuantityPlanted, gmo, estFinishedQty, estPrice, qtyAcceptedForListing, 
+                comments, estQuantityPlanted, estFinishedQty, estPrice, qtyAcceptedForListing, 
                 qtyAcceptedAtDelivery, finalPricePaid, deliveredTo, status } = this.props.itemProduceDetails;
         return (
             <div id="produceOverlay">

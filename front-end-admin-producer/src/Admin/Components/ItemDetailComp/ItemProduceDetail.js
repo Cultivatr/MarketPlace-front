@@ -17,7 +17,7 @@ class ProductProduceDetail extends Component {
                 element.value = "Bag";
                 break;
             default:
-                console.log("couldn't find value");
+                break;
         }
     }
 
@@ -53,7 +53,7 @@ class ProductProduceDetail extends Component {
     
     render() {
         const { id, type, datePlanted, seedType, fertilizerTypeUsed,
-                pesticideTypeUsed, deliveredDate, comments, estQuantityPlanted, gmo, estFinishedQty, estPrice,
+                pesticideTypeUsed, deliveredDate, comments, estQuantityPlanted, estFinishedQty, estPrice,
                 qtyAcceptedForListing, qtyAcceptedAtDelivery, chargebacks, finalPricePaid, deliveredTo, status } = this.props.itemProduceDetails;
         return (
             <div id="itemProduceOverlay">

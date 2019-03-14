@@ -91,6 +91,13 @@
     width: 100%;
     font-size: 100%;
     padding-left: 10px;
+    background-color: #f8f8f8;
+}
+
+.tableRow:hover,
+::placeholder:hover {
+    background-color: #1ECE88;
+    color: white;
 }
 
 .row {
