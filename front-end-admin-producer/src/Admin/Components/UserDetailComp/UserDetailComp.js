@@ -75,7 +75,7 @@ class UserDetailComp extends Component {
 
     getAreaValue = () => {
         const element = document.getElementById("area");
-        switch (this.props.userDetails.area) {
+        switch (this.state.data.area) {
             case "Southern AB":
                 element.value = "Southern AB";
                 break;
@@ -92,7 +92,7 @@ class UserDetailComp extends Component {
 
     getFarmTypeValue = () => {
         const element = document.getElementById("farmType");
-        switch (this.props.userDetails.farmType) {
+        switch (this.state.data.farmType) {
             case "LiveStock":
                 element.value = "LiveStock";
                 break;
@@ -109,7 +109,7 @@ class UserDetailComp extends Component {
 
     getRatingValue = () => {
         const element = document.getElementById("rating");
-        switch (this.props.userDetails.rating) {
+        switch (this.state.data.rating) {
             case 5:
                 element.value = "5";
                 break;
@@ -140,25 +140,25 @@ class UserDetailComp extends Component {
     }
 
     checkIsAdmin = () => {
-        if (this.props.userDetails.isAdmin === true) {
+        if (this.state.data.isAdmin === true) {
             document.getElementById("isAdmin").checked = true;
-        } else if (this.props.userDetails.is_admin === false) {
+        } else if (this.state.data.isAdmin === false) {
             document.getElementById("isAdmin").checked = false;
         }
     }
 
     checkIsProducer = () => {
-        if (this.props.userDetails.isProducer === true) {
+        if (this.state.data.isProducer === true) {
             document.getElementById("isProd").checked = true;
-        } else if (this.props.userDetails.is_producer === false) {
+        } else if (this.state.data.isProducer === false) {
             document.getElementById("isProd").checked = false;
         }
     }
 
     checkIsOther = () => {
-        if (this.props.userDetails.isOther === true) {
+        if (this.state.data.isOther === true) {
             document.getElementById("isOther").checked = true;
-        } else if (this.props.userDetails.is_other === false) {
+        } else if (this.state.data.isOther === false) {
             document.getElementById("isOther").checked = false;
         }
     }
