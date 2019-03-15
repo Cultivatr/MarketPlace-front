@@ -113,6 +113,43 @@ def get_users():
         output.append(user_data)
     return jsonify({ 'users': output })
 
+@app.route('/admin/user/<int:id>')
+def get_user(id):
+    user = sql.get_user(id)
+    
+    if not user:
+        return jsonify({'message': 'No client found!'})
+    
+    user_data = {}
+    user_data['id'] = user.id
+    user_data['firstName'] = user.first_name
+    user_data['lastName'] = user.last_name
+    user_data['primaryNumber'] = user.p_number
+    user_data['secondaryNumber'] = user.s_number
+    user_data['email'] = user.email
+    user_data['farmName'] = user.f_name
+    user_data['farmLocation'] = user.f_location
+    user_data['area'] = user.area
+    user_data['isProducer'] = user.is_producer
+    user_data['isAdmin'] = user.is_admin
+    user_data['isOther'] = user.is_other
+    user_data['member_since'] = user.member_since
+    user_data['farmType'] = user.f_type
+    user_data['rating'] = user.rating
+    user_data['mailingAddressStreet'] = user.m_street
+    user_data['mailingAddressCity'] = user.m_city
+    user_data['mailingAddressProvince'] = user.m_province
+    user_data['mailingAddressCountry'] = user.m_country
+    user_data['mailingAddressPostalCode'] = user.m_postal_code
+    user_data['billingAddressStreet'] = user.b_street
+    user_data['billingAddressCity'] = user.b_city
+    user_data['billingAddressProvince'] = user.b_province
+    user_data['billingAddressCountry'] = user.b_country
+    user_data['billingAddressPostalCode'] = user.b_postal_code
+    user_data['comments'] = user.comments
+
+    return jsonify({ 'user': user_data })
+
 @app.route("/add_items/livestock/<user_id>", methods=['POST', 'GET'])
 def add_livestock_items(user_id):
     data = request.get_json('')

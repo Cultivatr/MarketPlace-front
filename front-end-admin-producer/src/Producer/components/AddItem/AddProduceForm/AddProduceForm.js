@@ -74,7 +74,7 @@ class ProduceForm extends Component {
             console.log(data)
         })
         .then(form.reset())
-        .then(setTimeout(function() {document.getElementById("submitBtn").className = 'ui button';}, 2000))
+        .then(setTimeout(function() {document.getElementById("submitBtn").className = 'ui button';}, 1000))
         .catch(error => console.log(error))
     }
 

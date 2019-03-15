@@ -102,7 +102,7 @@ class Admin extends Component {
         headers: { 'Content-Type': 'application/json' }
       })
       const json = await response.json();
-      this.setState({ users: json })
+      await this.setState({ users: json })
     } catch (error) {
       console.log(error);
     }
@@ -137,10 +137,9 @@ class Admin extends Component {
   }
 
   OnClickListUsers = async () => {
-    console.log("in fucntion");
     await this.getUsers();
+    await this.setState({ dataToShow: 'toBeAccepted' });
     await this.setState({ dataToShow: 'listUsers' });
-    this.forceUpdate();
   }
 
   OnClickAddUser = () => {
@@ -201,7 +200,7 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <button className={Class.buttonAddUser} onClick={this.OnClickAddUser}>Add User</button>
           </div>
-          <UsersComp data={this.state.users} getUsers={this.OnClickListUsers} />
+          <UsersComp data={this.state.users} showUsers={this.OnClickListUsers} />
         </div>
     }
     else if (this.state.dataToShow === 'addNewProd') {

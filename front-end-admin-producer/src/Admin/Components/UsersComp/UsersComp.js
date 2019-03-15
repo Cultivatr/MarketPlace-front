@@ -24,21 +24,6 @@ class UsersComp extends Component {
     document.getElementById("userOverlay").style.display = "none";
   }
 
-  // getUpdatedUsers = async () => {
-  //   try {
-  //     const response = await fetch(`http://localhost:5000/admin/users`, {
-  //       method: 'GET',
-  //       headers: { 'Content-Type': 'application/json' }
-  //     })
-  //     const data = await response.json();
-  //     const data1 = await { data }
-  //     await this.setState({ data: data1 })
-  //     console.log(this.state.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   render() {
     const data = this.state.data.data;
     return (
@@ -134,7 +119,7 @@ class UsersComp extends Component {
             height: "85vh"
           }}
         />
-        <UserDetailComp userDetails={this.state.userDetails} removeOverlay={this.removeOverlay} getUsers={this.props.getUsers}/>
+        <UserDetailComp userDetails={this.state.userDetails} removeOverlay={this.removeOverlay} showUsers={this.props.showUsers}/>
       </div>
     );
   }

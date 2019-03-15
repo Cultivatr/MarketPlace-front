@@ -5,23 +5,33 @@ import "./userDetailComp.css"
 class UserDetailComp extends Component {
     constructor(props) {
         super(props);
-        this.newData = {}
+        this.props = props;
+        this.state = {
+            data: this.props.userDetails,
+        }
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.userDetails.id !== prevProps.userDetails.id) {
+            this.setState({ data: this.props.userDetails });
+        }
+      }
+
     onChange = (e) => {
-        let data = this.props.userDetails;
+        let data = this.state.data;
         data.isAdmin = document.getElementById("isAdmin").checked;
         data.isProducer = document.getElementById("isProd").checked;
         data.isOther = document.getElementById("isOther").checked;
         let newdata = { ...data, [e.target.name]: e.target.value };
-        this.newData = newdata;
+        this.setState({ data: newdata });
     }
 
-    onSubmit = (e) => {
+    onSubmit = async (e) => {
         this.props.removeOverlay();
         e.preventDefault();
-        const { id,firstName,lastName,billingAddressCity,primaryNumber,secondaryNumber,billingAddressStreet,billingAddressProvince,email,billingAddressCountry,billingAddressPostalCode,farmName,farmLocation,mailingAddressCity,mailingAddressStreet,farmType,area,mailingAddressProvince,rating,mailingAddressCountry,mailingAddressPostalCode,comments,isAdmin,isProducer,isOther} = this.newData;
-        fetch('http://localhost:5000/admin/updateUsers', {
+        const { id,firstName,lastName,billingAddressCity,primaryNumber,secondaryNumber,billingAddressStreet,billingAddressProvince,email,billingAddressCountry,billingAddressPostalCode,farmName,farmLocation,mailingAddressCity,mailingAddressStreet,farmType,area,mailingAddressProvince,rating,mailingAddressCountry,mailingAddressPostalCode,comments,isAdmin,isProducer,isOther} = this.state.data;
+        try {
+            const response = await fetch('http://localhost:5000/admin/updateUsers', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({
@@ -52,11 +62,15 @@ class UserDetailComp extends Component {
                 isOther: isOther
             })
         })
-        .then(response => response.json())
+            const json = await response.json();
+            console.log(json);
         // .then(data => { console.log(data) })
         // .then(this.props.getUsers())
-        .catch(error => console.log(error))
-        this.props.getUsers();
+        // .catch(error => console.log(error))
+            this.props.showUsers();
+        } catch (error) {
+            console.log(error);
+        } 
     }
 
     getAreaValue = () => {
@@ -78,7 +92,7 @@ class UserDetailComp extends Component {
 
     getFarmTypeValue = () => {
         const element = document.getElementById("farmType");
-        switch (this.props.userDetails.f_type) {
+        switch (this.props.userDetails.farmType) {
             case "LiveStock":
                 element.value = "LiveStock";
                 break;
@@ -126,7 +140,7 @@ class UserDetailComp extends Component {
     }
 
     checkIsAdmin = () => {
-        if (this.props.userDetails.is_admin === true) {
+        if (this.props.userDetails.isAdmin === true) {
             document.getElementById("isAdmin").checked = true;
         } else if (this.props.userDetails.is_admin === false) {
             document.getElementById("isAdmin").checked = false;
@@ -134,7 +148,7 @@ class UserDetailComp extends Component {
     }
 
     checkIsProducer = () => {
-        if (this.props.userDetails.is_producer === true) {
+        if (this.props.userDetails.isProducer === true) {
             document.getElementById("isProd").checked = true;
         } else if (this.props.userDetails.is_producer === false) {
             document.getElementById("isProd").checked = false;
@@ -142,7 +156,7 @@ class UserDetailComp extends Component {
     }
 
     checkIsOther = () => {
-        if (this.props.userDetails.is_other === true) {
+        if (this.props.userDetails.isOther === true) {
             document.getElementById("isOther").checked = true;
         } else if (this.props.userDetails.is_other === false) {
             document.getElementById("isOther").checked = false;
@@ -163,7 +177,15 @@ class UserDetailComp extends Component {
                         <table className="ui definition table">
                         <tbody>
                             <tr>
-                                <td className="two wide column">Primary Number</td>
+                                <td className="two wide column">First Name</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={firstName} onChange={this.onChange} name="firstName"/></td>
+                            </tr>
+                            <tr>
+                                <td>Last Name</td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={lastName} onChange={this.onChange} name="lastName"/></td>
+                            </tr>
+                            <tr>
+                                <td>Primary Number</td>
                                 <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={primaryNumber} onChange={this.onChange} name="primaryNumber"/></td>
                             </tr>
                             <tr>
