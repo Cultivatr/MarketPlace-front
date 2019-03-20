@@ -74,7 +74,7 @@ Billing_province,
 Billing_country,
 Billing_postal_code,
 User_comments
-) 
+)
 VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
   """
 
@@ -479,7 +479,7 @@ def select(sql, parms):
         for r in cur:
             results.append(r)
     except:
-        print('***We had a problem Huston...', sys.exc_info())
+        print('***We had a problem Houston...', sys.exc_info())
         traceback.print_exception(sys.exc_info()[0],sys.exc_info()[1],sys.exc_info()[2])
         raise
     finally:
@@ -489,7 +489,7 @@ def select(sql, parms):
     return results
 
 def sql_util(sql, parm):
-    """ 
+    """
     Run general maintaince statements.
     """
     res = []
@@ -499,7 +499,7 @@ def sql_util(sql, parm):
         res = cur.execute(sql, parm)
         conn.commit()
     except:
-        print('***We had a problem Huston...', sys.exc_info())
+        print('***We had a problem Houston...', sys.exc_info())
         traceback.print_exception(sys.exc_info()[0], sys.exc_info()[
                                   1], sys.exc_info()[2])
         raise
@@ -536,7 +536,7 @@ def delete_table_offered_items_produce():
   """
   a = sql_util(drop_offered_items_produce_string, [])
   return a
-    
+
 def create_table_users():
   """
   creating table users
