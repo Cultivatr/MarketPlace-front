@@ -9,7 +9,7 @@ from . import offered_item_livestock
 
 # STRINGS FOR CREATING THE ENVIRONMENT
 default_connect = """
-dbname=cultivatr user=evolveu
+dbname=cultivatr user=postgres password=secret
 """
 db_env = 'DATABASE_URL'
 
@@ -330,6 +330,8 @@ def hello():
     return 'hello world from SQL'
 
 def get_connect_string():
+    print(db_env)
+    print(default_connect)
     return os.environ.get(db_env, default_connect)
 
 # FUNCTION FOR USERS
@@ -473,7 +475,7 @@ def select(sql, parms):
     """
     results = []
     try:
-        conn = psycopg2.connect(get_connect_string(), sslmode='require')
+        conn = psycopg2.connect(get_connect_string())
         cur = conn.cursor()
         res = cur.execute(sql, parms)
         for r in cur:
@@ -494,7 +496,7 @@ def sql_util(sql, parm):
     """
     res = []
     try:
-        conn = psycopg2.connect(get_connect_string(), sslmode='require')
+        conn = psycopg2.connect(get_connect_string())
         cur = conn.cursor()
         res = cur.execute(sql, parm)
         conn.commit()

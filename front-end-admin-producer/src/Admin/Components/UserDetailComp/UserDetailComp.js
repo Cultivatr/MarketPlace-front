@@ -15,7 +15,7 @@ class UserDetailComp extends Component {
         if (this.props.userDetails.id !== prevProps.userDetails.id) {
             this.setState({ data: this.props.userDetails });
         }
-      }
+    }
 
     onChange = (e) => {
         let data = this.state.data;

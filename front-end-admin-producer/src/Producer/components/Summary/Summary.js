@@ -69,17 +69,19 @@ class Summary extends Component {
 
   createData = () => {
     let i;
-    if (this.state.items_produce.items_produce.length > 0 || this.state.items_livestock.items_livestock.length > 0) {
-      for (i = 0; i < this.state.items_produce.items_produce.length; i++) {
-        this.data.push(this.state.items_produce.items_produce[i]);
+    if (this.state.items_produce.items_produce) {
+      if (this.state.items_produce.items_produce.length > 0 || this.state.items_livestock.items_livestock.length > 0) {
+        for (i = 0; i < this.state.items_produce.items_produce.length; i++) {
+          this.data.push(this.state.items_produce.items_produce[i]);
+        }
+        for (i = 0; i < this.state.items_livestock.items_livestock.length; i++) {
+          this.data.push(this.state.items_livestock.items_livestock[i]);
+        }
+      } else {
+        this.setState({data: this.data})
       }
-      for (i = 0; i < this.state.items_livestock.items_livestock.length; i++) {
-        this.data.push(this.state.items_livestock.items_livestock[i]);
-      }
-    } else {
       this.setState({data: this.data})
     }
-    this.setState({data: this.data})
   }
 
   removeOverlay = (event) => {

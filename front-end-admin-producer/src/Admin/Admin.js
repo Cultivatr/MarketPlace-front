@@ -58,19 +58,22 @@ class Admin extends Component {
 
   createData = () => {
     let i;
-    if (this.state.items_produce.items_produce.length > 0 || this.state.items_livestock.items_livestock.length > 0) {
-      for (i = 0; i < this.state.items_produce.items_produce.length; i++) {
-        this.data.push(this.state.items_produce.items_produce[i]);
+    if (this.state.items_produce.items_produce) {
+      if (this.state.items_produce.items_produce.length > 0 || this.state.items_livestock.items_livestock.length > 0) {
+        for (i = 0; i < this.state.items_produce.items_produce.length; i++) {
+          this.data.push(this.state.items_produce.items_produce[i]);
+        }
+        for (i = 0; i < this.state.items_livestock.items_livestock.length; i++) {
+          this.data.push(this.state.items_livestock.items_livestock[i]);
+        }
+      } else {
+        this.setState({ data: this.data })
       }
-      for (i = 0; i < this.state.items_livestock.items_livestock.length; i++) {
-        this.data.push(this.state.items_livestock.items_livestock[i]);
-      }
-    } else {
       this.setState({ data: this.data })
+      filterData(this.state.data, this.pending, this.accepted, this.sold, this.delivered, this.notAccepted)
     }
-    this.setState({ data: this.data })
-    filterData(this.state.data, this.pending, this.accepted, this.sold, this.delivered, this.notAccepted)
   }
+    
 
   removeOverlay = (event) => {
     document.getElementById("itemProduceOverlay").style.display = "none";
