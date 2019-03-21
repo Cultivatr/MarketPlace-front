@@ -10,7 +10,7 @@ services:
     command: python server.py
     working_dir: /usr/src/MarketPlace/back-end
     environment:
-      DATABASE_URL: postgres://postgres:secret@postgres:6000/cultivatr
+      DATABASE_URL: postgres://postgres:secret@postgres:5432/cultivatr
     ports:
       - "5000:5000"
     volumes:
