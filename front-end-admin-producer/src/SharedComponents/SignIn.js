@@ -1,98 +1,113 @@
-import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
-import './SignIn.css'
+import React, { Component } from "react";
+import { Link, Redirect } from "react-router-dom";
+import "./SignIn.css";
 // import GoogleAuth from '../GoogleAuth';
-import GoogleLogin from 'react-google-login'; 
+import GoogleLogin from "react-google-login";
 
 class SignIn extends Component {
-    constructor() {
-        super();
-        this.count = 0;
-        // console.log("in SignIn constructor", this);
-      }
-    
-    state = {
-        email: '',
-        password: '',
-        isLoggedIn: false,
-        userID: '',
-        name: ''
-    }
+  constructor() {
+    super();
+    this.count = 0;
+    this.state = {
+      email: "",
+      password: "",
+      isLoggedIn: false,
+      userID: "",
+      name: "",
+      redirect: false,
+      admin: ""
+    };
+  }
 
-    onEmailChange = (e) => {
-        this.setState({ email: e.target.value })
-    }
-    
-    onPasswordChange = (e) => {
-        this.setState({ password: e.target.value })
-    }
+  componentDidMount() {
+    this.getUsers();
+  }
 
-    onSubmit = (e) => {
-        e.preventDefault();
-        console.log('submitted')
+  getUsers = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/admin/users`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      });
+      const json = await response.json();
+      await this.setState({ userList: json });
+    } catch (error) {
+      console.log(error);
     }
-  
-    componentClicked = () => console.log('clicked');
+  };
 
-    onGet = e => {
-        // console.log("Just a onGet");
-        // const token = localStorage.getItem('token');
-        // console.log("Just a onGet", token);
-        fetch(process.env.REACT_APP_API + "/whoami", {credentials: 'include'})
-          .then(response => response.text())
-          .then(text => console.log(text));
-      };
-    
-      onSet = e => {
-        this.count ++;
-        // console.log("Just a onSet", this.count, this, );
-        localStorage.setItem('token', "Some Real Cool Thing " + this.count);
-      };
-    
-      onClear = e => {
-        // console.log("Just a onClear");
-        localStorage.removeItem('token');
-      };
-    
+  logIn(res) {
+    const logInData = {
+      name: res.w3.ofa,
+      email: res.w3.U3,
+      admin: ""
+    };
+    let currentUser = this.state.userList.users.filter(
+      user => user.email === logInData.email
+    );
+    logInData.admin = currentUser[0].isAdmin;
+    if (currentUser) {
+      sessionStorage.setItem("authData", JSON.stringify(logInData));
+      this.setState({ admin: logInData.admin });
+      this.setState({ redirect: true });
+    }
+    if (!currentUser) {
+      console.log("user not in database");
+      this.setState({ redirect: true });
+    }
+  }
 
-    render() {
-        return (
-            <div>
-                <div className='loginBox'>
-                    <div className='h1-header'>
-                        <h1 className='ui header'>Welcome to Cultivatr</h1>
-                    </div>
-                    <div>
-                        <form className="ui form" onSubmit={this.onSubmit}>
-                            <div className="field">
-                                <label>Email</label>
-                                <input onChange={this.onEmailChange} type="text" name="email" placeholder="Email " value={this.state.email}/>
-                            </div>
-                            <div className="field">
-                                <label>Password</label>
-                                <input onChange={this.onPasswordChange} type="text" name="password" placeholder="Password" value={this.state.password}/>
-                            </div>
-                            <div className='rememberMeAndLoginBox'>
-                                <input type="checkbox"/> <span className='rememberMe'>Remember Me</span>
-                                <Link to='/producer' className="ui button" type="submit">Login</Link>
-                                {/* <GoogleAuth/> */}
-                                <GoogleLogin
-                                    clientId="225894951024-d2b5jugscfmfsp8fr6vd5mqhfl5si3uq.apps.googleusercontent.com"
-                                    buttonText="Sign in with Google"
-                                    onSuccess={this.props.onGoogleSignonSuccess}
-                                    onFailure={this.props.onGoogleSignonFail}
-                                    />
-                            </div>
-                            <div className='forgotPasswordAndRegisterBox'>
-                                {/* <a href="#">Forgot Password</a>
+  render() {
+    if (!sessionStorage.getItem("authData") && this.state.redirect) {
+      return <Redirect to={"/"} />;
+    }
+    if (
+      sessionStorage.getItem("authData") &&
+      this.state.redirect &&
+      this.state.admin
+    ) {
+      return <Redirect to={"/admin"} />;
+    }
+    if (sessionStorage.getItem("authData") && this.state.redirect) {
+      return <Redirect to={"/producer"} />;
+    }
+    const responseGoogle = response => {
+      this.logIn(response);
+    };
+    return (
+      <div>
+        <div className="loginBox">
+          <div className="h1-header">
+            <h1 className="ui header">Welcome to Cultivatr</h1>
+          </div>
+          <div>
+            <form className="ui form" onSubmit={this.onSubmit}>
+              <div className="field" />
+              <div className="rememberMeAndLoginBox">
+                <Link to="/producer" className="ui button" type="submit">
+                  Producer
+                </Link>
+                <Link to="/admin" className="ui button" type="submit">
+                  Admin
+                </Link>
+                {/* <GoogleAuth/> */}
+                <GoogleLogin
+                  clientId="225894951024-d2b5jugscfmfsp8fr6vd5mqhfl5si3uq.apps.googleusercontent.com"
+                  buttonText="Sign in with Google"
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                />
+              </div>
+              <div className="forgotPasswordAndRegisterBox">
+                {/* <a href="#">Forgot Password</a>
                                 <a href="#">Register Now</a> */}
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        )
-    }
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default SignIn;
