@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Class from './AddNewProdComp.module.css';
+import Button from '../../../SharedComponents/UI/Button';
 
 class AddNewProdComp extends Component {
     state = {
@@ -39,10 +40,12 @@ class AddNewProdComp extends Component {
         let newdata = { ...data, [e.target.name]: e.target.value };
         this.setState({ data: newdata });
     }
- 
+
     onSubmit = (e) => {
         e.preventDefault();
+        const form = e.target;
         const { firstName,lastName,billingAddressCity,primaryNumber,secondaryNumber,billingAddressStreet,billingAddressProvince,email,billingAddressCountry,billingAddressPostalCode,farmName,farmLocation,mailingAddressCity,mailingAddressStreet,farmType,area,mailingAddressProvince,rating,mailingAddressCountry,mailingAddressPostalCode,comments,isAdmin,isProducer,isOther} = this.state.data;
+        document.getElementById("submitBtn").className += ' loading';
         fetch('http://localhost:5000/admin', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
@@ -74,10 +77,14 @@ class AddNewProdComp extends Component {
             })
         })
         .then(response => response.json())
-        // .then(data => { console.log(data) })
+        .then(data => {
+          console.log(data)
+        })
+        .then(form.reset())
+        .then(setTimeout(function() {document.getElementById("submitBtn").className = 'ui button';}, 2000))
         .catch(error => console.log(error))
     }
-    
+
     render() {
         return (
             <div className='ui grid'>
@@ -107,7 +114,7 @@ class AddNewProdComp extends Component {
                     </div>
                 </div>
                 <div className='four wide column'>
-                    <div className={Class.field}>   
+                    <div className={Class.field}>
                         <div className='field'>
                             <label>Primary Number</label>
                             <input onChange={this.onChange} type="text" name="primaryNumber" placeholder="xxx-xxx-xxxx"/>
@@ -291,22 +298,18 @@ class AddNewProdComp extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={Class.buttonContainer}>
-                    <div className={Class.addNewProdButton}>
-                        <button type="submit" className="ui button" >Add</button>
-                    </div>
-                    <div className={Class.addNewProdButton}>
-                        <button type="cancel" className="ui button">Cancel</button>
-                    </div>
-                </div>
+                <Button>Add</Button>
+                // <div className={Class.buttonContainer}>
+                //     <div className={Class.addNewProdButton}>
+                //         <button type="submit" className="ui button" >Add</button>
+                //     </div>
+                //     <div className={Class.addNewProdButton}>
+                //         <button type="cancel" className="ui button">Cancel</button>
+                //     </div>
+                // </div>
             </form>
         </div>
     )}
 }
 
 export default AddNewProdComp;
-
-
-
-
-
