@@ -40,12 +40,15 @@ class SignIn extends Component {
     const logInData = {
       name: res.w3.ofa,
       email: res.w3.U3,
+      id: "",
       admin: ""
     };
     let currentUser = this.state.userList.users.filter(
       user => user.email === logInData.email
     );
+    console.log("CurrentUser", currentUser);
     logInData.admin = currentUser[0].isAdmin;
+    logInData.id = currentUser[0].id;
     if (currentUser) {
       sessionStorage.setItem("authData", JSON.stringify(logInData));
       this.setState({ admin: logInData.admin });
