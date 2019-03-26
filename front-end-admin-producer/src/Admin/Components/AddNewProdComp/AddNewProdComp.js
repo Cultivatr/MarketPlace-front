@@ -88,7 +88,7 @@ class AddNewProdComp extends Component {
         isProducer,
         isOther
       } = this.state.data;
-      fetch("http://localhost:5000/admin", {
+      fetch("http://localhost:5000/admin/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({

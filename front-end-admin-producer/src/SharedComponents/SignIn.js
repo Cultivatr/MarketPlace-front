@@ -25,7 +25,7 @@ class SignIn extends Component {
 
   getUsers = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/admin/users`, {
+      const response = await fetch(`http://localhost:5000/admin/users/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       });
@@ -43,6 +43,8 @@ class SignIn extends Component {
       id: "",
       admin: ""
     };
+    console.log("LOG IN DATA", logInData);
+    console.log("USER LIST", this.state.userList.users);
     let currentUser = this.state.userList.users.filter(
       user => user.email === logInData.email
     );
