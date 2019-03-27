@@ -172,11 +172,52 @@ def add_new_user():
     db.session.commit()
     return jsonify({'id': new_user.id}), 201
 
+@app.route("/admin/users/delete/", methods=['POST'])
+def add_delete_user():
+    data=request.get_json()
+    filterId=data.get('id')
+    db.session.query(Users).filter(Users.id == filterId).delete()
+    db.session.commit()
+    return 'Success', 201
+
+@app.route("/admin/updateUsers/", methods=['POST'])
+def modify_user():
+    data=request.get_json()
+    filterId=data.get('id')
+    userToUpdate= db.session.query(Users).filter(Users.id == filterId).first()
+    userToUpdate.first_name=data.get('firstName'),
+    userToUpdate.last_name=data.get('lastName'),
+    userToUpdate.primary_phone=data.get('primaryNumber'),
+    userToUpdate.secondary_phone=data.get('secondaryNumber'),
+    userToUpdate.email=data.get('email'),
+    userToUpdate.farm_name=data.get('farmName'),
+    userToUpdate.farm_location=data.get('farmLocation'),
+    userToUpdate.area=data.get('area'),
+    # userToUpdate.is_admin=bool(data.get('isAdmin')),
+    # userToUpdate.is_producer=bool(data.get('isProducer')),
+    # userToUpdate.is_other=bool(data.get('isOther')),
+    print("isAdmin ",data.get('isAdmin') )
+    userToUpdate.farm_type=data.get('farmType'),
+    userToUpdate.rating=data.get('rating'),
+    userToUpdate.mailing_street=data.get('mailingAddressStreet'),
+    userToUpdate.mailing_city=data.get('mailingAddressCity'),
+    userToUpdate.mailing_province=data.get('mailingAddressProvince'),
+    userToUpdate.mailing_country=data.get('mailingAddressCountry'),
+    userToUpdate.mailing_postal_code=data.get('mailingAddressPostalCode'),
+    userToUpdate.billing_street=data.get('billingAddressStreet'),
+    userToUpdate.billing_city=data.get('billingAddressCity'),
+    userToUpdate.billing_province=data.get('billingAddressProvince'),
+    userToUpdate.billing_country=data.get('billingAddressCountry'),
+    userToUpdate.billing_postal_code=data.get('billingAddressPostalCode'),
+    userToUpdate.user_comments=data.get('comments')
+    db.session.commit()
+    return 'Success', 201
+
+
 
 @app.route("/livestock/", methods=['POST'])
 def add_livestock_items():
     data=request.get_json()
-
     new_livestock=Livestock(
     user_id=data.get('userId'),
     product_name=data.get('type'),
@@ -245,9 +286,7 @@ def livestock_get_all():
 @app.route('/livestock/<user1>/', methods=['GET'])
 def livestock_get_user(user1):
     user_id=user1
-    print("USER ID LIVESTOCK", user_id)
-    livestock=db.session.query(Livestock).filter(Livestock.user_id == user_id).all()
-    print("LIVESTOCK FILTERED", livestock)
+    livestock=db.session.query(Livestock).filter(Livestock.user_id==user_id).all()
     output=[]
     for item_livestock in livestock:
         item_livestock_data={}
@@ -279,6 +318,15 @@ def livestock_get_user(user1):
         output.append(item_livestock_data)
 
     return jsonify({ 'items_livestock': output })
+
+@app.route("/livestock/update/", methods=['POST'])
+def modify_livestock():
+    data=request.get_json()
+    filterId=data.get('id') 
+    print("LIVESTOCK: ",filterId)
+    db.session.commit()
+    return 'Success', 201    
+
 
 @app.route('/produce/all/', methods=['GET'])
 def produce_get_all():
@@ -317,9 +365,7 @@ def produce_get_all():
 @app.route('/produce/<user1>/', methods=['GET'])
 def produce_get_user(user1):
     user_id=user1
-    print("USER ID PRODUCE", user_id)
     produce=db.session.query(Produce).filter(Produce.user_id == user_id).all()
-    print("PRODUCE FILTERED", produce)
     output=[]
     for item_produce in produce:
         item_produce_data={}
@@ -396,7 +442,7 @@ def update_produce_items():
 def update_livestock_items():
     data=request.get_json()
     filterId=data.get('id')
-    liveToUpdate=db.session.query(Livestock).filter(Livestock.id == filterId).first()
+    liveToUpdate=db.session.query(Livestock).filter(Livestock.id==filterId).first()
     liveToUpdate.status=data.get('nextStatus')
     db.session.commit()
     return 'Success', 201
