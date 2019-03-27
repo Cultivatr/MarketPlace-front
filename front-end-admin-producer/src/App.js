@@ -34,10 +34,11 @@ logOut =() => {
 }
    render() {
    
+   let loggedIn = JSON.parse(sessionStorage.getItem("loggedIn"));
       return (
          <div>
            <div className = "displayEnd">
-             {this.state.loggedIn ? <a href = "/sign-out" className ="link" onClick = {this.onClick}>Sign Out</a> : null}
+             {loggedIn ? <a href = "/sign-out" className ="link" onClick = {this.onClick}>Sign Out</a> : null}
            </div>
             <Router>
                <div>
