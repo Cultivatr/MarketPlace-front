@@ -57,7 +57,7 @@ class UserDetailComp extends Component {
       isOther
     } = this.state.data;
     try {
-      const response = await fetch("http://localhost:5000/admin/updateUsers", {
+      const response = await fetch("http://localhost:5000/admin/updateUsers/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
