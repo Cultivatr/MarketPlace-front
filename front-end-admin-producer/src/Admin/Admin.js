@@ -43,7 +43,6 @@ class Admin extends Component {
       });
       const json3 = await response3.json();
       this.setState({ users: json3 });
-      console.log("USERS", json3);
       //
       const response = await fetch(`http://localhost:5000/livestock/all/`, {
         method: "GET",
@@ -62,11 +61,15 @@ class Admin extends Component {
     } catch (error) {
       console.log("Admin Error", error);
     }
+
     await this.createData();
+
+    console.log("USERS:", this.state.users);
+    console.log("PRODUCE:", this.state.items_produce);
+    console.log("LIVESTOCK:", this.state.items_livestock);
   };
 
   createData = () => {
-    let i;
     if (
       this.state.items_produce.items_produce ||
       this.state.items_livestock.items_livestock
@@ -75,15 +78,26 @@ class Admin extends Component {
         this.state.items_produce.items_produce.length > 0 ||
         this.state.items_livestock.items_livestock.length > 0
       ) {
-        for (i = 0; i < this.state.items_produce.items_produce.length; i++) {
+        for (
+          let i = 0;
+          i < this.state.items_produce.items_produce.length;
+          i++
+        ) {
           this.data.push(this.state.items_produce.items_produce[i]);
         }
         for (
-          i = 0;
+          let i = 0;
           i < this.state.items_livestock.items_livestock.length;
           i++
         ) {
           this.data.push(this.state.items_livestock.items_livestock[i]);
+        }
+
+        for (let i = 0; i < this.data.length; i++) {
+          const temp = this.state.users.users.filter(
+            user => user.id === this.data[i].userId
+          );
+          this.data[i].farm = temp[0].farmName;
         }
       } else {
         this.setState({ data: this.data });
@@ -104,21 +118,11 @@ class Admin extends Component {
   };
 
   nextStatus = status => {
-    if (status === "Pending Approval") {
-      return "accepted";
-    }
-    if (status === "accepted") {
-      return "sold";
-    }
-    if (status === "sold") {
-      return "delivered";
-    }
-    if (status === "delivered") {
-      return "Pending Approval";
-    }
-    if (status === "not accepted") {
-      return "not accepted";
-    }
+    if (status === "Pending Approval") return "accepted";
+    if (status === "accepted") return "sold";
+    if (status === "sold") return "delivered";
+    if (status === "delivered") return "Pending Approval";
+    if (status === "not accepted") return "not accepted";
   };
   rejectLivestock = id => {
     this.pushThroughLivestock(id, "not accepted");
@@ -184,7 +188,7 @@ class Admin extends Component {
 
   getUsers = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/admin/users`, {
+      const response = await fetch(`http://localhost:5000/admin/users/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       });
