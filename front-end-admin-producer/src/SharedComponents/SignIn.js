@@ -8,10 +8,10 @@ class SignIn extends Component {
   constructor() {
     super();
     this.state = {
-     isLoggedIn: false,
-     isAdmin: false
-    }
-   }     
+      isLoggedIn: false,
+      isAdmin: false
+    };
+  }
 
   componentDidMount() {
     this.getUsers();
@@ -31,10 +31,16 @@ class SignIn extends Component {
   };
 
   logIn(res) {
-    console.log("LOG IN DATA", logInData);
-    console.log("USER LIST", this.state.userList.users);
-    console.log("CurrentUser", currentUser);
-    const logInData = Object.assign({},res.w3.profileObj);
+    //console.log("USER LIST", this.state.userList.users);
+    //console.log("CurrentUser", currentUser);
+    // const logInData = Object.assign({}, res.w3.profileObj);
+    const logInData = {
+      name: res.w3.ofa,
+      email: res.w3.U3,
+      id: "",
+      admin: ""
+    };
+    //console.log("LOG IN DATA", logInData);
     let currentUser = this.state.userList.users.filter(
       user => user.email === logInData.email
     );
@@ -43,23 +49,22 @@ class SignIn extends Component {
     if (currentUser) {
       sessionStorage.setItem("authData", JSON.stringify(logInData));
       sessionStorage.setItem("loggedIn", true);
-      this.setState({ isLoggedIn: true,
-                           admin: logInData.admin 
-                         });
-      this.props.logInToken(true); 
+      this.setState({ isLoggedIn: true, admin: logInData.admin });
+      this.props.logInToken(true);
     }
   }
 
   render() {
-    if (this.state.isLoggedIn){
-      
-      {return this.state.admin ? <Redirect to={"/admin"}/> : <Redirect to={"/producer"}/>;}
+    if (this.state.isLoggedIn) {
+      return this.state.admin ? (
+        <Redirect to={"/admin"} />
+      ) : (
+        <Redirect to={"/producer"} />
+      );
     }
-  
-    
+
     const responseGoogle = response => {
       this.logIn(response);
-     
     };
     return (
       <div>
@@ -81,8 +86,7 @@ class SignIn extends Component {
                   onFailure={responseGoogle}
                 />
               </div>
-              <div className="forgotPasswordAndRegisterBox">
-              </div>
+              <div className="forgotPasswordAndRegisterBox" />
             </form>
           </div>
         </div>

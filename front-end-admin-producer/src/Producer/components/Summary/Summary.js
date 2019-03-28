@@ -61,6 +61,7 @@ class Summary extends Component {
         headers: { "Content-Type": "application/json" }
       });
       const json = await response.json();
+      console.log("Produce items:", json);
       this.setState({ items_produce: json });
       const response2 = await fetch(
         `http://localhost:5000/livestock/${user1}/`,
@@ -84,23 +85,16 @@ class Summary extends Component {
 
   createData = () => {
     let i;
-    if (
-      this.state.items_produce.items_produce ||
-      this.state.items_livestock.items_livestock
-    ) {
+    if (this.state.items_produce || this.state.items_livestock) {
       if (
-        this.state.items_produce.items_produce.length > 0 ||
-        this.state.items_livestock.items_livestock.length > 0
+        this.state.items_produce.length > 0 ||
+        this.state.items_livestock.length > 0
       ) {
-        for (i = 0; i < this.state.items_produce.items_produce.length; i++) {
-          this.data.push(this.state.items_produce.items_produce[i]);
+        for (i = 0; i < this.state.items_produce.length; i++) {
+          this.data.push(this.state.items_produce[i]);
         }
-        for (
-          i = 0;
-          i < this.state.items_livestock.items_livestock.length;
-          i++
-        ) {
-          this.data.push(this.state.items_livestock.items_livestock[i]);
+        for (i = 0; i < this.state.items_livestock.length; i++) {
+          this.data.push(this.state.items_livestock[i]);
         }
       } else {
         this.setState({ data: this.data });
@@ -116,6 +110,7 @@ class Summary extends Component {
 
   render() {
     const data = this.data;
+
     return (
       <div className="table">
         <br />

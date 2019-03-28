@@ -70,27 +70,16 @@ class Admin extends Component {
   };
 
   createData = () => {
-    if (
-      this.state.items_produce.items_produce ||
-      this.state.items_livestock.items_livestock
-    ) {
+    if (this.state.items_produce || this.state.items_livestock) {
       if (
-        this.state.items_produce.items_produce.length > 0 ||
-        this.state.items_livestock.items_livestock.length > 0
+        this.state.items_produce.length > 0 ||
+        this.state.items_livestock.length > 0
       ) {
-        for (
-          let i = 0;
-          i < this.state.items_produce.items_produce.length;
-          i++
-        ) {
-          this.data.push(this.state.items_produce.items_produce[i]);
+        for (let i = 0; i < this.state.items_produce.length; i++) {
+          this.data.push(this.state.items_produce[i]);
         }
-        for (
-          let i = 0;
-          i < this.state.items_livestock.items_livestock.length;
-          i++
-        ) {
-          this.data.push(this.state.items_livestock.items_livestock[i]);
+        for (let i = 0; i < this.state.items_livestock.length; i++) {
+          this.data.push(this.state.items_livestock[i]);
         }
 
         for (let i = 0; i < this.data.length; i++) {
