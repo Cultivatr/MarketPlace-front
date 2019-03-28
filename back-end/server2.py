@@ -140,7 +140,7 @@ def get_users():
 @app.route("/admin/", methods=['POST'])
 def add_new_user():
     data=request.get_json()
-
+    print("incoming data:", data)
     new_user=Users(
     first_name=data.get('firstName'),
     last_name=data.get('lastName'),
@@ -170,10 +170,10 @@ def add_new_user():
     )
     db.session.add(new_user)
     db.session.commit()
-    return jsonify({'id': new_user.id}), 201
+    return jsonify(new_user), 201
 
 @app.route("/admin/users/delete/", methods=['POST'])
-def add_delete_user():
+def delete_user():
     data=request.get_json()
     filterId=data.get('id')
     db.session.query(Users).filter(Users.id == filterId).delete()
@@ -193,10 +193,21 @@ def modify_user():
     userToUpdate.farm_name=data.get('farmName'),
     userToUpdate.farm_location=data.get('farmLocation'),
     userToUpdate.area=data.get('area'),
-    # userToUpdate.is_admin=bool(data.get('isAdmin')),
+    if(data.get('isAdmin')):
+        userToUpdate.is_admin=1
+    if(not data.get('isAdmin')):
+        userToUpdate.is_admin=0   
+    if(data.get('isProducer')):
+        userToUpdate.is_admin=1
+    if(not data.get('isProducer')):
+        userToUpdate.is_admin=0  
+    if(data.get('isOther')):
+        userToUpdate.is_admin=1
+    if(not data.get('isOther')):
+        userToUpdate.is_admin=0     
+    # userToUpdate.is_admin=data.get('isAdmin'),
     # userToUpdate.is_producer=bool(data.get('isProducer')),
     # userToUpdate.is_other=bool(data.get('isOther')),
-    print("isAdmin ",data.get('isAdmin') )
     userToUpdate.farm_type=data.get('farmType'),
     userToUpdate.rating=data.get('rating'),
     userToUpdate.mailing_street=data.get('mailingAddressStreet'),
@@ -211,7 +222,7 @@ def modify_user():
     userToUpdate.billing_postal_code=data.get('billingAddressPostalCode'),
     userToUpdate.user_comments=data.get('comments')
     db.session.commit()
-    return 'Success', 201
+    return jsonify(userToUpdate), 201
 
 
 
@@ -245,7 +256,7 @@ def add_livestock_items():
     )
     db.session.add(new_livestock)
     db.session.commit()
-    return 'Success', 201
+    return jsonify(new_livestock), 201
 
 
 @app.route('/livestock/all/', methods=['GET'])
@@ -281,7 +292,7 @@ def livestock_get_all():
         item_livestock_data['status']=item_livestock.status
         output.append(item_livestock_data)
 
-    return jsonify({ 'items_livestock': output })
+    return jsonify(output)
 
 @app.route('/livestock/<user1>/', methods=['GET'])
 def livestock_get_user(user1):
@@ -317,7 +328,7 @@ def livestock_get_user(user1):
         item_livestock_data['status']=item_livestock.status
         output.append(item_livestock_data)
 
-    return jsonify({ 'items_livestock': output })
+    return jsonify(output)
 
 @app.route("/livestock/update/", methods=['POST'])
 def modify_livestock():
@@ -359,7 +370,7 @@ def produce_get_all():
         item_produce_data['status']=item_produce.status
         output.append(item_produce_data)
 
-    return jsonify({ 'items_produce': output })
+    return jsonify(output)
 
 
 @app.route('/produce/<user1>/', methods=['GET'])
@@ -394,7 +405,7 @@ def produce_get_user(user1):
         item_produce_data['status']=item_produce.status
         output.append(item_produce_data)
 
-    return jsonify({ 'items_produce': output })
+    return jsonify(output)
     
 @app.route("/produce/", methods=['POST'])
 def add_produce_items():
@@ -425,7 +436,7 @@ def add_produce_items():
     )
     db.session.add(new_produce)
     db.session.commit()
-    return 'Success', 201
+    return jsonify(new_produce)
 
 
 @app.route("/produce/incrementStatus/", methods=['POST'])
@@ -435,7 +446,7 @@ def update_produce_items():
     prodToUpdate=db.session.query(Produce).filter(Produce.id == filterId).first()
     prodToUpdate.status=data.get('nextStatus')
     db.session.commit()
-    return 'Success', 201
+    return jsonify(prodToUpdate)
 
 
 @app.route("/livestock/incrementStatus/", methods=['POST'])   
@@ -445,7 +456,11 @@ def update_livestock_items():
     liveToUpdate=db.session.query(Livestock).filter(Livestock.id==filterId).first()
     liveToUpdate.status=data.get('nextStatus')
     db.session.commit()
-    return 'Success', 201
+    return jsonify(liveToUpdate)
+
+
+def test_print_function():
+    return "hello my friend"
 
 
 if __name__ == '__main__':
