@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import "./SignIn.css";
 // import GoogleAuth from '../GoogleAuth';
 import GoogleLogin from "react-google-login";
@@ -46,6 +46,7 @@ class SignIn extends Component {
     );
     logInData.admin = currentUser[0].isAdmin;
     logInData.id = currentUser[0].id;
+    console.log(logInData);
     if (currentUser) {
       sessionStorage.setItem("authData", JSON.stringify(logInData));
       sessionStorage.setItem("loggedIn", true);
@@ -55,12 +56,11 @@ class SignIn extends Component {
   }
 
   render() {
-    if (this.state.isLoggedIn) {
-      return this.state.admin ? (
-        <Redirect to={"/admin"} />
-      ) : (
-        <Redirect to={"/producer"} />
-      );
+    let loggedIn = JSON.parse(sessionStorage.getItem("loggedIn"));
+    if (this.state.isLoggedIn || loggedIn) {
+      return this.state.admin 
+      ? (<Redirect to={"/admin"} />) 
+      : (<Redirect to={"/producer"} />);
     }
 
     const responseGoogle = response => {
@@ -75,10 +75,7 @@ class SignIn extends Component {
           <div>
             <form className="ui form">
               <div className="field" />
-              <div className="rememberMeAndLoginBox">
-                <Link to="/producer" className="ui button" type="submit">
-                  Producer
-                </Link>
+              <div className="rememberMeAndLoginBox centeredDisplay">
                 <GoogleLogin
                   clientId="225894951024-d2b5jugscfmfsp8fr6vd5mqhfl5si3uq.apps.googleusercontent.com"
                   buttonText="Sign in with Google"

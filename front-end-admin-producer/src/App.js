@@ -26,11 +26,9 @@ logIn = (arg) => {
 }
 
 
-logOut =() => {
-   sessionStorage.setItem("loggedIn", JSON.stringify(false));
-   sessionStorage.removeItem("loggedIn");
-  
-   
+onClick = () => {
+  sessionStorage.removeItem("loggedIn");
+  this.setState({ isLoggedIn: false });
 }
    render() {
    
@@ -49,7 +47,7 @@ logOut =() => {
                     <PrivateRoute path='/add-livestock' component = {AddMeatForm}/>
                     <PrivateRoute path='/add-produce' component = {AddProduceForm}/>
                     <Route path='/contact-us' exact component={ContactUs}/>
-                    <PrivateRoute path='/sign-out' component = {SignOut}/>
+                    <Route path='/sign-out' component = {SignOut}/>
                     </div>
                   
                </div>
