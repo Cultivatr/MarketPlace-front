@@ -279,14 +279,6 @@ class Admin extends Component {
     } else if (this.state.dataToShow === "listUsers") {
       toShow = (
         <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <button
-              className={Class.buttonAddUser}
-              onClick={this.OnClickAddUser}
-            >
-              Add User
-            </button>
-          </div>
           <UsersComp
             data={this.state.users}
             showUsers={this.OnClickListUsers}
@@ -365,6 +357,12 @@ class Admin extends Component {
                   onClick={this.OnClickListUsers}
                 >
                   List Users
+                </button>
+                <button
+                  className={Class.buttonAdmin}
+                  onClick={this.OnClickAddUser}
+                >
+                  Add User
                 </button>
               </div>
               <div className={Class.container1}>{toShow}</div>

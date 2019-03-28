@@ -139,6 +139,7 @@ def get_users():
 
 @app.route("/admin/", methods=['POST'])
 def add_new_user():
+    print("Calling add function")
     data=request.get_json()
     print("incoming data:", data)
     new_user=Users(
@@ -170,7 +171,7 @@ def add_new_user():
     )
     db.session.add(new_user)
     db.session.commit()
-    return jsonify(new_user), 201
+    return jsonify({'id': new_user.id}), 201
 
 @app.route("/admin/users/delete/", methods=['POST'])
 def delete_user():
@@ -195,14 +196,17 @@ def modify_user():
     userToUpdate.area=data.get('area'),
     if(data.get('isAdmin')):
         userToUpdate.is_admin=1
+        print("Admin changed", userToUpdate.is_admin)
     if(not data.get('isAdmin')):
         userToUpdate.is_admin=0   
     if(data.get('isProducer')):
         userToUpdate.is_admin=1
+        print("Admin changed", userToUpdate.is_admin)
     if(not data.get('isProducer')):
         userToUpdate.is_admin=0  
     if(data.get('isOther')):
         userToUpdate.is_admin=1
+        print("Admin changed", userToUpdate.is_admin)
     if(not data.get('isOther')):
         userToUpdate.is_admin=0     
     # userToUpdate.is_admin=data.get('isAdmin'),
@@ -222,7 +226,7 @@ def modify_user():
     userToUpdate.billing_postal_code=data.get('billingAddressPostalCode'),
     userToUpdate.user_comments=data.get('comments')
     db.session.commit()
-    return jsonify(userToUpdate), 201
+    return 'Success', 201   
 
 
 
@@ -256,7 +260,7 @@ def add_livestock_items():
     )
     db.session.add(new_livestock)
     db.session.commit()
-    return jsonify(new_livestock), 201
+    return 'Success', 201
 
 
 @app.route('/livestock/all/', methods=['GET'])
@@ -436,7 +440,7 @@ def add_produce_items():
     )
     db.session.add(new_produce)
     db.session.commit()
-    return jsonify(new_produce)
+    return 'Success', 201
 
 
 @app.route("/produce/incrementStatus/", methods=['POST'])
@@ -446,7 +450,7 @@ def update_produce_items():
     prodToUpdate=db.session.query(Produce).filter(Produce.id == filterId).first()
     prodToUpdate.status=data.get('nextStatus')
     db.session.commit()
-    return jsonify(prodToUpdate)
+    return 'Success', 201
 
 
 @app.route("/livestock/incrementStatus/", methods=['POST'])   
@@ -456,7 +460,7 @@ def update_livestock_items():
     liveToUpdate=db.session.query(Livestock).filter(Livestock.id==filterId).first()
     liveToUpdate.status=data.get('nextStatus')
     db.session.commit()
-    return jsonify(liveToUpdate)
+    return 'Success', 201
 
 
 def test_print_function():

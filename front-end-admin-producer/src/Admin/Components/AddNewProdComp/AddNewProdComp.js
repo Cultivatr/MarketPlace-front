@@ -26,17 +26,17 @@ class AddNewProdComp extends Component {
       mailingAddressCountry: "Canada",
       mailingAddressPostalCode: "",
       comments: "",
-      isAdmin: "",
-      isProducer: "",
-      isOther: ""
+      isAdmin: false,
+      //Byron will delete the following two variables once he has time
+      // to trace them all the way through the code
+      isProducer: false,
+      isOther: false
     }
   };
 
   onChange = e => {
     let data = this.state.data;
     data.isAdmin = document.getElementById("isAdmin").checked;
-    data.isProducer = document.getElementById("isProd").checked;
-    data.isOther = document.getElementById("isOther").checked;
     let newdata = { ...data, [e.target.name]: e.target.value };
     this.setState({ data: newdata });
   };
@@ -71,7 +71,7 @@ class AddNewProdComp extends Component {
       isOther
     } = this.state.data;
     document.getElementById("submitBtn").className += " loading";
-    fetch("http://localhost:5000/admin", {
+    fetch("http://localhost:5000/admin/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -389,7 +389,7 @@ class AddNewProdComp extends Component {
           <div className="four wide column">
             <div className={Class.field}>
               <div className="grouped fields">
-                <label>Authorization Type</label>
+                <label>Authorization:</label>
                 <div className="field">
                   <label>
                     <input
@@ -399,6 +399,7 @@ class AddNewProdComp extends Component {
                     />{" "}
                     Administration
                   </label>
+                  {/* The following is no longer required
                   <label>
                     <input
                       type="checkbox"
@@ -414,7 +415,7 @@ class AddNewProdComp extends Component {
                       onChange={this.onChange}
                     />{" "}
                     Other
-                  </label>
+                  </label> */}
                 </div>
               </div>
             </div>
@@ -432,11 +433,12 @@ class AddNewProdComp extends Component {
               </div>
             </div>
           </div>
-          <Button>Add</Button>
+
           <div className={Class.buttonContainer}>
+            <Button>Clear Fields</Button>
             <div className={Class.addNewProdButton}>
               <button type="submit" className="ui button">
-                Add
+                Submit
               </button>
             </div>
             <div className={Class.addNewProdButton}>
