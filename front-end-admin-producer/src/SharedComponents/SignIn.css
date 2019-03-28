@@ -31,3 +31,24 @@
     left: 20px;
     bottom: 10px;
 }
+
+.displayEnd {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #1ECE88;
+}
+
+.link {
+  color: white;
+  font-size: 1.0rem;
+  font-weight: bold;
+  margin-right: 1.5rem;
+  background-color: #1ECE88;
+}
+
+.centeredDisplay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}

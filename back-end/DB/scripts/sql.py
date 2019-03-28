@@ -9,7 +9,7 @@ from . import offered_item_livestock
 
 # STRINGS FOR CREATING THE ENVIRONMENT
 default_connect = """
-dbname=cultivatr user=postgres password=secret
+host=localhost dbname=cultivatr user=postgres password=secret
 """
 db_env = 'DATABASE_URL'
 
