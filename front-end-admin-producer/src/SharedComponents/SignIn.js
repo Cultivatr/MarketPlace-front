@@ -19,7 +19,7 @@ class SignIn extends Component {
 
   getUsers = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/admin/users`, {
+      const response = await fetch(`http://localhost:5000/admin/users/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       });
@@ -31,11 +31,15 @@ class SignIn extends Component {
   };
 
   logIn(res) {
+    console.log("LOG IN DATA", logInData);
+    console.log("USER LIST", this.state.userList.users);
+    console.log("CurrentUser", currentUser);
     const logInData = Object.assign({},res.w3.profileObj);
     let currentUser = this.state.userList.users.filter(
       user => user.email === logInData.email
     );
-    logInData.admin = true;
+    logInData.admin = currentUser[0].isAdmin;
+    logInData.id = currentUser[0].id;
     if (currentUser) {
       sessionStorage.setItem("authData", JSON.stringify(logInData));
       sessionStorage.setItem("loggedIn", true);

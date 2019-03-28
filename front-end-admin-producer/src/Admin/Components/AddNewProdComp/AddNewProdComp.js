@@ -1,36 +1,37 @@
+
 import React, { Component } from 'react';
 import Class from './AddNewProdComp.module.css';
 import Button from '../../../SharedComponents/UI/Button';
 
 class AddNewProdComp extends Component {
-    state = {
-        data: {
-            firstName: '',
-            lastName: '',
-            billingAddressStreet: '',
-            primaryNumber: '',
-            secondaryNumber: '',
-            billingAddressCity: '',
-            billingAddressProvince: 'Alberta',
-            email: '',
-            billingAddressCountry: 'Canada',
-            billingAddressPostalCode: '',
-            farmName: '',
-            farmLocation: '',
-            farmType: 'LiveStock',
-            mailingAddressStreet: '',
-            area: 'Southern AB',
-            mailingAddressCity: '',
-            mailingAddressProvince: 'Alberta',
-            rating: 0,
-            mailingAddressCountry: 'Canada',
-            mailingAddressPostalCode: '',
-            comments: '',
-            isAdmin: '',
-            isProducer: '',
-            isOther: ''
-        }
+  state = {
+    data: {
+      firstName: "",
+      lastName: "",
+      billingAddressStreet: "",
+      primaryNumber: "",
+      secondaryNumber: "",
+      billingAddressCity: "",
+      billingAddressProvince: "Alberta",
+      email: "",
+      billingAddressCountry: "Canada",
+      billingAddressPostalCode: "",
+      farmName: "",
+      farmLocation: "",
+      farmType: "LiveStock",
+      mailingAddressStreet: "",
+      area: "Southern AB",
+      mailingAddressCity: "",
+      mailingAddressProvince: "Alberta",
+      rating: 0,
+      mailingAddressCountry: "Canada",
+      mailingAddressPostalCode: "",
+      comments: "",
+      isAdmin: "",
+      isProducer: "",
+      isOther: ""
     }
+  };
 
     onChange = (e) => {
         let data = this.state.data;
@@ -310,6 +311,7 @@ class AddNewProdComp extends Component {
             </form>
         </div>
     )}
+
 }
 
 export default AddNewProdComp;
