@@ -4,6 +4,7 @@ import Button from "../../../../SharedComponents/UI/Button";
 import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
 
 class LivestockForm extends Component {
+    // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!
   state = {
     data: {
       userId: 1,
@@ -190,30 +191,6 @@ class LivestockForm extends Component {
                   />
                 </div>
                 <div className="field">
-                  <label>Hanging Weight</label>
-                  <input
-                    onChange={this.onChange}
-                    type="text"
-                    name="hangingWeight"
-                  />
-                </div>
-                <div className="field">
-                  <label>Chargebacks</label>
-                  <input
-                    onChange={this.onChange}
-                    type="text"
-                    name="chargebacks"
-                  />
-                </div>
-                <div className="field">
-                  <label>Delivered To</label>
-                  <input
-                    onChange={this.onChange}
-                    type="text"
-                    name="deliveredTo"
-                  />
-                </div>
-                <div className="field">
                   <label>Comments</label>
                   <textarea
                     onChange={this.onChange}
@@ -295,32 +272,17 @@ class LivestockForm extends Component {
                   />
                 </div>
                 <div className="field">
-                  <label>Est. Final Price to be Paid</label>
+                  <label>Hanging Weight</label>
                   <input
                     onChange={this.onChange}
                     type="text"
-                    name="estFinalPrice"
+                    name="hangingWeight"
                   />
                 </div>
+               
                 <div className="field">
                   <label>Quantity</label>
                   <input onChange={this.onChange} type="text" name="quantity" />
-                </div>
-                <div className="field">
-                  <label>Final Price</label>
-                  <input
-                    onChange={this.onChange}
-                    type="text"
-                    name="finalPrice"
-                  />
-                </div>
-                <div className="field">
-                  <label>Delivered Date</label>
-                  <input
-                    onChange={this.onChange}
-                    type="date"
-                    name="deliveredDate"
-                  />
                 </div>
                 <input type="hidden" id="userId" name="userId" value="1" />
               </div>

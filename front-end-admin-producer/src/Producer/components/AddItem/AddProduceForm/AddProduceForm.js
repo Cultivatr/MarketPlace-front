@@ -5,6 +5,7 @@ import styles from "./AddProduceForm.module.css";
 import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
 
 class ProduceForm extends Component {
+  // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!
   state = {
     data: {
       type: "",
@@ -169,22 +170,6 @@ class ProduceForm extends Component {
                   </select>
                 </div>
                 <div className="field">
-                  <label>Fertilizer Type Used</label>
-                  <input
-                    onChange={this.onChange}
-                    type="text"
-                    name="fertilizerTypeUsed"
-                  />
-                </div>
-                <div className="field">
-                  <label>Pesticide Type Used</label>
-                  <input
-                    onChange={this.onChange}
-                    type="text"
-                    name="pesticideTypeUsed"
-                  />
-                </div>
-                <div className="field">
                   <label>Comments</label>
                   <textarea
                     onChange={this.onChange}
@@ -229,43 +214,19 @@ class ProduceForm extends Component {
                   <input onChange={this.onChange} type="text" name="estPrice" />
                 </div>
                 <div className="field">
-                  <label>Qty Accepted for Listing</label>
+                  <label>Fertilizer Type Used</label>
                   <input
                     onChange={this.onChange}
                     type="text"
-                    name="qtyAcceptedForListing"
+                    name="fertilizerTypeUsed"
                   />
                 </div>
                 <div className="field">
-                  <label>Qty Accepted at Delivery</label>
+                  <label>Pesticide Type Used</label>
                   <input
                     onChange={this.onChange}
                     type="text"
-                    name="qtyAcceptedAtDelivery"
-                  />
-                </div>
-                <div className="field">
-                  <label>Final Price Paid</label>
-                  <input
-                    onChange={this.onChange}
-                    type="text"
-                    name="finalPricePaid"
-                  />
-                </div>
-                <div className="field">
-                  <label>Delivered To</label>
-                  <input
-                    onChange={this.onChange}
-                    type="text"
-                    name="deliveredTo"
-                  />
-                </div>
-                <div className="field">
-                  <label>Delivered Date</label>
-                  <input
-                    onChange={this.onChange}
-                    type="date"
-                    name="deliveredDate"
+                    name="pesticideTypeUsed"
                   />
                 </div>
                 <input
