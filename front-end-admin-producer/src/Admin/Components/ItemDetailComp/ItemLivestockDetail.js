@@ -6,6 +6,12 @@ class ProductLivestockDetail extends Component {
   componentDidMount = () => {
     console.log("Livestock Rendered");
   };
+  onChange = e => {
+    let data = this.props.itemLivestockDetails;
+    let newdata = { ...data, [e.target.name]: e.target.value };
+    this.setState({ data: newdata });
+    console.log("Livestock details:", data);
+  };
 
   getBreedValue = () => {
     const element = document.getElementById("breed");
@@ -88,6 +94,61 @@ class ProductLivestockDetail extends Component {
         break;
       default:
         break;
+    }
+  };
+
+  modifyItem = async () => {
+    const {
+      id,
+      type,
+      birthdate,
+      regNumber,
+      rfid,
+      estStartingWeight,
+      hangingWeight,
+      chargebacks,
+      comments,
+      deliveredTo,
+      deliveredDate,
+      dateOnFeed,
+      estCompletionDate,
+      estFinishedWeight,
+      estFinalPrice,
+      quantity,
+      finalPrice,
+      status
+    } = this.props.itemLivestockDetails;
+    console.log("Selected parameters: ");
+    try {
+      const response = await fetch("http://localhost:5000/livestock/modify/", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          id: id.substring(2),
+          type: type,
+          birthdate: birthdate,
+          regNumber: regNumber,
+          rfid: rfid,
+          estStartingWeight: estStartingWeight,
+          hangingWeight: hangingWeight,
+          chargebacks: chargebacks,
+          comments: comments,
+          deliveredTo: deliveredTo,
+          deliveredDate: deliveredDate,
+          dateOnFeed: dateOnFeed,
+          estCompletionDate: estCompletionDate,
+          estFinishedWeight: estFinishedWeight,
+          estFinalPrice: estFinalPrice,
+          quantity: quantity,
+          finalPrice: finalPrice,
+          status: status
+        })
+      });
+      const json = await response.json();
+      console.log(json);
+      this.props.showUsers();
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -387,6 +448,12 @@ class ProductLivestockDetail extends Component {
               onClick={this.props.removeOverlay}
             >
               Cancel
+            </button>
+            <button
+              className={Class.itemButtonsCancel}
+              onClick={this.modifyItem}
+            >
+              Modify
             </button>
             <button
               className={Class.itemButtonsCancel}
