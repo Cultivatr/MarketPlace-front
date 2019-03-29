@@ -168,13 +168,20 @@ class Summary extends Component {
                         Header: "Details",
                         id: "MoreDetails",
                         width: 75,
-                        accessor: d => <span className={Class.detailButton} id={d.id} onClick={this.getItemObj}>&#9673;</span>,
+                        accessor: d => <span className={Class.detailButton} 
+                        style={{
+                          cursor: "pointer",
+                          fontSize: 10,
+                          border: "1px solid black",
+                          borderRadius: "25px",
+                          padding: "5px 5px",
+                          margin:"5px 0px 5px 0px",
+                          textAlign: "center",
+                          userSelect: "none"}} 
+                          id={d.id} onClick={this.getItemObj}>Details</span>,
                         filterMethod: (filter, rows) =>
                           matchSorter(rows, filter.value, { keys: ["qty"] }),
                         filterAll: true,
-                        style: {
-                          textAlign: "center"
-                        }
                     }
                   ]}
                 ]}

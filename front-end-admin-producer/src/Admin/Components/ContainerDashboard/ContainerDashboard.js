@@ -85,14 +85,16 @@ class ContainerDashboard extends React.Component {
                   Header: "",
                   id: "details",
                   width: 50,
-                  accessor: d => <span className='detail-button' id={d.id} onClick={this.props.itemObj}>&#9673;</span>,
-                  style: {
+                  accessor: d => <span className='detail-button' style={{
                     cursor: "pointer",
-                    fontSize: 25,
+                    fontSize: 10,
+                    border: "1px solid black",
+                    borderRadius: "25px",
                     padding: "5px 5px",
+                    margin:"5px 0px 5px 0px",
                     textAlign: "center",
-                    userSelect: "none"
-                  },
+                    userSelect: "none"}} 
+                    id={d.id} onClick={this.props.itemObj}>Details</span>,
                 }
               ]}
               ]}
