@@ -190,7 +190,7 @@ class Summary extends Component {
                   }
                 },
                 {
-                  Header: "Details",
+                  Header: "",
                   id: "MoreDetails",
                   width: 75,
                   accessor: d => (
@@ -199,13 +199,17 @@ class Summary extends Component {
                       id={d.id}
                       onClick={this.getItemObj}
                     >
-                      &#9673;
+                      Details
                     </span>
                   ),
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["qty"] }),
                   filterAll: true,
                   style: {
+                    cursor: "pointer",
+                    fontSize: 15,
+                    padding: "5px 5px",
+                    userSelect: "none",
                     textAlign: "center"
                   }
                 }

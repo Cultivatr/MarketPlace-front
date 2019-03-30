@@ -92,12 +92,12 @@ class ContainerDashboard extends React.Component {
                       id={d.id}
                       onClick={this.props.itemObj}
                     >
-                      &#9673;
+                      Details
                     </span>
                   ),
                   style: {
                     cursor: "pointer",
-                    fontSize: 25,
+                    fontSize: 15,
                     padding: "5px 5px",
                     textAlign: "center",
                     userSelect: "none"
