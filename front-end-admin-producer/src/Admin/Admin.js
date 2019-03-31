@@ -95,6 +95,14 @@ class Admin extends Component {
       this.helperFilterFunction();
     }
   };
+
+refreshLiveStock = (data) => {
+  this.setState({ items_livestock: data });
+}
+refreshProduce = (data) => {
+  this.setState({ items_produce: data });
+}
+
   helperFilterFunction = () => {
     filterData(
       this.state.data,
@@ -158,7 +166,7 @@ class Admin extends Component {
     for (i = 0; i < this.state.data.length; i++) {
       if (this.state.data[i].datePlanted) {
         this.produceItems.push(this.state.data[i]);
-      } else if (this.state.data[i].breed) {
+      } else if (this.state.data[i].birthdate) {
         this.livestockItems.push(this.state.data[i]);
       }
     }
@@ -306,12 +314,14 @@ class Admin extends Component {
             removeOverlay={this.removeOverlay}
             pushThroughProduce={this.pushThroughProduce}
             rejectProduce={this.rejectProduce}
+            refreshProduce = {this.refreshProduce}
           />
           <ItemLiveStockDetail
             itemLivestockDetails={this.state.itemLivestockDetails}
             removeOverlay={this.removeOverlay}
             pushThroughLivestock={this.pushThroughLivestock}
             rejectLivestock={this.rejectLivestock}
+            refreshLiveStock = {this.refreshLiveStock}
           />
           <div className={Class.container}>
             <div className={Class.boxContainer}>

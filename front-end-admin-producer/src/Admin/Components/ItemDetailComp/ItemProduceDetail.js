@@ -3,6 +3,14 @@ import Class from "./ItemDetail.module.css";
 import "./ItemDetail.css";
 
 class ProductProduceDetail extends Component {
+  
+  constructor() {
+    super();
+    this.state = {
+      itemProduceDetails:''
+    }
+  }
+
   componentDidMount = () => {
     console.log("Produce Rendered");
   };
@@ -21,6 +29,13 @@ class ProductProduceDetail extends Component {
       default:
         break;
     }
+  };
+
+  onChange = e => {
+    let itemProduceDetails = this.props.itemProduceDetails;
+    itemProduceDetails[e.target.name] = e.target.value;
+    this.setState({ itemProduceDetails: itemProduceDetails });
+    console.log("Produce details:", this.state.itemProduceDetails);
   };
 
   getModifiedSeedValue = () => {
@@ -57,6 +72,63 @@ class ProductProduceDetail extends Component {
     if (this.props.itemProduceDetails.state === "Pending Approval") {
       console.log("Hey man");
     }
+  };
+
+
+  modifyItem = async () => {
+    console.log("This state", this.state);
+    const {
+      id,
+      type,
+      datePlanted,
+      seedType,
+      fertilizerTypeUsed,
+      pesticideTypeUsed,
+      deliveredDate,
+      comments,
+      estQuantityPlanted,
+      estFinishedQty,
+      estPrice,
+      qtyAcceptedForListing,
+      qtyAcceptedAtDelivery,
+      chargebacks,
+      finalPricePaid,
+      deliveredTo,
+      status
+    } = this.state.itemProduceDetails;
+    console.log("Selected parameters: ");
+    try {
+      const response = await fetch("http://localhost:5000/produce/modify/", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          id: id.substring(2),
+          type: type,
+          datePlanted: datePlanted,
+          seedType: seedType,
+          fertilizerTypeUsed: fertilizerTypeUsed,
+          pesticideTypeUsed: pesticideTypeUsed,
+          deliveredDate: deliveredDate,
+          comments: comments,
+          estQuantityPlanted: estQuantityPlanted,
+          estFinishedQty: estFinishedQty,
+          estPrice: estPrice,
+          qtyAcceptedForListing: qtyAcceptedForListing,
+          qtyAcceptedAtDelivery: qtyAcceptedAtDelivery,
+          chargebacks: chargebacks,
+          finalPricePaid: finalPricePaid,
+          deliveredTo: deliveredTo,
+          status: status
+        })
+      });
+      const json = await response.json();
+      console.log(json);
+      this.props.showUsers();
+    } catch (error) {
+      console.log(error);
+    }
+    this.props.removeOverlay();
+    this.props.refreshProduce(this.state.itemProduceDetails);
   };
 
   render() {
@@ -115,6 +187,8 @@ class ProductProduceDetail extends Component {
                   <td className="two wide column">Date Planted</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = "datePlanted"
                       className={Class.tableRow}
                       type="text"
                       placeholder={datePlanted}
@@ -125,6 +199,8 @@ class ProductProduceDetail extends Component {
                   <td>Seed Type</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = "seedType"
                       className={Class.tableRow}
                       type="text"
                       placeholder={seedType}
@@ -167,6 +243,8 @@ class ProductProduceDetail extends Component {
                   <td>Fertilizer Type</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = "fertilizerTypeUsed"
                       className={Class.tableRow}
                       type="text"
                       placeholder={fertilizerTypeUsed}
@@ -177,6 +255,8 @@ class ProductProduceDetail extends Component {
                   <td>Pesticide Type</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = "pesticideTypeUsed"
                       className={Class.tableRow}
                       type="text"
                       placeholder={pesticideTypeUsed}
@@ -187,6 +267,8 @@ class ProductProduceDetail extends Component {
                   <td>Est. Quantity Planted</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = "estQuantityPlanted"
                       className={Class.tableRow}
                       type="text"
                       placeholder={estQuantityPlanted}
@@ -213,6 +295,8 @@ class ProductProduceDetail extends Component {
                   <td>Est. Finished Qty</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = "estFinishedQty"
                       className={Class.tableRow}
                       type="text"
                       placeholder={estFinishedQty}
@@ -223,6 +307,8 @@ class ProductProduceDetail extends Component {
                   <td>Est. Price</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = "estPrice"
                       className={Class.tableRow}
                       type="text"
                       placeholder={estPrice}
@@ -233,6 +319,8 @@ class ProductProduceDetail extends Component {
                   <td>Qty Accepted For Listing</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = 'qtyAcceptedForListing'
                       className={Class.tableRow}
                       type="text"
                       placeholder={qtyAcceptedForListing}
@@ -243,6 +331,8 @@ class ProductProduceDetail extends Component {
                   <td>Qty Accepted At Delivery</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = "qtyAcceptedAtDelivery"
                       className={Class.tableRow}
                       type="text"
                       placeholder={qtyAcceptedAtDelivery}
@@ -253,6 +343,8 @@ class ProductProduceDetail extends Component {
                   <td>Final Price Paid</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = "finalPricePaid"
                       className={Class.tableRow}
                       type="text"
                       placeholder={finalPricePaid}
@@ -263,6 +355,8 @@ class ProductProduceDetail extends Component {
                   <td>Delivered Date</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = "deliveredDate"
                       className={Class.tableRow}
                       type="text"
                       placeholder={deliveredDate}
@@ -274,6 +368,8 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       className={Class.tableRow}
+                      onChange={this.onChange}
+                      name = "deliveredTo"
                       type="text"
                       placeholder={deliveredTo}
                     />
@@ -283,6 +379,8 @@ class ProductProduceDetail extends Component {
                   <td>Chargebacks</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = "chargebacks"
                       className={Class.tableRow}
                       type="text"
                       placeholder={chargebacks}
@@ -293,6 +391,8 @@ class ProductProduceDetail extends Component {
                   <td>Comments</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = "comments"
                       className={Class.tableRow}
                       type="text"
                       placeholder={comments}
@@ -320,7 +420,12 @@ class ProductProduceDetail extends Component {
             >
               Cancel
             </button>
-            {this.rejectButton}
+           <button
+              className={Class.itemButtonsCancel}
+              onClick={this.modifyItem}
+            >
+              Modify
+            </button>
             <button
               className={Class.itemButtonsCancel}
               onClick={() =>

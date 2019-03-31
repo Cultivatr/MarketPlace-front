@@ -3,14 +3,21 @@ import Class from "./ItemDetail.module.css";
 import "./ItemDetail.css";
 
 class ProductLivestockDetail extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      itemLivestockDetails:''
+    }
+  }
   componentDidMount = () => {
     console.log("Livestock Rendered");
   };
   onChange = e => {
-    let data = this.props.itemLivestockDetails;
-    let newdata = { ...data, [e.target.name]: e.target.value };
-    this.setState({ data: newdata });
-    console.log("Livestock details:", data);
+    let itemLivestockDetails = this.props.itemLivestockDetails;
+    itemLivestockDetails[e.target.name] = e.target.value;
+    this.setState({ itemLivestockDetails: itemLivestockDetails });
+    console.log("Livestock details:", this.state.itemLivestockDetails);
   };
 
   getBreedValue = () => {
@@ -98,6 +105,7 @@ class ProductLivestockDetail extends Component {
   };
 
   modifyItem = async () => {
+    console.log("This state", this.state);
     const {
       id,
       type,
@@ -116,8 +124,9 @@ class ProductLivestockDetail extends Component {
       estFinalPrice,
       quantity,
       finalPrice,
-      status
-    } = this.props.itemLivestockDetails;
+      status,
+      breed
+    } = this.state.itemLivestockDetails;
     console.log("Selected parameters: ");
     try {
       const response = await fetch("http://localhost:5000/livestock/modify/", {
@@ -141,7 +150,8 @@ class ProductLivestockDetail extends Component {
           estFinalPrice: estFinalPrice,
           quantity: quantity,
           finalPrice: finalPrice,
-          status: status
+          status: status,
+          breed: breed
         })
       });
       const json = await response.json();
@@ -150,6 +160,8 @@ class ProductLivestockDetail extends Component {
     } catch (error) {
       console.log(error);
     }
+    this.props.removeOverlay();
+    this.props.refreshLiveStock(this.state.itemLivestockDetails);
   };
 
   render() {
@@ -225,9 +237,11 @@ class ProductLivestockDetail extends Component {
                   <td>Estimated Birthdate</td>
                   <td className={Class.row}>
                     <input
+                     onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={birthdate}
+                      name = "birthdate"
                     />
                   </td>
                 </tr>
@@ -235,9 +249,11 @@ class ProductLivestockDetail extends Component {
                   <td>Registration Number</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={regNumber}
+                      name = "regNumber"
                     />
                   </td>
                 </tr>
@@ -245,9 +261,11 @@ class ProductLivestockDetail extends Component {
                   <td>RFID Tag</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={rfid}
+                      name = "rfid"
                     />
                   </td>
                 </tr>
@@ -255,9 +273,11 @@ class ProductLivestockDetail extends Component {
                   <td>Date On Feed</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={dateOnFeed}
+                      name = "dateOnFeed"
                     />
                   </td>
                 </tr>
@@ -322,9 +342,11 @@ class ProductLivestockDetail extends Component {
                   <td>Est Starting Weight</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={estStartingWeight}
+                      name = "estStartingWeight"
                     />
                   </td>
                 </tr>
@@ -332,9 +354,11 @@ class ProductLivestockDetail extends Component {
                   <td>Quantity</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={quantity}
+                      name = "quantity"
                     />
                   </td>
                 </tr>
@@ -342,9 +366,11 @@ class ProductLivestockDetail extends Component {
                   <td>Est Completion Date</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={estCompletionDate}
+                      name = "estCompletionDate"
                     />
                   </td>
                 </tr>
@@ -352,9 +378,11 @@ class ProductLivestockDetail extends Component {
                   <td>Est Finished Weight</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={estFinishedWeight}
+                      name = "estFinishedWeight"
                     />
                   </td>
                 </tr>
@@ -362,9 +390,11 @@ class ProductLivestockDetail extends Component {
                   <td>Est Final Price</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={estFinalPrice}
+                      name = "estFinalPrice"
                     />
                   </td>
                 </tr>
@@ -372,9 +402,11 @@ class ProductLivestockDetail extends Component {
                   <td>Hanging Weight</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={hangingWeight}
+                      name = "hangingWeight"
                     />
                   </td>
                 </tr>
@@ -382,9 +414,11 @@ class ProductLivestockDetail extends Component {
                   <td>Final Price</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={finalPrice}
+                      name = "finalPrice"
                     />
                   </td>
                 </tr>
@@ -392,9 +426,11 @@ class ProductLivestockDetail extends Component {
                   <td>Delivered Date</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={deliveredDate}
+                      name = "deliveredDate"
                     />
                   </td>
                 </tr>
@@ -402,9 +438,11 @@ class ProductLivestockDetail extends Component {
                   <td>Delivered To</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={deliveredTo}
+                      name = "deliveredTo"
                     />
                   </td>
                 </tr>
@@ -412,9 +450,11 @@ class ProductLivestockDetail extends Component {
                   <td>Charge Backs</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={chargebacks}
+                      name = "chargebacks"
                     />
                   </td>
                 </tr>
@@ -422,9 +462,11 @@ class ProductLivestockDetail extends Component {
                   <td>Comments</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={comments}
+                      name = "comments"
                     />
                   </td>
                 </tr>
