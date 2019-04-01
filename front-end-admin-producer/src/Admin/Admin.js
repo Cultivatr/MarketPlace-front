@@ -96,12 +96,12 @@ class Admin extends Component {
     }
   };
 
-refreshLiveStock = (data) => {
-  this.setState({ items_livestock: data });
-}
-refreshProduce = (data) => {
-  this.setState({ items_produce: data });
-}
+  refreshLiveStock = data => {
+    this.setState({ items_livestock: data });
+  };
+  refreshProduce = data => {
+    this.setState({ items_produce: data });
+  };
 
   helperFilterFunction = () => {
     filterData(
@@ -194,6 +194,9 @@ refreshProduce = (data) => {
     } catch (error) {
       console.log(error);
     }
+  };
+  refreshUsers = data => {
+    this.setState({ users: data });
   };
 
   showOverlayProduce = () => {
@@ -288,6 +291,7 @@ refreshProduce = (data) => {
       toShow = (
         <div className={Class.container2}>
           <UsersComp
+            OnClickListUsers={this.OnClickListUsers}
             data={this.state.users}
             showUsers={this.OnClickListUsers}
           />
@@ -301,7 +305,10 @@ refreshProduce = (data) => {
               <u>Add New Users</u>
             </h4>
           </div>
-          <AddNewProdComp />
+          <AddNewProdComp
+            OnClickListUsers={this.OnClickListUsers}
+            refreshUsers={this.refreshUsers}
+          />
         </div>
       );
     }
@@ -314,14 +321,14 @@ refreshProduce = (data) => {
             removeOverlay={this.removeOverlay}
             pushThroughProduce={this.pushThroughProduce}
             rejectProduce={this.rejectProduce}
-            refreshProduce = {this.refreshProduce}
+            refreshProduce={this.refreshProduce}
           />
           <ItemLiveStockDetail
             itemLivestockDetails={this.state.itemLivestockDetails}
             removeOverlay={this.removeOverlay}
             pushThroughLivestock={this.pushThroughLivestock}
             rejectLivestock={this.rejectLivestock}
-            refreshLiveStock = {this.refreshLiveStock}
+            refreshLiveStock={this.refreshLiveStock}
           />
           <div className={Class.container}>
             <div className={Class.boxContainer}>

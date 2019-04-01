@@ -27,7 +27,7 @@ class ContainerDashboard extends React.Component {
                 {
                   Header: "Order #",
                   accessor: "id",
-                  width: 100,
+                  width: 80,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["id"] }),
                   filterAll: true,
@@ -38,7 +38,7 @@ class ContainerDashboard extends React.Component {
                 {
                   Header: "Farm",
                   accessor: "farm",
-                  width: 350,
+                  // width: 200,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["farm"] }),
                   filterAll: true,
@@ -49,7 +49,7 @@ class ContainerDashboard extends React.Component {
                 {
                   Header: "Product",
                   id: "type",
-                  width: 400,
+                  // width: 80%,
                   accessor: d => d.type,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["type"] }),
@@ -61,7 +61,7 @@ class ContainerDashboard extends React.Component {
                 {
                   Header: "Qty",
                   id: "quantity",
-                  width: 200,
+                  // width: 200,
                   accessor: d => d.quantity || d.estFinishedQty,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["quantity"] }),
@@ -73,7 +73,7 @@ class ContainerDashboard extends React.Component {
                 {
                   Header: "Est.Date",
                   id: "estCompletionDate",
-                  width: 340,
+                  // width: 340,
                   accessor: d => d.feedMethod,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["feedMethod"] }),
@@ -85,7 +85,7 @@ class ContainerDashboard extends React.Component {
                 {
                   Header: "",
                   id: "details",
-                  width: 50,
+                  width: 100,
                   accessor: d => (
                     <span
                       className="detail-button"

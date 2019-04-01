@@ -37,7 +37,7 @@ class UsersComp extends Component {
         id: userId
       })
     }).catch(error => console.log(error));
-    this.removeOverlay();
+    setTimeout(() => this.props.OnClickListUsers(), 100);
   };
 
   render() {
@@ -70,7 +70,7 @@ class UsersComp extends Component {
                 {
                   Header: "First Name",
                   id: "first_name",
-                  width: 250,
+                  // width: 200,
                   accessor: d => d.firstName,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["first_name"] }),
@@ -82,7 +82,7 @@ class UsersComp extends Component {
                 {
                   Header: "Last Name",
                   id: "last_name",
-                  width: 250,
+                  // width: 200,
                   accessor: d => d.lastName,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["last_name"] }),
@@ -94,7 +94,7 @@ class UsersComp extends Component {
                 {
                   Header: "Primary Number",
                   id: "p_number",
-                  width: 250,
+                  width: 160,
                   accessor: d => d.primaryNumber,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["p_number"] }),
@@ -106,7 +106,7 @@ class UsersComp extends Component {
                 {
                   Header: "Email",
                   id: "email",
-                  width: 500,
+                  // width: 400,
                   accessor: d => d.email,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["email"] }),

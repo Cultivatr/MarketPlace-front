@@ -106,12 +106,8 @@ class AddNewProdComp extends Component {
         console.log(data);
       })
       .then(form.reset())
-      .then(
-        setTimeout(function() {
-          document.getElementById("submitBtn").className = "ui button";
-        }, 2000)
-      )
       .catch(error => console.log(error));
+    setTimeout(() => this.props.OnClickListUsers(), 1000);
   };
 
   render() {
