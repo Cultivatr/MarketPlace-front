@@ -26,7 +26,12 @@ class Admin extends Component {
       items_livestock: [],
       itemProduceDetails: {},
       itemLivestockDetails: {},
-      users: []
+      users: [],
+      pending: [],
+      accepted: [],
+      sold: [],
+      delivered: [],
+      notAccepted: []
     };
   }
 
@@ -112,6 +117,13 @@ class Admin extends Component {
       this.delivered,
       this.notAccepted
     );
+    this.setState({
+      pending: this.pending,
+      accepted: this.accepted,
+      sold: this.sold,
+      delivered: this.delivered,
+      notAccepted: this.notAccepted
+    })
   };
 
   nextStatus = status => {
@@ -254,7 +266,7 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <h4>Items Accepted Conditionally</h4>
           </div>
-          <ContainerDashboard data={this.accepted} itemObj={this.getItemObj} />
+          <ContainerDashboard data={this.state.accepted} itemObj={this.getItemObj} />
         </div>
       );
     } else if (this.state.dataToShow === "soldToBeDelivered") {
@@ -263,7 +275,7 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <h4>Items Sold To Be Delivered</h4>
           </div>
-          <ContainerDashboard data={this.sold} itemObj={this.getItemObj} />
+          <ContainerDashboard data={this.state.sold} itemObj={this.getItemObj} />
         </div>
       );
     } else if (this.state.dataToShow === "delivered") {
@@ -272,7 +284,7 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <h4>Items Delivered</h4>
           </div>
-          <ContainerDashboard data={this.delivered} itemObj={this.getItemObj} />
+          <ContainerDashboard data={this.state.delivered} itemObj={this.getItemObj} />
         </div>
       );
     } else if (this.state.dataToShow === "notAccepted") {
@@ -282,7 +294,7 @@ class Admin extends Component {
             <h4>Items Not Accepted</h4>
           </div>
           <ContainerDashboard
-            data={this.notAccepted}
+            data={this.state.notAccepted}
             itemObj={this.getItemObj}
           />
         </div>
