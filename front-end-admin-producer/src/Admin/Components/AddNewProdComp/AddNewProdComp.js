@@ -431,17 +431,7 @@ class AddNewProdComp extends Component {
           </div>
 
           <div className={Class.buttonContainer}>
-            <Button>Clear Fields</Button>
-            <div className={Class.addNewProdButton}>
-              <button type="submit" className="ui button">
-                Submit
-              </button>
-            </div>
-            <div className={Class.addNewProdButton}>
-              <button type="cancel" className="ui button">
-                Cancel
-              </button>
-            </div>
+            <Button>Submit</Button>
           </div>
         </form>
       </div>
