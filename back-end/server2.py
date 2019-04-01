@@ -364,7 +364,7 @@ def modify_lifestock():
     db.session.commit()
     return 'Success', 201  
 
-   
+
 
 @app.route("/livestock/update/", methods=['POST'])
 def modify_livestock():

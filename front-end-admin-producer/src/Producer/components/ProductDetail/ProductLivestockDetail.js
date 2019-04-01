@@ -4,6 +4,81 @@ import "./ProductDetail.css"
 
 class ProductLivestockDetail extends Component {
 
+  constructor() {
+    super();
+    this.state = {
+      itemLivestockDetails:''
+    }
+  }
+
+  onChange = e => {
+    let itemLivestockDetails = this.props.itemLivestockDetails;
+    itemLivestockDetails[e.target.name] = e.target.value;
+    this.setState({ itemLivestockDetails: itemLivestockDetails });
+    console.log("Livestock details:", this.state.itemLivestockDetails);
+  };
+
+
+modifyItem = async () => {
+    console.log("This state", this.state);
+    const {
+      id,
+      type,
+      birthdate,
+      regNumber,
+      rfid,
+      estStartingWeight,
+      hangingWeight,
+      chargebacks,
+      comments,
+      deliveredTo,
+      deliveredDate,
+      dateOnFeed,
+      estCompletionDate,
+      estFinishedWeight,
+      estFinalPrice,
+      quantity,
+      finalPrice,
+      status,
+      breed
+    } = this.state.itemLivestockDetails;
+    console.log("Selected parameters: ");
+    try {
+      const response = await fetch("http://localhost:5000/livestock/modify/", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          id: id.substring(2),
+          type: type,
+          birthdate: birthdate,
+          regNumber: regNumber,
+          rfid: rfid,
+          estStartingWeight: estStartingWeight,
+          hangingWeight: hangingWeight,
+          chargebacks: chargebacks,
+          comments: comments,
+          deliveredTo: deliveredTo,
+          deliveredDate: deliveredDate,
+          dateOnFeed: dateOnFeed,
+          estCompletionDate: estCompletionDate,
+          estFinishedWeight: estFinishedWeight,
+          estFinalPrice: estFinalPrice,
+          quantity: quantity,
+          finalPrice: finalPrice,
+          status: status,
+          breed: breed
+        })
+      });
+      const json = await response.json();
+      console.log(json);
+    } catch (error) {
+      console.log(error);
+    }
+    this.props.removeOverlay();
+    this.props.refreshLiveStock(this.state.itemLivestockDetails);
+  };
+
+
     getBrandValue = () => {
         const value = this.props.itemLivestockDetails.singleBrand;
         if (value === true) {
@@ -76,15 +151,15 @@ class ProductLivestockDetail extends Component {
                             </tr>
                             <tr>
                                 <td>Quantity</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={quantity} /></td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={quantity} onChange={this.onChange} name = "quantity" /></td>
                             </tr>
                             <tr>
                                 <td>Est Completion Date</td> 
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={estCompletionDate} /></td>
+                                <td className={Class.row}><input className={Class.tableRow} type="date" placeholder={estCompletionDate} onChange={this.onChange} name = "estCompletionDate"/></td>
                             </tr>
                             <tr>
                                 <td>Est Finished Weight</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={estFinishedWeight} /></td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={estFinishedWeight} onChange={this.onChange} name = "estFinishedWeight"/></td>
                             </tr>
                             <tr>
                                 <td>Est Final Price</td>
@@ -112,13 +187,13 @@ class ProductLivestockDetail extends Component {
                             </tr>
                             <tr>
                                 <td>Comments</td>
-                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={comments} /></td>
+                                <td className={Class.row}><input className={Class.tableRow} type="text" placeholder={comments} onChange={this.onChange} name = "comments"/></td>
                             </tr>
                         </tbody>
                         </table>
                     </div>
                     <div className={Class.itemButtonsContainer}>
-                        <button className={Class.itemButtonsModify} onClick={this.props.removeOverlay}>Modify</button>
+                        <button className={Class.itemButtonsModify} onClick={this.modifyItem}>Modify</button>
                         <button className={Class.itemButtonsCancel} onClick={this.props.removeOverlay}>Cancel</button>
                     </div> 
                 </div>

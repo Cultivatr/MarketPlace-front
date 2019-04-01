@@ -27,7 +27,7 @@ class Summary extends Component {
     for (i = 0; i < this.state.data.length; i++) {
       if (this.state.data[i].datePlanted) {
         this.produceItems.push(this.state.data[i]);
-      } else if (this.state.data[i].breed) {
+      } else if (this.state.data[i].birthdate) {
         this.livestockItems.push(this.state.data[i]);
       }
     }
@@ -107,6 +107,10 @@ class Summary extends Component {
     document.getElementById("produceOverlay").style.display = "none";
     document.getElementById("livestockOverlay").style.display = "none";
   };
+
+  refreshLiveStock = (data) => {
+    this.setState({ items_livestock: data });
+}
 
   render() {
     const data = this.data;
@@ -229,6 +233,7 @@ class Summary extends Component {
         <ProductLivestockDetail
           itemLivestockDetails={this.state.itemLivestockDetails}
           removeOverlay={this.removeOverlay}
+          refreshLiveStock = {this.refreshLiveStock}
         />
       </div>
     );
