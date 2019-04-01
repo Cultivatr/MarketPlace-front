@@ -26,7 +26,12 @@ class Admin extends Component {
       items_livestock: [],
       itemProduceDetails: {},
       itemLivestockDetails: {},
-      users: []
+      users: [],
+      pending: [],
+      accepted: [],
+      sold: [],
+      delivered: [],
+      notAccepted: []
     };
   }
 
@@ -37,27 +42,11 @@ class Admin extends Component {
       });
     }
     try {
-      const response3 = await fetch(`http://localhost:5000/admin/users/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json3 = await response3.json();
-      this.setState({ users: json3 });
-      //
-      const response = await fetch(`http://localhost:5000/livestock/all/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json = await response.json();
-      this.setState({ items_livestock: json });
-      //
-      const response2 = await fetch(`http://localhost:5000/produce/all/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json2 = await response2.json();
-      this.setState({ items_produce: json2 });
-      //
+      await this.loadUserData();
+      await this.loadProduceData();
+      await this.loadLivestockData();
+
+      
     } catch (error) {
       console.log("Admin Error", error);
     }
@@ -68,6 +57,31 @@ class Admin extends Component {
     console.log("PRODUCE:", this.state.items_produce);
     console.log("LIVESTOCK:", this.state.items_livestock);
   };
+
+  loadUserData = async () => {
+    const response3 = await fetch(`http://localhost:5000/admin/users/`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      });
+      const json3 = await response3.json();
+      this.setState({ users: json3 });
+  }
+      loadProduceData = async () => {
+      const response = await fetch(`http://localhost:5000/livestock/all/`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      });
+      const json = await response.json();
+      this.setState({ items_produce: json });
+  }
+      loadLivestockData = async () => {
+      const response2 = await fetch(`http://localhost:5000/produce/all/`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      });
+      const json2 = await response2.json();
+      this.setState({ items_livestock: json2 });
+  }
 
   createData = () => {
     if (this.state.items_produce || this.state.items_livestock) {
@@ -112,6 +126,13 @@ class Admin extends Component {
       this.delivered,
       this.notAccepted
     );
+    this.setState({
+      pending: this.pending,
+      accepted: this.accepted,
+      sold: this.sold,
+      delivered: this.delivered,
+      notAccepted: this.notAccepted
+    })
   };
 
   nextStatus = status => {
@@ -128,10 +149,10 @@ class Admin extends Component {
     this.pushThroughProduce(id, "not accepted");
   };
 
-  pushThroughLivestock = (id, status) => {
+  pushThroughLivestock = async (id, status) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
-    fetch("http://localhost:5000/livestock/incrementStatus/", {
+    await fetch("http://localhost:5000/livestock/incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -139,7 +160,8 @@ class Admin extends Component {
         nextStatus: nextStatus
       })
     }).catch(error => console.log(error));
-    this.helperFilterFunction();
+    await this.loadLivestockData();
+    await this.createData();
     this.removeOverlay();
   };
   pushThroughProduce = (id, status) => {
@@ -254,7 +276,7 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <h4>Items Accepted Conditionally</h4>
           </div>
-          <ContainerDashboard data={this.accepted} itemObj={this.getItemObj} />
+          <ContainerDashboard data={this.state.accepted} itemObj={this.getItemObj} />
         </div>
       );
     } else if (this.state.dataToShow === "soldToBeDelivered") {
@@ -263,7 +285,7 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <h4>Items Sold To Be Delivered</h4>
           </div>
-          <ContainerDashboard data={this.sold} itemObj={this.getItemObj} />
+          <ContainerDashboard data={this.state.sold} itemObj={this.getItemObj} />
         </div>
       );
     } else if (this.state.dataToShow === "delivered") {
@@ -272,7 +294,7 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <h4>Items Delivered</h4>
           </div>
-          <ContainerDashboard data={this.delivered} itemObj={this.getItemObj} />
+          <ContainerDashboard data={this.state.delivered} itemObj={this.getItemObj} />
         </div>
       );
     } else if (this.state.dataToShow === "notAccepted") {
@@ -282,7 +304,7 @@ class Admin extends Component {
             <h4>Items Not Accepted</h4>
           </div>
           <ContainerDashboard
-            data={this.notAccepted}
+            data={this.state.notAccepted}
             itemObj={this.getItemObj}
           />
         </div>
