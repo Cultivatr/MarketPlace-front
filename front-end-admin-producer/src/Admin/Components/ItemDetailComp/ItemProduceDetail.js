@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Class from "./ItemDetail.module.css";
 import "./ItemDetail.css";
+import { modifyItemProduce } from "../../../AppUtils"
 
 class ProductProduceDetail extends Component {
   
@@ -76,57 +77,7 @@ class ProductProduceDetail extends Component {
 
 
   modifyItem = async () => {
-    console.log("This state", this.state);
-    const {
-      id,
-      type,
-      datePlanted,
-      seedType,
-      fertilizerTypeUsed,
-      pesticideTypeUsed,
-      deliveredDate,
-      comments,
-      estQuantityPlanted,
-      estFinishedQty,
-      estPrice,
-      qtyAcceptedForListing,
-      qtyAcceptedAtDelivery,
-      chargebacks,
-      finalPricePaid,
-      deliveredTo,
-      status
-    } = this.state.itemProduceDetails;
-    console.log("Selected parameters: ");
-    try {
-      const response = await fetch("http://localhost:5000/produce/modify/", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          id: id.substring(2),
-          type: type,
-          datePlanted: datePlanted,
-          seedType: seedType,
-          fertilizerTypeUsed: fertilizerTypeUsed,
-          pesticideTypeUsed: pesticideTypeUsed,
-          deliveredDate: deliveredDate,
-          comments: comments,
-          estQuantityPlanted: estQuantityPlanted,
-          estFinishedQty: estFinishedQty,
-          estPrice: estPrice,
-          qtyAcceptedForListing: qtyAcceptedForListing,
-          qtyAcceptedAtDelivery: qtyAcceptedAtDelivery,
-          chargebacks: chargebacks,
-          finalPricePaid: finalPricePaid,
-          deliveredTo: deliveredTo,
-          status: status
-        })
-      });
-      const json = await response.json();
-      console.log(json);
-      this.props.showUsers();
-    } catch (error) {
-      console.log(error);
-    }
+    modifyItemProduce(this.state.itemProduceDetails);
     this.props.removeOverlay();
     this.props.refreshProduce(this.state.itemProduceDetails);
   };

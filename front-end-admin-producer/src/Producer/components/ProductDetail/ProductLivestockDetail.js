@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Class from "./ProductDetail.module.css";
 import "./ProductDetail.css"
+import { modifyItemLivestock } from "../../../AppUtils"
 
 class ProductLivestockDetail extends Component {
 
@@ -19,61 +20,8 @@ class ProductLivestockDetail extends Component {
   };
 
 
-modifyItem = async () => {
-    console.log("This state", this.state);
-    const {
-      id,
-      type,
-      birthdate,
-      regNumber,
-      rfid,
-      estStartingWeight,
-      hangingWeight,
-      chargebacks,
-      comments,
-      deliveredTo,
-      deliveredDate,
-      dateOnFeed,
-      estCompletionDate,
-      estFinishedWeight,
-      estFinalPrice,
-      quantity,
-      finalPrice,
-      status,
-      breed
-    } = this.state.itemLivestockDetails;
-    console.log("Selected parameters: ");
-    try {
-      const response = await fetch("http://localhost:5000/livestock/modify/", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          id: id.substring(2),
-          type: type,
-          birthdate: birthdate,
-          regNumber: regNumber,
-          rfid: rfid,
-          estStartingWeight: estStartingWeight,
-          hangingWeight: hangingWeight,
-          chargebacks: chargebacks,
-          comments: comments,
-          deliveredTo: deliveredTo,
-          deliveredDate: deliveredDate,
-          dateOnFeed: dateOnFeed,
-          estCompletionDate: estCompletionDate,
-          estFinishedWeight: estFinishedWeight,
-          estFinalPrice: estFinalPrice,
-          quantity: quantity,
-          finalPrice: finalPrice,
-          status: status,
-          breed: breed
-        })
-      });
-      const json = await response.json();
-      console.log(json);
-    } catch (error) {
-      console.log(error);
-    }
+  modifyItem = async () => {
+    modifyItemLivestock(this.state.itemLivestockDetails);
     this.props.removeOverlay();
     this.props.refreshLiveStock(this.state.itemLivestockDetails);
   };
