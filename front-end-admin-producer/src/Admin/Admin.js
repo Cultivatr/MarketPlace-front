@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Class from "./admin.module.css";
 import ContainerDashboard from "./Components/ContainerDashboard/ContainerDashboard";
+import DisplayAllDashboard from "./Components/ContainerDashboard/DisplayAllDashboard";
 import { filterData, getItemDetails } from "../AppUtils";
 import AddNewProdComp from "./Components/AddNewProdComp/AddNewProdComp";
 import UsersComp from "./Components/UsersComp/UsersComp";
@@ -101,6 +102,9 @@ class Admin extends Component {
             user => user.id === this.data[i].userId
           );
           this.data[i].farm = temp[0].farmName;
+          // if (this.data[i].status) {
+          //   this.data[i].status = this.data[i].status.toUpperCase();
+          // }
         }
       } else {
         this.setState({ data: this.data });
@@ -278,7 +282,7 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <h4>List of All items</h4>
           </div>
-          <ContainerDashboard
+          <DisplayAllDashboard
             data={this.state.data}
             itemObj={this.getItemObj}
           />
