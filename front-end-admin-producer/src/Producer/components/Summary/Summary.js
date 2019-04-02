@@ -130,116 +130,6 @@ class Summary extends Component {
               // Header: "Click on headers to sort or type to filter",
               columns: [
                 {
-<<<<<<< HEAD
-                  Header: "Item #",
-                  id: "Id",
-                  width: 75,
-                  accessor: d => d.id,
-                  filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["id"] }),
-                  filterAll: true,
-                  style: {
-                    textAlign: "center"
-                  }
-                },
-                {
-                  Header: "Type",
-                  id: "type",
-                  width: 200,
-                  accessor: d => d.type,
-                  filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["type"] }),
-                  filterAll: true,
-                  style: {
-                    textAlign: "center"
-                  }
-                },
-                {
-                  Header: "Est. Finished Qty",
-                  id: "estFinishedQty",
-                  width: 250,
-                  accessor: d => d.estFinishedQty || d.quantity,
-                  filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, {
-                      keys: ["estFinishedQty"]
-                    }),
-                  filterAll: true,
-                  style: {
-                    textAlign: "center"
-                  }
-                },
-                {
-                  Header: "Delivered Date",
-                  id: "product",
-                  width: 250,
-                  accessor: d => d.deliveredDate,
-                  filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, {
-                      keys: ["DeliveredDate"]
-                    }),
-                  filterAll: true,
-                  style: {
-                    textAlign: "center"
-                  }
-                },
-                {
-                  Header: "Order Status",
-                  id: "status",
-                  width: 250,
-                  accessor: d => d.status,
-                  filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["status"] }),
-                  filterAll: true,
-                  style: {
-                    textAlign: "center"
-                  }
-                },
-                {
-                  Header: "",
-                  id: "MoreDetails",
-                  width: 75,
-                  accessor: d => (
-                    <span
-                      className={Class.detailButton}
-                      id={d.id}
-                      onClick={this.getItemObj}
-                    >
-                      Details
-                    </span>
-                  ),
-                  filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["qty"] }),
-                  filterAll: true,
-                  style: {
-                    cursor: "pointer",
-                    fontSize: 15,
-                    padding: "5px 5px",
-                    userSelect: "none",
-                    textAlign: "center"
-                  }
-                }
-              ]
-            }
-          ]}
-          defaultPageSize={20}
-          className="-striped -highlight"
-          style={{
-            height: "85vh"
-          }}
-        />
-        <ProductProduceDetail
-          itemProduceDetails={this.state.itemProduceDetails}
-          removeOverlay={this.removeOverlay}
-        />
-        <ProductLivestockDetail
-          itemLivestockDetails={this.state.itemLivestockDetails}
-          removeOverlay={this.removeOverlay}
-          refreshLiveStock = {this.refreshLiveStock}
-        />
-      </div>
-    );
-  }
-=======
                   // Header: "Click on headers to sort or type to filter",
                   columns: [
                     {
@@ -334,7 +224,6 @@ class Summary extends Component {
           </div>
         );
     }
->>>>>>> Trent
 }
 
 export default Summary;
