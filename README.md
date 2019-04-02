@@ -12,10 +12,9 @@
 
 4. run pipenv shell (should get you into the environent)
 
-5. run python server.py (should start your flask server)
+5. run python server2.py (should start your flask server)
 
-** TO BE ABLE TO ADD USERS OR OFFERED ITEMS BE SURE TO HAVE A CULTIVATR DATABASE WHERE EVOLVEU IS A SUPERUSER
-** RUN THE SQL CREATE TABLE COMMANDS INSIDE Marketplace/back-end/DB/scripts/sql.py
+** TO BE ABLE TO ADD USERS OR OFFERED ITEMS BE SURE TO HAVE A CULTIVATR DATABASE WHERE POSTGRES IS A SUPERUSER and PASSWORD is 'password'
 
 **** FOR TESTING ****
 
