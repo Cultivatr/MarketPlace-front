@@ -34,11 +34,22 @@ class AddNewProdComp extends Component {
     }
   };
 
+  camelCaseString = string => {
+    const text = string
+      .toLowerCase()
+      .split(" ")
+      .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+      .join(" ");
+    return text;
+  };
+
   onChange = e => {
     let data = this.state.data;
     data.isAdmin = document.getElementById("isAdmin").checked;
-    let newdata = { ...data, [e.target.name]: e.target.value };
+    const newValue = this.camelCaseString(e.target.value);
+    let newdata = { ...data, [e.target.name]: newValue };
     this.setState({ data: newdata });
+    console.log("Data", newdata);
   };
 
   onSubmit = e => {
