@@ -18,6 +18,7 @@ class Admin extends Component {
     this.sold = [];
     this.delivered = [];
     this.notAccepted = [];
+    this.archive = [];
     this.state = {
       logInData: "",
       dataToShow: "",
@@ -36,6 +37,7 @@ class Admin extends Component {
   }
 
   componentDidMount = async () => {
+    console.log("i am mounting");
     if (JSON.parse(sessionStorage.getItem("authData"))) {
       this.setState({
         logInData: await JSON.parse(sessionStorage.getItem("authData"))
@@ -84,6 +86,7 @@ class Admin extends Component {
   }
 
   createData = () => {
+    this.data.length = 0;
     if (this.state.items_produce || this.state.items_livestock) {
       if (
         this.state.items_produce.length > 0 ||
@@ -111,35 +114,39 @@ class Admin extends Component {
   };
 
   refreshLiveStock = data => {
-    this.setState({ items_livestock: data });
+    this.setState({ itemLivestockDetails: data });
   };
   refreshProduce = data => {
-    this.setState({ items_produce: data });
+    this.setState({ itemProduceDetails: data });
   };
 
-  helperFilterFunction = () => {
+  helperFilterFunction = async () => {
+    console.log("this state part 1", this.state);
     filterData(
       this.state.data,
       this.pending,
       this.accepted,
       this.sold,
       this.delivered,
-      this.notAccepted
+      this.notAccepted,
+      this.archive
     );
-    this.setState({
+    await this.setState({
       pending: this.pending,
       accepted: this.accepted,
       sold: this.sold,
       delivered: this.delivered,
-      notAccepted: this.notAccepted
+      notAccepted: this.notAccepted,
+      archive: this.archive
     })
+    console.log("this state", this.state);
   };
 
   nextStatus = status => {
     if (status === "Pending Approval") return "accepted";
     if (status === "accepted") return "sold";
     if (status === "sold") return "delivered";
-    if (status === "delivered") return "Pending Approval";
+    if (status === "delivered") return "archive";
     if (status === "not accepted") return "not accepted";
   };
   rejectLivestock = id => {
@@ -160,13 +167,13 @@ class Admin extends Component {
         nextStatus: nextStatus
       })
     }).catch(error => console.log(error));
-    await this.loadLivestockData();
-    await this.createData();
-    this.removeOverlay();
+    await setTimeout(() => this.loadLivestockData()
+    .then(this.createData())
+    .then(this.removeOverlay()), 100);
   };
-  pushThroughProduce = (id, status) => {
-    const nextStatus = this.nextStatus(status);
-    const subId = id.substr(2);
+  pushThroughProduce = (obj) => {
+    const nextStatus = this.nextStatus(obj.status);
+    const subId = obj.id.substr(2);
     fetch("http://localhost:5000/produce/incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
@@ -176,7 +183,7 @@ class Admin extends Component {
       })
     }).catch(error => console.log(error));
     this.helperFilterFunction();
-    this.removeOverlay();
+    // this.removeOverlay();
   };
   removeOverlay = event => {
     document.getElementById("itemProduceOverlay").style.display = "none";
@@ -249,6 +256,10 @@ class Admin extends Component {
     this.setState({ dataToShow: "notAccepted" });
   };
 
+  OnClickArchive = () => {
+    this.setState({ dataToShow: "archive" });
+  };
+
   OnClickListUsers = async () => {
     await this.getUsers();
     await this.setState({ dataToShow: "toBeAccepted" });
@@ -267,7 +278,7 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <h4>Items To Be Accepted Conditionally</h4>
           </div>
-          <ContainerDashboard data={this.pending} itemObj={this.getItemObj} />
+          <ContainerDashboard data={this.state.pending} itemObj={this.getItemObj} />
         </div>
       );
     } else if (this.state.dataToShow === "acceptedConditional") {
@@ -333,6 +344,18 @@ class Admin extends Component {
           />
         </div>
       );
+    } else if (this.state.dataToShow === "archive") {
+      toShow = (
+        <div className={Class.container2}>
+          <div className={Class.containerTitle}>
+            <h4>Archives</h4>
+          </div>
+          <ContainerDashboard
+            data={this.state.archive}
+            itemObj={this.getItemObj}
+          />
+        </div>
+      );
     }
     return (
       <div className="App">
@@ -389,6 +412,13 @@ class Admin extends Component {
                   onClick={this.OnClickNotAccepted}
                 >
                   Items Not Accepted
+                </button>
+                <button
+                  id="archive"
+                  className={Class.buttonAdmin}
+                  onClick={this.OnClickArchive}
+                >
+                  Archive
                 </button>
                 <button
                   id="button-listUsers"
