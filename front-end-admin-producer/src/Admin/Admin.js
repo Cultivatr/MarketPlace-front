@@ -37,7 +37,6 @@ class Admin extends Component {
   }
 
   componentDidMount = async () => {
-    console.log("i am mounting");
     if (JSON.parse(sessionStorage.getItem("authData"))) {
       this.setState({
         logInData: await JSON.parse(sessionStorage.getItem("authData"))
@@ -47,8 +46,6 @@ class Admin extends Component {
       await this.loadUserData();
       await this.loadProduceData();
       await this.loadLivestockData();
-
-      
     } catch (error) {
       console.log("Admin Error", error);
     }
@@ -62,30 +59,30 @@ class Admin extends Component {
 
   loadUserData = async () => {
     const response3 = await fetch(`http://localhost:5000/admin/users/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json3 = await response3.json();
-      this.setState({ users: json3 });
-  }
-      loadProduceData = async () => {
-      const response = await fetch(`http://localhost:5000/livestock/all/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json = await response.json();
-      this.setState({ items_produce: json });
-  }
-      loadLivestockData = async () => {
-      const response2 = await fetch(`http://localhost:5000/produce/all/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json2 = await response2.json();
-      this.setState({ items_livestock: json2 });
-  }
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+    const json3 = await response3.json();
+    this.setState({ users: json3 });
+  };
+  loadProduceData = async () => {
+    const response = await fetch(`http://localhost:5000/produce/all/`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+    const json = await response.json();
+    this.setState({ items_produce: json });
+  };
+  loadLivestockData = async () => {
+    const response2 = await fetch(`http://localhost:5000/livestock/all/`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+    const json2 = await response2.json();
+    this.setState({ items_livestock: json2 });
+  };
 
-  createData = () => {
+  createData = async () => {
     this.data.length = 0;
     if (this.state.items_produce || this.state.items_livestock) {
       if (
@@ -108,8 +105,9 @@ class Admin extends Component {
       } else {
         this.setState({ data: this.data });
       }
-      this.setState({ data: this.data });
-      this.helperFilterFunction();
+      await this.setState({ data: this.data });
+      const dataToPass = this.data;
+      await this.helperFilterFunction(dataToPass);
     }
   };
 
@@ -120,10 +118,9 @@ class Admin extends Component {
     this.setState({ itemProduceDetails: data });
   };
 
-  helperFilterFunction = async () => {
-    console.log("this state part 1", this.state);
-    filterData(
-      this.state.data,
+  helperFilterFunction = async dataToPass => {
+    await filterData(
+      dataToPass,
       this.pending,
       this.accepted,
       this.sold,
@@ -138,8 +135,7 @@ class Admin extends Component {
       delivered: this.delivered,
       notAccepted: this.notAccepted,
       archive: this.archive
-    })
-    console.log("this state", this.state);
+    });
   };
 
   nextStatus = status => {
@@ -167,14 +163,14 @@ class Admin extends Component {
         nextStatus: nextStatus
       })
     }).catch(error => console.log(error));
-    await setTimeout(() => this.loadLivestockData()
-    .then(this.createData())
-    .then(this.removeOverlay()), 100);
+    await this.loadLivestockData();
+    await this.createData();
+    await this.removeOverlay();
   };
-  pushThroughProduce = (id, status) => {
+  pushThroughProduce = async (id, status) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
-    fetch("http://localhost:5000/produce/incrementStatus/", {
+    await fetch("http://localhost:5000/produce/incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -182,8 +178,9 @@ class Admin extends Component {
         nextStatus: nextStatus
       })
     }).catch(error => console.log(error));
-    this.helperFilterFunction();
-    // this.removeOverlay();
+    await this.loadProduceData();
+    await this.createData();
+    await this.removeOverlay();
   };
   removeOverlay = event => {
     document.getElementById("itemProduceOverlay").style.display = "none";
@@ -235,6 +232,9 @@ class Admin extends Component {
   showOverlayLivestock = () => {
     document.getElementById("itemLivestockOverlay").style.display = "block";
   };
+  OnClickAllItems = () => {
+    this.setState({ dataToShow: "allItems" });
+  };
 
   OnClickAccept = () => {
     this.setState({ dataToShow: "toBeAccepted" });
@@ -272,13 +272,29 @@ class Admin extends Component {
 
   render() {
     let toShow;
-    if (this.state.dataToShow === "toBeAccepted") {
+    if (this.state.dataToShow === "allItems") {
+      toShow = (
+        <div className={Class.container2}>
+          <div className={Class.containerTitle}>
+            <h4>List of All items</h4>
+          </div>
+          <ContainerDashboard
+            data={this.state.data}
+            itemObj={this.getItemObj}
+          />
+          {console.log("data tobeaccepted", this.state.pending)}
+        </div>
+      );
+    } else if (this.state.dataToShow === "toBeAccepted") {
       toShow = (
         <div className={Class.container2}>
           <div className={Class.containerTitle}>
             <h4>Items To Be Accepted Conditionally</h4>
           </div>
-          <ContainerDashboard data={this.state.pending} itemObj={this.getItemObj} />
+          <ContainerDashboard
+            data={this.state.pending}
+            itemObj={this.getItemObj}
+          />
         </div>
       );
     } else if (this.state.dataToShow === "acceptedConditional") {
@@ -287,7 +303,10 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <h4>Items Accepted Conditionally</h4>
           </div>
-          <ContainerDashboard data={this.state.accepted} itemObj={this.getItemObj} />
+          <ContainerDashboard
+            data={this.state.accepted}
+            itemObj={this.getItemObj}
+          />
         </div>
       );
     } else if (this.state.dataToShow === "soldToBeDelivered") {
@@ -296,7 +315,10 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <h4>Items Sold To Be Delivered</h4>
           </div>
-          <ContainerDashboard data={this.state.sold} itemObj={this.getItemObj} />
+          <ContainerDashboard
+            data={this.state.sold}
+            itemObj={this.getItemObj}
+          />
         </div>
       );
     } else if (this.state.dataToShow === "delivered") {
@@ -305,7 +327,10 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <h4>Items Delivered</h4>
           </div>
-          <ContainerDashboard data={this.state.delivered} itemObj={this.getItemObj} />
+          <ContainerDashboard
+            data={this.state.delivered}
+            itemObj={this.getItemObj}
+          />
         </div>
       );
     } else if (this.state.dataToShow === "notAccepted") {
@@ -378,6 +403,13 @@ class Admin extends Component {
           <div className={Class.container}>
             <div className={Class.boxContainer}>
               <div className={Class.leftNav}>
+                <button
+                  id="button-allItems"
+                  className={Class.buttonAdmin}
+                  onClick={this.OnClickAllItems}
+                >
+                  All Items
+                </button>
                 <button
                   id="button-accept"
                   className={Class.buttonAdmin}
