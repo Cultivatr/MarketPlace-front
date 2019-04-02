@@ -119,6 +119,7 @@ class UsersComp extends Component {
                   Header: "",
                   id: "details",
                   width: 75,
+<<<<<<< HEAD
                   accessor: d => (
                     <span
                       className="detailButton"
@@ -135,6 +136,19 @@ class UsersComp extends Component {
                     textAlign: "center",
                     userSelect: "none"
                   }
+=======
+                  accessor: d => <span className='detailButton' style={{
+                  cursor: "pointer",
+                  fontSize: 10,
+                  border: "1px solid black",
+                  borderRadius: "25px",
+                  padding: "5px 5px",
+                  margin:"5px 0px 5px 0px",
+                  textAlign: "center",
+                  userSelect: "none"}} 
+                  id={d.id}  onClick={this.getProducerObj}>Details</span>, //radio button
+            
+>>>>>>> Trent
                 }
               ]
             }

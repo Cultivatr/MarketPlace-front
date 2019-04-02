@@ -34,7 +34,10 @@ class ContactUs extends Component {
                         <h1 className='ui header'>Contact Us</h1>
                     </div>
                     <div>
-                        <div className="ui form">
+                        <h1 >For General Inquires Email Me At <i>dmbzan@gmail.com</i></h1>
+                        <nl/>
+                        <h1>or Call Me At <i>403-710-2821</i></h1>
+                        {/* <div className="ui form">
                             <div className="field">
                                 <label>Name</label>
                                 <input value={this.state.name} onChange={this.onNameChange} type="text" name="email" placeholder="Name"/>
@@ -47,8 +50,8 @@ class ContactUs extends Component {
                                 <label>Message</label>
                                 <textarea value={this.state.message} onChange={this.onMessageChange}></textarea>
                             </div>
-                            <button className='ui button'>Send</button>
-                        </div>
+                            <button className='ui button'>Send</button> 
+                        </div>*/}
                     </div>
                 </div>
             </div>
