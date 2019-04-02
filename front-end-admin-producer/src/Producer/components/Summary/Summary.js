@@ -120,7 +120,7 @@ class Summary extends Component {
     const data = this.data;
 
     return (
-      <div className="table">
+      <div className={Class.table}>
         <br />
         <ReactTable
           data={data}

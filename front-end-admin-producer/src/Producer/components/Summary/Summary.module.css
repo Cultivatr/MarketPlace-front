@@ -28,3 +28,7 @@
 .detailButton {
     cursor: pointer;
 }
+
+.table {
+    background-color: white;
+}
