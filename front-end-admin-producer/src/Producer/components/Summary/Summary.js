@@ -112,6 +112,10 @@ class Summary extends Component {
     this.setState({ items_livestock: data });
 }
 
+ refreshProduce = data => {
+    this.setState({ itemProduceDetails: data });
+  };
+
   render() {
     const data = this.data;
 
@@ -229,6 +233,7 @@ class Summary extends Component {
         <ProductProduceDetail
           itemProduceDetails={this.state.itemProduceDetails}
           removeOverlay={this.removeOverlay}
+          refreshProduce={this.refreshProduce}
         />
         <ProductLivestockDetail
           itemLivestockDetails={this.state.itemLivestockDetails}

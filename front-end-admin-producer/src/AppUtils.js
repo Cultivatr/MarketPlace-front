@@ -102,6 +102,7 @@ export async function modifyItemLivestock(obj) {
   };
 
 export async function modifyItemProduce(obj) {
+  console.log("obj", obj);
     const {
       id,
       type,

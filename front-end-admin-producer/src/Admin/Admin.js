@@ -171,9 +171,9 @@ class Admin extends Component {
     .then(this.createData())
     .then(this.removeOverlay()), 100);
   };
-  pushThroughProduce = (obj) => {
-    const nextStatus = this.nextStatus(obj.status);
-    const subId = obj.id.substr(2);
+  pushThroughProduce = (id, status) => {
+    const nextStatus = this.nextStatus(status);
+    const subId = id.substr(2);
     fetch("http://localhost:5000/produce/incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
