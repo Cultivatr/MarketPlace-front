@@ -1,13 +1,27 @@
 import React, { Component } from "react";
 import Class from "./ProductDetail.module.css";
 import "./ProductDetail.css";
+import { modifyItemProduce } from "../../../AppUtils"
 
 class ProductProduceDetail extends Component {
-  modifyProduce = id => {
-    console.log("Produce within Clicked: ", id);
-    const newId = id.substring(2);
-    console.log("New id: ", newId);
-    console.log("Edited details: ", this.props.itemProduceDetails);
+constructor() {
+    super();
+    this.state = {
+      itemProduceDetails:''
+    }
+  }
+
+  modifyItem = async () => {
+    modifyItemProduce(this.state.itemProduceDetails);
+    this.props.removeOverlay();
+    this.props.refreshProduce(this.state.itemProduceDetails);
+  };
+
+    onChange = e => {
+    let itemProduceDetails = this.props.itemProduceDetails;
+    itemProduceDetails[e.target.name] = e.target.value;
+    this.setState({ itemProduceDetails: itemProduceDetails });
+    console.log("Produce details:", this.state.itemProduceDetails);
   };
 
   getPackageTypeValue = () => {
@@ -122,6 +136,8 @@ class ProductProduceDetail extends Component {
                   <td>Seed Type</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name ="seedType"
                       className={Class.tableRow}
                       type="text"
                       placeholder={seedType}
@@ -164,6 +180,8 @@ class ProductProduceDetail extends Component {
                   <td>Fertilizer Type</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name ="fertilizerTypeUsed"
                       className={Class.tableRow}
                       type="text"
                       placeholder={fertilizerTypeUsed}
@@ -174,6 +192,8 @@ class ProductProduceDetail extends Component {
                   <td>Pesticide Type</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = "pesticideTypeUsed"
                       className={Class.tableRow}
                       type="text"
                       placeholder={pesticideTypeUsed}
@@ -184,6 +204,8 @@ class ProductProduceDetail extends Component {
                   <td>Est. Quantity Planted</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name ="estQuantityPlanted"
                       className={Class.tableRow}
                       type="text"
                       placeholder={estQuantityPlanted}
@@ -210,6 +232,8 @@ class ProductProduceDetail extends Component {
                   <td>Est. Finished Qty</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name = "estFinishedQty"
                       className={Class.tableRow}
                       type="text"
                       placeholder={estFinishedQty}
@@ -244,6 +268,8 @@ class ProductProduceDetail extends Component {
                   <td>Comments</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name ="comments"
                       className={Class.tableRow}
                       type="text"
                       placeholder={comments}
@@ -257,8 +283,7 @@ class ProductProduceDetail extends Component {
             <button
               className={Class.itemButtonsModify}
               onClick={() =>
-                this.modifyProduce(this.props.itemProduceDetails.id)
-              }
+                this.modifyItem()}
             >
               Modify
             </button>

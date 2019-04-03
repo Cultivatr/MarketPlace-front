@@ -4,7 +4,7 @@ import Button from "../../../../SharedComponents/UI/Button";
 import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
 
 class LivestockForm extends Component {
-    // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!
+  // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!
   state = {
     data: {
       userId: 1,
@@ -33,10 +33,22 @@ class LivestockForm extends Component {
     }
   };
 
+  camelCaseString = (string, type) => {
+    if (type === "comments") return string;
+    const text = string
+      .toLowerCase()
+      .split(" ")
+      .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+      .join(" ");
+    return text;
+  };
+
   onChange = e => {
     let data = this.state.data;
-    let newdata = { ...data, [e.target.name]: e.target.value };
+    const newValue = this.camelCaseString(e.target.value, e.target.name);
+    let newdata = { ...data, [e.target.name]: newValue };
     this.setState({ data: newdata });
+    console.log("Data", newdata);
   };
 
   onSubmit = e => {
@@ -279,7 +291,7 @@ class LivestockForm extends Component {
                     name="hangingWeight"
                   />
                 </div>
-               
+
                 <div className="field">
                   <label>Quantity</label>
                   <input onChange={this.onChange} type="text" name="quantity" />

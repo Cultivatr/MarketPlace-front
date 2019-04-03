@@ -1,6 +1,13 @@
 
-export function filterData(data, pending ,accepted, sold, delivered, notAccepted) {
+export function filterData(data, pending ,accepted, sold, delivered, notAccepted, archive) {
+    pending.length = 0;
+    accepted.length = 0;
+    sold.length = 0;
+    delivered.length = 0;
+    notAccepted.length = 0;
+    archive.length =0;
   data.forEach(element => {
+    
   if (element.status === 'Pending Approval') {
       pending.push(element);
       return pending;
@@ -16,6 +23,9 @@ export function filterData(data, pending ,accepted, sold, delivered, notAccepted
     } else if (element.status === 'not accepted') {
       notAccepted.push(element);
       return notAccepted;
+    }else if (element.status === 'archive') {
+      archive.push(element);
+      return archive;
     }
   })
 }
@@ -92,6 +102,7 @@ export async function modifyItemLivestock(obj) {
   };
 
 export async function modifyItemProduce(obj) {
+  console.log("obj", obj);
     const {
       id,
       type,

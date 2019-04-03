@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Class from "./admin.module.css";
 import ContainerDashboard from "./Components/ContainerDashboard/ContainerDashboard";
+import DisplayAllDashboard from "./Components/ContainerDashboard/DisplayAllDashboard";
 import { filterData, getItemDetails } from "../AppUtils";
 import AddNewProdComp from "./Components/AddNewProdComp/AddNewProdComp";
 import UsersComp from "./Components/UsersComp/UsersComp";
@@ -18,6 +19,7 @@ class Admin extends Component {
     this.sold = [];
     this.delivered = [];
     this.notAccepted = [];
+    this.archive = [];
     this.state = {
       logInData: "",
       dataToShow: "",
@@ -45,8 +47,6 @@ class Admin extends Component {
       await this.loadUserData();
       await this.loadProduceData();
       await this.loadLivestockData();
-
-      
     } catch (error) {
       console.log("Admin Error", error);
     }
@@ -60,30 +60,31 @@ class Admin extends Component {
 
   loadUserData = async () => {
     const response3 = await fetch(`http://localhost:5000/admin/users/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json3 = await response3.json();
-      this.setState({ users: json3 });
-  }
-      loadProduceData = async () => {
-      const response = await fetch(`http://localhost:5000/livestock/all/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json = await response.json();
-      this.setState({ items_produce: json });
-  }
-      loadLivestockData = async () => {
-      const response2 = await fetch(`http://localhost:5000/produce/all/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json2 = await response2.json();
-      this.setState({ items_livestock: json2 });
-  }
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+    const json3 = await response3.json();
+    this.setState({ users: json3 });
+  };
+  loadProduceData = async () => {
+    const response = await fetch(`http://localhost:5000/produce/all/`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+    const json = await response.json();
+    this.setState({ items_produce: json });
+  };
+  loadLivestockData = async () => {
+    const response2 = await fetch(`http://localhost:5000/livestock/all/`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+    const json2 = await response2.json();
+    this.setState({ items_livestock: json2 });
+  };
 
-  createData = () => {
+  createData = async () => {
+    this.data.length = 0;
     if (this.state.items_produce || this.state.items_livestock) {
       if (
         this.state.items_produce.length > 0 ||
@@ -101,45 +102,51 @@ class Admin extends Component {
             user => user.id === this.data[i].userId
           );
           this.data[i].farm = temp[0].farmName;
+          // if (this.data[i].status) {
+          //   this.data[i].status = this.data[i].status.toUpperCase();
+          // }
         }
       } else {
         this.setState({ data: this.data });
       }
-      this.setState({ data: this.data });
-      this.helperFilterFunction();
+      await this.setState({ data: this.data });
+      const dataToPass = this.data;
+      await this.helperFilterFunction(dataToPass);
     }
   };
 
   refreshLiveStock = data => {
-    this.setState({ items_livestock: data });
+    this.setState({ itemLivestockDetails: data });
   };
   refreshProduce = data => {
-    this.setState({ items_produce: data });
+    this.setState({ itemProduceDetails: data });
   };
 
-  helperFilterFunction = () => {
-    filterData(
-      this.state.data,
+  helperFilterFunction = async dataToPass => {
+    await filterData(
+      dataToPass,
       this.pending,
       this.accepted,
       this.sold,
       this.delivered,
-      this.notAccepted
+      this.notAccepted,
+      this.archive
     );
-    this.setState({
+    await this.setState({
       pending: this.pending,
       accepted: this.accepted,
       sold: this.sold,
       delivered: this.delivered,
-      notAccepted: this.notAccepted
-    })
+      notAccepted: this.notAccepted,
+      archive: this.archive
+    });
   };
 
   nextStatus = status => {
     if (status === "Pending Approval") return "accepted";
     if (status === "accepted") return "sold";
     if (status === "sold") return "delivered";
-    if (status === "delivered") return "Pending Approval";
+    if (status === "delivered") return "archive";
     if (status === "not accepted") return "not accepted";
   };
   rejectLivestock = id => {
@@ -162,12 +169,12 @@ class Admin extends Component {
     }).catch(error => console.log(error));
     await this.loadLivestockData();
     await this.createData();
-    this.removeOverlay();
+    await this.removeOverlay();
   };
-  pushThroughProduce = (id, status) => {
+  pushThroughProduce = async (id, status) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
-    fetch("http://localhost:5000/produce/incrementStatus/", {
+    await fetch("http://localhost:5000/produce/incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -175,8 +182,9 @@ class Admin extends Component {
         nextStatus: nextStatus
       })
     }).catch(error => console.log(error));
-    this.helperFilterFunction();
-    this.removeOverlay();
+    await this.loadProduceData();
+    await this.createData();
+    await this.removeOverlay();
   };
   removeOverlay = event => {
     document.getElementById("itemProduceOverlay").style.display = "none";
@@ -228,6 +236,9 @@ class Admin extends Component {
   showOverlayLivestock = () => {
     document.getElementById("itemLivestockOverlay").style.display = "block";
   };
+  OnClickAllItems = () => {
+    this.setState({ dataToShow: "allItems" });
+  };
 
   OnClickAccept = () => {
     this.setState({ dataToShow: "toBeAccepted" });
@@ -249,6 +260,10 @@ class Admin extends Component {
     this.setState({ dataToShow: "notAccepted" });
   };
 
+  OnClickArchive = () => {
+    this.setState({ dataToShow: "archive" });
+  };
+
   OnClickListUsers = async () => {
     await this.getUsers();
     await this.setState({ dataToShow: "toBeAccepted" });
@@ -261,13 +276,29 @@ class Admin extends Component {
 
   render() {
     let toShow;
-    if (this.state.dataToShow === "toBeAccepted") {
+    if (this.state.dataToShow === "allItems") {
+      toShow = (
+        <div className={Class.container2}>
+          <div className={Class.containerTitle}>
+            <h4>List of All items</h4>
+          </div>
+          <DisplayAllDashboard
+            data={this.state.data}
+            itemObj={this.getItemObj}
+          />
+          {console.log("data tobeaccepted", this.state.pending)}
+        </div>
+      );
+    } else if (this.state.dataToShow === "toBeAccepted") {
       toShow = (
         <div className={Class.container2}>
           <div className={Class.containerTitle}>
             <h4>Items To Be Accepted Conditionally</h4>
           </div>
-          <ContainerDashboard data={this.pending} itemObj={this.getItemObj} />
+          <ContainerDashboard
+            data={this.state.pending}
+            itemObj={this.getItemObj}
+          />
         </div>
       );
     } else if (this.state.dataToShow === "acceptedConditional") {
@@ -276,7 +307,10 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <h4>Items Accepted Conditionally</h4>
           </div>
-          <ContainerDashboard data={this.state.accepted} itemObj={this.getItemObj} />
+          <ContainerDashboard
+            data={this.state.accepted}
+            itemObj={this.getItemObj}
+          />
         </div>
       );
     } else if (this.state.dataToShow === "soldToBeDelivered") {
@@ -285,7 +319,10 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <h4>Items Sold To Be Delivered</h4>
           </div>
-          <ContainerDashboard data={this.state.sold} itemObj={this.getItemObj} />
+          <ContainerDashboard
+            data={this.state.sold}
+            itemObj={this.getItemObj}
+          />
         </div>
       );
     } else if (this.state.dataToShow === "delivered") {
@@ -294,7 +331,10 @@ class Admin extends Component {
           <div className={Class.containerTitle}>
             <h4>Items Delivered</h4>
           </div>
-          <ContainerDashboard data={this.state.delivered} itemObj={this.getItemObj} />
+          <ContainerDashboard
+            data={this.state.delivered}
+            itemObj={this.getItemObj}
+          />
         </div>
       );
     } else if (this.state.dataToShow === "notAccepted") {
@@ -333,6 +373,18 @@ class Admin extends Component {
           />
         </div>
       );
+    } else if (this.state.dataToShow === "archive") {
+      toShow = (
+        <div className={Class.container2}>
+          <div className={Class.containerTitle}>
+            <h4>Archives</h4>
+          </div>
+          <ContainerDashboard
+            data={this.state.archive}
+            itemObj={this.getItemObj}
+          />
+        </div>
+      );
     }
     return (
       <div className="App">
@@ -355,6 +407,13 @@ class Admin extends Component {
           <div className={Class.container}>
             <div className={Class.boxContainer}>
               <div className={Class.leftNav}>
+                <button
+                  id="button-allItems"
+                  className={Class.buttonAdmin}
+                  onClick={this.OnClickAllItems}
+                >
+                  All Items
+                </button>
                 <button
                   id="button-accept"
                   className={Class.buttonAdmin}
@@ -389,6 +448,13 @@ class Admin extends Component {
                   onClick={this.OnClickNotAccepted}
                 >
                   Items Not Accepted
+                </button>
+                <button
+                  id="archive"
+                  className={Class.buttonAdmin}
+                  onClick={this.OnClickArchive}
+                >
+                  Archive
                 </button>
                 <button
                   id="button-listUsers"

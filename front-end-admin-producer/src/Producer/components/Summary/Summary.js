@@ -112,11 +112,15 @@ class Summary extends Component {
     this.setState({ items_livestock: data });
   };
 
+ refreshProduce = data => {
+    this.setState({ itemProduceDetails: data });
+  };
+
   render() {
     const data = this.data;
 
     return (
-      <div className="table">
+      <div className={Class.table}>
         <br />
         <ReactTable
           data={data}
@@ -229,6 +233,7 @@ class Summary extends Component {
         <ProductProduceDetail
           itemProduceDetails={this.state.itemProduceDetails}
           removeOverlay={this.removeOverlay}
+          refreshProduce={this.refreshProduce}
         />
         <ProductLivestockDetail
           itemLivestockDetails={this.state.itemLivestockDetails}
