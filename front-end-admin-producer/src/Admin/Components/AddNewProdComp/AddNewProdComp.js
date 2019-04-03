@@ -124,12 +124,23 @@ class AddNewProdComp extends Component {
   render() {
     return (
       <div className="ui grid">
+      <br/>
+      <div>
+         <view style={{
+                width: 15,
+                height: 15,
+                borderRadius: 150/2,
+                backgroundColor: '#1ECE88',
+                position:"relative",
+                top:"20px"}}
+                >Coloured Border Indicates Required Field</view>
+      </div>
         <form onSubmit={this.onSubmit} className="ui row form">
           <div className="four wide column">
             <div className={Class.field}>
               <div className="field">
                 <label>First Name</label>
-                <input onChange={this.onChange} type="text" name="firstName" />
+                <input onChange={this.onChange} type="text" name="firstName" style={{border:"3px solid #1ECE88",}} />
               </div>
             </div>
           </div>
@@ -137,7 +148,7 @@ class AddNewProdComp extends Component {
             <div className={Class.field}>
               <div className="field">
                 <label>Last Name</label>
-                <input onChange={this.onChange} type="text" name="lastName" />
+                <input onChange={this.onChange} type="text" name="lastName" style={{border:"3px solid #1ECE88",}}/>
               </div>
             </div>
           </div>
@@ -162,6 +173,7 @@ class AddNewProdComp extends Component {
                   type="text"
                   name="primaryNumber"
                   placeholder="xxx-xxx-xxxx"
+                  style={{border:"3px solid #1ECE88",}}
                 />
               </div>
             </div>
@@ -215,6 +227,7 @@ class AddNewProdComp extends Component {
                   type="email"
                   name="email"
                   placeholder="must contain @ symbol"
+                  style={{border:"3px solid #1ECE88",}}
                 />
               </div>
             </div>
