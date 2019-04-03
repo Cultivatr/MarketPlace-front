@@ -20,8 +20,6 @@ class UserDetailComp extends Component {
   onChange = e => {
     let data = this.state.data;
     data.isAdmin = document.getElementById("isAdmin").checked;
-    data.isProducer = document.getElementById("isProd").checked;
-    data.isOther = document.getElementById("isOther").checked;
     let newdata = { ...data, [e.target.name]: e.target.value };
     this.setState({ data: newdata });
   };
@@ -89,14 +87,11 @@ class UserDetailComp extends Component {
         })
       });
       const json = await response.json();
-      console.log(json);
-      // .then(data => { console.log(data) })
-      // .then(this.props.getUsers())
-      // .catch(error => console.log(error))
-      this.props.showUsers();
+      //console.log(json);
     } catch (error) {
       console.log(error);
     }
+    await this.props.showUsers();
   };
 
   getAreaValue = () => {
@@ -161,8 +156,6 @@ class UserDetailComp extends Component {
 
   getAuthValue = () => {
     this.checkIsAdmin();
-    this.checkIsProducer();
-    this.checkIsOther();
   };
 
   checkIsAdmin = () => {
@@ -170,22 +163,6 @@ class UserDetailComp extends Component {
       document.getElementById("isAdmin").checked = true;
     } else if (this.state.data.isAdmin === false) {
       document.getElementById("isAdmin").checked = false;
-    }
-  };
-
-  checkIsProducer = () => {
-    if (this.state.data.isProducer === true) {
-      document.getElementById("isProd").checked = true;
-    } else if (this.state.data.isProducer === false) {
-      document.getElementById("isProd").checked = false;
-    }
-  };
-
-  checkIsOther = () => {
-    if (this.state.data.isOther === true) {
-      document.getElementById("isOther").checked = true;
-    } else if (this.state.data.isOther === false) {
-      document.getElementById("isOther").checked = false;
     }
   };
 
@@ -462,18 +439,6 @@ class UserDetailComp extends Component {
                     <input
                       type="checkbox"
                       id="isAdmin"
-                      onChange={this.onChange}
-                    />{" "}
-                    <b>Producer:</b>{" "}
-                    <input
-                      type="checkbox"
-                      id="isProd"
-                      onChange={this.onChange}
-                    />{" "}
-                    <b>Both:</b>{" "}
-                    <input
-                      type="checkbox"
-                      id="isOther"
                       onChange={this.onChange}
                     />
                   </td>

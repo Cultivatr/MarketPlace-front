@@ -193,6 +193,8 @@ class Admin extends Component {
 
   getItemObj = async e => {
     let i;
+    this.produceItems.length = 0;
+    this.livestockItems.length = 0;
     for (i = 0; i < this.state.data.length; i++) {
       if (this.state.data[i].datePlanted) {
         this.produceItems.push(this.state.data[i]);
@@ -227,6 +229,7 @@ class Admin extends Component {
   };
   refreshUsers = data => {
     this.setState({ users: data });
+    console.log("called refresh users");
   };
 
   showOverlayProduce = () => {
