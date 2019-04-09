@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import Class from "./ItemDetail.module.css";
 import "./ItemDetail.css";
-import { modifyItemProduce } from "../../../AppUtils"
+import { modifyItemProduce } from "../../../AppUtils";
 
 class ProductProduceDetail extends Component {
-  
   constructor() {
     super();
     this.state = {
-      itemProduceDetails:''
-    }
+      itemProduceDetails: "",
+      pushThroughText: "Accept"
+    };
   }
 
   componentDidMount = () => {
@@ -68,13 +68,10 @@ class ProductProduceDetail extends Component {
       element.value = "No";
     }
   };
-  returnButtonRender = () => {
-    console.log("hey man 2");
-    if (this.props.itemProduceDetails.state === "Pending Approval") {
-      console.log("Hey man");
-    }
-  };
 
+  statusDependantHelper(status) {
+    // This will be used for conditional rendering dependant on status
+  }
 
   modifyItem = async () => {
     modifyItemProduce(this.state.itemProduceDetails);
@@ -139,7 +136,7 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "datePlanted"
+                      name="datePlanted"
                       className={Class.tableRow}
                       type="text"
                       placeholder={datePlanted}
@@ -151,7 +148,7 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "seedType"
+                      name="seedType"
                       className={Class.tableRow}
                       type="text"
                       placeholder={seedType}
@@ -195,7 +192,7 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "fertilizerTypeUsed"
+                      name="fertilizerTypeUsed"
                       className={Class.tableRow}
                       type="text"
                       placeholder={fertilizerTypeUsed}
@@ -207,7 +204,7 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "pesticideTypeUsed"
+                      name="pesticideTypeUsed"
                       className={Class.tableRow}
                       type="text"
                       placeholder={pesticideTypeUsed}
@@ -219,7 +216,7 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "estQuantityPlanted"
+                      name="estQuantityPlanted"
                       className={Class.tableRow}
                       type="text"
                       placeholder={estQuantityPlanted}
@@ -247,7 +244,7 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "estFinishedQty"
+                      name="estFinishedQty"
                       className={Class.tableRow}
                       type="text"
                       placeholder={estFinishedQty}
@@ -259,7 +256,7 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "estPrice"
+                      name="estPrice"
                       className={Class.tableRow}
                       type="text"
                       placeholder={estPrice}
@@ -271,7 +268,7 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = 'qtyAcceptedForListing'
+                      name="qtyAcceptedForListing"
                       className={Class.tableRow}
                       type="text"
                       placeholder={qtyAcceptedForListing}
@@ -283,7 +280,7 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "qtyAcceptedAtDelivery"
+                      name="qtyAcceptedAtDelivery"
                       className={Class.tableRow}
                       type="text"
                       placeholder={qtyAcceptedAtDelivery}
@@ -295,7 +292,7 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "finalPricePaid"
+                      name="finalPricePaid"
                       className={Class.tableRow}
                       type="text"
                       placeholder={finalPricePaid}
@@ -307,7 +304,7 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "deliveredDate"
+                      name="deliveredDate"
                       className={Class.tableRow}
                       type="text"
                       placeholder={deliveredDate}
@@ -320,7 +317,7 @@ class ProductProduceDetail extends Component {
                     <input
                       className={Class.tableRow}
                       onChange={this.onChange}
-                      name = "deliveredTo"
+                      name="deliveredTo"
                       type="text"
                       placeholder={deliveredTo}
                     />
@@ -331,7 +328,7 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "chargebacks"
+                      name="chargebacks"
                       className={Class.tableRow}
                       type="text"
                       placeholder={chargebacks}
@@ -343,7 +340,7 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "comments"
+                      name="comments"
                       className={Class.tableRow}
                       type="text"
                       placeholder={comments}
@@ -363,7 +360,7 @@ class ProductProduceDetail extends Component {
                 )
               }
             >
-              Push Through
+              {this.props.pushThroughBtnText}
             </button>
             <button
               className={Class.itemButtonsCancel}
@@ -371,7 +368,7 @@ class ProductProduceDetail extends Component {
             >
               Cancel
             </button>
-           <button
+            <button
               className={Class.itemButtonsCancel}
               onClick={this.modifyItem}
             >

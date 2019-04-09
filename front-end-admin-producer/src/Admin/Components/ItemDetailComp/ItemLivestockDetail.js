@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import Class from "./ItemDetail.module.css";
 import "./ItemDetail.css";
-import { modifyItemLivestock } from "../../../AppUtils"
+import { modifyItemLivestock } from "../../../AppUtils";
 
 class ProductLivestockDetail extends Component {
-
   constructor() {
     super();
     this.state = {
-      itemLivestockDetails:''
-    }
+      itemLivestockDetails: ""
+    };
   }
   componentDidMount = () => {
     console.log("Livestock Rendered");
@@ -184,11 +183,11 @@ class ProductLivestockDetail extends Component {
                   <td>Estimated Birthdate</td>
                   <td className={Class.row}>
                     <input
-                     onChange={this.onChange}
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={birthdate}
-                      name = "birthdate"
+                      name="birthdate"
                     />
                   </td>
                 </tr>
@@ -200,7 +199,7 @@ class ProductLivestockDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={regNumber}
-                      name = "regNumber"
+                      name="regNumber"
                     />
                   </td>
                 </tr>
@@ -212,7 +211,7 @@ class ProductLivestockDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={rfid}
-                      name = "rfid"
+                      name="rfid"
                     />
                   </td>
                 </tr>
@@ -224,7 +223,7 @@ class ProductLivestockDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={dateOnFeed}
-                      name = "dateOnFeed"
+                      name="dateOnFeed"
                     />
                   </td>
                 </tr>
@@ -293,7 +292,7 @@ class ProductLivestockDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={estStartingWeight}
-                      name = "estStartingWeight"
+                      name="estStartingWeight"
                     />
                   </td>
                 </tr>
@@ -305,7 +304,7 @@ class ProductLivestockDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={quantity}
-                      name = "quantity"
+                      name="quantity"
                     />
                   </td>
                 </tr>
@@ -317,7 +316,7 @@ class ProductLivestockDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={estCompletionDate}
-                      name = "estCompletionDate"
+                      name="estCompletionDate"
                     />
                   </td>
                 </tr>
@@ -329,7 +328,7 @@ class ProductLivestockDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={estFinishedWeight}
-                      name = "estFinishedWeight"
+                      name="estFinishedWeight"
                     />
                   </td>
                 </tr>
@@ -341,7 +340,7 @@ class ProductLivestockDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={estFinalPrice}
-                      name = "estFinalPrice"
+                      name="estFinalPrice"
                     />
                   </td>
                 </tr>
@@ -353,7 +352,7 @@ class ProductLivestockDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={hangingWeight}
-                      name = "hangingWeight"
+                      name="hangingWeight"
                     />
                   </td>
                 </tr>
@@ -365,7 +364,7 @@ class ProductLivestockDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={finalPrice}
-                      name = "finalPrice"
+                      name="finalPrice"
                     />
                   </td>
                 </tr>
@@ -377,7 +376,7 @@ class ProductLivestockDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={deliveredDate}
-                      name = "deliveredDate"
+                      name="deliveredDate"
                     />
                   </td>
                 </tr>
@@ -389,7 +388,7 @@ class ProductLivestockDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={deliveredTo}
-                      name = "deliveredTo"
+                      name="deliveredTo"
                     />
                   </td>
                 </tr>
@@ -401,7 +400,7 @@ class ProductLivestockDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={chargebacks}
-                      name = "chargebacks"
+                      name="chargebacks"
                     />
                   </td>
                 </tr>
@@ -413,7 +412,7 @@ class ProductLivestockDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={comments}
-                      name = "comments"
+                      name="comments"
                     />
                   </td>
                 </tr>
@@ -430,7 +429,7 @@ class ProductLivestockDetail extends Component {
                 )
               }
             >
-              Push Through
+              {this.props.pushThroughBtnText}
             </button>
             <button
               className={Class.itemButtonsCancel}
@@ -444,6 +443,7 @@ class ProductLivestockDetail extends Component {
             >
               Modify
             </button>
+
             <button
               className={Class.itemButtonsCancel}
               onClick={() =>
