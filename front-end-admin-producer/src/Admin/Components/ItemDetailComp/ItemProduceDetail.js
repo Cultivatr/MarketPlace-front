@@ -132,7 +132,9 @@ class ProductProduceDetail extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td className="two wide column">Date Planted</td>
+                  {/* The variable change from datePlanted -> estCompletionDate
+                  Has not been changed throughout the code for now */}
+                  <td className="two wide column">Est Finished Date</td>
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}

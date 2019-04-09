@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Class from "./ProductDetail.module.css";
 import "./ProductDetail.css";
-import { modifyItemProduce } from "../../../AppUtils"
+import { modifyItemProduce } from "../../../AppUtils";
 
 class ProductProduceDetail extends Component {
-constructor() {
+  constructor() {
     super();
     this.state = {
-      itemProduceDetails:''
-    }
+      itemProduceDetails: ""
+    };
   }
 
   modifyItem = async () => {
@@ -17,7 +17,7 @@ constructor() {
     this.props.refreshProduce(this.state.itemProduceDetails);
   };
 
-    onChange = e => {
+  onChange = e => {
     let itemProduceDetails = this.props.itemProduceDetails;
     itemProduceDetails[e.target.name] = e.target.value;
     this.setState({ itemProduceDetails: itemProduceDetails });
@@ -123,7 +123,9 @@ constructor() {
                   </td>
                 </tr>
                 <tr>
-                  <td className="two wide column">Date Planted</td>
+                  {/* The variable change from datePlanted -> estCompletionDate
+                  Has not been changed throughout the code for now */}
+                  <td className="two wide column">Est Completion Date</td>
                   <td className={Class.row}>
                     <input
                       className={Class.tableRow}
@@ -137,7 +139,7 @@ constructor() {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name ="seedType"
+                      name="seedType"
                       className={Class.tableRow}
                       type="text"
                       placeholder={seedType}
@@ -181,7 +183,7 @@ constructor() {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name ="fertilizerTypeUsed"
+                      name="fertilizerTypeUsed"
                       className={Class.tableRow}
                       type="text"
                       placeholder={fertilizerTypeUsed}
@@ -193,7 +195,7 @@ constructor() {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "pesticideTypeUsed"
+                      name="pesticideTypeUsed"
                       className={Class.tableRow}
                       type="text"
                       placeholder={pesticideTypeUsed}
@@ -205,7 +207,7 @@ constructor() {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name ="estQuantityPlanted"
+                      name="estQuantityPlanted"
                       className={Class.tableRow}
                       type="text"
                       placeholder={estQuantityPlanted}
@@ -233,7 +235,7 @@ constructor() {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "estFinishedQty"
+                      name="estFinishedQty"
                       className={Class.tableRow}
                       type="text"
                       placeholder={estFinishedQty}
@@ -269,7 +271,7 @@ constructor() {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name ="comments"
+                      name="comments"
                       className={Class.tableRow}
                       type="text"
                       placeholder={comments}
@@ -282,8 +284,7 @@ constructor() {
           <div className={Class.itemButtonsContainer}>
             <button
               className={Class.itemButtonsModify}
-              onClick={() =>
-                this.modifyItem()}
+              onClick={() => this.modifyItem()}
             >
               Modify
             </button>

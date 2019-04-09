@@ -74,7 +74,7 @@ class ContainerDashboard extends React.Component {
                   Header: "Est Finished Date",
                   id: "estCompletionDate",
                   // width: 340,
-                  accessor: d => d.feedMethod,
+                  accessor: d => d.estCompletionDate,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, {
                       keys: ["estCompletionDate"]

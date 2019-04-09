@@ -144,7 +144,9 @@ class ProduceForm extends Component {
                   </select>
                 </div>
                 <div className="field">
-                  <label>Date Planted</label>
+                  {/* The variable change from datePlanted -> estCompletionDate
+                  Has not been changed throughout the code for now */}
+                  <label>Est Completion Date</label>
                   <input
                     onChange={this.onChange}
                     type="date"

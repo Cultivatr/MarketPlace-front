@@ -92,6 +92,9 @@ class Admin extends Component {
         this.state.items_livestock.length > 0
       ) {
         for (let i = 0; i < this.state.items_produce.length; i++) {
+          this.state.items_produce[
+            i
+          ].estCompletionDate = this.state.items_produce[i].datePlanted;
           this.data.push(this.state.items_produce[i]);
         }
         for (let i = 0; i < this.state.items_livestock.length; i++) {
@@ -103,9 +106,6 @@ class Admin extends Component {
             user => user.id === this.data[i].userId
           );
           this.data[i].farm = temp[0].farmName;
-          // if (this.data[i].status) {
-          //   this.data[i].status = this.data[i].status.toUpperCase();
-          // }
         }
       } else {
         this.setState({ data: this.data });
