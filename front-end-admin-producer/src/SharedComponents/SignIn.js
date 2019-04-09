@@ -38,7 +38,8 @@ class SignIn extends Component {
       name: res.w3.ofa,
       email: res.w3.U3,
       id: "",
-      admin: ""
+      admin: "",
+      fullName: ""
     };
     //console.log("LOG IN DATA", logInData);
     let currentUser = this.state.userList.users.filter(
@@ -46,6 +47,8 @@ class SignIn extends Component {
     );
     logInData.admin = currentUser[0].isAdmin;
     logInData.id = currentUser[0].id;
+    logInData.fullName =
+      currentUser[0].firstName + " " + currentUser[0].lastName;
     console.log(logInData);
     if (currentUser) {
       sessionStorage.setItem("authData", JSON.stringify(logInData));
@@ -58,9 +61,11 @@ class SignIn extends Component {
   render() {
     let loggedIn = JSON.parse(sessionStorage.getItem("loggedIn"));
     if (this.state.isLoggedIn || loggedIn) {
-      return this.state.admin 
-      ? (<Redirect to={"/admin"} />) 
-      : (<Redirect to={"/producer"} />);
+      return this.state.admin ? (
+        <Redirect to={"/admin"} />
+      ) : (
+        <Redirect to={"/producer"} />
+      );
     }
 
     const responseGoogle = response => {

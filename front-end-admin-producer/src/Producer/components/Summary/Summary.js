@@ -13,6 +13,7 @@ class Summary extends Component {
     this.livestockItems = [];
     this.data = [];
     this.state = {
+      userFullName: "",
       data: {},
       items_produce: [],
       items_livestock: [],
@@ -61,7 +62,6 @@ class Summary extends Component {
         headers: { "Content-Type": "application/json" }
       });
       const json = await response.json();
-      console.log("Produce items:", json);
       this.setState({ items_produce: json });
       const response2 = await fetch(
         `http://localhost:5000/livestock/${user1}/`,
@@ -80,7 +80,10 @@ class Summary extends Component {
 
   getId = () => {
     const tempId = JSON.parse(sessionStorage.getItem("authData")).id;
-    this.setState({ localId: tempId });
+    this.setState({
+      localId: tempId,
+      userFullName: JSON.parse(sessionStorage.getItem("authData")).fullName
+    });
   };
 
   createData = () => {
@@ -112,7 +115,7 @@ class Summary extends Component {
     this.setState({ items_livestock: data });
   };
 
- refreshProduce = data => {
+  refreshProduce = data => {
     this.setState({ itemProduceDetails: data });
   };
 
@@ -122,6 +125,7 @@ class Summary extends Component {
     return (
       <div className={Class.table}>
         <br />
+        Dashboard Table for: {this.state.userFullName}
         <ReactTable
           data={data}
           noDataText="No items from producers!"
