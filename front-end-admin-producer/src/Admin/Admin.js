@@ -22,7 +22,7 @@ class Admin extends Component {
     this.archive = [];
     this.state = {
       logInData: "",
-      dataToShow: "",
+      dataToShow: "toBeAccepted",
       data: {},
       items_produce: [],
       items_livestock: [],
@@ -33,7 +33,8 @@ class Admin extends Component {
       accepted: [],
       sold: [],
       delivered: [],
-      notAccepted: []
+      notAccepted: [],
+      pushThroughBtnText: ""
     };
   }
 
@@ -122,6 +123,10 @@ class Admin extends Component {
     this.setState({ itemProduceDetails: data });
   };
 
+  pushThroughText = status => {
+    return status;
+  };
+
   helperFilterFunction = async dataToPass => {
     await filterData(
       dataToPass,
@@ -154,6 +159,14 @@ class Admin extends Component {
   };
   rejectProduce = id => {
     this.pushThroughProduce(id, "not accepted");
+  };
+
+  pushThroughBtnTextHelper = currentStatus => {
+    if (currentStatus === "Pending Approval") return "Accept";
+    if (currentStatus === "accepted") return "Mark As Sold";
+    if (currentStatus === "sold") return "Mark As Delivered";
+    if (currentStatus === "delivered") return "Send To Archives";
+    if (currentStatus === "not accepted") return "Accept";
   };
 
   pushThroughLivestock = async (id, status) => {
@@ -206,10 +219,20 @@ class Admin extends Component {
       await this.setState({
         itemProduceDetails: getItemDetails(e.target.id, this.produceItems)
       });
+      await this.setState({
+        pushThroughBtnText: this.pushThroughBtnTextHelper(
+          this.state.itemProduceDetails.status
+        )
+      });
       this.showOverlayProduce();
     } else if (e.target.id.search("L") === 0) {
       await this.setState({
         itemLivestockDetails: getItemDetails(e.target.id, this.livestockItems)
+      });
+      await this.setState({
+        pushThroughBtnText: this.pushThroughBtnTextHelper(
+          this.state.itemLivestockDetails.status
+        )
       });
       this.showOverlayLivestock();
     }
@@ -399,6 +422,7 @@ class Admin extends Component {
             pushThroughProduce={this.pushThroughProduce}
             rejectProduce={this.rejectProduce}
             refreshProduce={this.refreshProduce}
+            pushThroughBtnText={this.state.pushThroughBtnText}
           />
           <ItemLiveStockDetail
             itemLivestockDetails={this.state.itemLivestockDetails}
@@ -406,6 +430,7 @@ class Admin extends Component {
             pushThroughLivestock={this.pushThroughLivestock}
             rejectLivestock={this.rejectLivestock}
             refreshLiveStock={this.refreshLiveStock}
+            pushThroughBtnText={this.state.pushThroughBtnText}
           />
           <div className={Class.container}>
             <div className={Class.boxContainer}>
