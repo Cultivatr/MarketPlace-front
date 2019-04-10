@@ -1,6 +1,3 @@
 [
-  "DB/scripts/test_sql.py::TestSql::test_get_connect_string",
-  "DB/scripts/test_sql.py::TestSql::test_hello",
-  "DB/scripts/test_sql.py::TestSql::test_offered_items",
-  "DB/scripts/test_sql.py::TestSql::test_users"
+  "test_server2.py::TestAddUsers::test_add_one_user"
 ]
