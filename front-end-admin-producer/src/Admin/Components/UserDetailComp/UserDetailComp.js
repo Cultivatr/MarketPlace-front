@@ -20,6 +20,7 @@ class UserDetailComp extends Component {
   onChange = e => {
     let data = this.state.data;
     data.isAdmin = document.getElementById("isAdmin").checked;
+    console.log("IS ADMIN", data.isAdmin);
     let newdata = { ...data, [e.target.name]: e.target.value };
     this.setState({ data: newdata });
   };
@@ -50,7 +51,9 @@ class UserDetailComp extends Component {
       mailingAddressCountry,
       mailingAddressPostalCode,
       comments,
+
       isAdmin,
+
       isProducer,
       isOther
     } = this.state.data;

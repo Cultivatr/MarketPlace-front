@@ -26,16 +26,20 @@ class Summary extends Component {
   getItemObj = async e => {
     let i;
     for (i = 0; i < this.state.data.length; i++) {
-      if (this.state.data[i].datePlanted) {
+      if (this.state.data[i].id[0] === "P") {
         this.produceItems.push(this.state.data[i]);
-      } else if (this.state.data[i].birthdate) {
+      } else if (this.state.data[i].id[0] === "L") {
         this.livestockItems.push(this.state.data[i]);
       }
     }
     if (e.target.id.search("P") === 0) {
+      console.log("DATA", this.state.data);
+      console.log("ID", e.target.id);
+      console.log("produce items:", this.produceItems);
       await this.setState({
         itemProduceDetails: getItemDetails(e.target.id, this.produceItems)
       });
+      console.log("itemproducedetails", this.state.itemProduceDetails);
       this.showOverlayProduce();
     } else if (e.target.id.search("L") === 0) {
       await this.setState({

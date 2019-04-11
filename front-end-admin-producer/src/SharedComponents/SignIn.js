@@ -46,6 +46,8 @@ class SignIn extends Component {
       user => user.email === logInData.email
     );
     logInData.admin = currentUser[0].isAdmin;
+    let adminAuth = logInData.admin;
+    console.log("logindata",logInData.admin )
     logInData.id = currentUser[0].id;
     logInData.fullName =
       currentUser[0].firstName + " " + currentUser[0].lastName;
@@ -53,6 +55,7 @@ class SignIn extends Component {
     if (currentUser) {
       sessionStorage.setItem("authData", JSON.stringify(logInData));
       sessionStorage.setItem("loggedIn", true);
+      sessionStorage.setItem("adminAuth", JSON.stringify(adminAuth));
       this.setState({ isLoggedIn: true, admin: logInData.admin });
       this.props.logInToken(true);
     }

@@ -5,6 +5,7 @@ import Producer from './Producer/Producer';
 import SignIn from './SharedComponents/SignIn';
 import SignOut from './SharedComponents/SignOut';
 import PrivateRoute from './SharedComponents/PrivateRoute';
+import AdminRoute from './SharedComponents/AdminRoute';
 import AddMeatForm from './Producer/components/AddItem/AddMeatForm/AddMeatForm';
 import AddProduceForm from './Producer/components/AddItem/AddProduceForm/AddProduceForm';
 import ContactUs from './Producer/components/ContactUs/ContactUs';
@@ -42,7 +43,7 @@ onClick = () => {
                <div>
                     <div> 
                     <Route exact path = '/' render = {(routeProps) => ( <SignIn  logInToken = {this.logIn}/>)}/>             
-                    <PrivateRoute path='/admin' component = {Admin}/>
+                    <AdminRoute path='/admin' component = {Admin}/>
                     <PrivateRoute path='/producer'  component = {Producer}/> 
                     <PrivateRoute path='/add-livestock' component = {AddMeatForm}/>
                     <PrivateRoute path='/add-produce' component = {AddProduceForm}/>

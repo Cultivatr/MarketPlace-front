@@ -2,11 +2,14 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import datetime
+from flask_migrate import Migrate
 
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:password@localhost/cultivatr'
 db=SQLAlchemy(app)
+migrate = Migrate(app, db)
 CORS(app, supports_credentials=True)
+
 
 class Users(db.Model):
     id=db.Column(db.Integer, primary_key=True)
@@ -46,7 +49,7 @@ class Produce(db.Model):
     )
     product_name=db.Column(db.Text)
     package_type=db.Column(db.Text)
-    date_planted=db.Column(db.Date)
+    est_completion_date=db.Column(db.Date)
     seed_type=db.Column(db.Text)
     modified_seed=db.Column(db.Text)
     heirloom=db.Column(db.Text)
@@ -97,7 +100,6 @@ class Livestock(db.Model):
     status=db.Column(db.Text)
 
 
-db.create_all()
 
 
 @app.route('/admin/users/', methods=['GET'])
@@ -193,21 +195,19 @@ def modify_user():
     userToUpdate.farm_name=data.get('farmName'),
     userToUpdate.farm_location=data.get('farmLocation'),
     userToUpdate.area=data.get('area'),
-    if(data.get('isAdmin')):
-        userToUpdate.is_admin=1
-        print("Admin changed", userToUpdate.is_admin)
-    if(not data.get('isAdmin')):
-        userToUpdate.is_admin=0   
-    if(data.get('isProducer')):
-        userToUpdate.is_admin=1
-        print("Admin changed", userToUpdate.is_admin)
-    if(not data.get('isProducer')):
-        userToUpdate.is_admin=0  
-    if(data.get('isOther')):
-        userToUpdate.is_admin=1
-        print("Admin changed", userToUpdate.is_admin)
-    if(not data.get('isOther')):
-        userToUpdate.is_admin=0     
+    userToUpdate.is_admin=data.get('isAdmin')
+    # if(not data.get('isAdmin')):
+    #     userToUpdate.is_admin=0   
+    # if(data.get('isProducer')):
+    #     userToUpdate.is_admin=1
+    #     print("Admin changed", userToUpdate.is_admin)
+    # if(not data.get('isProducer')):
+    #     userToUpdate.is_admin=0  
+    # if(data.get('isOther')):
+    #     userToUpdate.is_admin=1
+    #     print("Admin changed", userToUpdate.is_admin)
+    # if(not data.get('isOther')):
+    #     userToUpdate.is_admin=0     
     # userToUpdate.is_admin=data.get('isAdmin'),
     # userToUpdate.is_producer=bool(data.get('isProducer')),
     # userToUpdate.is_other=bool(data.get('isOther')),
@@ -386,7 +386,7 @@ def produce_get_all():
         item_produce_data['userId']=item_produce.user_id
         item_produce_data['type']=item_produce.product_name
         item_produce_data['packageType']=item_produce.package_type
-        item_produce_data['datePlanted']=item_produce.date_planted
+        item_produce_data['datePlanted']=item_produce.est_completion_date
         item_produce_data['seedType']=item_produce.seed_type
         item_produce_data['modifiedSeed']=item_produce.modified_seed
         item_produce_data['heirloom']=item_produce.heirloom
@@ -421,7 +421,7 @@ def produce_get_user(user1):
         item_produce_data['userId']=item_produce.user_id
         item_produce_data['type']=item_produce.product_name
         item_produce_data['packageType']=item_produce.package_type
-        item_produce_data['datePlanted']=item_produce.date_planted
+        item_produce_data['datePlanted']=item_produce.est_completion_date
         item_produce_data['seedType']=item_produce.seed_type
         item_produce_data['modifiedSeed']=item_produce.modified_seed
         item_produce_data['heirloom']=item_produce.heirloom
@@ -451,7 +451,7 @@ def add_produce_items():
     user_id=data.get('userId'),
     product_name=data.get('type'),
     package_type=data.get('packageType'),
-    date_planted=data.get('datePlanted'),
+    est_completion_date=data.get('datePlanted'),
     seed_type=data.get('seedType'),
     modified_seed=data.get('modifiedSeed'),
     heirloom=data.get('heirloom'),
@@ -482,7 +482,7 @@ def modify_produce():
     produce_to_update = db.session.query(Produce).filter(Produce.id == filterId).first()
     produce_to_update.product_name=data.get('type'),
     produce_to_update.package_type=data.get('packageType'),
-    produce_to_update.date_planted=data.get('datePlanted'),
+    produce_to_update.est_completion_date=data.get('datePlanted'),
     produce_to_update.seed_type=data.get('seedType'),
     produce_to_update.modified_seed=data.get('modifiedSeed'),
     produce_to_update.heirloom=data.get('heirloom'),

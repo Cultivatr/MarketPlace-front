@@ -1,7 +1,9 @@
 {
+  "DB/scripts/test_sql.py": true,
   "DB/scripts/test_sql.py::TestSql::test_get_all_users": true,
   "DB/scripts/test_sql.py::TestSql::test_get_user": true,
   "server_func/test_offered_item_api.py::TestApiCalls::test_offered_item": true,
   "test_api.py::TestApiCalls::test_adding_item": true,
-  "test_api.py::TestApiCalls::test_offered_item": true
+  "test_api.py::TestApiCalls::test_offered_item": true,
+  "test_server2.py::test_add_new_user": true
 }

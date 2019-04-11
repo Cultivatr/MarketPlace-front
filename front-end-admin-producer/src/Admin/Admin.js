@@ -209,9 +209,9 @@ class Admin extends Component {
     this.produceItems.length = 0;
     this.livestockItems.length = 0;
     for (i = 0; i < this.state.data.length; i++) {
-      if (this.state.data[i].datePlanted) {
+      if (this.state.data[i].id[0] === "P") {
         this.produceItems.push(this.state.data[i]);
-      } else if (this.state.data[i].birthdate) {
+      } else if (this.state.data[i].id[0] === "L") {
         this.livestockItems.push(this.state.data[i]);
       }
     }
