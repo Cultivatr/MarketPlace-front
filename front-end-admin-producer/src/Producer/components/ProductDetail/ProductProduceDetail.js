@@ -75,7 +75,7 @@ class ProductProduceDetail extends Component {
     const {
       id,
       type,
-      datePlanted,
+      estCompletionDate,
       seedType,
       fertilizerTypeUsed,
       pesticideTypeUsed,
@@ -130,7 +130,7 @@ class ProductProduceDetail extends Component {
                     <input
                       className={Class.tableRow}
                       type="text"
-                      placeholder={datePlanted}
+                      placeholder={estCompletionDate}
                     />
                   </td>
                 </tr>

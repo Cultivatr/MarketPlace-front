@@ -10,7 +10,7 @@ class ProduceForm extends Component {
     data: {
       type: "",
       packageType: "",
-      datePlanted: "0001-01-01",
+      estCompletionDate: "0001-01-01",
       seedType: "",
       modifiedSeed: false,
       heirloom: false,
@@ -55,7 +55,7 @@ class ProduceForm extends Component {
     const {
       type,
       packageType,
-      datePlanted,
+      estCompletionDate,
       seedType,
       modifiedSeed,
       heirloom,
@@ -74,6 +74,7 @@ class ProduceForm extends Component {
       comments,
       status
     } = this.state.data;
+    console.log("INCOMING DATA: ", this.state.data);
 
     document.getElementById("submitBtn").className += " loading";
     fetch("http://localhost:5000/produce/", {
@@ -83,7 +84,7 @@ class ProduceForm extends Component {
         userId: JSON.parse(sessionStorage.getItem("authData")).id,
         type: type,
         packageType: packageType,
-        datePlanted: datePlanted,
+        estCompletionDate: estCompletionDate,
         seedType: seedType,
         modifiedSeed: modifiedSeed,
         heirloom: heirloom,
@@ -150,7 +151,7 @@ class ProduceForm extends Component {
                   <input
                     onChange={this.onChange}
                     type="date"
-                    name="datePlanted"
+                    name="estCompletionDate"
                   />
                 </div>
                 <div className="field">
