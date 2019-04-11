@@ -21,6 +21,7 @@ class Users(db.Model):
     farm_name=db.Column(db.Text)
     farm_location=db.Column(db.Text)
     area=db.Column(db.Text)
+    ## is_producer & is_other are no longer being used.
     is_producer=db.Column(db.Boolean)
     is_admin=db.Column(db.Boolean)
     is_other=db.Column(db.Boolean)
@@ -386,7 +387,7 @@ def produce_get_all():
         item_produce_data['userId']=item_produce.user_id
         item_produce_data['type']=item_produce.product_name
         item_produce_data['packageType']=item_produce.package_type
-        item_produce_data['datePlanted']=item_produce.est_completion_date
+        item_produce_data['estCompletionDate']=item_produce.est_completion_date
         item_produce_data['seedType']=item_produce.seed_type
         item_produce_data['modifiedSeed']=item_produce.modified_seed
         item_produce_data['heirloom']=item_produce.heirloom
@@ -421,7 +422,7 @@ def produce_get_user(user1):
         item_produce_data['userId']=item_produce.user_id
         item_produce_data['type']=item_produce.product_name
         item_produce_data['packageType']=item_produce.package_type
-        item_produce_data['datePlanted']=item_produce.est_completion_date
+        item_produce_data['estCompletionDate']=item_produce.est_completion_date
         item_produce_data['seedType']=item_produce.seed_type
         item_produce_data['modifiedSeed']=item_produce.modified_seed
         item_produce_data['heirloom']=item_produce.heirloom
@@ -451,7 +452,7 @@ def add_produce_items():
     user_id=data.get('userId'),
     product_name=data.get('type'),
     package_type=data.get('packageType'),
-    est_completion_date=data.get('datePlanted'),
+    est_completion_date=data.get('estCompletionDate'),
     seed_type=data.get('seedType'),
     modified_seed=data.get('modifiedSeed'),
     heirloom=data.get('heirloom'),
@@ -482,7 +483,7 @@ def modify_produce():
     produce_to_update = db.session.query(Produce).filter(Produce.id == filterId).first()
     produce_to_update.product_name=data.get('type'),
     produce_to_update.package_type=data.get('packageType'),
-    produce_to_update.est_completion_date=data.get('datePlanted'),
+    produce_to_update.est_completion_date=data.get('estCompletionDate'),
     produce_to_update.seed_type=data.get('seedType'),
     produce_to_update.modified_seed=data.get('modifiedSeed'),
     produce_to_update.heirloom=data.get('heirloom'),
