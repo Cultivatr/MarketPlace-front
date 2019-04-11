@@ -15,6 +15,8 @@ class SignOut extends Component {
 
   logOut = () => {
     sessionStorage.removeItem("loggedIn");
+    sessionStorage.removeItem("authData");
+    sessionStorage.removeItem("adminAuth");
     this.setState({ isLoggedIn: false });
 
 }
