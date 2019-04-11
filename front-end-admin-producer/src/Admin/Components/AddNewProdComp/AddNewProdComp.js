@@ -17,9 +17,9 @@ class AddNewProdComp extends Component {
       billingAddressPostalCode: "",
       farmName: "",
       farmLocation: "",
-      farmType: "LiveStock",
+      farmType: "",
       mailingAddressStreet: "",
-      area: "Southern AB",
+      area: "",
       mailingAddressCity: "",
       mailingAddressProvince: "Alberta",
       rating: 0,
@@ -35,7 +35,10 @@ class AddNewProdComp extends Component {
   };
 
   camelCaseString = string => {
-    const text = string
+    if (string.name === "area" || string.name === "farmType") {
+      return string.value;
+    }
+    const text = string.value
       .toLowerCase()
       .split(" ")
       .map(s => s.charAt(0).toUpperCase() + s.substring(1))
@@ -46,7 +49,7 @@ class AddNewProdComp extends Component {
   onChange = e => {
     let data = this.state.data;
     data.isAdmin = document.getElementById("isAdmin").checked;
-    const newValue = this.camelCaseString(e.target.value);
+    const newValue = this.camelCaseString(e.target);
     let newdata = { ...data, [e.target.name]: newValue };
     this.setState({ data: newdata });
     console.log("Data", newdata);
@@ -124,23 +127,32 @@ class AddNewProdComp extends Component {
   render() {
     return (
       <div className="ui grid">
-      <br/>
-      <div>
-         <view style={{
-                width: 15,
-                height: 15,
-                borderRadius: 150/2,
-                backgroundColor: '#1ECE88',
-                position:"relative",
-                top:"20px"}}
-                >Coloured Border Indicates Required Field</view>
-      </div>
+        <br />
+        <div>
+          <view
+            style={{
+              width: 15,
+              height: 15,
+              borderRadius: 150 / 2,
+              backgroundColor: "#1ECE88",
+              position: "relative",
+              top: "20px"
+            }}
+          >
+            Coloured Border Indicates Required Field
+          </view>
+        </div>
         <form onSubmit={this.onSubmit} className="ui row form">
           <div className="four wide column">
             <div className={Class.field}>
               <div className="field">
                 <label>First Name</label>
-                <input onChange={this.onChange} type="text" name="firstName" style={{border:"3px solid #1ECE88",}} />
+                <input
+                  onChange={this.onChange}
+                  type="text"
+                  name="firstName"
+                  style={{ border: "3px solid #1ECE88" }}
+                />
               </div>
             </div>
           </div>
@@ -148,7 +160,12 @@ class AddNewProdComp extends Component {
             <div className={Class.field}>
               <div className="field">
                 <label>Last Name</label>
-                <input onChange={this.onChange} type="text" name="lastName" style={{border:"3px solid #1ECE88",}}/>
+                <input
+                  onChange={this.onChange}
+                  type="text"
+                  name="lastName"
+                  style={{ border: "3px solid #1ECE88" }}
+                />
               </div>
             </div>
           </div>
@@ -173,7 +190,7 @@ class AddNewProdComp extends Component {
                   type="text"
                   name="primaryNumber"
                   placeholder="xxx-xxx-xxxx"
-                  style={{border:"3px solid #1ECE88",}}
+                  style={{ border: "3px solid #1ECE88" }}
                 />
               </div>
             </div>
@@ -227,7 +244,7 @@ class AddNewProdComp extends Component {
                   type="email"
                   name="email"
                   placeholder="must contain @ symbol"
-                  style={{border:"3px solid #1ECE88",}}
+                  style={{ border: "3px solid #1ECE88" }}
                 />
               </div>
             </div>
@@ -302,7 +319,7 @@ class AddNewProdComp extends Component {
                   multiple=""
                   className="ui fluid dropdown"
                 >
-                  <option value="LiveStock">Live Stock</option>
+                  <option value="Livestock">Live Stock</option>
                   <option value="Produce">Produce</option>
                   <option value="Other">Other</option>
                 </select>

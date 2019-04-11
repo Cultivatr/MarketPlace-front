@@ -10,6 +10,8 @@ class ProductProduceDetail extends Component {
       itemProduceDetails: "",
       pushThroughText: "Accept"
     };
+    this.priorCompletionDate = "";
+    this.priorDeliveredDate = "";
   }
 
   componentDidMount = () => {
@@ -29,6 +31,18 @@ class ProductProduceDetail extends Component {
         break;
       default:
         break;
+    }
+  };
+  getEstCompletionDate = () => {
+    const propCompletionDate = this.props.itemProduceDetails.estCompletionDate;
+    if (propCompletionDate) {
+      this.priorCompletionDate = propCompletionDate;
+    }
+  };
+  getDeliveredDate = () => {
+    const propDeliveredDate = this.props.itemProduceDetails.deliveredDate;
+    if (propDeliveredDate) {
+      this.priorDeliveredDate = propDeliveredDate;
     }
   };
 
@@ -134,15 +148,24 @@ class ProductProduceDetail extends Component {
                 <tr>
                   {/* The variable change from datePlanted -> estCompletionDate
                   Has not been changed throughout the code for now */}
-                  <td className="two wide column">Est Finished Date</td>
+
+                  <td>Est Completion Date</td>
                   <td className={Class.row}>
-                    <input
-                      onChange={this.onChange}
-                      name="estCompletionDate"
-                      className={Class.tableRow}
-                      type="text"
-                      placeholder={estCompletionDate}
-                    />
+                    <div className="tableRowDateParent">
+                      <input
+                        className="tableRowDate1"
+                        type="date"
+                        id="estCompletionDate"
+                        onChange={this.onChange}
+                        name="estCompletionDate"
+                        value={estCompletionDate}
+                        placeholder={estCompletionDate}
+                      />
+                      <div className="tableRowDate2">
+                        {this.getEstCompletionDate()}
+                        Current: {this.priorCompletionDate}
+                      </div>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -304,13 +327,21 @@ class ProductProduceDetail extends Component {
                 <tr>
                   <td>Delivered Date</td>
                   <td className={Class.row}>
-                    <input
-                      onChange={this.onChange}
-                      name="deliveredDate"
-                      className={Class.tableRow}
-                      type="text"
-                      placeholder={deliveredDate}
-                    />
+                    <div className="tableRowDateParent">
+                      <input
+                        className="tableRowDate1"
+                        type="date"
+                        id="deliveredDate"
+                        onChange={this.onChange}
+                        name="deliveredDate"
+                        value={deliveredDate}
+                        placeholder={estCompletionDate}
+                      />
+                      <div className="tableRowDate2">
+                        {this.getDeliveredDate()}
+                        Current: {this.priorDeliveredDate}
+                      </div>
+                    </div>
                   </td>
                 </tr>
                 <tr>

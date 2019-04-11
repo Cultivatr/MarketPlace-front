@@ -9,6 +9,10 @@ class ProductLivestockDetail extends Component {
     this.state = {
       itemLivestockDetails: ""
     };
+    this.priorCompletionDate = "";
+    this.priorDeliveredDate = "";
+    this.priorBirthDate = "";
+    this.priorOnFeedDate = "";
   }
   componentDidMount = () => {
     console.log("Livestock Rendered");
@@ -18,6 +22,33 @@ class ProductLivestockDetail extends Component {
     itemLivestockDetails[e.target.name] = e.target.value;
     this.setState({ itemLivestockDetails: itemLivestockDetails });
     console.log("Livestock details:", this.state.itemLivestockDetails);
+  };
+
+  getEstCompletionDate = () => {
+    const propCompletionDate = this.props.itemLivestockDetails
+      .estCompletionDate;
+    if (propCompletionDate) {
+      this.priorCompletionDate = propCompletionDate;
+    }
+  };
+  getDeliveredDate = () => {
+    const propDeliveredDate = this.props.itemLivestockDetails.deliveredDate;
+    if (propDeliveredDate) {
+      this.priorDeliveredDate = propDeliveredDate;
+    }
+  };
+  getBirthDate = () => {
+    const propBirthDate = this.props.itemLivestockDetails.birthdate;
+    if (propBirthDate) {
+      this.priorBirthDate = propBirthDate;
+      console.log("Birth date: ", this.priorBirthDate);
+    }
+  };
+  getOnFeedDate = () => {
+    const propOnFeedDate = this.props.itemLivestockDetails.dateOnFeed;
+    if (propOnFeedDate) {
+      this.priorOnFeedDate = propOnFeedDate;
+    }
   };
 
   getBreedValue = () => {
@@ -182,6 +213,25 @@ class ProductLivestockDetail extends Component {
                 <tr>
                   <td>Estimated Birthdate</td>
                   <td className={Class.row}>
+                    <div className="tableRowDateParent">
+                      <input
+                        className="tableRowDate1"
+                        type="date"
+                        id="birthdate"
+                        onChange={this.onChange}
+                        name="birthdate"
+                        value={birthdate}
+                        placeholder={birthdate}
+                      />
+                      <div className="tableRowDate2">
+                        {this.getBirthDate()}
+                        Current: {this.priorBirthDate}
+                      </div>
+                    </div>
+                  </td>
+
+                  {/* <td>Estimated Birthdate</td>
+                  <td className={Class.row}>
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
@@ -189,7 +239,7 @@ class ProductLivestockDetail extends Component {
                       placeholder={birthdate}
                       name="birthdate"
                     />
-                  </td>
+                  </td> */}
                 </tr>
                 <tr>
                   <td>Registration Number</td>
@@ -218,13 +268,21 @@ class ProductLivestockDetail extends Component {
                 <tr>
                   <td>Date On Feed</td>
                   <td className={Class.row}>
-                    <input
-                      onChange={this.onChange}
-                      className={Class.tableRow}
-                      type="text"
-                      placeholder={dateOnFeed}
-                      name="dateOnFeed"
-                    />
+                    <div className="tableRowDateParent">
+                      <input
+                        className="tableRowDate1"
+                        type="date"
+                        id="dateOnFeed"
+                        onChange={this.onChange}
+                        name="dateOnFeed"
+                        value={dateOnFeed}
+                        placeholder={dateOnFeed}
+                      />
+                      <div className="tableRowDate2">
+                        {this.getOnFeedDate()}
+                        Current: {this.priorOnFeedDate}
+                      </div>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -311,13 +369,21 @@ class ProductLivestockDetail extends Component {
                 <tr>
                   <td>Est Completion Date</td>
                   <td className={Class.row}>
-                    <input
-                      onChange={this.onChange}
-                      className={Class.tableRow}
-                      type="text"
-                      placeholder={estCompletionDate}
-                      name="estCompletionDate"
-                    />
+                    <div className="tableRowDateParent">
+                      <input
+                        className="tableRowDate1"
+                        type="date"
+                        id="estCompletionDate"
+                        onChange={this.onChange}
+                        name="estCompletionDate"
+                        value={estCompletionDate}
+                        placeholder={estCompletionDate}
+                      />
+                      <div className="tableRowDate2">
+                        {this.getEstCompletionDate()}
+                        Current: {this.priorCompletionDate}
+                      </div>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -371,6 +437,24 @@ class ProductLivestockDetail extends Component {
                 <tr>
                   <td>Delivered Date</td>
                   <td className={Class.row}>
+                    <div className="tableRowDateParent">
+                      <input
+                        className="tableRowDate1"
+                        type="date"
+                        id="deliveredDate"
+                        onChange={this.onChange}
+                        name="deliveredDate"
+                        value={deliveredDate}
+                        placeholder={deliveredDate}
+                      />
+                      <div className="tableRowDate2">
+                        {this.getDeliveredDate()}
+                        Current: {this.priorDeliveredDate}
+                      </div>
+                    </div>
+                  </td>
+                  {/* <td>Delivered Date</td>
+                  <td className={Class.row}>
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
@@ -378,7 +462,7 @@ class ProductLivestockDetail extends Component {
                       placeholder={deliveredDate}
                       name="deliveredDate"
                     />
-                  </td>
+                  </td> */}
                 </tr>
                 <tr>
                   <td>Delivered To</td>
