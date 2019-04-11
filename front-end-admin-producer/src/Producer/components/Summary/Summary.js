@@ -45,6 +45,7 @@ class Summary extends Component {
       await this.setState({
         itemLivestockDetails: getItemDetails(e.target.id, this.livestockItems)
       });
+      console.log("SELECTED LIVESTOCK", this.state.itemLivestockDetails);
       this.showOverlayLivestock();
     }
   };
@@ -180,13 +181,13 @@ class Summary extends Component {
                   }
                 },
                 {
-                  Header: "Delivered Date",
-                  id: "product",
+                  Header: "Est Completion Date",
+                  id: "estCompletionDate",
                   width: 250,
-                  accessor: d => d.deliveredDate,
+                  accessor: d => d.estCompletionDate,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, {
-                      keys: ["DeliveredDate"]
+                      keys: ["estCompletionDate"]
                     }),
                   filterAll: true,
                   style: {

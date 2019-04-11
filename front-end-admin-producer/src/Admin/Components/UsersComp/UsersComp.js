@@ -15,8 +15,8 @@ class UsersComp extends Component {
     };
   }
 
-  getProducerObj = e => {
-    this.setState({
+  getProducerObj = async e => {
+    await this.setState({
       userDetails: getUserDetails(
         parseInt(e.target.id),
         this.state.data.data.users
@@ -119,17 +119,25 @@ class UsersComp extends Component {
                   Header: "",
                   id: "details",
                   width: 75,
-                  accessor: d => <span className='detailButton' style={{
-                  cursor: "pointer",
-                  fontSize: 10,
-                  border: "1px solid black",
-                  borderRadius: "25px",
-                  padding: "5px 5px",
-                  margin:"5px 0px 5px 0px",
-                  textAlign: "center",
-                  userSelect: "none"}} 
-                  id={d.id}  onClick={this.getProducerObj}>Details</span>, //radio button
-            
+                  accessor: d => (
+                    <span
+                      className="detailButton"
+                      style={{
+                        cursor: "pointer",
+                        fontSize: 10,
+                        border: "1px solid black",
+                        borderRadius: "25px",
+                        padding: "5px 5px",
+                        margin: "5px 0px 5px 0px",
+                        textAlign: "center",
+                        userSelect: "none"
+                      }}
+                      id={d.id}
+                      onClick={this.getProducerObj}
+                    >
+                      Details
+                    </span>
+                  ) //radio button
                 }
               ]
             }
