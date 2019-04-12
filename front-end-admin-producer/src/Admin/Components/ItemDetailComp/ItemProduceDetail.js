@@ -33,15 +33,22 @@ class ProductProduceDetail extends Component {
         break;
     }
   };
+
   getEstCompletionDate = () => {
     const propCompletionDate = this.props.itemProduceDetails.estCompletionDate;
     if (propCompletionDate) {
-      this.priorCompletionDate = propCompletionDate;
+      if (propCompletionDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+        this.priorCompletionDate = "No value entered";
+      } else {
+        this.priorCompletionDate = propCompletionDate;
+      }
     }
   };
   getDeliveredDate = () => {
     const propDeliveredDate = this.props.itemProduceDetails.deliveredDate;
-    if (propDeliveredDate) {
+    if (propDeliveredDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+      this.priorDeliveredDate = "No value entered";
+    } else {
       this.priorDeliveredDate = propDeliveredDate;
     }
   };
@@ -176,7 +183,7 @@ class ProductProduceDetail extends Component {
                       name="seedType"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={seedType}
+                      value={seedType}
                     />
                   </td>
                 </tr>
@@ -220,7 +227,7 @@ class ProductProduceDetail extends Component {
                       name="fertilizerTypeUsed"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={fertilizerTypeUsed}
+                      value={fertilizerTypeUsed}
                     />
                   </td>
                 </tr>
@@ -232,7 +239,7 @@ class ProductProduceDetail extends Component {
                       name="pesticideTypeUsed"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={pesticideTypeUsed}
+                      value={pesticideTypeUsed}
                     />
                   </td>
                 </tr>
@@ -244,7 +251,7 @@ class ProductProduceDetail extends Component {
                       name="estQuantityPlanted"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={estQuantityPlanted}
+                      value={estQuantityPlanted}
                     />
                   </td>
                 </tr>
@@ -272,7 +279,7 @@ class ProductProduceDetail extends Component {
                       name="estFinishedQty"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={estFinishedQty}
+                      value={estFinishedQty}
                     />
                   </td>
                 </tr>
@@ -284,7 +291,7 @@ class ProductProduceDetail extends Component {
                       name="estPrice"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={estPrice}
+                      value={estPrice}
                     />
                   </td>
                 </tr>
@@ -296,7 +303,7 @@ class ProductProduceDetail extends Component {
                       name="qtyAcceptedForListing"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={qtyAcceptedForListing}
+                      value={qtyAcceptedForListing}
                     />
                   </td>
                 </tr>
@@ -308,7 +315,7 @@ class ProductProduceDetail extends Component {
                       name="qtyAcceptedAtDelivery"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={qtyAcceptedAtDelivery}
+                      value={qtyAcceptedAtDelivery}
                     />
                   </td>
                 </tr>
@@ -320,7 +327,7 @@ class ProductProduceDetail extends Component {
                       name="finalPricePaid"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={finalPricePaid}
+                      value={finalPricePaid}
                     />
                   </td>
                 </tr>
@@ -352,7 +359,7 @@ class ProductProduceDetail extends Component {
                       onChange={this.onChange}
                       name="deliveredTo"
                       type="text"
-                      placeholder={deliveredTo}
+                      value={deliveredTo}
                     />
                   </td>
                 </tr>
@@ -364,7 +371,7 @@ class ProductProduceDetail extends Component {
                       name="chargebacks"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={chargebacks}
+                      value={chargebacks}
                     />
                   </td>
                 </tr>
@@ -376,7 +383,7 @@ class ProductProduceDetail extends Component {
                       name="comments"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={comments}
+                      value={comments}
                     />
                   </td>
                 </tr>

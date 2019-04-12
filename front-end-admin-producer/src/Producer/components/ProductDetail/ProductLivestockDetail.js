@@ -39,7 +39,11 @@ class ProductLivestockDetail extends Component {
     const propCompletionDate = this.props.itemLivestockDetails
       .estCompletionDate;
     if (propCompletionDate) {
-      this.priorCompletionDate = propCompletionDate;
+      if (propCompletionDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+        this.priorCompletionDate = "No value entered";
+      } else {
+        this.priorCompletionDate = propCompletionDate;
+      }
     }
   };
 
@@ -89,11 +93,17 @@ class ProductLivestockDetail extends Component {
                 </tr>
                 <tr>
                   <td>Single Brand</td>
-                  <td className={Class.noInput}>{this.getBrandValue()}</td>
+                  <td className={Class.noInput}>
+                    {this.props.itemLivestockDetails.singleBrand}
+                  </td>
                 </tr>
                 <tr>
                   <td>Estimated Birthdate</td>
-                  <td className={Class.noInput}>{birthdate}</td>
+                  <td className={Class.noInput}>
+                    {birthdate === "Mon, 01 Jan 1 00:00:00 GMT"
+                      ? ""
+                      : birthdate}
+                  </td>
                 </tr>
                 <tr>
                   <td>Registration Number</td>
@@ -105,7 +115,11 @@ class ProductLivestockDetail extends Component {
                 </tr>
                 <tr>
                   <td>Date On Feed</td>
-                  <td className={Class.noInput}>{dateOnFeed}</td>
+                  <td className={Class.noInput}>
+                    {dateOnFeed === "Mon, 01 Jan 1 00:00:00 GMT"
+                      ? ""
+                      : dateOnFeed}
+                  </td>
                 </tr>
                 <tr>
                   <td>Feed Method</td>
@@ -169,19 +183,29 @@ class ProductLivestockDetail extends Component {
                 </tr>
                 <tr>
                   <td>Est Final Price</td>
-                  <td className={Class.noInput}>{estFinalPrice}</td>
+                  <td className={Class.noInput}>
+                    {estFinalPrice === 0 ? "" : estFinalPrice}
+                  </td>
                 </tr>
                 <tr>
                   <td>Hanging Weight</td>
-                  <td className={Class.noInput}>{hangingWeight}</td>
+                  <td className={Class.noInput}>
+                    {hangingWeight === 0 ? "" : hangingWeight}
+                  </td>
                 </tr>
                 <tr>
                   <td>Final Price</td>
-                  <td className={Class.noInput}>{finalPrice}</td>
+                  <td className={Class.noInput}>
+                    {finalPrice === 0 ? "" : finalPrice}
+                  </td>
                 </tr>
                 <tr>
                   <td>Delivered Date</td>
-                  <td className={Class.noInput}>{deliveredDate}</td>
+                  <td className={Class.noInput}>
+                    {deliveredDate === "Mon, 01 Jan 1 00:00:00 GMT"
+                      ? ""
+                      : deliveredDate}
+                  </td>
                 </tr>
                 <tr>
                   <td>Delivered To</td>
@@ -189,7 +213,9 @@ class ProductLivestockDetail extends Component {
                 </tr>
                 <tr>
                   <td>Charge Backs</td>
-                  <td className={Class.noInput}>{chargebacks}</td>
+                  <td className={Class.noInput}>
+                    {chargebacks === 0 ? "" : chargebacks}
+                  </td>
                 </tr>
                 <tr>
                   <td>Comments</td>
