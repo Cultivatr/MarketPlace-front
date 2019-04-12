@@ -29,8 +29,11 @@ class ProductProduceDetail extends Component {
   getEstCompletionDate = () => {
     const propCompletionDate = this.props.itemProduceDetails.estCompletionDate;
     if (propCompletionDate) {
-      this.priorCompletionDate = propCompletionDate;
-      console.log(propCompletionDate);
+      if (propCompletionDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+        this.priorCompletionDate = "No value entered";
+      } else {
+        this.priorCompletionDate = propCompletionDate;
+      }
     }
   };
 
@@ -79,7 +82,7 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <div className={Class.tableRowDateParent}>
                       <input
-                        className={Class.tableRowDate1}
+                        className={Class.tableRow}
                         type="date"
                         id="estCompletionDate"
                         onChange={this.onChange}
@@ -120,7 +123,9 @@ class ProductProduceDetail extends Component {
                 </tr>
                 <tr>
                   <td>Est. Quantity Planted</td>
-                  <td className={Class.noInput}>{estQuantityPlanted}</td>
+                  <td className={Class.noInput}>
+                    {estQuantityPlanted === 0 ? "" : estQuantityPlanted}
+                  </td>
                 </tr>
                 <tr>
                   <td>GMO</td>
@@ -137,28 +142,41 @@ class ProductProduceDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={estFinishedQty}
+                      value={estFinishedQty}
                     />
                   </td>
                 </tr>
                 <tr>
                   <td>Est. Price</td>
-                  <td className={Class.noInput}>{estPrice}</td>
+                  <td className={Class.noInput}>
+                    {estPrice === 0 ? "" : estPrice}
+                  </td>
                 </tr>
                 <tr>
                   <td>Qty Accepted For Listing</td>
-                  <td className={Class.noInput}>{qtyAcceptedForListing}</td>
+                  <td className={Class.noInput}>
+                    {qtyAcceptedForListing === 0 ? "" : qtyAcceptedForListing}
+                  </td>
                 </tr>
                 <tr>
                   <td>Qty Accepted At Delivery</td>
-                  <td className={Class.noInput}>{qtyAcceptedAtDelivery}</td>
+                  <td className={Class.noInput}>
+                    {qtyAcceptedAtDelivery === 0 ? "" : qtyAcceptedAtDelivery}
+                  </td>
                 </tr>
                 <tr>
                   <td>Final Price Paid</td>
-                  <td className={Class.noInput}>{finalPricePaid}</td>
+                  <td className={Class.noInput}>
+                    {finalPricePaid === 0 ? "" : finalPricePaid}
+                  </td>
                 </tr>
                 <tr>
                   <td>Delivered Date</td>
-                  <td className={Class.noInput}>{deliveredDate}</td>
+                  <td className={Class.noInput}>
+                    {deliveredDate === "Mon, 01 Jan 1 00:00:00 GMT"
+                      ? ""
+                      : deliveredDate}
+                  </td>
                 </tr>
                 <tr>
                   <td>Delivered To</td>
@@ -173,6 +191,7 @@ class ProductProduceDetail extends Component {
                       className={Class.tableRow}
                       type="text"
                       placeholder={comments}
+                      value={comments}
                     />
                   </td>
                 </tr>

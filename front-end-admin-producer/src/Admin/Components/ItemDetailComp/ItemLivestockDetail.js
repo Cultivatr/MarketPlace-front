@@ -28,26 +28,41 @@ class ProductLivestockDetail extends Component {
     const propCompletionDate = this.props.itemLivestockDetails
       .estCompletionDate;
     if (propCompletionDate) {
-      this.priorCompletionDate = propCompletionDate;
+      if (propCompletionDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+        this.priorCompletionDate = "No value entered";
+      } else {
+        this.priorCompletionDate = propCompletionDate;
+      }
     }
   };
   getDeliveredDate = () => {
     const propDeliveredDate = this.props.itemLivestockDetails.deliveredDate;
     if (propDeliveredDate) {
-      this.priorDeliveredDate = propDeliveredDate;
+      if (propDeliveredDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+        this.priorDeliveredDate = "No value entered";
+      } else {
+        this.priorDeliveredDate = propDeliveredDate;
+      }
     }
   };
   getBirthDate = () => {
     const propBirthDate = this.props.itemLivestockDetails.birthdate;
     if (propBirthDate) {
-      this.priorBirthDate = propBirthDate;
-      console.log("Birth date: ", this.priorBirthDate);
+      if (propBirthDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+        this.priorBirthDate = "No value entered";
+      } else {
+        this.priorBirthDate = propBirthDate;
+      }
     }
   };
   getOnFeedDate = () => {
     const propOnFeedDate = this.props.itemLivestockDetails.dateOnFeed;
     if (propOnFeedDate) {
-      this.priorOnFeedDate = propOnFeedDate;
+      if (propOnFeedDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+        this.priorOnFeedDate = "No value entered";
+      } else {
+        this.priorOnFeedDate = propOnFeedDate;
+      }
     }
   };
 
@@ -221,7 +236,6 @@ class ProductLivestockDetail extends Component {
                         onChange={this.onChange}
                         name="birthdate"
                         value={birthdate}
-                        placeholder={birthdate}
                       />
                       <div className="tableRowDate2">
                         {this.getBirthDate()}
@@ -248,7 +262,7 @@ class ProductLivestockDetail extends Component {
                       onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
-                      placeholder={regNumber}
+                      value={regNumber}
                       name="regNumber"
                     />
                   </td>
@@ -260,7 +274,7 @@ class ProductLivestockDetail extends Component {
                       onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
-                      placeholder={rfid}
+                      value={rfid}
                       name="rfid"
                     />
                   </td>
@@ -276,7 +290,6 @@ class ProductLivestockDetail extends Component {
                         onChange={this.onChange}
                         name="dateOnFeed"
                         value={dateOnFeed}
-                        placeholder={dateOnFeed}
                       />
                       <div className="tableRowDate2">
                         {this.getOnFeedDate()}
@@ -349,7 +362,7 @@ class ProductLivestockDetail extends Component {
                       onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
-                      placeholder={estStartingWeight}
+                      value={estStartingWeight}
                       name="estStartingWeight"
                     />
                   </td>
@@ -361,7 +374,7 @@ class ProductLivestockDetail extends Component {
                       onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
-                      placeholder={quantity}
+                      value={quantity}
                       name="quantity"
                     />
                   </td>
@@ -377,7 +390,6 @@ class ProductLivestockDetail extends Component {
                         onChange={this.onChange}
                         name="estCompletionDate"
                         value={estCompletionDate}
-                        placeholder={estCompletionDate}
                       />
                       <div className="tableRowDate2">
                         {this.getEstCompletionDate()}
@@ -393,7 +405,7 @@ class ProductLivestockDetail extends Component {
                       onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
-                      placeholder={estFinishedWeight}
+                      value={estFinishedWeight}
                       name="estFinishedWeight"
                     />
                   </td>
@@ -405,7 +417,7 @@ class ProductLivestockDetail extends Component {
                       onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
-                      placeholder={estFinalPrice}
+                      value={estFinalPrice}
                       name="estFinalPrice"
                     />
                   </td>
@@ -417,7 +429,7 @@ class ProductLivestockDetail extends Component {
                       onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
-                      placeholder={hangingWeight}
+                      value={hangingWeight}
                       name="hangingWeight"
                     />
                   </td>
@@ -429,7 +441,7 @@ class ProductLivestockDetail extends Component {
                       onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
-                      placeholder={finalPrice}
+                      value={finalPrice}
                       name="finalPrice"
                     />
                   </td>
@@ -445,7 +457,6 @@ class ProductLivestockDetail extends Component {
                         onChange={this.onChange}
                         name="deliveredDate"
                         value={deliveredDate}
-                        placeholder={deliveredDate}
                       />
                       <div className="tableRowDate2">
                         {this.getDeliveredDate()}
@@ -471,7 +482,7 @@ class ProductLivestockDetail extends Component {
                       onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
-                      placeholder={deliveredTo}
+                      value={deliveredTo}
                       name="deliveredTo"
                     />
                   </td>
@@ -483,7 +494,7 @@ class ProductLivestockDetail extends Component {
                       onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
-                      placeholder={chargebacks}
+                      value={chargebacks}
                       name="chargebacks"
                     />
                   </td>
@@ -495,7 +506,7 @@ class ProductLivestockDetail extends Component {
                       onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
-                      placeholder={comments}
+                      value={comments}
                       name="comments"
                     />
                   </td>
