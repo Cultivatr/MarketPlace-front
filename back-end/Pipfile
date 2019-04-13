@@ -13,6 +13,7 @@ pytest = "*"
 "Flask-SQLAlchemy" = "*"
 Flask-Migrate = "*"
 Flask-Heroku = "*"
+gunicorn = "*"
 
 [dev-packages]
 autopep8 = "*"
