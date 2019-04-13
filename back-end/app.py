@@ -8,8 +8,7 @@ from flask_migrate import Migrate
 app=Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'dev_key',
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('postgresql-contoured-51971') or \
-            'sqlite:///' + os.path.join(app.instance_path, 'task_list.sqlite')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
 db=SQLAlchemy(app)
 migrate = Migrate(app, db)
