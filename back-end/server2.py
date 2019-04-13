@@ -3,9 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import datetime
 from flask_migrate import Migrate
+from flask_heroku import Heroku
 
 app=Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:password@localhost/cultivatr'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
+heroku = Heroku(app)
 db=SQLAlchemy(app)
 migrate = Migrate(app, db)
 CORS(app, supports_credentials=True)
