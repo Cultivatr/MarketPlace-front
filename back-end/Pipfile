@@ -15,6 +15,7 @@ Flask-Migrate = "*"
 
 [dev-packages]
 autopep8 = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.6"
