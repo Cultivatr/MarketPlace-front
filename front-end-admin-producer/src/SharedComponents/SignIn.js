@@ -19,7 +19,7 @@ class SignIn extends Component {
 
   getUsers = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/admin/users/`, {
+      const response = await fetch(`https://mysterious-cove-46763.herokuapp.com/admin/users/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       });

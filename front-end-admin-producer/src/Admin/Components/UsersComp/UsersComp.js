@@ -30,7 +30,7 @@ class UsersComp extends Component {
   };
   deleteSelectedUser = userId => {
     console.log("Deleted User: ", userId);
-    fetch("http://localhost:5000/admin/users/delete/", {
+    fetch("https://mysterious-cove-46763.herokuapp.com/admin/users/delete/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({

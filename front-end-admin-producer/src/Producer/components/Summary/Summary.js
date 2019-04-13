@@ -62,14 +62,14 @@ class Summary extends Component {
     await this.getId();
     const user1 = this.state.localId;
     try {
-      const response = await fetch(`http://localhost:5000/produce/${user1}/`, {
+      const response = await fetch(`https://mysterious-cove-46763.herokuapp.com/produce/${user1}/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       });
       const json = await response.json();
       this.setState({ items_produce: json });
       const response2 = await fetch(
-        `http://localhost:5000/livestock/${user1}/`,
+        `https://mysterious-cove-46763.herokuapp.com/livestock/${user1}/`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" }

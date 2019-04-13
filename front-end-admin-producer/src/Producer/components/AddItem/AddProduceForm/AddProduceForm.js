@@ -77,7 +77,7 @@ class ProduceForm extends Component {
     console.log("INCOMING DATA: ", this.state.data);
 
     document.getElementById("submitBtn").className += " loading";
-    fetch("http://localhost:5000/produce/", {
+    fetch("https://mysterious-cove-46763.herokuapp.com/produce/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
