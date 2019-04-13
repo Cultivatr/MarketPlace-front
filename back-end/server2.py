@@ -1,15 +1,30 @@
+import os
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import datetime
 from flask_migrate import Migrate
-from flask_heroku import Heroku
 
 app=Flask(__name__)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
-heroku = Heroku(app)
-db=SQLAlchemy(app)
-migrate = Migrate(app, db)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+db=SQLAlchemy()
+migrate = Migrate()
+def create_app():
+    app = Flask(__name__)
+    app.config.from_mapping(
+        SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev_key',
+        SQLALCHEMY_DATABASE_URI = os.environ.get('postgresql-contoured-51971') or \
+            'sqlite:///' + os.path.join(app.instance_path, 'task_list.sqlite'),
+        SQLALCHEMY_TRACK_MODIFICATIONS = False
+    )
+
+    db.init_app(app)
+    migrate.init_app(app, db)
+
+    return app
+    
 CORS(app, supports_credentials=True)
 
 
@@ -533,4 +548,5 @@ def test_print_function():
 
 
 if __name__ == '__main__':
+    app.debug = True
     app.run()

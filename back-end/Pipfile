@@ -12,6 +12,7 @@ pytest = "*"
 "psycopg2-binary" = "*"
 "Flask-SQLAlchemy" = "*"
 Flask-Migrate = "*"
+Flask-Heroku = "*"
 
 [dev-packages]
 autopep8 = "*"
