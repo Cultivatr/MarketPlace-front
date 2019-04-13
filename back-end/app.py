@@ -106,7 +106,9 @@ class Livestock(db.Model):
     delivered_to=db.Column(db.Text)
     status=db.Column(db.Text)
 
-
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
 
 
 @app.route('/admin/users/', methods=['GET'])
