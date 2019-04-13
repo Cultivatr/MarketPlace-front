@@ -14,11 +14,11 @@ CORS(app, supports_credentials=True)
 class Users(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     first_name=db.Column(db.Text)
-    last_name=db.Column(db.Text)
-    primary_phone=db.Column(db.Text)
+    last_name=db.Column(db.Text, nullable=False)
+    primary_phone=db.Column(db.Text, nullable=False)
     secondary_phone=db.Column(db.Text)
-    email=db.Column(db.Text)
-    farm_name=db.Column(db.Text)
+    email=db.Column(db.Text, nullable=False)
+    farm_name=db.Column(db.Text, nullable=False)
     farm_location=db.Column(db.Text)
     area=db.Column(db.Text)
     ## is_producer & is_other are no longer being used.
@@ -143,7 +143,7 @@ def get_users():
 @app.route("/admin/", methods=['POST'])
 def add_new_user():
     data=request.get_json()
-    print("incoming data:", data)
+    print("data", data)
     new_user=Users(
     first_name=data.get('firstName'),
     last_name=data.get('lastName'),
@@ -171,6 +171,10 @@ def add_new_user():
     billing_postal_code=data.get('billingAddressPostalCode'),
     user_comments=data.get('comments')
     )
+    if not new_user.first_name: return jsonify('You must provide a first name'), 400
+    if not new_user.last_name: return jsonify('You must provide a last name'), 400
+    if not new_user.primary_phone: return jsonify('You must provide a phone number'), 400
+    if not new_user.email: return jsonify('You must provide an email'), 400
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'id': new_user.id}), 201

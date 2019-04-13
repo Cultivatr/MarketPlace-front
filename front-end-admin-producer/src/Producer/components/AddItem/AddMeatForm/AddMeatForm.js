@@ -34,7 +34,7 @@ class LivestockForm extends Component {
   };
 
   camelCaseString = (string, type) => {
-    if (type === "comments") return string;
+    if (type === "comments" || type === "feedMethod") return string;
     const text = string
       .toLowerCase()
       .split(" ")
@@ -186,19 +186,19 @@ class LivestockForm extends Component {
                   <label>Registration Number</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="regNumber"
                   />
                 </div>
                 <div className="field">
                   <label>RFID Tag</label>
-                  <input onChange={this.onChange} type="text" name="rfid" />
+                  <input onChange={this.onChange} type="number" name="rfid" />
                 </div>
                 <div className="field">
-                  <label>Est. Starting Weight</label>
+                  <label>Est. Starting Weight in Kilograms</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="estStartingWeight"
                   />
                 </div>
@@ -276,25 +276,29 @@ class LivestockForm extends Component {
                   />
                 </div>
                 <div className="field">
-                  <label>Est. Finished Weight</label>
+                  <label>Est. Finished Weight in Kilograms</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="estFinishedWeight"
                   />
                 </div>
                 <div className="field">
-                  <label>Hanging Weight</label>
+                  <label>Hanging Weight in Kilograms</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="hangingWeight"
                   />
                 </div>
 
                 <div className="field">
                   <label>Quantity</label>
-                  <input onChange={this.onChange} type="text" name="quantity" />
+                  <input
+                    onChange={this.onChange}
+                    type="number"
+                    name="quantity"
+                  />
                 </div>
                 <input type="hidden" id="userId" name="userId" value="1" />
               </div>

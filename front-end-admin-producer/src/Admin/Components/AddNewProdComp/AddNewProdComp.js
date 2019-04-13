@@ -30,7 +30,8 @@ class AddNewProdComp extends Component {
       //Byron will delete the following two variables once he has time
       // to trace them all the way through the code
       isProducer: false,
-      isOther: false
+      isOther: false,
+      errorMessage: ""
     }
   };
 
@@ -52,11 +53,11 @@ class AddNewProdComp extends Component {
     const newValue = this.camelCaseString(e.target);
     let newdata = { ...data, [e.target.name]: newValue };
     this.setState({ data: newdata });
-    console.log("Data", newdata);
   };
 
-  onSubmit = e => {
+  onSubmit = async e => {
     e.preventDefault();
+    let windowAlert = "pizza";
     const form = e.target;
     const {
       firstName,
@@ -85,7 +86,7 @@ class AddNewProdComp extends Component {
       isOther
     } = this.state.data;
     document.getElementById("submitBtn").className += " loading";
-    fetch("http://localhost:5000/admin/", {
+    await fetch("http://localhost:5000/admin/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -117,11 +118,13 @@ class AddNewProdComp extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        console.log("data: ", data);
       })
-      .then(form.reset())
-      .catch(error => console.log(error));
+      .catch(error => (windowAlert = error))
+      .then(form.reset());
+
     setTimeout(() => this.props.OnClickListUsers(), 1000);
+    alert("error message", windowAlert);
   };
 
   render() {
@@ -187,7 +190,7 @@ class AddNewProdComp extends Component {
                 <label>Primary Number</label>
                 <input
                   onChange={this.onChange}
-                  type="text"
+                  type="number"
                   name="primaryNumber"
                   placeholder="xxx-xxx-xxxx"
                   style={{ border: "3px solid #1ECE88" }}
@@ -201,7 +204,7 @@ class AddNewProdComp extends Component {
                 <label>Secondary Number</label>
                 <input
                   onChange={this.onChange}
-                  type="text"
+                  type="number"
                   name="secondaryNumber"
                   placeholder="xxx-xxx-xxxx"
                 />

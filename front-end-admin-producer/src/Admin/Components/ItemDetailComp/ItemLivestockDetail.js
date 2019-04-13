@@ -261,7 +261,7 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={regNumber}
                       name="regNumber"
                     />
@@ -273,7 +273,7 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={rfid}
                       name="rfid"
                     />
@@ -361,7 +361,7 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={estStartingWeight}
                       name="estStartingWeight"
                     />
@@ -373,7 +373,7 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={quantity}
                       name="quantity"
                     />
@@ -404,7 +404,7 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={estFinishedWeight}
                       name="estFinishedWeight"
                     />
@@ -416,7 +416,7 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={estFinalPrice}
                       name="estFinalPrice"
                     />
@@ -428,7 +428,7 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={hangingWeight}
                       name="hangingWeight"
                     />
@@ -440,7 +440,7 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={finalPrice}
                       name="finalPrice"
                     />
@@ -493,7 +493,7 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={chargebacks}
                       name="chargebacks"
                     />

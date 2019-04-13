@@ -140,7 +140,7 @@ class ProductProduceDetail extends Component {
                       onChange={this.onChange}
                       name="estFinishedQty"
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       placeholder={estFinishedQty}
                       value={estFinishedQty}
                     />

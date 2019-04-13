@@ -142,7 +142,7 @@ class ProductLivestockDetail extends Component {
                   <td className={Class.row}>
                     <input
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       placeholder={quantity}
                       onChange={this.onChange}
                       name="quantity"
@@ -174,7 +174,7 @@ class ProductLivestockDetail extends Component {
                   <td className={Class.row}>
                     <input
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       placeholder={estFinishedWeight}
                       onChange={this.onChange}
                       name="estFinishedWeight"

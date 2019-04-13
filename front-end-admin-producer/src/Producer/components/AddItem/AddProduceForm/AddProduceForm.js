@@ -199,7 +199,7 @@ class ProduceForm extends Component {
                   <label>Estimated Quantity Planted</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="estQuantityPlanted"
                   />
                 </div>
@@ -220,13 +220,17 @@ class ProduceForm extends Component {
                   <label>Estimated Finished Qty</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="estFinishedQty"
                   />
                 </div>
                 <div className="field">
                   <label>Est Price</label>
-                  <input onChange={this.onChange} type="text" name="estPrice" />
+                  <input
+                    onChange={this.onChange}
+                    type="number"
+                    name="estPrice"
+                  />
                 </div>
                 <div className="field">
                   <label>Fertilizer Type Used</label>
