@@ -85,7 +85,7 @@ class SignIn extends Component {
               <div className="field" />
               <div className="rememberMeAndLoginBox centeredDisplay">
                 <GoogleLogin
-                  clientId="312661703049-alt9cfiqbef9oljaag08q98t8k8q0jci.apps.googleusercontent.com"
+                  clientId="441538396161-eujcfeek91eu5r0okb7od4v9k428t0rf.apps.googleusercontent.com"
                   buttonText="Sign in with Google"
                   onSuccess={responseGoogle}
                   onFailure={responseGoogle}

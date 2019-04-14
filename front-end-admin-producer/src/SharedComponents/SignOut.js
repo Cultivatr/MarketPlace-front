@@ -29,7 +29,7 @@ class SignOut extends Component {
       <GoogleLogout 
                   buttonText="Logout" 
                   onLogoutSuccess={this.logOut}
-                  clientId="312661703049-alt9cfiqbef9oljaag08q98t8k8q0jci.apps.googleusercontent.com">
+                  clientId="441538396161-eujcfeek91eu5r0okb7od4v9k428t0rf.apps.googleusercontent.com">
       </GoogleLogout>
       </div>
     )
