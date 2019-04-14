@@ -10,13 +10,12 @@ class SignIn extends Component {
     this.state = {
       isLoggedIn: false,
       isAdmin: false,
-      userList:[]
     };
   }
 
   componentDidMount() {
     this.getUsers();
-    console.log(this.state.userList);
+    console.log(this.state);
   }
 
   getUsers = async () => {
