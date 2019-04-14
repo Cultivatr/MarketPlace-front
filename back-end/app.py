@@ -14,7 +14,7 @@ db=SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
-CORS(app, supports_credentials=True)
+CORS(app)
 
 
 class Users(db.Model):
