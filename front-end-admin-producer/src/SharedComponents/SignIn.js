@@ -14,6 +14,7 @@ class SignIn extends Component {
   }
 
   componentDidMount() {
+    this.setState({test: "test"})
     this.getUsers();
     console.log(this.state);
   }
