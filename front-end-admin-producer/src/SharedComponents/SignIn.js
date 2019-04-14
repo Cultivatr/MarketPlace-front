@@ -25,6 +25,7 @@ class SignIn extends Component {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       });
+      console.log(response);
       const json = await response.json();
       await this.setState({ userList: json });
     } catch (error) {
