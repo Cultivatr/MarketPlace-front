@@ -27,6 +27,7 @@ class SignIn extends Component {
       });
       console.log(response);
       const json = await response.json();
+      console.log(json);
       await this.setState({ userList: json });
     } catch (error) {
       console.log(error);
