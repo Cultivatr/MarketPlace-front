@@ -9,12 +9,14 @@ class SignIn extends Component {
     super();
     this.state = {
       isLoggedIn: false,
-      isAdmin: false
+      isAdmin: false,
+      userList:[]
     };
   }
 
   componentDidMount() {
     this.getUsers();
+    console.log(this.state.userList);
   }
 
   getUsers = async () => {
