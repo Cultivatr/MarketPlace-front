@@ -9,22 +9,25 @@ class SignIn extends Component {
     super();
     this.state = {
       isLoggedIn: false,
-      isAdmin: false,
+      isAdmin: false
     };
   }
 
   componentDidMount() {
-    this.setState({test: "test"})
+    this.setState({ test: "test" });
     this.getUsers();
     console.log(this.state);
   }
 
   getUsers = async () => {
     try {
-      const response = await fetch(`https://mysterious-cove-46763.herokuapp.com/admin/users/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
+      const response = await fetch(
+        `https://mysterious-cove-46763.herokuapp.com/admin/users/`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" }
+        }
+      );
       console.log(response);
       const json = await response.json();
       console.log(json);
@@ -47,11 +50,11 @@ class SignIn extends Component {
     };
     //console.log("LOG IN DATA", logInData);
     let currentUser = this.state.userList.users.filter(
-      user => user.email === logInData.email
+      user => user.email.toLowerCase() === logInData.email.toLowerCase()
     );
     logInData.admin = currentUser[0].isAdmin;
     let adminAuth = logInData.admin;
-    console.log("logindata",logInData.admin )
+    console.log("logindata", logInData.admin);
     logInData.id = currentUser[0].id;
     logInData.fullName =
       currentUser[0].firstName + " " + currentUser[0].lastName;
