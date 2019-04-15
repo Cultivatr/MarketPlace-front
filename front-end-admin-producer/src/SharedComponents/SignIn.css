@@ -1,54 +1,63 @@
 .loginBox {
-    max-width: 500px;
-    margin: 0 auto;
-    border: 2px solid #1ECE88;
-    padding: 40px;
-    margin-top: 100px;
-    border-radius: 2px;
+  max-width: 500px;
+  margin: 0 auto;
+  border: 2px solid #1ece88;
+  padding: 40px;
+  margin-top: 100px;
+  border-radius: 2px;
 }
 
 .h1-header {
-    text-align: center;
-    padding: 5px;
-    margin-bottom: 15px;
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 15px;
 }
 
 .rememberMeAndLoginBox {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .forgotPasswordAndRegisterBox {
-    margin-top: 25px;
-    display: flex;
-    justify-content: space-between
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .rememberMe {
-    position: absolute;
-    left: 20px;
-    bottom: 10px;
+  position: absolute;
+  left: 20px;
+  bottom: 10px;
 }
 
 .displayEnd {
-    display: flex;
-    justify-content: flex-end;
-    background-color: #1ECE88;
+  display: flex;
+  justify-content: flex-end;
+  background-color: #1ece88;
 }
 
 .link {
   color: white;
-  font-size: 1.0rem;
+  font-size: 1rem;
   font-weight: bold;
   margin-right: 1.5rem;
-  background-color: #1ECE88;
+  background-color: #1ece88;
+}
+.link:hover {
+  color: blue;
+  cursor: pointer;
+}
+
+.magicbox {
+  display: flex;
+  flex-direction: row;
 }
 
 .centeredDisplay {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
