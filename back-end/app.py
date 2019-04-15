@@ -187,10 +187,13 @@ def add_new_user():
     db.session.commit()
     return jsonify({'id': new_user.id}), 201
 
+XXXX
 @app.route("/admin/users/delete/", methods=['POST'])
 def delete_user():
     data=request.get_json()
     filterId=data.get('id')
+    db.session.query(Produce).filter(Produce.userId == filterId).delete()
+    db.session.query(Produce).filter(Livestock.userId == filterId).delete()
     db.session.query(Users).filter(Users.id == filterId).delete()
     db.session.commit()
     return 'Success', 201
