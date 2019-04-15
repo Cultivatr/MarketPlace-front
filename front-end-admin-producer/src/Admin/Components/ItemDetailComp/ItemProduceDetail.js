@@ -153,9 +153,6 @@ class ProductProduceDetail extends Component {
                   </td>
                 </tr>
                 <tr>
-                  {/* The variable change from datePlanted -> estCompletionDate
-                  Has not been changed throughout the code for now */}
-
                   <td>Est Completion Date</td>
                   <td className={Class.row}>
                     <div className="tableRowDateParent">
@@ -250,7 +247,7 @@ class ProductProduceDetail extends Component {
                       onChange={this.onChange}
                       name="estQuantityPlanted"
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={estQuantityPlanted}
                     />
                   </td>
@@ -278,7 +275,7 @@ class ProductProduceDetail extends Component {
                       onChange={this.onChange}
                       name="estFinishedQty"
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={estFinishedQty}
                     />
                   </td>
@@ -290,7 +287,7 @@ class ProductProduceDetail extends Component {
                       onChange={this.onChange}
                       name="estPrice"
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={estPrice}
                     />
                   </td>
@@ -302,7 +299,7 @@ class ProductProduceDetail extends Component {
                       onChange={this.onChange}
                       name="qtyAcceptedForListing"
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={qtyAcceptedForListing}
                     />
                   </td>
@@ -314,7 +311,7 @@ class ProductProduceDetail extends Component {
                       onChange={this.onChange}
                       name="qtyAcceptedAtDelivery"
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={qtyAcceptedAtDelivery}
                     />
                   </td>
@@ -326,7 +323,7 @@ class ProductProduceDetail extends Component {
                       onChange={this.onChange}
                       name="finalPricePaid"
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={finalPricePaid}
                     />
                   </td>
@@ -370,7 +367,7 @@ class ProductProduceDetail extends Component {
                       onChange={this.onChange}
                       name="chargebacks"
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       value={chargebacks}
                     />
                   </td>

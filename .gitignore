@@ -1,0 +1,34 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+/.mypy_cache
+
+
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+/back-end/.mypy_cache
+/back-end/.gitignore
+
+/back-end/Pipfile.lock
+/back-end/.DS_Store
+/back-end/DB
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+

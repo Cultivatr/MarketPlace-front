@@ -1,0 +1,25 @@
+.errorModalDisplay-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: #1ece88 solid;
+}
+
+.errorModal-contents {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  font-size: 2vw;
+  color: purple;
+  align-items: center;
+}
+
+.subTxt {
+  font-weight: 200 !important;
+  margin: 10px;
+}
+.headTxt {
+  font-weight: 350 !important;
+  margin: 10px;
+}

@@ -34,7 +34,7 @@ class LivestockForm extends Component {
   };
 
   camelCaseString = (string, type) => {
-    if (type === "comments") return string;
+    if (type === "comments" || type === "feedMethod") return string;
     const text = string
       .toLowerCase()
       .split(" ")
@@ -128,6 +128,19 @@ class LivestockForm extends Component {
         <Toolbar />
         <h2>Add Livestock</h2>
         <div className={styles.wrapper}>
+          <view
+            style={{
+              width: 15,
+              height: 15,
+              borderRadius: 150 / 2,
+              backgroundColor: "#1ECE88",
+              position: "relative",
+              top: "0px",
+              left: "100px"
+            }}
+          >
+            Coloured Border Indicates Required Field
+          </view>
           <div className="ui grid container">
             <form onSubmit={this.onSubmit} className="ui row form">
               <div className="eight wide column">
@@ -138,6 +151,7 @@ class LivestockForm extends Component {
                     name="type"
                     multiple=""
                     className="ui fluid dropdown"
+                    style={{ border: "3px solid #1ECE88" }}
                   >
                     <option value="">Please choose an option</option>
                     <option value="Pork">Pork</option>
@@ -186,19 +200,19 @@ class LivestockForm extends Component {
                   <label>Registration Number</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="regNumber"
                   />
                 </div>
                 <div className="field">
                   <label>RFID Tag</label>
-                  <input onChange={this.onChange} type="text" name="rfid" />
+                  <input onChange={this.onChange} type="number" name="rfid" />
                 </div>
                 <div className="field">
-                  <label>Est. Starting Weight</label>
+                  <label>Est. Starting Weight in Kilograms</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="estStartingWeight"
                   />
                 </div>
@@ -273,28 +287,34 @@ class LivestockForm extends Component {
                     onChange={this.onChange}
                     type="date"
                     name="estCompletionDate"
+                    style={{ border: "3px solid #1ECE88" }}
                   />
                 </div>
                 <div className="field">
-                  <label>Est. Finished Weight</label>
+                  <label>Est. Finished Weight in Kilograms</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="estFinishedWeight"
                   />
                 </div>
                 <div className="field">
-                  <label>Hanging Weight</label>
+                  <label>Hanging Weight in Kilograms</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="hangingWeight"
                   />
                 </div>
 
                 <div className="field">
                   <label>Quantity</label>
-                  <input onChange={this.onChange} type="text" name="quantity" />
+                  <input
+                    onChange={this.onChange}
+                    type="number"
+                    name="quantity"
+                    style={{ border: "3px solid #1ECE88" }}
+                  />
                 </div>
                 <input type="hidden" id="userId" name="userId" value="1" />
               </div>
