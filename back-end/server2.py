@@ -171,10 +171,10 @@ def add_new_user():
     billing_postal_code=data.get('billingAddressPostalCode'),
     user_comments=data.get('comments')
     )
-    if not new_user.first_name: return jsonify('You must provide a first name'), 400
-    if not new_user.last_name: return jsonify('You must provide a last name'), 400
-    if not new_user.primary_phone: return jsonify('You must provide a phone number'), 400
-    if not new_user.email: return jsonify('You must provide an email'), 400
+    if not new_user.first_name: return jsonify('Error: You must provide a first name'), 400
+    if not new_user.last_name: return jsonify('Error: You must provide a last name'), 400
+    if not new_user.primary_phone: return jsonify('Error: You must provide a phone number'), 400
+    if not new_user.email: return jsonify('Error: You must provide an email'), 400
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'id': new_user.id}), 201
