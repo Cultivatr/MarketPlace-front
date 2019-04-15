@@ -63,7 +63,7 @@ class Admin extends Component {
   };
 
   loadUserData = async () => {
-    const response3 = await fetch(`http://localhost:5000/admin/users/`, {
+    const response3 = await fetch(`https://mysterious-cove-46763.herokuapp.com/admin/users/`, {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     });
@@ -71,7 +71,7 @@ class Admin extends Component {
     this.setState({ users: json3 });
   };
   loadProduceData = async () => {
-    const response = await fetch(`http://localhost:5000/produce/all/`, {
+    const response = await fetch(`https://mysterious-cove-46763.herokuapp.com/produce/all/`, {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     });
@@ -79,7 +79,7 @@ class Admin extends Component {
     this.setState({ items_produce: json });
   };
   loadLivestockData = async () => {
-    const response2 = await fetch(`http://localhost:5000/livestock/all/`, {
+    const response2 = await fetch(`https://mysterious-cove-46763.herokuapp.com/livestock/all/`, {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     });
@@ -172,7 +172,7 @@ class Admin extends Component {
   pushThroughLivestock = async (id, status) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
-    await fetch("http://localhost:5000/livestock/incrementStatus/", {
+    await fetch("https://mysterious-cove-46763.herokuapp.com/livestock/incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -187,7 +187,7 @@ class Admin extends Component {
   pushThroughProduce = async (id, status) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
-    await fetch("http://localhost:5000/produce/incrementStatus/", {
+    await fetch("https://mysterious-cove-46763.herokuapp.com/produce/incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -240,7 +240,7 @@ class Admin extends Component {
 
   getUsers = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/admin/users/`, {
+      const response = await fetch(`https://mysterious-cove-46763.herokuapp.com/admin/users/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       });

@@ -279,6 +279,8 @@ def get_items_produce():
     return jsonify({ 'items_produce': output })
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    #app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(degug=True, use_reload=True)
+
 
 

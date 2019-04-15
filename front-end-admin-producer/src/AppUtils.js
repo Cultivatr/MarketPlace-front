@@ -74,7 +74,7 @@ export async function modifyItemLivestock(obj) {
   } = obj;
 
   try {
-    const response = await fetch("http://localhost:5000/livestock/modify/", {
+    const response = await fetch("https://mysterious-cove-46763.herokuapp.com/livestock/modify/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -130,7 +130,7 @@ export async function modifyItemProduce(obj) {
   } = obj;
 
   try {
-    const response = await fetch("http://localhost:5000/produce/modify/", {
+    const response = await fetch("https://mysterious-cove-46763.herokuapp.com/produce/modify/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({

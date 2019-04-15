@@ -9,21 +9,25 @@ class SignIn extends Component {
     super();
     this.state = {
       isLoggedIn: false,
-      isAdmin: false
+      isAdmin: false,
     };
   }
 
   componentDidMount() {
+    this.setState({test: "test"})
     this.getUsers();
+    console.log(this.state);
   }
 
   getUsers = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/admin/users/`, {
+      const response = await fetch(`https://mysterious-cove-46763.herokuapp.com/admin/users/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       });
+      console.log(response);
       const json = await response.json();
+      console.log(json);
       await this.setState({ userList: json });
     } catch (error) {
       console.log(error);
@@ -85,7 +89,7 @@ class SignIn extends Component {
               <div className="field" />
               <div className="rememberMeAndLoginBox centeredDisplay">
                 <GoogleLogin
-                  clientId="225894951024-d2b5jugscfmfsp8fr6vd5mqhfl5si3uq.apps.googleusercontent.com"
+                  clientId="441538396161-eujcfeek91eu5r0okb7od4v9k428t0rf.apps.googleusercontent.com"
                   buttonText="Sign in with Google"
                   onSuccess={responseGoogle}
                   onFailure={responseGoogle}

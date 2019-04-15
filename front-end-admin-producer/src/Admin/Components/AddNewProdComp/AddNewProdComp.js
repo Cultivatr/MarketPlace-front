@@ -85,7 +85,7 @@ class AddNewProdComp extends Component {
       isOther
     } = this.state.data;
     document.getElementById("submitBtn").className += " loading";
-    fetch("http://localhost:5000/admin/", {
+    fetch("https://mysterious-cove-46763.herokuapp.com/admin/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({

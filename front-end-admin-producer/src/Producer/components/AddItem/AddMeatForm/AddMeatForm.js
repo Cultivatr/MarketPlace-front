@@ -80,7 +80,7 @@ class LivestockForm extends Component {
     } = this.state.data;
 
     document.getElementById("submitBtn").className += " loading";
-    fetch("http://localhost:5000/livestock/", {
+    fetch("https://mysterious-cove-46763.herokuapp.com/livestock/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
