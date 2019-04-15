@@ -20,4 +20,4 @@ autopep8 = "*"
 gunicorn = "*"
 
 [requires]
-python_version = "3.7.2"
+python_version = "3.6"
