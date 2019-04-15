@@ -26,10 +26,27 @@ logIn = (arg) => {
   }
 }
 
+redirectToProducer = () => {
+  this.setState({redirect: "/producer"});
+}
+
+redirectToAdmin = () => {
+  this.setState({redirect: "/admin"});
+}
 
 onClick = () => {
   sessionStorage.removeItem("loggedIn");
   this.setState({ isLoggedIn: false });
+}
+
+redirect = () => {
+  if(this.state.redirect === "/producer"){
+    return <Redirect to='/producer' />;
+  }else if(this.state.redirect === "/admin"){
+    return <Redirect to='/admin' />;
+  }
+  return;
+
 }
    render() {
    
@@ -38,6 +55,9 @@ onClick = () => {
          <div>
            <div className = "displayEnd">
              {loggedIn ? <a href = "/sign-out" className ="link" onClick = {this.onClick}>Sign Out</a> : null}
+             <h1 onClick = {this.redirectToProducer}>Producer</h1>
+             <h1 onClick = {this.redirectToAdmin}>Producer</h1>
+             {this.redirect()}
            </div>
             <Router>
                <div>
