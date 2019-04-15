@@ -123,12 +123,30 @@ class ProduceForm extends Component {
         <Toolbar />
         <h2>Add Produce</h2>
         <div className={styles.wrapper}>
+          <view
+            style={{
+              width: 15,
+              height: 15,
+              borderRadius: 150 / 2,
+              backgroundColor: "#1ECE88",
+              position: "relative",
+              top: "0px",
+              left: "100px"
+            }}
+          >
+            Coloured Border Indicates Required Field
+          </view>
           <div className="ui grid container">
             <form onSubmit={this.onSubmit} className="ui row form">
               <div className="eight wide column">
                 <div className="field">
                   <label>Type</label>
-                  <input onChange={this.onChange} type="text" name="type" />
+                  <input
+                    onChange={this.onChange}
+                    type="text"
+                    name="type"
+                    style={{ border: "3px solid #1ECE88" }}
+                  />
                 </div>
                 <div className="field">
                   <label>Package Type</label>
@@ -137,6 +155,7 @@ class ProduceForm extends Component {
                     name="packageType"
                     multiple=""
                     className="ui fluid dropdown"
+                    style={{ border: "3px solid #1ECE88" }}
                   >
                     <option value="">Please choose an option</option>
                     <option value="Bunch">Bunch</option>
@@ -152,6 +171,7 @@ class ProduceForm extends Component {
                     onChange={this.onChange}
                     type="date"
                     name="estCompletionDate"
+                    style={{ border: "3px solid #1ECE88" }}
                   />
                 </div>
                 <div className="field">
@@ -222,6 +242,7 @@ class ProduceForm extends Component {
                     onChange={this.onChange}
                     type="number"
                     name="estFinishedQty"
+                    style={{ border: "3px solid #1ECE88" }}
                   />
                 </div>
                 <div className="field">

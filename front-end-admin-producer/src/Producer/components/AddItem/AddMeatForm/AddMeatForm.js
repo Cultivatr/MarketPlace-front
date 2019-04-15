@@ -128,6 +128,19 @@ class LivestockForm extends Component {
         <Toolbar />
         <h2>Add Livestock</h2>
         <div className={styles.wrapper}>
+          <view
+            style={{
+              width: 15,
+              height: 15,
+              borderRadius: 150 / 2,
+              backgroundColor: "#1ECE88",
+              position: "relative",
+              top: "0px",
+              left: "100px"
+            }}
+          >
+            Coloured Border Indicates Required Field
+          </view>
           <div className="ui grid container">
             <form onSubmit={this.onSubmit} className="ui row form">
               <div className="eight wide column">
@@ -138,6 +151,7 @@ class LivestockForm extends Component {
                     name="type"
                     multiple=""
                     className="ui fluid dropdown"
+                    style={{ border: "3px solid #1ECE88" }}
                   >
                     <option value="">Please choose an option</option>
                     <option value="Pork">Pork</option>
@@ -273,6 +287,7 @@ class LivestockForm extends Component {
                     onChange={this.onChange}
                     type="date"
                     name="estCompletionDate"
+                    style={{ border: "3px solid #1ECE88" }}
                   />
                 </div>
                 <div className="field">
@@ -298,6 +313,7 @@ class LivestockForm extends Component {
                     onChange={this.onChange}
                     type="number"
                     name="quantity"
+                    style={{ border: "3px solid #1ECE88" }}
                   />
                 </div>
                 <input type="hidden" id="userId" name="userId" value="1" />

@@ -55,9 +55,8 @@ class AddNewProdComp extends Component {
     this.setState({ data: newdata });
   };
 
-  onSubmit = async e => {
+  onSubmit = e => {
     e.preventDefault();
-    let windowAlert = "pizza";
     const form = e.target;
     const {
       firstName,
@@ -86,7 +85,7 @@ class AddNewProdComp extends Component {
       isOther
     } = this.state.data;
     document.getElementById("submitBtn").className += " loading";
-    await fetch("http://localhost:5000/admin/", {
+    fetch("http://localhost:5000/admin/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -118,13 +117,20 @@ class AddNewProdComp extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        console.log("data: ", data);
+        console.log("DATA i", data[0]);
+        if (data[0] === "E") {
+          // Pop up window showing error
+          document.getElementById("submitBtn").className = "ui button";
+          this.props.errorHandler(data);
+          console.log("Error Message");
+        } else {
+          console.log("No error");
+          // refresh page and move on
+          form.reset();
+          setTimeout(() => this.props.OnClickListUsers(), 200);
+        }
       })
-      .catch(error => (windowAlert = error))
-      .then(form.reset());
-
-    setTimeout(() => this.props.OnClickListUsers(), 1000);
-    alert("error message", windowAlert);
+      .catch(error => console.log("ERROR:", error));
   };
 
   render() {
@@ -175,7 +181,7 @@ class AddNewProdComp extends Component {
           <div className="eight wide column">
             <div className={Class.field}>
               <div className="field">
-                <label>* Billing Address - Street</label>
+                <label>Billing Address - Street</label>
                 <input
                   onChange={this.onChange}
                   type="text"
@@ -303,7 +309,7 @@ class AddNewProdComp extends Component {
           <div className="eight wide column">
             <div className={Class.field}>
               <div className="field">
-                <label>* Mailing Address - Street</label>
+                <label>Mailing Address - Street</label>
                 <input
                   onChange={this.onChange}
                   type="text"

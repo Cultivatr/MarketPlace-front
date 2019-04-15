@@ -153,9 +153,6 @@ class ProductProduceDetail extends Component {
                   </td>
                 </tr>
                 <tr>
-                  {/* The variable change from datePlanted -> estCompletionDate
-                  Has not been changed throughout the code for now */}
-
                   <td>Est Completion Date</td>
                   <td className={Class.row}>
                     <div className="tableRowDateParent">

@@ -7,6 +7,7 @@ import AddNewProdComp from "./Components/AddNewProdComp/AddNewProdComp";
 import UsersComp from "./Components/UsersComp/UsersComp";
 import ItemLiveStockDetail from "./Components/ItemDetailComp/ItemLivestockDetail";
 import ItemProduceDetail from "./Components/ItemDetailComp/ItemProduceDetail";
+import ErrorModal from "../SharedComponents/ErrorModal";
 
 class Admin extends Component {
   constructor() {
@@ -34,7 +35,9 @@ class Admin extends Component {
       sold: [],
       delivered: [],
       notAccepted: [],
-      pushThroughBtnText: ""
+      pushThroughBtnText: "",
+      errorModalIsOpen: false,
+      modalErrorMessage: ""
     };
   }
 
@@ -296,6 +299,17 @@ class Admin extends Component {
   OnClickAddUser = () => {
     this.setState({ dataToShow: "addNewProd" });
   };
+  errorHandler = input => {
+    console.log("error handler was called");
+    this.setState({
+      errorModalIsOpen: true,
+      modalErrorMessage: input
+    });
+  };
+  closeErrorModal = () => {
+    console.log("Closing error Modal");
+    this.setState({ errorModalIsOpen: false });
+  };
 
   render() {
     let toShow;
@@ -393,6 +407,7 @@ class Admin extends Component {
           <AddNewProdComp
             OnClickListUsers={this.OnClickListUsers}
             refreshUsers={this.refreshUsers}
+            errorHandler={this.errorHandler}
           />
         </div>
       );
@@ -413,6 +428,11 @@ class Admin extends Component {
       <div className="App">
         <h1 className={Class.heading}>Welcome Dan!</h1>
         <main>
+          <ErrorModal
+            errorModalIsOpen={this.state.errorModalIsOpen}
+            closeErrorModal={this.closeErrorModal}
+            modalErrorMessage={this.state.modalErrorMessage}
+          />
           <ItemProduceDetail
             itemProduceDetails={this.state.itemProduceDetails}
             removeOverlay={this.removeOverlay}
