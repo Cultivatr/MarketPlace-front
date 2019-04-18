@@ -8,6 +8,9 @@ import UsersComp from "./Components/UsersComp/UsersComp";
 import ItemLiveStockDetail from "./Components/ItemDetailComp/ItemLivestockDetail";
 import ItemProduceDetail from "./Components/ItemDetailComp/ItemProduceDetail";
 import ErrorModal from "../SharedComponents/ErrorModal";
+import AdminSettings from "./Components/AdminSettings/AdminSettings";
+
+const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
 
 class Admin extends Component {
   constructor() {
@@ -63,7 +66,7 @@ class Admin extends Component {
   };
 
   loadUserData = async () => {
-    const response3 = await fetch(`https://mysterious-cove-46763.herokuapp.com/admin/users/`, {
+    const response3 = await fetch(domainLink + "/admin/users/", {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     });
@@ -71,7 +74,7 @@ class Admin extends Component {
     this.setState({ users: json3 });
   };
   loadProduceData = async () => {
-    const response = await fetch(`https://mysterious-cove-46763.herokuapp.com/produce/all/`, {
+    const response = await fetch(domainLink + "/produce/all/", {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     });
@@ -79,7 +82,7 @@ class Admin extends Component {
     this.setState({ items_produce: json });
   };
   loadLivestockData = async () => {
-    const response2 = await fetch(`https://mysterious-cove-46763.herokuapp.com/livestock/all/`, {
+    const response2 = await fetch(domainLink + "/livestock/all/", {
       method: "GET",
       headers: { "Content-Type": "application/json" }
     });
@@ -172,7 +175,7 @@ class Admin extends Component {
   pushThroughLivestock = async (id, status) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
-    await fetch("https://mysterious-cove-46763.herokuapp.com/livestock/incrementStatus/", {
+    await fetch(domainLink + "incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -187,7 +190,7 @@ class Admin extends Component {
   pushThroughProduce = async (id, status) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
-    await fetch("https://mysterious-cove-46763.herokuapp.com/produce/incrementStatus/", {
+    await fetch(domainLink + "produce/incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -240,7 +243,7 @@ class Admin extends Component {
 
   getUsers = async () => {
     try {
-      const response = await fetch(`https://mysterious-cove-46763.herokuapp.com/admin/users/`, {
+      const response = await fetch(domainLink + "/admin/users/", {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       });
@@ -298,6 +301,9 @@ class Admin extends Component {
 
   OnClickAddUser = () => {
     this.setState({ dataToShow: "addNewProd" });
+  };
+  OnClickAdminSettings = () => {
+    this.setState({ dataToShow: "adminSettings" });
   };
   errorHandler = input => {
     console.log("error handler was called");
@@ -423,6 +429,15 @@ class Admin extends Component {
           />
         </div>
       );
+    } else if (this.state.dataToShow === "adminSettings") {
+      toShow = (
+        <div className={Class.container2}>
+          <div className={Class.containerTitle}>
+            <h4>AdminSettings</h4>
+          </div>
+          <AdminSettings />
+        </div>
+      );
     }
     return (
       <div className="App">
@@ -513,6 +528,12 @@ class Admin extends Component {
                   onClick={this.OnClickAddUser}
                 >
                   Add User
+                </button>
+                <button
+                  className={Class.buttonAdmin}
+                  onClick={this.OnClickAdminSettings}
+                >
+                  Admin Settings
                 </button>
               </div>
               <div className={Class.container1}>{toShow}</div>

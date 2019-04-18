@@ -5,6 +5,8 @@ import "react-table/react-table.css";
 import { getUserDetails } from "../../../AppUtils";
 import UserDetailComp from "../UserDetailComp/UserDetailComp";
 
+const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+
 class UsersComp extends Component {
   constructor(props) {
     super();
@@ -30,7 +32,7 @@ class UsersComp extends Component {
   };
   deleteSelectedUser = userId => {
     console.log("Deleted User: ", userId);
-    fetch("https://mysterious-cove-46763.herokuapp.com/admin/users/delete/", {
+    fetch(domainLink + "/admin/users/delete/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({

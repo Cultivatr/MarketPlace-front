@@ -106,6 +106,35 @@ class Livestock(db.Model):
     delivered_to=db.Column(db.Text)
     status=db.Column(db.Text)
 
+
+class ProduceItems(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    name=db.Column(db.Text)
+
+
+@app.route('/produceItems/all', methods=['GET'])
+def get_produce_items():
+    p_items=db.session.query(ProduceItems)
+    output=[]
+    for p_item in p_items:
+        p_item_data={}
+        p_item_data['name']=p_item.name
+        output.append(p_item_data)
+
+    return jsonify({ 'produce_items': output })
+
+
+@app.route("/produceItems/add", methods=['POST'])
+def add_new_produce_item():
+    data=request.get_json()
+    print("data", data)
+    new_p_item=ProduceItems(
+    name=data.get('newType'))
+    db.session.add(new_p_item)
+    db.session.commit()
+    
+    return jsonify({'id': new_p_item.name}), 201
+
 @app.route('/', methods=['GET'])
 def hello_world():
     return 'Hello, World!'
@@ -179,21 +208,23 @@ def add_new_user():
     billing_postal_code=data.get('billingAddressPostalCode'),
     user_comments=data.get('comments')
     )
-    if not new_user.first_name: return jsonify('Error: You must provide a first name'), 400
-    if not new_user.last_name: return jsonify('Error: You must provide a last name'), 400
-    if not new_user.primary_phone: return jsonify('Error: You must provide a phone number'), 400
-    if not new_user.email: return jsonify('Error: You must provide an email'), 400
+    # if not new_user.first_name: return jsonify('Error: You must provide a first name'), 400
+    # if not new_user.last_name: return jsonify('Error: You must provide a last name'), 400
+    # if not new_user.primary_phone: return jsonify('Error: You must provide a phone number'), 400
+    # if not new_user.email: return jsonify('Error: You must provide an email'), 400
+    error_message  = []
+ 
+
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'id': new_user.id}), 201
 
-XXXX
 @app.route("/admin/users/delete/", methods=['POST'])
 def delete_user():
     data=request.get_json()
     filterId=data.get('id')
     db.session.query(Produce).filter(Produce.userId == filterId).delete()
-    db.session.query(Produce).filter(Livestock.userId == filterId).delete()
+    db.session.query(Livestock).filter(Livestock.userId == filterId).delete()
     db.session.query(Users).filter(Users.id == filterId).delete()
     db.session.commit()
     return 'Success', 201

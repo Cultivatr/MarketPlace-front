@@ -6,6 +6,8 @@ import ProductProduceDetail from "../ProductDetail/ProductProduceDetail";
 import ProductLivestockDetail from "../ProductDetail/ProductLivestockDetail";
 import Class from "./Summary.module.css";
 
+const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+
 class Summary extends Component {
   constructor() {
     super();
@@ -62,29 +64,35 @@ class Summary extends Component {
     await this.getId();
     const user1 = this.state.localId;
     try {
-      const response = await fetch(`https://mysterious-cove-46763.herokuapp.com/produce/${user1}/`, {
+      const response = await fetch(domainLink + `produce/${user1}/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       });
       const json = await response.json();
       this.setState({ items_produce: json });
-      const response2 = await fetch(
-        `https://mysterious-cove-46763.herokuapp.com/livestock/${user1}/`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" }
-        }
-      );
+      const response2 = await fetch(domainLink + `livestock/${user1}/`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      });
       const json2 = await response2.json();
       this.setState({ items_livestock: json2 });
+      ////
+      const response3 = await fetch(domainLink + `produceItems/all`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      });
+      const json3 = await response3.json();
+      this.setState({ produce_type: json3 });
     } catch (error) {
       console.log(error);
     }
     await this.createData();
+    console.log("Produce types", this.state.produce_type);
   };
 
   getId = () => {
     const tempId = JSON.parse(sessionStorage.getItem("authData")).id;
+    console.log("ID", tempId);
     this.setState({
       localId: tempId,
       userFullName: JSON.parse(sessionStorage.getItem("authData")).fullName

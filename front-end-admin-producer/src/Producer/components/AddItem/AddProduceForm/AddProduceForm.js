@@ -4,6 +4,8 @@ import Button from "../../../../SharedComponents/UI/Button";
 import styles from "./AddProduceForm.module.css";
 import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
 
+const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+
 class ProduceForm extends Component {
   // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!
   state = {
@@ -28,7 +30,19 @@ class ProduceForm extends Component {
       deliveredDate: "0001-01-01",
       comments: "",
       status: "Pending Approval"
-    }
+    },
+    produceListItems: []
+  };
+  componentDidMount = () => {
+    const pItems = ["Apple", "Orange", "Pizza"];
+    var pList = document.getElementById("produceItems1");
+    pItems.forEach(item => {
+      let indiv = item;
+      let element = document.createElement("option");
+      // element.textContent = indiv;
+      element.value = indiv;
+      pList.appendChild(element);
+    });
   };
 
   camelCaseString = (string, type) => {
@@ -77,7 +91,7 @@ class ProduceForm extends Component {
     console.log("INCOMING DATA: ", this.state.data);
 
     document.getElementById("submitBtn").className += " loading";
-    fetch("https://mysterious-cove-46763.herokuapp.com/produce/", {
+    fetch(domainLink + "produce/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -141,12 +155,15 @@ class ProduceForm extends Component {
               <div className="eight wide column">
                 <div className="field">
                   <label>Type</label>
-                  <input
+                  <select
                     onChange={this.onChange}
                     type="text"
                     name="type"
+                    id="produceItems1"
                     style={{ border: "3px solid #1ECE88" }}
-                  />
+                  >
+                    <option>Select Produce Item</option>
+                  </select>
                 </div>
                 <div className="field">
                   <label>Package Type</label>

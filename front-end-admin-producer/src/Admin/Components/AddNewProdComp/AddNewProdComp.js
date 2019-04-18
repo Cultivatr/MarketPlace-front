@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Class from "./AddNewProdComp.module.css";
 import Button from "../../../SharedComponents/UI/Button";
 
+const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
 class AddNewProdComp extends Component {
   state = {
     data: {
@@ -85,7 +86,7 @@ class AddNewProdComp extends Component {
       isOther
     } = this.state.data;
     document.getElementById("submitBtn").className += " loading";
-    fetch("https://mysterious-cove-46763.herokuapp.com/admin/", {
+    fetch(domainLink + "/admin/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({

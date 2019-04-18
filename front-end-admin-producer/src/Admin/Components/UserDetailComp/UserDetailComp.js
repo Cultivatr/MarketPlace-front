@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Class from "./userDetailComp.module.css";
 import "./userDetailComp.css";
 
+const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+
 class UserDetailComp extends Component {
   constructor(props) {
     super(props);
@@ -58,7 +60,7 @@ class UserDetailComp extends Component {
       isOther
     } = this.state.data;
     try {
-      const response = await fetch("https://mysterious-cove-46763.herokuapp.com/admin/updateUsers/", {
+      const response = await fetch(domainLink + "/admin/updateUsers/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
