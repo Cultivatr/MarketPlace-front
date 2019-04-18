@@ -4,6 +4,8 @@ import "./SignIn.css";
 // import GoogleAuth from '../GoogleAuth';
 import GoogleLogin from "react-google-login";
 
+const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+
 class SignIn extends Component {
   constructor() {
     super();
@@ -21,13 +23,10 @@ class SignIn extends Component {
 
   getUsers = async () => {
     try {
-      const response = await fetch(
-        `https://mysterious-cove-46763.herokuapp.com/admin/users/`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" }
-        }
-      );
+      const response = await fetch(domainLink + "/admin/users/", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      });
       console.log(response);
       const json = await response.json();
       console.log(json);
@@ -35,6 +34,21 @@ class SignIn extends Component {
     } catch (error) {
       console.log(error);
     }
+  };
+  testingButton = () => {
+    console.log("test button clicked");
+    const logInData = {
+      name: "joe",
+      email: "byrondaniels@gmail.com",
+      id: 1,
+      admin: true,
+      fullName: "Test User"
+    };
+    sessionStorage.setItem("authData", JSON.stringify(logInData));
+    sessionStorage.setItem("loggedIn", true);
+    sessionStorage.setItem("adminAuth", true);
+    this.setState({ isLoggedIn: true, admin: true });
+    this.props.logInToken(true);
   };
 
   logIn(res) {
@@ -91,6 +105,8 @@ class SignIn extends Component {
             <form className="ui form">
               <div className="field" />
               <div className="rememberMeAndLoginBox centeredDisplay">
+                {/* TO BE REMOVED AFTER TESTING COMPLETE */}
+                <div onClick={this.testingButton}>Enter Testing Mode</div>
                 <GoogleLogin
                   clientId="441538396161-n36t34tefa1n3vpd0rfrigm8688d3uat.apps.googleusercontent.com"
                   buttonText="Sign in with Google"
