@@ -1,6 +1,7 @@
 import React from "react";
 import matchSorter from "match-sorter";
 import ReactTable from "react-table";
+import "./ContainerDashboard.css";
 import "react-table/react-table.css";
 
 class ContainerDashboard extends React.Component {
@@ -90,14 +91,14 @@ class ContainerDashboard extends React.Component {
                   width: 100,
                   accessor: d => (
                     <span
-                      className="detail-button"
+                      className="detail-button-container"
                       style={{
                         cursor: "pointer",
                         fontSize: 10,
                         border: "1px solid black",
                         borderRadius: "25px",
                         padding: "5px 5px",
-                        margin: "5px 0px 5px 0px",
+                        margin: "3px 0px 3px 0px",
                         textAlign: "center",
                         userSelect: "none"
                       }}

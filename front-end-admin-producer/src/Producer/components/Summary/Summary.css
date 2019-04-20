@@ -1,0 +1,8 @@
+.detail-button {
+  background-color: #73e9a2;
+  position: relative;
+  right: -5px;
+}
+.detail-button:hover {
+  background-color: #16af54;
+}

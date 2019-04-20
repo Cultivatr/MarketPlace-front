@@ -5,9 +5,10 @@ import { getItemDetails } from "../../../AppUtils";
 import ProductProduceDetail from "../ProductDetail/ProductProduceDetail";
 import ProductLivestockDetail from "../ProductDetail/ProductLivestockDetail";
 import Class from "./Summary.module.css";
+import "./Summary.css";
 
 const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
-
+const domainLink2 = "http://localhost:5000/";
 class Summary extends Component {
   constructor() {
     super();
@@ -77,7 +78,7 @@ class Summary extends Component {
       const json2 = await response2.json();
       this.setState({ items_livestock: json2 });
       ////
-      const response3 = await fetch(domainLink + `produceItems/all`, {
+      const response3 = await fetch(domainLink2 + `produceItems/all/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       });
@@ -107,9 +108,19 @@ class Summary extends Component {
         this.state.items_livestock.length > 0
       ) {
         for (i = 0; i < this.state.items_produce.length; i++) {
+          this.state.items_produce[
+            i
+          ].estCompletionDate = this.state.items_produce[
+            i
+          ].estCompletionDate.slice(0, 16);
           this.data.push(this.state.items_produce[i]);
         }
         for (i = 0; i < this.state.items_livestock.length; i++) {
+          this.state.items_livestock[
+            i
+          ].estCompletionDate = this.state.items_livestock[
+            i
+          ].estCompletionDate.slice(0, 16);
           this.data.push(this.state.items_livestock[i]);
         }
       } else {
@@ -220,9 +231,19 @@ class Summary extends Component {
                   width: 75,
                   accessor: d => (
                     <span
-                      className={Class.detailButton}
+                      className="detail-button"
+                      style={{
+                        cursor: "pointer",
+                        fontSize: 10,
+                        border: "1px solid black",
+                        borderRadius: "25px",
+                        padding: "5px 5px",
+                        margin: "3px 0px 3px 0px",
+                        textAlign: "center",
+                        userSelect: "none"
+                      }}
                       id={d.id}
-                      onClick={this.getItemObj}
+                      onClick={this.props.itemObj}
                     >
                       Details
                     </span>
