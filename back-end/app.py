@@ -70,6 +70,9 @@ class Produce(db.Model):
     qty_accepted_at_delivery=db.Column(db.Integer)
     chargebacks=db.Column(db.Integer)
     price_paid=db.Column(db.Integer)
+    created_date=db.Column(db.Date)
+    accepted_date=db.Column(db.Date)
+    sold_date=db.Column(db.Date)
     delivered_date=db.Column(db.Date)
     delivered_to=db.Column(db.Text)
     comments=db.Column(db.Text)
@@ -102,6 +105,9 @@ class Livestock(db.Model):
     quantity=db.Column(db.Integer)
     comments=db.Column(db.Text)
     price_paid=db.Column(db.Integer)
+    created_date=db.Column(db.Date)
+    accepted_date=db.Column(db.Date)
+    sold_date=db.Column(db.Date)
     delivered_date=db.Column(db.Date)
     delivered_to=db.Column(db.Text)
     status=db.Column(db.Text)
@@ -109,31 +115,41 @@ class Livestock(db.Model):
 
 class ProduceItems(db.Model):
     id=db.Column(db.Integer, primary_key=True)
-    name=db.Column(db.Text)
+    item=db.Column(db.Text)
 
 
-@app.route('/produceItems/all', methods=['GET'])
-def get_produce_items():
+@app.route('/produceItems/all/', methods=['GET'])
+def get_indiv_produce_items():
     p_items=db.session.query(ProduceItems)
     output=[]
     for p_item in p_items:
         p_item_data={}
-        p_item_data['name']=p_item.name
+        p_item_data['newItem']=p_item.item
         output.append(p_item_data)
 
     return jsonify({ 'produce_items': output })
 
 
-@app.route("/produceItems/add", methods=['POST'])
+@app.route("/produceItems/add/", methods=['POST'])
 def add_new_produce_item():
     data=request.get_json()
     print("data", data)
     new_p_item=ProduceItems(
-    name=data.get('newType'))
+    item=data.get('newItem'))
     db.session.add(new_p_item)
     db.session.commit()
     
-    return jsonify({'id': new_p_item.name}), 201
+    return jsonify({'name': new_p_item.item}), 201
+
+@app.route("/produceItems/delete/", methods=['POST'])
+def delete_produce_selection_item():
+    data=request.get_json()
+    filterId=data.get('itemToDelete')
+    print("ID",filterId)
+    print("items", db.session.query(ProduceItems).filter(ProduceItems.item == filterId))
+    db.session.query(ProduceItems).filter(ProduceItems.item == filterId).delete()
+    db.session.commit()
+    return 'Success', 201
 
 @app.route('/', methods=['GET'])
 def hello_world():
@@ -180,7 +196,7 @@ def get_users():
 @app.route("/admin/", methods=['POST'])
 def add_new_user():
     data=request.get_json()
-    print("data", data)
+    print("date incominging", datetime.today())
     new_user=Users(
     first_name=data.get('firstName'),
     last_name=data.get('lastName'),
@@ -243,8 +259,10 @@ def modify_user():
     userToUpdate.farm_location=data.get('farmLocation'),
     userToUpdate.area=data.get('area'),
     userToUpdate.is_admin=data.get('isAdmin')
-    # if(not data.get('isAdmin')):
-    #     userToUpdate.is_admin=0   
+    if(not data.get('isAdmin')):
+        userToUpdate.is_admin=0   
+    if(data.get('isAdmin')):
+        userToUpdate.is_admin=1 
     # if(data.get('isProducer')):
     #     userToUpdate.is_admin=1
     #     print("Admin changed", userToUpdate.is_admin)
@@ -342,7 +360,7 @@ def livestock_get_all():
         item_livestock_data['status']=item_livestock.status
         output.append(item_livestock_data)
 
-    return jsonify(output)
+    return jsonify({ 'livestock': output })
 
 @app.route('/livestock/<user1>/', methods=['GET'])
 def livestock_get_user(user1):
@@ -378,7 +396,7 @@ def livestock_get_user(user1):
         item_livestock_data['status']=item_livestock.status
         output.append(item_livestock_data)
 
-    return jsonify(output)
+    return jsonify({ 'livestock': output })
 
 
 @app.route("/livestock/modify/", methods=['POST'])
@@ -389,7 +407,10 @@ def modify_lifestock():
     livestock_to_update= db.session.query(Livestock).filter(Livestock.id == filterId).first()
     livestock_to_update.product_name=data.get('type'),
     livestock_to_update.breed=data.get('breed'),
-    # livestock_to_update.single_brand=data.get('singleBrand'),
+    if(not data.get('singleBrand')):
+            livestock_to_update.single_brand=0   
+    if(data.get('singleBrand')):
+            livestock_to_update.single_brand=1 ,
     livestock_to_update.est_birthdate=data.get('birthdate'),
     livestock_to_update.registration_number=data.get('regNumber'),
     livestock_to_update.rfid_tag=data.get('rfid'),
@@ -410,16 +431,7 @@ def modify_lifestock():
     livestock_to_update.delivered_to=data.get('deliveredTo'),
     db.session.commit()
     return 'Success', 201  
-
-
-
-@app.route("/livestock/update/", methods=['POST'])
-def modify_livestock():
-    data=request.get_json()
-    filterId=data.get('id') 
-    print("LIVESTOCK: ",filterId)
-    db.session.commit()
-    return 'Success', 201    
+ 
 
 
 @app.route('/produce/all/', methods=['GET'])
@@ -453,7 +465,7 @@ def produce_get_all():
         item_produce_data['status']=item_produce.status
         output.append(item_produce_data)
 
-    return jsonify(output)
+    return jsonify({ 'produce': output })
 
 
 @app.route('/produce/<user1>/', methods=['GET'])
@@ -488,7 +500,7 @@ def produce_get_user(user1):
         item_produce_data['status']=item_produce.status
         output.append(item_produce_data)
 
-    return jsonify(output)
+    return jsonify({ 'produce': output })
     
 @app.route("/produce/", methods=['POST'])
 def add_produce_items():
