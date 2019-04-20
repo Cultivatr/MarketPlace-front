@@ -5,7 +5,7 @@ import styles from "./AddProduceForm.module.css";
 import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
 
 const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
-
+const domainLink2 = "http://localhost:5000/";
 class ProduceForm extends Component {
   // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!
   state = {
@@ -33,16 +33,26 @@ class ProduceForm extends Component {
     },
     produceListItems: []
   };
-  componentDidMount = () => {
-    const pItems = ["Apple", "Orange", "Pizza"];
+  componentDidMount = async () => {
+    const responseProduceItems = await fetch(
+      domainLink2 + `produceItems/all/`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      }
+    );
+    const json = await responseProduceItems.json();
+    const pItems = json;
     var pList = document.getElementById("produceItems1");
-    pItems.forEach(item => {
-      let indiv = item;
-      let element = document.createElement("option");
-      // element.textContent = indiv;
-      element.value = indiv;
-      pList.appendChild(element);
-    });
+    if (pItems) {
+      await pItems.produce_items.forEach(item => {
+        let indiv = item.newItem;
+        let element = document.createElement("option");
+        element.textContent = indiv;
+        element.value = indiv;
+        pList.appendChild(element);
+      });
+    }
   };
 
   camelCaseString = (string, type) => {

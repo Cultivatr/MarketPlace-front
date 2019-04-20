@@ -98,9 +98,19 @@ class Admin extends Component {
         this.state.items_livestock.length > 0
       ) {
         for (let i = 0; i < this.state.items_produce.length; i++) {
+          this.state.items_produce[
+            i
+          ].estCompletionDate = this.state.items_produce[
+            i
+          ].estCompletionDate.slice(0, 16);
           this.data.push(this.state.items_produce[i]);
         }
         for (let i = 0; i < this.state.items_livestock.length; i++) {
+          this.state.items_livestock[
+            i
+          ].estCompletionDate = this.state.items_livestock[
+            i
+          ].estCompletionDate.slice(0, 16);
           this.data.push(this.state.items_livestock[i]);
         }
 
