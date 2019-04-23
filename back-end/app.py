@@ -56,7 +56,7 @@ class Produce(db.Model):
     )
     product_name=db.Column(db.Text)
     package_type=db.Column(db.Text)
-    package_size=db.Column(db.Integer)
+    package_size=db.Column(db.Text)
     package_size_unit=db.Column(db.Integer)
     est_completion_date=db.Column(db.Date)
     seed_type=db.Column(db.Text)
