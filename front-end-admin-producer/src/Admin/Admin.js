@@ -10,7 +10,8 @@ import ItemProduceDetail from "./Components/ItemDetailComp/ItemProduceDetail";
 import ErrorModal from "../SharedComponents/ErrorModal";
 import AdminSettings from "./Components/AdminSettings/AdminSettings";
 
-const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+// const domainLink = "http://localhost:5000";
+const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
 
 class Admin extends Component {
   constructor() {
@@ -54,11 +55,10 @@ class Admin extends Component {
       await this.loadUserData();
       await this.loadProduceData();
       await this.loadLivestockData();
+      await this.createData();
     } catch (error) {
       console.log("Admin Error", error);
     }
-
-    await this.createData();
 
     console.log("USERS:", this.state.users);
     console.log("PRODUCE:", this.state.items_produce);
@@ -92,28 +92,21 @@ class Admin extends Component {
 
   createData = async () => {
     this.data.length = 0;
-    if (this.state.items_produce || this.state.items_livestock) {
+    console.log("produce", this.state.items_produce);
+    if (
+      this.state.items_produce.produce ||
+      this.state.items_livestock.livestock
+    ) {
       if (
-        this.state.items_produce.length > 0 ||
-        this.state.items_livestock.length > 0
+        this.state.items_produce.produce.length > 0 ||
+        this.state.items_livestock.livestock.length > 0
       ) {
-        for (let i = 0; i < this.state.items_produce.length; i++) {
-          this.state.items_produce[
-            i
-          ].estCompletionDate = this.state.items_produce[
-            i
-          ].estCompletionDate.slice(0, 16);
-          this.data.push(this.state.items_produce[i]);
+        for (let i = 0; i < this.state.items_produce.produce.length; i++) {
+          this.data.push(this.state.items_produce.produce[i]);
         }
-        for (let i = 0; i < this.state.items_livestock.length; i++) {
-          this.state.items_livestock[
-            i
-          ].estCompletionDate = this.state.items_livestock[
-            i
-          ].estCompletionDate.slice(0, 16);
-          this.data.push(this.state.items_livestock[i]);
+        for (let i = 0; i < this.state.items_livestock.livestock.length; i++) {
+          this.data.push(this.state.items_livestock.livestock[i]);
         }
-
         for (let i = 0; i < this.data.length; i++) {
           const temp = this.state.users.users.filter(
             user => user.id === this.data[i].userId

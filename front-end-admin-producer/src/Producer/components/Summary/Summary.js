@@ -8,7 +8,7 @@ import Class from "./Summary.module.css";
 import "./Summary.css";
 
 const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
-const domainLink2 = "http://localhost:5000/";
+// const domainLink = "http://localhost:5000/";
 class Summary extends Component {
   constructor() {
     super();
@@ -70,6 +70,7 @@ class Summary extends Component {
         headers: { "Content-Type": "application/json" }
       });
       const json = await response.json();
+      console.log("produce:", json);
       this.setState({ items_produce: json });
       const response2 = await fetch(domainLink + `livestock/${user1}/`, {
         method: "GET",
@@ -78,7 +79,7 @@ class Summary extends Component {
       const json2 = await response2.json();
       this.setState({ items_livestock: json2 });
       ////
-      const response3 = await fetch(domainLink2 + `produceItems/all/`, {
+      const response3 = await fetch(domainLink + `produceItems/all/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       });
@@ -104,24 +105,14 @@ class Summary extends Component {
     let i;
     if (this.state.items_produce || this.state.items_livestock) {
       if (
-        this.state.items_produce.length > 0 ||
-        this.state.items_livestock.length > 0
+        this.state.items_produce.produce.length > 0 ||
+        this.state.items_livestock.livestock.length > 0
       ) {
-        for (i = 0; i < this.state.items_produce.length; i++) {
-          this.state.items_produce[
-            i
-          ].estCompletionDate = this.state.items_produce[
-            i
-          ].estCompletionDate.slice(0, 16);
-          this.data.push(this.state.items_produce[i]);
+        for (i = 0; i < this.state.items_produce.produce.length; i++) {
+          this.data.push(this.state.items_produce.produce[i]);
         }
-        for (i = 0; i < this.state.items_livestock.length; i++) {
-          this.state.items_livestock[
-            i
-          ].estCompletionDate = this.state.items_livestock[
-            i
-          ].estCompletionDate.slice(0, 16);
-          this.data.push(this.state.items_livestock[i]);
+        for (i = 0; i < this.state.items_livestock.livestock.length; i++) {
+          this.data.push(this.state.items_livestock.livestock[i]);
         }
       } else {
         this.setState({ data: this.data });

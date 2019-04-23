@@ -23,7 +23,7 @@ class SignIn extends Component {
 
   getUsers = async () => {
     try {
-      const response = await fetch(domainLink + "/admin/users/", {
+      const response = await fetch(domainLink + "admin/users/", {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       });

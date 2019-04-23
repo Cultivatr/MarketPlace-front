@@ -367,6 +367,7 @@ def livestock_get_all():
 @app.route('/livestock/<user1>/', methods=['GET'])
 def livestock_get_user(user1):
     user_id=user1
+
     livestock=db.session.query(Livestock).filter(Livestock.user_id==user_id).all()
     output=[]
     for item_livestock in livestock:
@@ -475,17 +476,20 @@ def produce_get_all():
 @app.route('/produce/<user1>/', methods=['GET'])
 def produce_get_user(user1):
     user_id=user1
+    print("USER ID",user_id)
     produce=db.session.query(Produce).filter(Produce.user_id == user_id).all()
+    print("PRODUCE:",produce)
     output=[]
     for item_produce in produce:
+        print("IN FOR LOOP")
         item_produce_data={}
         x=item_produce.id
         item_produce_data['id']="P-%s"%(x)
         item_produce_data['userId']=item_produce.user_id
         item_produce_data['type']=item_produce.product_name
         item_produce_data['packageType']=item_produce.package_type
-        item_produce_data['packageSize']=item_produce_data.package_size
-        item_produce_data['packageSizeUnit']=item_produce_data.package_size_unit
+        item_produce_data['packageSize']=item_produce.package_size
+        item_produce_data['packageSizeUnit']=item_produce.package_size_unit
         item_produce_data['estCompletionDate']=item_produce.est_completion_date
         item_produce_data['seedType']=item_produce.seed_type
         item_produce_data['modifiedSeed']=item_produce.modified_seed
