@@ -56,6 +56,8 @@ class Produce(db.Model):
     )
     product_name=db.Column(db.Text)
     package_type=db.Column(db.Text)
+    package_size=db.Column(db.Integer)
+    package_size_unit=db.Column(db.Integer)
     est_completion_date=db.Column(db.Date)
     seed_type=db.Column(db.Text)
     modified_seed=db.Column(db.Text)
@@ -63,7 +65,7 @@ class Produce(db.Model):
     fertilizer_type_used=db.Column(db.Text)
     pesticide_type_used=db.Column(db.Text)
     estimated_qty_planted=db.Column(db.Integer)
-    gmo=db.Column(db.Text)
+    certified_organic=db.Column(db.Text)
     estimated_finished_qty=db.Column(db.Integer)
     est_price_to_be_paid=db.Column(db.Integer)
     qty_accepted_for_listing=db.Column(db.Integer)
@@ -115,7 +117,7 @@ class Livestock(db.Model):
 
 class ProduceItems(db.Model):
     id=db.Column(db.Integer, primary_key=True)
-    item=db.Column(db.Text)
+    item=db.Column(db.Text )
 
 
 @app.route('/produceItems/all/', methods=['GET'])
@@ -445,6 +447,8 @@ def produce_get_all():
         item_produce_data['userId']=item_produce.user_id
         item_produce_data['type']=item_produce.product_name
         item_produce_data['packageType']=item_produce.package_type
+        item_produce_data['packageSize']=item_produce.package_size
+        item_produce_data['packageSizeUnit']=item_produce.package_size_unit
         item_produce_data['estCompletionDate']=item_produce.est_completion_date
         item_produce_data['seedType']=item_produce.seed_type
         item_produce_data['modifiedSeed']=item_produce.modified_seed
@@ -452,7 +456,7 @@ def produce_get_all():
         item_produce_data['fertilizerTypeUsed']=item_produce.fertilizer_type_used
         item_produce_data['pesticideTypeUsed']=item_produce.pesticide_type_used
         item_produce_data['estQuantityPlanted']=item_produce.estimated_qty_planted
-        item_produce_data['gmo']=item_produce.gmo
+        item_produce_data['certifiedOrganic']=item_produce.certified_organic
         item_produce_data['estFinishedQty']=item_produce.estimated_finished_qty
         item_produce_data['estPrice']=item_produce.est_price_to_be_paid
         item_produce_data['qtyAcceptedForListing']=item_produce.qty_accepted_for_listing
@@ -480,6 +484,8 @@ def produce_get_user(user1):
         item_produce_data['userId']=item_produce.user_id
         item_produce_data['type']=item_produce.product_name
         item_produce_data['packageType']=item_produce.package_type
+        item_produce_data[]=item_produce_data.package_size
+        item_produce_data[]=item_produce_data.package_size_unit
         item_produce_data['estCompletionDate']=item_produce.est_completion_date
         item_produce_data['seedType']=item_produce.seed_type
         item_produce_data['modifiedSeed']=item_produce.modified_seed
@@ -487,7 +493,7 @@ def produce_get_user(user1):
         item_produce_data['fertilizerTypeUsed']=item_produce.fertilizer_type_used
         item_produce_data['pesticideTypeUsed']=item_produce.pesticide_type_used
         item_produce_data['estQuantityPlanted']=item_produce.estimated_qty_planted
-        item_produce_data['gmo']=item_produce.gmo
+        item_produce_data['certifiedOrganic']=item_produce.certified_organic
         item_produce_data['estFinishedQty']=item_produce.estimated_finished_qty
         item_produce_data['estPrice']=item_produce.est_price_to_be_paid
         item_produce_data['qtyAcceptedForListing']=item_produce.qty_accepted_for_listing
@@ -510,6 +516,8 @@ def add_produce_items():
     user_id=data.get('userId'),
     product_name=data.get('type'),
     package_type=data.get('packageType'),
+    package_size=data.get(),
+    package_size_unit=data.get(),
     est_completion_date=data.get('estCompletionDate'),
     seed_type=data.get('seedType'),
     modified_seed=data.get('modifiedSeed'),
@@ -517,7 +525,7 @@ def add_produce_items():
     fertilizer_type_used=data.get('fertilizerTypeUsed'),
     pesticide_type_used=data.get('pesticideTypeUsed'),
     estimated_qty_planted=data.get('estQuantityPlanted'),
-    gmo=data.get('gmo'),
+    certified_organic=data.get('certifiedOrganic'),
     estimated_finished_qty=data.get('estFinishedQty'),
     est_price_to_be_paid=data.get('estPrice'),
     qty_accepted_for_listing=data.get('qtyAcceptedForListing'),
@@ -541,6 +549,8 @@ def modify_produce():
     produce_to_update = db.session.query(Produce).filter(Produce.id == filterId).first()
     produce_to_update.product_name=data.get('type'),
     produce_to_update.package_type=data.get('packageType'),
+    produce_to_update.package_size=data.get('packageSize'),
+    produce_to_update.package_size_unit=data.get('packageSizeUnit'),
     produce_to_update.est_completion_date=data.get('estCompletionDate'),
     produce_to_update.seed_type=data.get('seedType'),
     produce_to_update.modified_seed=data.get('modifiedSeed'),
@@ -548,7 +558,7 @@ def modify_produce():
     produce_to_update.fertilizer_type_used=data.get('fertilizerTypeUsed'),
     produce_to_update.pesticide_type_used=data.get('pesticideTypeUsed'),
     produce_to_update.estimated_qty_planted=data.get('estQuantityPlanted'),
-    produce_to_update.gmo=data.get('gmo'),
+    produce_to_update.certified_organic=data.get('certifiedOrganic'),
     produce_to_update.estimated_finished_qty=data.get('estFinishedQty'),
     produce_to_update.est_price_to_be_paid=data.get('estPrice'),
     produce_to_update.qty_accepted_for_listing=data.get('qtyAcceptedForListing'),
