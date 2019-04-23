@@ -1,14 +1,13 @@
 button {
-   padding: 8px 30px !important ; 
-   background: #1ECE88 !important ;
-   color: #fff !important ;
-   outline: none !important ;
-   border: none !important ;
-   border-radius: 4px !important ;
-   margin-top: 10px !important ;
-   margin-left: 1rem !important ;
-   cursor: pointer !important ;
-
+  padding: 8px 30px !important ;
+  background: #1ece88 !important ;
+  color: #fff !important ;
+  outline: none !important ;
+  border: none !important ;
+  border-radius: 4px !important ;
+  margin-top: 10px !important ;
+  margin-left: 1rem !important ;
+  cursor: pointer !important ;
 }
 button:hover {
   background-color: #60bd3c !important ;

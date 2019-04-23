@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Admin from "./Admin/Admin";
 import Producer from "./Producer/Producer";
 import SignIn from "./SharedComponents/SignIn";
-import SignOut from "./SharedComponents/SignOut";
+// import SignOut from "./SharedComponents/SignOut";
 import PrivateRoute from "./SharedComponents/PrivateRoute";
 import AdminRoute from "./SharedComponents/AdminRoute";
 import AddMeatForm from "./Producer/components/AddItem/AddMeatForm/AddMeatForm";
@@ -92,7 +92,7 @@ class App extends Component {
                 component={AddProduceForm}
                 exact
               />
-              <Route path="/contact-us" exact component={ContactUs} exact />
+              <Route path="/contact-us" exact component={ContactUs} />
               {/* <Route path="/sign-out" component={SignOut} /> */}
             </div>
           </div>

@@ -46,3 +46,13 @@
   z-index: 100;
   color: black;
 }
+
+.qty-dropdown {
+  width: 140px !important;
+}
+.qty-container {
+  display: flex;
+}
+.qty-form {
+  width: 152px !important;
+}

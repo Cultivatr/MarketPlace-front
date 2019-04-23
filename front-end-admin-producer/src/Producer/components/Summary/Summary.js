@@ -243,7 +243,7 @@ class Summary extends Component {
                         userSelect: "none"
                       }}
                       id={d.id}
-                      onClick={this.props.itemObj}
+                      onClick={this.getItemObj}
                     >
                       Details
                     </span>

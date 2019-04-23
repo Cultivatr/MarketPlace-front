@@ -92,7 +92,7 @@ class UserDetailComp extends Component {
         })
       });
       const json = await response.json();
-      //console.log(json);
+      console.log(json);
     } catch (error) {
       console.log(error);
     }
