@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from "react";
 import "./AddProduceForm.module.css";
+import "../../../../SharedComponents/UI/react-datepicker.css";
 import Button from "../../../../SharedComponents/UI/Button";
 import styles from "./AddProduceForm.module.css";
 import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
-
+import DatePicker from "react-datepicker";
+import "../../../../SharedComponents/miscStyles.css";
 const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
 const domainLink2 = "http://localhost:5000/";
 class ProduceForm extends Component {
@@ -12,6 +14,8 @@ class ProduceForm extends Component {
     data: {
       type: "",
       packageType: "",
+      packageSize: 0,
+      packageSizeUnit: "",
       estCompletionDate: "0001-01-01",
       seedType: "",
       modifiedSeed: false,
@@ -19,7 +23,7 @@ class ProduceForm extends Component {
       fertilizerTypeUsed: "",
       pesticideTypeUsed: "",
       estQuantityPlanted: 0,
-      gmo: false,
+      certifiedOrganic: false,
       estFinishedQty: 0,
       estPrice: 0,
       qtyAcceptedForListing: 0,
@@ -31,9 +35,12 @@ class ProduceForm extends Component {
       comments: "",
       status: "Pending Approval"
     },
-    produceListItems: []
+    estCompletionDate: "",
+    produceListItems: [],
+    addedThisSession: 0
   };
-  componentDidMount = async () => {
+
+  componentWillMount = async () => {
     const responseProduceItems = await fetch(
       domainLink2 + `produceItems/all/`,
       {
@@ -43,8 +50,8 @@ class ProduceForm extends Component {
     );
     const json = await responseProduceItems.json();
     const pItems = json;
-    var pList = document.getElementById("produceItems1");
     if (pItems) {
+      var pList = document.getElementById("produceItems1");
       await pItems.produce_items.forEach(item => {
         let indiv = item.newItem;
         let element = document.createElement("option");
@@ -72,6 +79,9 @@ class ProduceForm extends Component {
     this.setState({ data: newdata });
     console.log("Data", newdata);
   };
+  onCompDateChange = date => {
+    this.setState({ estCompletionDate: date });
+  };
 
   onSubmit = e => {
     e.preventDefault();
@@ -79,14 +89,15 @@ class ProduceForm extends Component {
     const {
       type,
       packageType,
-      estCompletionDate,
+      packageSize,
+      packageSizeUnit,
       seedType,
       modifiedSeed,
       heirloom,
       fertilizerTypeUsed,
       pesticideTypeUsed,
       estQuantityPlanted,
-      gmo,
+      certifiedOrganic,
       estFinishedQty,
       estPrice,
       qtyAcceptedForListing,
@@ -98,6 +109,7 @@ class ProduceForm extends Component {
       comments,
       status
     } = this.state.data;
+    const estCompletionDate = this.state.estCompletionDate;
     console.log("INCOMING DATA: ", this.state.data);
 
     document.getElementById("submitBtn").className += " loading";
@@ -108,6 +120,8 @@ class ProduceForm extends Component {
         userId: JSON.parse(sessionStorage.getItem("authData")).id,
         type: type,
         packageType: packageType,
+        packageSize: packageSize,
+        packageSizeUnit: packageSizeUnit,
         estCompletionDate: estCompletionDate,
         seedType: seedType,
         modifiedSeed: modifiedSeed,
@@ -115,7 +129,7 @@ class ProduceForm extends Component {
         fertilizerTypeUsed: fertilizerTypeUsed,
         pesticideTypeUsed: pesticideTypeUsed,
         estQuantityPlanted: estQuantityPlanted,
-        gmo: gmo,
+        certifiedOrganic: certifiedOrganic,
         estFinishedQty: estFinishedQty,
         estPrice: estPrice,
         qtyAcceptedForListing: qtyAcceptedForListing,
@@ -139,6 +153,7 @@ class ProduceForm extends Component {
         }, 1000)
       )
       .catch(error => console.log(error));
+    this.setState({ addedThisSession: this.state.addedThisSession + 1 });
   };
 
   render() {
@@ -190,16 +205,40 @@ class ProduceForm extends Component {
                     <option value="Bag">Bag</option>
                   </select>
                 </div>
+                <div className="field size-container">
+                  <label>Package Size</label>
+                  <div className="qty-container">
+                    <input
+                      onChange={this.onChange}
+                      type="text"
+                      name="packageSize"
+                      className="qty-form"
+                    />
+                    <select
+                      onChange={this.onChange}
+                      name="packageSizeUnit"
+                      multiple=""
+                      className="ui fluid dropdown qty-dropdown"
+                    >
+                      <option value="Pounds">Pounds</option>
+                      <option value="Grams">Grams</option>
+                    </select>
+                  </div>
+                </div>
+
                 <div className="field">
-                  {/* The variable change from datePlanted -> estCompletionDate
-                  Has not been changed throughout the code for now */}
                   <label>Est Completion Date</label>
-                  <input
-                    onChange={this.onChange}
-                    type="date"
-                    name="estCompletionDate"
-                    style={{ border: "3px solid #1ECE88" }}
-                  />
+                  <div
+                    className="dpicker"
+                    style={{ border: "3px solid #1ECE88", width: "150px" }}
+                  >
+                    <DatePicker
+                      name="estCompletionDate"
+                      onChange={this.onCompDateChange}
+                      dateFormat="YYYY-MM-dd"
+                      selected={this.state.estCompletionDate}
+                    />
+                  </div>
                 </div>
                 <div className="field">
                   <label>Seed Type</label>
@@ -251,10 +290,10 @@ class ProduceForm extends Component {
                   />
                 </div>
                 <div className="field">
-                  <label>GMO</label>
+                  <label>Certified Organic</label>
                   <select
                     onChange={this.onChange}
-                    name="gmo"
+                    name="certifiedOrganic"
                     multiple=""
                     className="ui fluid dropdown"
                   >
@@ -270,14 +309,6 @@ class ProduceForm extends Component {
                     type="number"
                     name="estFinishedQty"
                     style={{ border: "3px solid #1ECE88" }}
-                  />
-                </div>
-                <div className="field">
-                  <label>Est Price</label>
-                  <input
-                    onChange={this.onChange}
-                    type="number"
-                    name="estPrice"
                   />
                 </div>
                 <div className="field">
@@ -306,6 +337,10 @@ class ProduceForm extends Component {
               </div>
               <Button>Add</Button>
             </form>
+            <strong>
+              {" "}
+              # of Produce Items Added: {this.state.addedThisSession}
+            </strong>
           </div>
         </div>
       </Fragment>

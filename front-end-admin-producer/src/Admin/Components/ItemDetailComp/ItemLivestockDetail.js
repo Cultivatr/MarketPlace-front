@@ -226,7 +226,7 @@ class ProductLivestockDetail extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>Estimated Birthdate</td>
+                  <td>Est Date of Birth</td>
                   <td className={Class.row}>
                     <div className="tableRowDateParent">
                       <input
@@ -356,7 +356,7 @@ class ProductLivestockDetail extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>Est Starting Weight</td>
+                  <td>Est Starting Weight in Pounds</td>
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
@@ -399,7 +399,7 @@ class ProductLivestockDetail extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>Est Finished Weight</td>
+                  <td>Est Finished Weight in Pounds</td>
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
@@ -423,7 +423,7 @@ class ProductLivestockDetail extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>Hanging Weight</td>
+                  <td>Hanging Weight in Pounds</td>
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}

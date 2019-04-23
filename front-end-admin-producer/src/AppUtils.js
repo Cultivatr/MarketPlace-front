@@ -114,6 +114,8 @@ export async function modifyItemProduce(obj) {
   const {
     id,
     type,
+    packageSize,
+    packageSizeUnit,
     estCompletionDate,
     seedType,
     fertilizerTypeUsed,
@@ -121,6 +123,7 @@ export async function modifyItemProduce(obj) {
     deliveredDate,
     comments,
     estQuantityPlanted,
+    certifiedOrganic,
     estFinishedQty,
     estPrice,
     qtyAcceptedForListing,
@@ -138,6 +141,8 @@ export async function modifyItemProduce(obj) {
       body: JSON.stringify({
         id: id.substring(2),
         type: type,
+        packageSize: packageSize,
+        packageSizeUnit: packageSizeUnit,
         estCompletionDate: estCompletionDate,
         seedType: seedType,
         fertilizerTypeUsed: fertilizerTypeUsed,
@@ -145,6 +150,7 @@ export async function modifyItemProduce(obj) {
         deliveredDate: deliveredDate,
         comments: comments,
         estQuantityPlanted: estQuantityPlanted,
+        certifiedOrganic: certifiedOrganic,
         estFinishedQty: estFinishedQty,
         estPrice: estPrice,
         qtyAcceptedForListing: qtyAcceptedForListing,

@@ -80,12 +80,12 @@ class ProductProduceDetail extends Component {
     }
   };
 
-  getGmoValue = () => {
-    const propGmo = this.props.itemProduceDetails.gmo;
-    const element = document.getElementById("gmo");
-    if (propGmo === true) {
+  getCOValue = () => {
+    const propCO = this.props.itemProduceDetails.certifiedOrganic;
+    const element = document.getElementById("certifiedOrganic");
+    if (propCO === true) {
       element.value = "Yes";
-    } else if (propGmo === false) {
+    } else if (propCO === false) {
       element.value = "No";
     }
   };
@@ -104,6 +104,8 @@ class ProductProduceDetail extends Component {
     const {
       id,
       type,
+      packageSize,
+      packageSizeUnit,
       estCompletionDate,
       seedType,
       fertilizerTypeUsed,
@@ -153,6 +155,30 @@ class ProductProduceDetail extends Component {
                   </td>
                 </tr>
                 <tr>
+                  <td>Package Size</td>
+                  <td className={Class.row}>
+                    <div className="qty-container">
+                      <input
+                        onChange={this.onChange}
+                        type="text"
+                        name="packageSize"
+                        className="qty-form"
+                        value={packageSize}
+                      />
+                      <select
+                        onChange={this.onChange}
+                        name="packageSizeUnit"
+                        multiple=""
+                        value={packageSizeUnit}
+                        className="ui fluid dropdown qty-dropdown"
+                      >
+                        <option value="Pounds">Pounds</option>
+                        <option value="Grams">Grams</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
                   <td>Est Completion Date</td>
                   <td className={Class.row}>
                     <div className="tableRowDateParent">
@@ -162,7 +188,6 @@ class ProductProduceDetail extends Component {
                         id="estCompletionDate"
                         onChange={this.onChange}
                         name="estCompletionDate"
-                        value={estCompletionDate}
                         placeholder={estCompletionDate}
                       />
                       <div className="tableRowDate2">
@@ -253,19 +278,19 @@ class ProductProduceDetail extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>GMO</td>
+                  <td>Certified Organic</td>
                   <td className={Class.row}>
                     <select
                       onChange={this.onChange}
-                      id="gmo"
-                      name="gmo"
+                      id="certifiedOrganic"
+                      name="certifiedOrganic"
                       multiple=""
                       className="ui fluid dropdown"
                     >
                       <option value="Yes">Yes</option>
                       <option value="No">No</option>
                     </select>
-                    {this.getGmoValue()}
+                    {this.getCOValue()}
                   </td>
                 </tr>
                 <tr>

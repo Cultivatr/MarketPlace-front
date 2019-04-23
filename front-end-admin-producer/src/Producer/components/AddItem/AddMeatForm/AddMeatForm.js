@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import styles from "./AddMeatForm.module.css";
 import Button from "../../../../SharedComponents/UI/Button";
 import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
+import DatePicker from "react-datepicker";
+import "../../../../SharedComponents/UI/react-datepicker.css";
 
 const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
 
@@ -13,17 +15,14 @@ class LivestockForm extends Component {
       type: "",
       breed: "",
       singleBrand: false,
-      birthdate: "0001-01-01",
       regNumber: 0,
       rfid: 0,
       estStartingWeight: 0,
       hangingWeight: 0,
       chargebacks: 0,
-      dateOnFeed: "0001-01-01",
       feedMethod: "",
       typeOfPasture: "",
       typeOfFeed: "",
-      estCompletionDate: "0001-01-01",
       estFinishedWeight: 0,
       estFinalPrice: 0,
       finalPrice: 0,
@@ -32,7 +31,11 @@ class LivestockForm extends Component {
       comments: "",
       quantity: 0,
       status: "Pending Approval"
-    }
+    },
+    addedThisSession: 0,
+    birthdate: "",
+    dateOnFeed: "",
+    estCompletionDate: ""
   };
 
   camelCaseString = (string, type) => {
@@ -52,6 +55,15 @@ class LivestockForm extends Component {
     this.setState({ data: newdata });
     console.log("Data", newdata);
   };
+  onCompDateChange = date => {
+    this.setState({ estCompletionDate: date });
+  };
+  onBirthDateChange = date => {
+    this.setState({ birthdate: date });
+  };
+  onDateOnFeedChange = date => {
+    this.setState({ dateOnFeed: date });
+  };
 
   onSubmit = e => {
     e.preventDefault();
@@ -60,17 +72,14 @@ class LivestockForm extends Component {
       type,
       breed,
       singleBrand,
-      birthdate,
       regNumber,
       rfid,
       estStartingWeight,
       hangingWeight,
       chargebacks,
-      dateOnFeed,
       feedMethod,
       typeOfPasture,
       typeOfFeed,
-      estCompletionDate,
       estFinishedWeight,
       estFinalPrice,
       finalPrice,
@@ -80,7 +89,9 @@ class LivestockForm extends Component {
       status,
       quantity
     } = this.state.data;
-
+    const dateOnFeed = this.state.dateOnFeed;
+    const estCompletionDate = this.state.estCompletionDate;
+    const birthdate = this.state.birthdate;
     document.getElementById("submitBtn").className += " loading";
     fetch(domainLink + "livestock/", {
       method: "POST",
@@ -122,6 +133,7 @@ class LivestockForm extends Component {
         }, 2000)
       )
       .catch(error => console.log(error));
+    this.setState({ addedThisSession: this.state.addedThisSession + 1 });
   };
 
   render() {
@@ -191,12 +203,19 @@ class LivestockForm extends Component {
                   </select>
                 </div>
                 <div className="field">
-                  <label>Birthdate</label>
-                  <input
-                    onChange={this.onChange}
-                    type="date"
-                    name="birthdate"
-                  />
+                  <label>Est Date of Birth</label>
+                  <div
+                    className="dpicker"
+                    style={{ border: "3px solid #1ECE88", width: "150px" }}
+                  >
+                    <DatePicker
+                      className
+                      name="birthdate"
+                      onChange={this.onBirthDateChange}
+                      dateFormat="YYYY-MM-dd"
+                      selected={this.state.birthdate}
+                    />
+                  </div>
                 </div>
                 <div className="field">
                   <label>Registration Number</label>
@@ -211,7 +230,7 @@ class LivestockForm extends Component {
                   <input onChange={this.onChange} type="number" name="rfid" />
                 </div>
                 <div className="field">
-                  <label>Est. Starting Weight in Kilograms</label>
+                  <label>Est. Starting Weight in Pounds</label>
                   <input
                     onChange={this.onChange}
                     type="number"
@@ -231,11 +250,18 @@ class LivestockForm extends Component {
               <div className="eight wide column">
                 <div className="field">
                   <label>Date on Feed</label>
-                  <input
-                    onChange={this.onChange}
-                    type="date"
-                    name="dateOnFeed"
-                  />
+                  <div
+                    className="dpicker"
+                    style={{ border: "3px solid #1ECE88", width: "150px" }}
+                  >
+                    <DatePicker
+                      className
+                      name="dateOnFeed"
+                      onChange={this.onDateOnFeedChange}
+                      dateFormat="YYYY-MM-dd"
+                      selected={this.state.dateOnFeed}
+                    />
+                  </div>
                 </div>
                 <div className="field">
                   <label>Feed Method</label>
@@ -285,27 +311,25 @@ class LivestockForm extends Component {
                 </div>
                 <div className="field">
                   <label>Est. Completion Date</label>
-                  <input
-                    onChange={this.onChange}
-                    type="date"
-                    name="estCompletionDate"
-                    style={{ border: "3px solid #1ECE88" }}
-                  />
+                  <div
+                    className="dpicker"
+                    style={{ border: "3px solid #1ECE88", width: "150px" }}
+                  >
+                    <DatePicker
+                      className
+                      name="estCompletionDate"
+                      onChange={this.onCompDateChange}
+                      dateFormat="YYYY-MM-dd"
+                      selected={this.state.estCompletionDate}
+                    />
+                  </div>
                 </div>
                 <div className="field">
-                  <label>Est. Finished Weight in Kilograms</label>
+                  <label>Est. Finished Weight in Pounds</label>
                   <input
                     onChange={this.onChange}
                     type="number"
                     name="estFinishedWeight"
-                  />
-                </div>
-                <div className="field">
-                  <label>Hanging Weight in Kilograms</label>
-                  <input
-                    onChange={this.onChange}
-                    type="number"
-                    name="hangingWeight"
                   />
                 </div>
 
@@ -322,6 +346,10 @@ class LivestockForm extends Component {
               </div>
               <Button>Add</Button>
             </form>
+            <strong>
+              {" "}
+              # of Livestock Items Added: {this.state.addedThisSession}
+            </strong>
           </div>
         </div>
       </Fragment>

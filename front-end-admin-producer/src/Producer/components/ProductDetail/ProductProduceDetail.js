@@ -78,6 +78,13 @@ class ProductProduceDetail extends Component {
                   </td>
                 </tr>
                 <tr>
+                  <td>Package Size</td>
+                  <td className={Class.noInput}>
+                    {this.props.itemProduceDetails.packageSize}{" "}
+                    {this.props.itemProduceDetails.packageSizeUnit}
+                  </td>
+                </tr>
+                <tr>
                   <td>Est Completion Date</td>
                   <td className={Class.row}>
                     <div className={Class.tableRowDateParent}>
@@ -128,9 +135,11 @@ class ProductProduceDetail extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>GMO</td>
+                  <td>Certified Organic</td>
                   <td className={Class.noInput}>
-                    {this.props.itemProduceDetails.gmo ? "Yes" : "No"}
+                    {this.props.itemProduceDetails.certifiedOrganic
+                      ? "Yes"
+                      : "No"}
                   </td>
                 </tr>
                 <tr>

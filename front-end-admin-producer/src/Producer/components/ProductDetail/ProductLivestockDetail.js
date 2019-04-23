@@ -98,7 +98,7 @@ class ProductLivestockDetail extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>Estimated Birthdate</td>
+                  <td>Est Date of Birth</td>
                   <td className={Class.noInput}>
                     {birthdate === "Mon, 01 Jan 1 00:00:00 GMT"
                       ? ""
@@ -134,7 +134,7 @@ class ProductLivestockDetail extends Component {
                   <td className={Class.noInput}>{typeOfFeed}</td>
                 </tr>
                 <tr>
-                  <td>Est Starting Weight</td>
+                  <td>Est Starting Weight in Pounds</td>
                   <td className={Class.noInput}>{estStartingWeight}</td>
                 </tr>
                 <tr>
@@ -170,7 +170,7 @@ class ProductLivestockDetail extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>Est Finished Weight</td>
+                  <td>Est Finished Weight in Pounds</td>
                   <td className={Class.row}>
                     <input
                       className={Class.tableRow}
@@ -188,7 +188,7 @@ class ProductLivestockDetail extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>Hanging Weight</td>
+                  <td>Hanging Weight in Pounds</td>
                   <td className={Class.noInput}>
                     {hangingWeight === 0 ? "" : hangingWeight}
                   </td>
