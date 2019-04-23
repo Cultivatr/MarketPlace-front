@@ -92,7 +92,6 @@ class Admin extends Component {
 
   createData = async () => {
     this.data.length = 0;
-    console.log("produce", this.state.items_produce);
     if (
       this.state.items_produce.produce ||
       this.state.items_livestock.livestock

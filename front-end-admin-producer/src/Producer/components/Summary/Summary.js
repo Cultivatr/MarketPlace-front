@@ -103,7 +103,10 @@ class Summary extends Component {
 
   createData = () => {
     let i;
-    if (this.state.items_produce || this.state.items_livestock) {
+    if (
+      this.state.items_produce.produce ||
+      this.state.items_livestock.livestock
+    ) {
       if (
         this.state.items_produce.produce.length > 0 ||
         this.state.items_livestock.livestock.length > 0
