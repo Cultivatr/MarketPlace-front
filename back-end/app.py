@@ -484,8 +484,8 @@ def produce_get_user(user1):
         item_produce_data['userId']=item_produce.user_id
         item_produce_data['type']=item_produce.product_name
         item_produce_data['packageType']=item_produce.package_type
-        item_produce_data[]=item_produce_data.package_size
-        item_produce_data[]=item_produce_data.package_size_unit
+        item_produce_data['packageSize']=item_produce_data.package_size
+        item_produce_data['packageSizeUnit']=item_produce_data.package_size_unit
         item_produce_data['estCompletionDate']=item_produce.est_completion_date
         item_produce_data['seedType']=item_produce.seed_type
         item_produce_data['modifiedSeed']=item_produce.modified_seed
@@ -516,8 +516,8 @@ def add_produce_items():
     user_id=data.get('userId'),
     product_name=data.get('type'),
     package_type=data.get('packageType'),
-    package_size=data.get(),
-    package_size_unit=data.get(),
+    package_size=data.get('packageSize'),
+    package_size_unit=data.get('packageSizeUnit'),
     est_completion_date=data.get('estCompletionDate'),
     seed_type=data.get('seedType'),
     modified_seed=data.get('modifiedSeed'),
