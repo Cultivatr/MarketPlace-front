@@ -132,6 +132,7 @@ def get_indiv_produce_items():
     return jsonify({ 'produce_items': output })
 
 
+
 @app.route("/produceItems/add/", methods=['POST'])
 def add_new_produce_item():
     data=request.get_json()
@@ -595,6 +596,16 @@ def update_livestock_items():
     liveToUpdate=db.session.query(Livestock).filter(Livestock.id==filterId).first()
     liveToUpdate.status=data.get('nextStatus')
     db.session.commit()
+    return 'Success', 201
+
+
+@app.route("/email/", methods=['POST'])   
+def send_email_alert():
+    data=request.get_json()
+    farm_name=data.get('farmName')
+    user_email=data.get('email')
+
+    email_system.send_email(farm_name,user_email)
     return 'Success', 201
 
 

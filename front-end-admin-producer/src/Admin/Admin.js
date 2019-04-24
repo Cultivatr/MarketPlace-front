@@ -12,6 +12,7 @@ import AdminSettings from "./Components/AdminSettings/AdminSettings";
 
 // const domainLink = "http://localhost:5000";
 const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
+const domainLink2 = "http://localhost:5000";
 
 class Admin extends Component {
   constructor() {
@@ -111,6 +112,7 @@ class Admin extends Component {
             user => user.id === this.data[i].userId
           );
           this.data[i].farm = temp[0].farmName;
+          this.data[i].email = temp[0].email;
         }
       } else {
         this.setState({ data: this.data });
@@ -165,6 +167,16 @@ class Admin extends Component {
   rejectProduce = id => {
     this.pushThroughProduce(id, "not accepted");
   };
+  sendEmail = (farm, email) => {
+    fetch(domainLink2 + "/email/", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        farmName: farm,
+        email: email
+      })
+    });
+  };
 
   pushThroughBtnTextHelper = currentStatus => {
     if (currentStatus === "Pending Approval") return "Accept";
@@ -174,9 +186,10 @@ class Admin extends Component {
     if (currentStatus === "not accepted") return "Accept";
   };
 
-  pushThroughLivestock = async (id, status) => {
+  pushThroughLivestock = async (id, status, farm, email) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
+    this.sendEmail(farm, email);
     await fetch(domainLink + "incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
@@ -189,9 +202,10 @@ class Admin extends Component {
     await this.createData();
     await this.removeOverlay();
   };
-  pushThroughProduce = async (id, status) => {
+  pushThroughProduce = async (id, status, farm, email) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
+    this.sendEmail(farm, email);
     await fetch(domainLink + "produce/incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },

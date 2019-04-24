@@ -1,4 +1,5 @@
 import os
+import email_system
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -124,6 +125,7 @@ def get_indiv_produce_items():
         output.append(p_item_data)
 
     return jsonify({ 'produce_items': output })
+
 
 
 @app.route("/produceItems/add/", methods=['POST'])
@@ -589,6 +591,16 @@ def update_livestock_items():
     liveToUpdate=db.session.query(Livestock).filter(Livestock.id==filterId).first()
     liveToUpdate.status=data.get('nextStatus')
     db.session.commit()
+    return 'Success', 201
+
+
+@app.route("/email/", methods=['POST'])   
+def send_email_alert():
+    data=request.get_json()
+    farm_name=data.get('farmName')
+    user_email=data.get('email')
+
+    email_system.send_email(farm_name,user_email)
     return 'Success', 201
 
 

@@ -520,7 +520,9 @@ class ProductLivestockDetail extends Component {
               onClick={() =>
                 this.props.pushThroughLivestock(
                   this.props.itemLivestockDetails.id,
-                  this.props.itemLivestockDetails.status
+                  this.props.itemLivestockDetails.status,
+                  this.props.itemLivestockDetails.farm,
+                  this.props.itemProduceDetails.email
                 )
               }
             >

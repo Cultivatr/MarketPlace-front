@@ -418,7 +418,9 @@ class ProductProduceDetail extends Component {
               onClick={() =>
                 this.props.pushThroughProduce(
                   this.props.itemProduceDetails.id,
-                  this.props.itemProduceDetails.status
+                  this.props.itemProduceDetails.status,
+                  this.props.itemProduceDetails.farm,
+                  this.props.itemProduceDetails.email
                 )
               }
             >
