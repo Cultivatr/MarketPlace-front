@@ -6,7 +6,6 @@ import Toolbar from "../../../SharedComponents/Navigation/Toolbar/Toolbar";
 import ProductProduceDetail from "../ProductDetail/ProductProduceDetail";
 import ProductLivestockDetail from "../ProductDetail/ProductLivestockDetail";
 import Class from "./ProducerApproval.module.css";
-import "./ProducerApproval.css";
 const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
 
 class ProducerApproval extends Component {
@@ -36,19 +35,14 @@ class ProducerApproval extends Component {
       }
     }
     if (e.target.id.search("P") === 0) {
-      console.log("DATA", this.state.data);
-      console.log("ID", e.target.id);
-      console.log("produce items:", this.produceItems);
       await this.setState({
         itemProduceDetails: getItemDetails(e.target.id, this.produceItems)
       });
-      console.log("itemproducedetails", this.state.itemProduceDetails);
       this.showOverlayProduce();
     } else if (e.target.id.search("L") === 0) {
       await this.setState({
         itemLivestockDetails: getItemDetails(e.target.id, this.livestockItems)
       });
-      console.log("SELECTED LIVESTOCK", this.state.itemLivestockDetails);
       this.showOverlayLivestock();
     }
   };
@@ -105,14 +99,15 @@ class ProducerApproval extends Component {
       ) {
         for (i = 0; i < this.state.items_produce.produce.length; i++) {
           if (
-            this.state.items_produce.produce[i].status == "Pending Producer"
+            this.state.items_produce.produce[i].status === "Pending Producer"
           ) {
             this.data.push(this.state.items_produce.produce[i]);
           }
         }
         for (i = 0; i < this.state.items_livestock.livestock.length; i++) {
           if (
-            this.state.items_livestock.livestock[i].status == "Pending Producer"
+            this.state.items_livestock.livestock[i].status ===
+            "Pending Producer"
           ) {
             this.data.push(this.state.items_livestock.livestock[i]);
           }

@@ -18,7 +18,6 @@ class SignIn extends Component {
   componentDidMount() {
     this.setState({ test: "test" });
     this.getUsers();
-    console.log(this.state);
   }
 
   getUsers = async () => {
@@ -47,8 +46,7 @@ class SignIn extends Component {
     sessionStorage.setItem("authData", JSON.stringify(logInData));
     sessionStorage.setItem("loggedIn", true);
     sessionStorage.setItem("adminAuth", true);
-    this.setState({ isLoggedIn: true, admin: true });
-    this.props.logInToken(true);
+    setTimeout(this.setState({ isLoggedIn: true, admin: true }), 1000);
   };
 
   logIn(res) {
@@ -78,7 +76,6 @@ class SignIn extends Component {
       sessionStorage.setItem("loggedIn", true);
       sessionStorage.setItem("adminAuth", JSON.stringify(adminAuth));
       this.setState({ isLoggedIn: true, admin: logInData.admin });
-      this.props.logInToken(true);
     }
   }
 

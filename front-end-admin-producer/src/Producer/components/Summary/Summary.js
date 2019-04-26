@@ -27,28 +27,23 @@ class Summary extends Component {
   }
 
   getItemObj = async e => {
-    let i;
-    for (i = 0; i < this.state.data.length; i++) {
-      if (this.state.data[i].id[0] === "P") {
-        this.produceItems.push(this.state.data[i]);
-      } else if (this.state.data[i].id[0] === "L") {
-        this.livestockItems.push(this.state.data[i]);
+    this.state.data.forEach(item => {
+      if (item.id[0] === "P") {
+        this.produceItems.push(item);
+      } else if (item.id[0] === "L") {
+        this.livestockItems.push(item);
       }
-    }
+    });
+
     if (e.target.id.search("P") === 0) {
-      console.log("DATA", this.state.data);
-      console.log("ID", e.target.id);
-      console.log("produce items:", this.produceItems);
       await this.setState({
         itemProduceDetails: getItemDetails(e.target.id, this.produceItems)
       });
-      console.log("itemproducedetails", this.state.itemProduceDetails);
       this.showOverlayProduce();
     } else if (e.target.id.search("L") === 0) {
       await this.setState({
         itemLivestockDetails: getItemDetails(e.target.id, this.livestockItems)
       });
-      console.log("SELECTED LIVESTOCK", this.state.itemLivestockDetails);
       this.showOverlayLivestock();
     }
   };
@@ -70,7 +65,6 @@ class Summary extends Component {
         headers: { "Content-Type": "application/json" }
       });
       const json = await response.json();
-      console.log("produce:", json);
       this.setState({ items_produce: json });
       const response2 = await fetch(domainLink + `livestock/${user1}/`, {
         method: "GET",
@@ -78,7 +72,6 @@ class Summary extends Component {
       });
       const json2 = await response2.json();
       this.setState({ items_livestock: json2 });
-      ////
       const response3 = await fetch(domainLink + `produceItems/all/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" }
@@ -93,34 +86,25 @@ class Summary extends Component {
 
   getId = () => {
     const tempId = JSON.parse(sessionStorage.getItem("authData")).id;
-    console.log("ID", tempId);
     this.setState({
       localId: tempId,
       userFullName: JSON.parse(sessionStorage.getItem("authData")).fullName
     });
   };
 
-  createData = () => {
-    let i;
-    if (
-      this.state.items_produce.produce ||
-      this.state.items_livestock.livestock
-    ) {
-      if (
-        this.state.items_produce.produce.length > 0 ||
-        this.state.items_livestock.livestock.length > 0
-      ) {
-        for (i = 0; i < this.state.items_produce.produce.length; i++) {
-          this.data.push(this.state.items_produce.produce[i]);
-        }
-        for (i = 0; i < this.state.items_livestock.livestock.length; i++) {
-          this.data.push(this.state.items_livestock.livestock[i]);
-        }
-      } else {
-        this.setState({ data: this.data });
-      }
-      this.setState({ data: this.data });
+  createData = async () => {
+    this.data.length = 0;
+    if (this.state.items_produce.produce) {
+      this.state.items_produce.produce.forEach(item => {
+        this.data.push(item);
+      });
     }
+    if (this.state.items_livestock.livestock) {
+      this.state.items_livestock.livestock.forEach(item => {
+        this.data.push(item);
+      });
+    }
+    await this.setState({ data: this.data });
   };
 
   removeOverlay = event => {

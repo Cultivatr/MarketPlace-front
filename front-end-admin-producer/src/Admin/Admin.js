@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Class from "./admin.module.css";
+import AdminNav from "../SharedComponents/AdminNav";
 import ContainerDashboard from "./Components/ContainerDashboard/ContainerDashboard";
 import DisplayAllDashboard from "./Components/ContainerDashboard/DisplayAllDashboard";
 import { filterData, getItemDetails } from "../AppUtils";
@@ -60,10 +61,6 @@ class Admin extends Component {
     } catch (error) {
       console.log("Admin Error", error);
     }
-
-    console.log("USERS:", this.state.users);
-    console.log("PRODUCE:", this.state.items_produce);
-    console.log("LIVESTOCK:", this.state.items_livestock);
   };
 
   loadUserData = async () => {
@@ -93,34 +90,30 @@ class Admin extends Component {
 
   createData = async () => {
     this.data.length = 0;
-    if (
-      this.state.items_produce.produce ||
-      this.state.items_livestock.livestock
-    ) {
-      if (
-        this.state.items_produce.produce.length > 0 ||
-        this.state.items_livestock.livestock.length > 0
-      ) {
-        for (let i = 0; i < this.state.items_produce.produce.length; i++) {
-          this.data.push(this.state.items_produce.produce[i]);
-        }
-        for (let i = 0; i < this.state.items_livestock.livestock.length; i++) {
-          this.data.push(this.state.items_livestock.livestock[i]);
-        }
-        for (let i = 0; i < this.data.length; i++) {
-          const temp = this.state.users.users.filter(
-            user => user.id === this.data[i].userId
-          );
-          this.data[i].farm = temp[0].farmName;
-          this.data[i].email = temp[0].email;
-        }
-      } else {
-        this.setState({ data: this.data });
-      }
-      await this.setState({ data: this.data });
-      const dataToPass = this.data;
-      await this.helperFilterFunction(dataToPass);
+
+    if (this.state.items_produce.produce) {
+      this.state.items_produce.produce.forEach(item => {
+        this.data.push(item);
+      });
     }
+
+    if (this.state.items_livestock.livestock) {
+      this.state.items_livestock.livestock.forEach(item => {
+        this.data.push(item);
+      });
+    }
+    if (this.data) {
+      this.data.forEach(item => {
+        const temp = this.state.users.users.filter(
+          user => user.id === item.userId
+        );
+        item.farm = temp[0].farmName;
+        item.email = temp[0].email;
+      });
+    }
+    await this.setState({ data: this.data });
+    const dataToPass = this.data;
+    await this.helperFilterFunction(dataToPass);
   };
 
   refreshLiveStock = data => {
@@ -220,22 +213,21 @@ class Admin extends Component {
     await this.createData();
     await this.removeOverlay();
   };
-  removeOverlay = event => {
+  removeOverlay = () => {
     document.getElementById("itemProduceOverlay").style.display = "none";
     document.getElementById("itemLivestockOverlay").style.display = "none";
   };
 
   getItemObj = async e => {
-    let i;
     this.produceItems.length = 0;
     this.livestockItems.length = 0;
-    for (i = 0; i < this.state.data.length; i++) {
-      if (this.state.data[i].id[0] === "P") {
-        this.produceItems.push(this.state.data[i]);
-      } else if (this.state.data[i].id[0] === "L") {
-        this.livestockItems.push(this.state.data[i]);
+    this.state.data.forEach(item => {
+      if (item.id[0] === "P") {
+        this.produceItems.push(item);
+      } else if (item.id[0] === "L") {
+        this.livestockItems.push(item);
       }
-    }
+    });
     if (e.target.id.search("P") === 0) {
       await this.setState({
         itemProduceDetails: getItemDetails(e.target.id, this.produceItems)
@@ -273,7 +265,6 @@ class Admin extends Component {
   };
   refreshUsers = data => {
     this.setState({ users: data });
-    console.log("called refresh users");
   };
 
   showOverlayProduce = () => {
@@ -326,14 +317,12 @@ class Admin extends Component {
     this.setState({ dataToShow: "adminSettings" });
   };
   errorHandler = input => {
-    console.log("error handler was called");
     this.setState({
       errorModalIsOpen: true,
       modalErrorMessage: input
     });
   };
   closeErrorModal = () => {
-    console.log("Closing error Modal");
     this.setState({ errorModalIsOpen: false });
   };
 
@@ -477,6 +466,7 @@ class Admin extends Component {
     }
     return (
       <div className="App">
+        <AdminNav />
         <h1 className={Class.heading}>Welcome Dan!</h1>
         <main>
           <ErrorModal
