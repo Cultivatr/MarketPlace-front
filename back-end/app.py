@@ -323,7 +323,7 @@ def add_livestock_items():
     price_paid=data.get('finalPrice'),
     delivered_date=data.get('deliveredDate'),
     delivered_to=data.get('deliveredTo'),
-    status="Pending Approval"
+    status="Pending Admin"
     )
     db.session.add(new_livestock)
     db.session.commit()
@@ -540,7 +540,7 @@ def add_produce_items():
     delivered_date=data.get('deliveredDate'),
     delivered_to=data.get('deliveredTo'),
     comments=data.get('comments'),
-    status="Pending Approval"
+    status="Pending Admin"
     )
     db.session.add(new_produce)
     db.session.commit()
