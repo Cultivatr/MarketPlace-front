@@ -41,13 +41,10 @@ class ProduceForm extends Component {
   };
 
   componentWillMount = async () => {
-    const responseProduceItems = await fetch(
-      domainLink2 + `produceItems/all/`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      }
-    );
+    const responseProduceItems = await fetch(domainLink + `produceItems/all/`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
     const json = await responseProduceItems.json();
     const pItems = json;
     if (pItems) {
