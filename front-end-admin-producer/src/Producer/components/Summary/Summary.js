@@ -89,7 +89,6 @@ class Summary extends Component {
       console.log(error);
     }
     await this.createData();
-    console.log("Produce types", this.state.produce_type);
   };
 
   getId = () => {
@@ -143,7 +142,7 @@ class Summary extends Component {
     return (
       <div className={Class.table}>
         <br />
-        Dashboard Table for: {this.state.userFullName}
+        <div>Dashboard Table for: {this.state.userFullName}</div>{" "}
         <ReactTable
           data={data}
           noDataText="No items from producers!"

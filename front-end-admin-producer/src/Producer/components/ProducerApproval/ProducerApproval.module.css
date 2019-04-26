@@ -1,0 +1,30 @@
+.userH1 {
+  padding: 30px;
+}
+
+.deliveryStatus {
+  font-size: 18px;
+}
+
+.userHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.contactUs {
+  float: right;
+  font-size: 17px;
+  color: #1ece88;
+}
+
+.userContainer {
+  margin-top: 10px;
+  border: 2px solid #1ece88;
+  padding: 20px;
+}
+
+.table {
+  background-color: white;
+}

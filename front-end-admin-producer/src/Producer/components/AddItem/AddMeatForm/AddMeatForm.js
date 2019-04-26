@@ -30,7 +30,7 @@ class LivestockForm extends Component {
       deliveredTo: "",
       comments: "",
       quantity: 0,
-      status: "Pending Approval"
+      status: "Pending Admin"
     },
     addedThisSession: 0,
     birthdate: "",

@@ -2,36 +2,41 @@ const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
 
 export function filterData(
   data,
-  pending,
+  pendingAdmin,
+  pendingProducer,
   accepted,
   sold,
   delivered,
   notAccepted,
   archive
 ) {
-  pending.length = 0;
+  pendingAdmin.length = 0;
+  pendingProducer.length = 0;
   accepted.length = 0;
   sold.length = 0;
   delivered.length = 0;
   notAccepted.length = 0;
   archive.length = 0;
   data.forEach(element => {
-    if (element.status === "Pending Approval") {
-      pending.push(element);
-      return pending;
-    } else if (element.status === "accepted") {
+    if (element.status === "Pending Admin") {
+      pendingAdmin.push(element);
+      return pendingAdmin;
+    } else if (element.status === "Pending Producer") {
+      pendingProducer.push(element);
+      return pendingProducer;
+    } else if (element.status === "Accepted") {
       accepted.push(element);
       return accepted;
-    } else if (element.status === "sold") {
+    } else if (element.status === "Sold") {
       sold.push(element);
       return sold;
-    } else if (element.status === "delivered") {
+    } else if (element.status === "Delivered") {
       delivered.push(element);
       return delivered;
-    } else if (element.status === "not accepted") {
+    } else if (element.status === "Not Accepted") {
       notAccepted.push(element);
       return notAccepted;
-    } else if (element.status === "archive") {
+    } else if (element.status === "Archive") {
       archive.push(element);
       return archive;
     }

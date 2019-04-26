@@ -33,7 +33,7 @@ class ProduceForm extends Component {
       deliveredTo: "",
       deliveredDate: "0001-01-01",
       comments: "",
-      status: "Pending Approval"
+      status: "Pending Admin"
     },
     estCompletionDate: "",
     produceListItems: [],

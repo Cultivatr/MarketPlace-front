@@ -137,7 +137,8 @@ class Admin extends Component {
   helperFilterFunction = async dataToPass => {
     await filterData(
       dataToPass,
-      this.pending,
+      this.pendingAdmin,
+      this.pendingProducer,
       this.accepted,
       this.sold,
       this.delivered,
@@ -145,7 +146,8 @@ class Admin extends Component {
       this.archive
     );
     await this.setState({
-      pending: this.pending,
+      pendingAdmin: this.pendingAdmin,
+      pendingProducer: this.pendingProducer,
       accepted: this.accepted,
       sold: this.sold,
       delivered: this.delivered,
@@ -155,17 +157,17 @@ class Admin extends Component {
   };
 
   nextStatus = status => {
-    if (status === "Pending Approval") return "accepted";
-    if (status === "accepted") return "sold";
-    if (status === "sold") return "delivered";
-    if (status === "delivered") return "archive";
-    if (status === "not accepted") return "not accepted";
+    if (status === "Pending Admin") return "Pending Producer";
+    if (status === "Accepted") return "Sold";
+    if (status === "Sold") return "Delivered";
+    if (status === "Delivered") return "Archive";
+    if (status === "Not Accepted") return "Not Accepted";
   };
   rejectLivestock = id => {
-    this.pushThroughLivestock(id, "not accepted");
+    this.pushThroughLivestock(id, "Not Accepted");
   };
   rejectProduce = id => {
-    this.pushThroughProduce(id, "not accepted");
+    this.pushThroughProduce(id, "Not Accepted");
   };
   sendEmail = (farm, email) => {
     fetch(domainLink2 + "/email/", {
@@ -179,11 +181,11 @@ class Admin extends Component {
   };
 
   pushThroughBtnTextHelper = currentStatus => {
-    if (currentStatus === "Pending Approval") return "Accept";
-    if (currentStatus === "accepted") return "Mark As Sold";
-    if (currentStatus === "sold") return "Mark As Delivered";
-    if (currentStatus === "delivered") return "Send To Archives";
-    if (currentStatus === "not accepted") return "Accept";
+    if (currentStatus === "Pending Admin") return "Accept";
+    if (currentStatus === "Accepted") return "Mark As Sold";
+    if (currentStatus === "Sold") return "Mark As Delivered";
+    if (currentStatus === "Delivered") return "Send To Archives";
+    if (currentStatus === "Not Accepted") return "Accept";
   };
 
   pushThroughLivestock = async (id, status, farm, email) => {
@@ -288,6 +290,9 @@ class Admin extends Component {
   OnClickAccept = () => {
     this.setState({ dataToShow: "toBeAccepted" });
   };
+  OnClickAwaitingProd = () => {
+    this.setState({ dataToShow: "awaitingProducer" });
+  };
 
   OnClickConditional = () => {
     this.setState({ dataToShow: "acceptedConditional" });
@@ -311,7 +316,6 @@ class Admin extends Component {
 
   OnClickListUsers = async () => {
     await this.getUsers();
-    await this.setState({ dataToShow: "toBeAccepted" });
     await this.setState({ dataToShow: "listUsers" });
   };
 
@@ -355,12 +359,28 @@ class Admin extends Component {
             <h4>Items To Be Accepted Conditionally</h4>
           </div>
           <ContainerDashboard
-            data={this.state.pending}
+            data={this.state.pendingAdmin}
             itemObj={this.getItemObj}
           />
         </div>
       );
-    } else if (this.state.dataToShow === "acceptedConditional") {
+    }
+    ///
+    else if (this.state.dataToShow === "awaitingProducer") {
+      toShow = (
+        <div className={Class.container2}>
+          <div className={Class.containerTitle}>
+            <h4>Items Awaiting Producer Acceptance</h4>
+          </div>
+          <ContainerDashboard
+            data={this.state.pendingProducer}
+            itemObj={this.getItemObj}
+          />
+        </div>
+      );
+    }
+    ///
+    else if (this.state.dataToShow === "acceptedConditional") {
       toShow = (
         <div className={Class.container2}>
           <div className={Class.containerTitle}>
@@ -496,6 +516,13 @@ class Admin extends Component {
                   onClick={this.OnClickAccept}
                 >
                   Items To Accept
+                </button>
+                <button
+                  id="button-conditional"
+                  className={Class.buttonAdmin}
+                  onClick={this.OnClickAwaitingProd}
+                >
+                  Awaiting Producer
                 </button>
                 <button
                   id="button-conditional"

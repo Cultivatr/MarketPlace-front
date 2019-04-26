@@ -6,6 +6,7 @@ import SignIn from "./SharedComponents/SignIn";
 // import SignOut from "./SharedComponents/SignOut";
 import PrivateRoute from "./SharedComponents/PrivateRoute";
 import AdminRoute from "./SharedComponents/AdminRoute";
+import ProducerApproval from "./Producer/components/ProducerApproval/ProducerApproval";
 import AddMeatForm from "./Producer/components/AddItem/AddMeatForm/AddMeatForm";
 import AddProduceForm from "./Producer/components/AddItem/AddProduceForm/AddProduceForm";
 import ContactUs from "./Producer/components/ContactUs/ContactUs";
@@ -82,6 +83,11 @@ class App extends Component {
               />
               <AdminRoute path="/admin" component={Admin} exact />
               <PrivateRoute path="/producer" component={Producer} exact />
+              <PrivateRoute
+                path="/awaiting-approval"
+                component={ProducerApproval}
+                exact
+              />
               <PrivateRoute
                 path="/add-livestock"
                 component={AddMeatForm}
