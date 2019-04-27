@@ -43,6 +43,16 @@ export function filterData(
   });
 }
 
+export function filterForPending(data, pendingProducer) {
+  pendingProducer.length = 0;
+  data.forEach(element => {
+    if (element.status === "Pending Producer") {
+      pendingProducer.push(element);
+      return pendingProducer;
+    }
+  });
+}
+
 export function getItemDetails(id, data) {
   let item = data.find(itemInfo => {
     return itemInfo.id === id;

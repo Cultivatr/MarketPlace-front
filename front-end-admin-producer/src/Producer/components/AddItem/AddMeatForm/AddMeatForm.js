@@ -32,10 +32,10 @@ class LivestockForm extends Component {
       quantity: 0,
       status: "Pending Admin"
     },
-    addedThisSession: 0,
-    birthdate: "",
-    dateOnFeed: "",
-    estCompletionDate: ""
+    addedThisSession: 0
+    // birthdate: "0001-01-01",
+    // dateOnFeed: "0001-01-01",
+    // estCompletionDate: "0001-01-01"
   };
 
   camelCaseString = (string, type) => {
@@ -142,7 +142,7 @@ class LivestockForm extends Component {
         <Toolbar />
         <h2>Add Livestock</h2>
         <div className={styles.wrapper}>
-          <view
+          <content
             style={{
               width: 15,
               height: 15,
@@ -154,7 +154,7 @@ class LivestockForm extends Component {
             }}
           >
             Coloured Border Indicates Required Field
-          </view>
+          </content>
           <div className="ui grid container">
             <form onSubmit={this.onSubmit} className="ui row form">
               <div className="eight wide column">
@@ -209,7 +209,6 @@ class LivestockForm extends Component {
                     style={{ border: "3px solid #1ECE88", width: "150px" }}
                   >
                     <DatePicker
-                      className
                       name="birthdate"
                       onChange={this.onBirthDateChange}
                       dateFormat="YYYY-MM-dd"
@@ -255,7 +254,6 @@ class LivestockForm extends Component {
                     style={{ border: "3px solid #1ECE88", width: "150px" }}
                   >
                     <DatePicker
-                      className
                       name="dateOnFeed"
                       onChange={this.onDateOnFeedChange}
                       dateFormat="YYYY-MM-dd"
@@ -316,7 +314,6 @@ class LivestockForm extends Component {
                     style={{ border: "3px solid #1ECE88", width: "150px" }}
                   >
                     <DatePicker
-                      className
                       name="estCompletionDate"
                       onChange={this.onCompDateChange}
                       dateFormat="YYYY-MM-dd"

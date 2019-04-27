@@ -413,19 +413,24 @@ class ProductProduceDetail extends Component {
             </table>
           </div>
           <div className={Class.itemButtonsContainer}>
-            <button
-              className={Class.itemButtonsModify}
-              onClick={() =>
-                this.props.pushThroughProduce(
-                  this.props.itemProduceDetails.id,
-                  this.props.itemProduceDetails.status,
-                  this.props.itemProduceDetails.farm,
-                  this.props.itemProduceDetails.email
-                )
-              }
-            >
-              {this.props.pushThroughBtnText}
-            </button>
+            {this.props.itemProduceDetails.status === "Pending Producer" ? (
+              ""
+            ) : (
+              <button
+                className={Class.itemButtonsModify}
+                onClick={() =>
+                  this.props.pushThroughProduce(
+                    this.props.itemProduceDetails.id,
+                    this.props.itemProduceDetails.status,
+                    this.props.itemProduceDetails.farm,
+                    this.props.itemProduceDetails.email
+                  )
+                }
+              >
+                {this.props.pushThroughBtnText}
+              </button>
+            )}
+
             <button
               className={Class.itemButtonsCancel}
               onClick={this.props.removeOverlay}

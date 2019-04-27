@@ -6,8 +6,9 @@ import styles from "./AddProduceForm.module.css";
 import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
 import DatePicker from "react-datepicker";
 import "../../../../SharedComponents/miscStyles.css";
+
 const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
-const domainLink2 = "http://localhost:5000/";
+// const domainLink2 = "http://localhost:5000/";
 class ProduceForm extends Component {
   // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!
   state = {
@@ -35,7 +36,6 @@ class ProduceForm extends Component {
       comments: "",
       status: "Pending Admin"
     },
-    estCompletionDate: "",
     produceListItems: [],
     addedThisSession: 0
   };
@@ -159,7 +159,7 @@ class ProduceForm extends Component {
         <Toolbar />
         <h2>Add Produce</h2>
         <div className={styles.wrapper}>
-          <view
+          <content
             style={{
               width: 15,
               height: 15,
@@ -171,7 +171,7 @@ class ProduceForm extends Component {
             }}
           >
             Coloured Border Indicates Required Field
-          </view>
+          </content>
           <div className="ui grid container">
             <form onSubmit={this.onSubmit} className="ui row form">
               <div className="eight wide column">

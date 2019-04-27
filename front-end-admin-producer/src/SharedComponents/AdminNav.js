@@ -12,6 +12,7 @@ export default class AdminNav extends Component {
     sessionStorage.removeItem("loggedIn");
     sessionStorage.removeItem("authData");
     sessionStorage.removeItem("adminAuth");
+    sessionStorage.removeItem("PendingItems");
     this.setState({ isLoggedIn: false, adminAuth: "" });
   };
 

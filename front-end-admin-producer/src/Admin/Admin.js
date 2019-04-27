@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Class from "./admin.module.css";
 import AdminNav from "../SharedComponents/AdminNav";
-import ContainerDashboard from "./Components/ContainerDashboard/ContainerDashboard";
 import DisplayAllDashboard from "./Components/ContainerDashboard/DisplayAllDashboard";
 import { filterData, getItemDetails } from "../AppUtils";
 import AddNewProdComp from "./Components/AddNewProdComp/AddNewProdComp";
@@ -10,6 +9,7 @@ import ItemLiveStockDetail from "./Components/ItemDetailComp/ItemLivestockDetail
 import ItemProduceDetail from "./Components/ItemDetailComp/ItemProduceDetail";
 import ErrorModal from "../SharedComponents/ErrorModal";
 import AdminSettings from "./Components/AdminSettings/AdminSettings";
+import AdminHelper from "./AdminHelper";
 
 // const domainLink = "http://localhost:5000";
 const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
@@ -21,7 +21,8 @@ class Admin extends Component {
     this.produceItems = [];
     this.livestockItems = [];
     this.data = [];
-    this.pending = [];
+    this.pendingAdmin = [];
+    this.pendingProducer = [];
     this.accepted = [];
     this.sold = [];
     this.delivered = [];
@@ -90,7 +91,6 @@ class Admin extends Component {
 
   createData = async () => {
     this.data.length = 0;
-
     if (this.state.items_produce.produce) {
       this.state.items_produce.produce.forEach(item => {
         this.data.push(item);
@@ -128,6 +128,7 @@ class Admin extends Component {
   };
 
   helperFilterFunction = async dataToPass => {
+    console.log("DATA!!!!!", dataToPass);
     await filterData(
       dataToPass,
       this.pendingAdmin,
@@ -185,7 +186,7 @@ class Admin extends Component {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
     this.sendEmail(farm, email);
-    await fetch(domainLink + "incrementStatus/", {
+    await fetch(domainLink + "/livestock/incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -199,16 +200,18 @@ class Admin extends Component {
   };
   pushThroughProduce = async (id, status, farm, email) => {
     const nextStatus = this.nextStatus(status);
+    console.log("next status:", nextStatus);
     const subId = id.substr(2);
+    console.log("ID", subId);
     this.sendEmail(farm, email);
-    await fetch(domainLink + "produce/incrementStatus/", {
+    await fetch(domainLink + "/produce/incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
         id: subId,
         nextStatus: nextStatus
       })
-    }).catch(error => console.log(error));
+    }).catch(error => console.log("????", error));
     await this.loadProduceData();
     await this.createData();
     await this.removeOverlay();
@@ -327,143 +330,6 @@ class Admin extends Component {
   };
 
   render() {
-    let toShow;
-    if (this.state.dataToShow === "allItems") {
-      toShow = (
-        <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <h4>List of All items</h4>
-          </div>
-          <DisplayAllDashboard
-            data={this.state.data}
-            itemObj={this.getItemObj}
-          />
-          {console.log("data tobeaccepted", this.state.pending)}
-        </div>
-      );
-    } else if (this.state.dataToShow === "toBeAccepted") {
-      toShow = (
-        <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <h4>Items To Be Accepted Conditionally</h4>
-          </div>
-          <ContainerDashboard
-            data={this.state.pendingAdmin}
-            itemObj={this.getItemObj}
-          />
-        </div>
-      );
-    }
-    ///
-    else if (this.state.dataToShow === "awaitingProducer") {
-      toShow = (
-        <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <h4>Items Awaiting Producer Acceptance</h4>
-          </div>
-          <ContainerDashboard
-            data={this.state.pendingProducer}
-            itemObj={this.getItemObj}
-          />
-        </div>
-      );
-    }
-    ///
-    else if (this.state.dataToShow === "acceptedConditional") {
-      toShow = (
-        <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <h4>Items Accepted Conditionally</h4>
-          </div>
-          <ContainerDashboard
-            data={this.state.accepted}
-            itemObj={this.getItemObj}
-          />
-        </div>
-      );
-    } else if (this.state.dataToShow === "soldToBeDelivered") {
-      toShow = (
-        <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <h4>Items Sold To Be Delivered</h4>
-          </div>
-          <ContainerDashboard
-            data={this.state.sold}
-            itemObj={this.getItemObj}
-          />
-        </div>
-      );
-    } else if (this.state.dataToShow === "delivered") {
-      toShow = (
-        <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <h4>Items Delivered</h4>
-          </div>
-          <ContainerDashboard
-            data={this.state.delivered}
-            itemObj={this.getItemObj}
-          />
-        </div>
-      );
-    } else if (this.state.dataToShow === "notAccepted") {
-      toShow = (
-        <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <h4>Items Not Accepted</h4>
-          </div>
-          <ContainerDashboard
-            data={this.state.notAccepted}
-            itemObj={this.getItemObj}
-          />
-        </div>
-      );
-    } else if (this.state.dataToShow === "listUsers") {
-      toShow = (
-        <div className={Class.container2}>
-          <UsersComp
-            OnClickListUsers={this.OnClickListUsers}
-            data={this.state.users}
-            showUsers={this.OnClickListUsers}
-          />
-        </div>
-      );
-    } else if (this.state.dataToShow === "addNewProd") {
-      toShow = (
-        <div className={Class.container3}>
-          <div className={Class.containerTitle}>
-            <h4>
-              <u>Add New Users</u>
-            </h4>
-          </div>
-          <AddNewProdComp
-            OnClickListUsers={this.OnClickListUsers}
-            refreshUsers={this.refreshUsers}
-            errorHandler={this.errorHandler}
-          />
-        </div>
-      );
-    } else if (this.state.dataToShow === "archive") {
-      toShow = (
-        <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <h4>Archives</h4>
-          </div>
-          <ContainerDashboard
-            data={this.state.archive}
-            itemObj={this.getItemObj}
-          />
-        </div>
-      );
-    } else if (this.state.dataToShow === "adminSettings") {
-      toShow = (
-        <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <h4>AdminSettings</h4>
-          </div>
-          <AdminSettings />
-        </div>
-      );
-    }
     return (
       <div className="App">
         <AdminNav />
@@ -569,7 +435,99 @@ class Admin extends Component {
                   Admin Settings
                 </button>
               </div>
-              <div className={Class.container1}>{toShow}</div>
+              <div className={Class.container1}>
+                {this.state.dataToShow === "listUsers" && (
+                  <div className={Class.container2}>
+                    <UsersComp
+                      OnClickListUsers={this.OnClickListUsers}
+                      data={this.state.users}
+                      showUsers={this.OnClickListUsers}
+                    />
+                  </div>
+                )}
+                {this.state.dataToShow === "addNewProd" && (
+                  <div className={Class.container3}>
+                    <div className={Class.containerTitle}>
+                      <h4>
+                        <u>Add New Users</u>
+                      </h4>
+                    </div>
+                    <AddNewProdComp
+                      OnClickListUsers={this.OnClickListUsers}
+                      refreshUsers={this.refreshUsers}
+                      errorHandler={this.errorHandler}
+                    />
+                  </div>
+                )}
+                {this.state.dataToShow === "allItems" && (
+                  <div className={Class.container2}>
+                    <div className={Class.containerTitle}>
+                      <h4>List of All items</h4>
+                    </div>
+                    <DisplayAllDashboard
+                      data={this.state.data}
+                      itemObj={this.getItemObj}
+                    />
+                  </div>
+                )}
+                {this.state.dataToShow === "adminSettings" && (
+                  <div className={Class.container2}>
+                    <div className={Class.containerTitle}>
+                      <h4>AdminSettings</h4>
+                    </div>
+                    <AdminSettings />
+                  </div>
+                )}
+                {this.state.dataToShow === "toBeAccepted" && (
+                  <AdminHelper
+                    title="Items To Be Accepted Conditionally"
+                    data={this.state.pendingAdmin}
+                    itemObj={this.getItemObj}
+                  />
+                )}
+                {this.state.dataToShow === "awaitingProducer" && (
+                  <AdminHelper
+                    title="Items Awaiting Producer Acceptance"
+                    data={this.state.pendingProducer}
+                    itemObj={this.getItemObj}
+                  />
+                )}
+                {this.state.dataToShow === "acceptedConditional" && (
+                  <AdminHelper
+                    title="Items Accepted Conditionally"
+                    data={this.state.accepted}
+                    itemObj={this.getItemObj}
+                  />
+                )}
+                {this.state.dataToShow === "soldToBeDelivered" && (
+                  <AdminHelper
+                    title="Items Sold To Be Delivered"
+                    data={this.state.sold}
+                    itemObj={this.getItemObj}
+                  />
+                )}
+                {this.state.dataToShow === "delivered" && (
+                  <AdminHelper
+                    title="Items Delivered"
+                    data={this.state.delivered}
+                    itemObj={this.getItemObj}
+                  />
+                )}
+                {this.state.dataToShow === "notAccepted" && (
+                  <AdminHelper
+                    title="Items Not Accepted"
+                    data={this.state.notAccepted}
+                    itemObj={this.getItemObj}
+                  />
+                )}
+                {this.state.dataToShow === "archive" && (
+                  <AdminHelper
+                    title="Archives"
+                    data={this.state.archive}
+                    itemObj={this.getItemObj}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </main>

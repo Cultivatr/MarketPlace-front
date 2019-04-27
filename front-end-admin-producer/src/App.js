@@ -30,13 +30,6 @@ class App extends Component {
     }
   };
 
-  SignOutClick = () => {
-    sessionStorage.removeItem("loggedIn");
-    sessionStorage.removeItem("authData");
-    sessionStorage.removeItem("adminAuth");
-    this.setState({ isLoggedIn: false, adminAuth: "" });
-  };
-
   render() {
     return (
       <div>

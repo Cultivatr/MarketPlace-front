@@ -245,6 +245,19 @@ class ProductLivestockDetail extends Component {
             >
               Cancel
             </button>
+            {this.props.itemLivestockDetails.status === "Pending Producer" ? (
+              <button
+                className={Class.itemButtonsCancel}
+                onClick={() =>
+                  this.props.approveItem(
+                    this.props.itemLivestockDetails.id,
+                    this.props.itemLivestockDetails.status
+                  )
+                }
+              >
+                Approve
+              </button>
+            ) : null}
           </div>
         </div>
       </div>

@@ -1,0 +1,13 @@
+#awaiting-approval {
+  border: red solid !important ;
+  font-size: 80%;
+  padding: 0;
+  margin: 2px;
+  background: red;
+  font-weight: 900;
+  color: white !important;
+}
+
+#awaiting-approval:hover {
+  color: white !important;
+}

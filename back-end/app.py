@@ -477,12 +477,9 @@ def produce_get_all():
 @app.route('/produce/<user1>/', methods=['GET'])
 def produce_get_user(user1):
     user_id=user1
-    print("USER ID",user_id)
     produce=db.session.query(Produce).filter(Produce.user_id == user_id).all()
-    print("PRODUCE:",produce)
     output=[]
     for item_produce in produce:
-        print("IN FOR LOOP")
         item_produce_data={}
         x=item_produce.id
         item_produce_data['id']="P-%s"%(x)

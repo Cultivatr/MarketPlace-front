@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import matchSorter from "match-sorter";
 import ReactTable from "react-table";
-import { getItemDetails } from "../../../AppUtils";
+import { getItemDetails, filterForPending } from "../../../AppUtils";
 import ProductProduceDetail from "../ProductDetail/ProductProduceDetail";
 import ProductLivestockDetail from "../ProductDetail/ProductLivestockDetail";
 import Class from "./Summary.module.css";
@@ -14,6 +14,7 @@ class Summary extends Component {
     super();
     this.produceItems = [];
     this.livestockItems = [];
+    this.pendingProducer = [];
     this.data = [];
     this.state = {
       userFullName: "",
@@ -46,6 +47,15 @@ class Summary extends Component {
       });
       this.showOverlayLivestock();
     }
+  };
+
+  filterForPendingProducer = async dataToPass => {
+    await filterForPending(dataToPass, this.pendingProducer);
+    await console.log("Pending items found", this.pendingProducer.length);
+    sessionStorage.setItem(
+      "PendingItems",
+      JSON.stringify(this.pendingProducer.length)
+    );
   };
 
   showOverlayProduce = () => {
@@ -105,6 +115,8 @@ class Summary extends Component {
       });
     }
     await this.setState({ data: this.data });
+    const dataToPass = this.data;
+    await this.filterForPendingProducer(dataToPass);
   };
 
   removeOverlay = event => {

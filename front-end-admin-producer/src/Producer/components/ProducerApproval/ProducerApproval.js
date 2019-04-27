@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from "react";
-import matchSorter from "match-sorter";
-import ReactTable from "react-table";
 import { getItemDetails } from "../../../AppUtils";
 import Toolbar from "../../../SharedComponents/Navigation/Toolbar/Toolbar";
 import ProductProduceDetail from "../ProductDetail/ProductProduceDetail";
 import ProductLivestockDetail from "../ProductDetail/ProductLivestockDetail";
 import Class from "./ProducerApproval.module.css";
+import ProducerApprovalTable from "./ProducerApprovalTable";
 const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+const domainLink2 = "http://localhost:5000";
 
 class ProducerApproval extends Component {
   constructor() {
@@ -24,6 +24,30 @@ class ProducerApproval extends Component {
       localId: ""
     };
   }
+  approveItemProduce = async id => {
+    const subId = id.substr(2);
+    console.log("!!!!!", subId);
+    await fetch(domainLink2 + "/produce/incrementStatus/", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        id: subId,
+        nextStatus: "Accepted"
+      })
+    }).catch(error => console.log(error));
+  };
+
+  approveItemLivestock = async id => {
+    const subId = id.substr(2);
+    await fetch(domainLink2 + "/livestock/incrementStatus/", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        id: subId,
+        nextStatus: "Accepted"
+      })
+    }).catch(error => console.log(error));
+  };
 
   getItemObj = async e => {
     let i;
@@ -88,35 +112,22 @@ class ProducerApproval extends Component {
   };
 
   createData = () => {
-    let i;
-    if (
-      this.state.items_produce.produce ||
-      this.state.items_livestock.livestock
-    ) {
-      if (
-        this.state.items_produce.produce.length > 0 ||
-        this.state.items_livestock.livestock.length > 0
-      ) {
-        for (i = 0; i < this.state.items_produce.produce.length; i++) {
-          if (
-            this.state.items_produce.produce[i].status === "Pending Producer"
-          ) {
-            this.data.push(this.state.items_produce.produce[i]);
-          }
+    if (this.state.items_produce.produce) {
+      this.state.items_produce.produce.forEach(item => {
+        if (item.status === "Pending Producer") {
+          this.data.push(item);
         }
-        for (i = 0; i < this.state.items_livestock.livestock.length; i++) {
-          if (
-            this.state.items_livestock.livestock[i].status ===
-            "Pending Producer"
-          ) {
-            this.data.push(this.state.items_livestock.livestock[i]);
-          }
-        }
-      } else {
-        this.setState({ data: this.data });
-      }
-      this.setState({ data: this.data });
+      });
     }
+    if (this.state.items_livestock.livestock) {
+      this.state.items_livestock.livestock.forEach(item => {
+        if (item.status === "Pending Producer") {
+          this.data.push(item);
+        }
+      });
+    }
+
+    this.setState({ data: this.data });
   };
 
   removeOverlay = event => {
@@ -133,8 +144,6 @@ class ProducerApproval extends Component {
   };
 
   render() {
-    const data = this.data;
-
     return (
       <Fragment>
         <Toolbar />
@@ -142,130 +151,15 @@ class ProducerApproval extends Component {
           <div className={Class.table}>
             <br />
             <div>Items Accepted By Admin Awaiting Your Approval</div>
-            <ReactTable
-              data={data}
-              noDataText="No items from producers!"
-              filterable
-              defaultFilterMethod={(filter, row) =>
-                String(row[filter.id]) === filter.value
-              }
-              columns={[
-                {
-                  // Header: "Click on headers to sort or type to filter",
-                  columns: [
-                    {
-                      Header: "Item #",
-                      id: "Id",
-                      width: 75,
-                      accessor: d => d.id,
-                      filterMethod: (filter, rows) =>
-                        matchSorter(rows, filter.value, { keys: ["id"] }),
-                      filterAll: true,
-                      style: {
-                        textAlign: "center"
-                      }
-                    },
-                    {
-                      Header: "Type",
-                      id: "type",
-                      width: 200,
-                      accessor: d => d.type,
-                      filterMethod: (filter, rows) =>
-                        matchSorter(rows, filter.value, { keys: ["type"] }),
-                      filterAll: true,
-                      style: {
-                        textAlign: "center"
-                      }
-                    },
-                    {
-                      Header: "Est. Finished Qty",
-                      id: "estFinishedQty",
-                      width: 250,
-                      accessor: d => d.estFinishedQty || d.quantity,
-                      filterMethod: (filter, rows) =>
-                        matchSorter(rows, filter.value, {
-                          keys: ["estFinishedQty"]
-                        }),
-                      filterAll: true,
-                      style: {
-                        textAlign: "center"
-                      }
-                    },
-                    {
-                      Header: "Est Completion Date",
-                      id: "estCompletionDate",
-                      width: 250,
-                      accessor: d => d.estCompletionDate,
-                      filterMethod: (filter, rows) =>
-                        matchSorter(rows, filter.value, {
-                          keys: ["estCompletionDate"]
-                        }),
-                      filterAll: true,
-                      style: {
-                        textAlign: "center"
-                      }
-                    },
-                    {
-                      Header: "Order Status",
-                      id: "status",
-                      width: 250,
-                      accessor: d => d.status,
-                      filterMethod: (filter, rows) =>
-                        matchSorter(rows, filter.value, { keys: ["status"] }),
-                      filterAll: true,
-                      style: {
-                        textAlign: "center"
-                      }
-                    },
-                    {
-                      Header: "",
-                      id: "MoreDetails",
-                      width: 75,
-                      accessor: d => (
-                        <span
-                          className="detail-button"
-                          style={{
-                            cursor: "pointer",
-                            fontSize: 10,
-                            border: "1px solid black",
-                            borderRadius: "25px",
-                            padding: "5px 5px",
-                            margin: "3px 0px 3px 0px",
-                            textAlign: "center",
-                            userSelect: "none"
-                          }}
-                          id={d.id}
-                          onClick={this.getItemObj}
-                        >
-                          Details
-                        </span>
-                      ),
-                      filterMethod: (filter, rows) =>
-                        matchSorter(rows, filter.value, { keys: ["qty"] }),
-                      filterAll: true,
-                      style: {
-                        cursor: "pointer",
-                        fontSize: 15,
-                        padding: "5px 5px",
-                        userSelect: "none",
-                        textAlign: "center"
-                      }
-                    }
-                  ]
-                }
-              ]}
-              defaultPageSize={20}
-              className="-striped -highlight"
-              style={{
-                height: "85vh"
-              }}
-            />
+            <ProducerApprovalTable data={this.data} />
             <ProductProduceDetail
+              approveItem={this.approveItemLivestock}
               itemProduceDetails={this.state.itemProduceDetails}
               removeOverlay={this.removeOverlay}
               refreshProduce={this.refreshProduce}
             />
             <ProductLivestockDetail
+              approveItem={this.approveItemLivestock}
               itemLivestockDetails={this.state.itemLivestockDetails}
               removeOverlay={this.removeOverlay}
               refreshLiveStock={this.refreshLiveStock}
