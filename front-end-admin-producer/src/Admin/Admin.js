@@ -164,7 +164,7 @@ class Admin extends Component {
     this.pushThroughProduce(id, "Not Accepted");
   };
   sendEmail = (farm, email) => {
-    fetch(domainLink2 + "/email/", {
+    fetch(domainLink + "/email/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -185,7 +185,7 @@ class Admin extends Component {
   pushThroughLivestock = async (id, status, farm, email) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
-    this.sendEmail(farm, email);
+    // this.sendEmail(farm, email);
     await fetch(domainLink + "/livestock/incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
@@ -222,7 +222,7 @@ class Admin extends Component {
   };
 
   getItemObj = async e => {
-    console.log("called item obj");
+    console.log("called item obj", e);
     this.produceItems.length = 0;
     this.livestockItems.length = 0;
     this.state.data.forEach(item => {
