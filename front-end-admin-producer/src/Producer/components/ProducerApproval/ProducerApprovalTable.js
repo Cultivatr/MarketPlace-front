@@ -97,7 +97,7 @@ export default class ProducerApprovalTable extends Component {
                       userSelect: "none"
                     }}
                     id={d.id}
-                    onClick={this.getItemObj}
+                    onClick={this.props.getItemObj}
                   >
                     {"<>"}
                   </span>

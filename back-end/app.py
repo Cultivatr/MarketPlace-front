@@ -590,8 +590,12 @@ def update_produce_items():
 def update_livestock_items():
     data=request.get_json()
     filterId=data.get('id')
+    print("ID",filterId)
     liveToUpdate=db.session.query(Livestock).filter(Livestock.id==filterId).first()
+    print("livetoUpdate",liveToUpdate)
+    print("status",liveToUpdate.status)
     liveToUpdate.status=data.get('nextStatus')
+
     db.session.commit()
     return 'Success', 201
 

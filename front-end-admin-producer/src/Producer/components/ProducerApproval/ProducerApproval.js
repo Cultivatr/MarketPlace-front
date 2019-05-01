@@ -6,7 +6,7 @@ import ProductLivestockDetail from "../ProductDetail/ProductLivestockDetail";
 import Class from "./ProducerApproval.module.css";
 import ProducerApprovalTable from "./ProducerApprovalTable";
 const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
-const domainLink2 = "http://localhost:5000";
+// const domainLink2 = "http://localhost:5000";
 
 class ProducerApproval extends Component {
   constructor() {
@@ -27,7 +27,7 @@ class ProducerApproval extends Component {
   approveItemProduce = async id => {
     const subId = id.substr(2);
     console.log("!!!!!", subId);
-    await fetch(domainLink2 + "/produce/incrementStatus/", {
+    await fetch(domainLink + "produce/incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -39,7 +39,7 @@ class ProducerApproval extends Component {
 
   approveItemLivestock = async id => {
     const subId = id.substr(2);
-    await fetch(domainLink2 + "/livestock/incrementStatus/", {
+    await fetch(domainLink + "livestock/incrementStatus/", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -151,7 +151,10 @@ class ProducerApproval extends Component {
           <div className={Class.table}>
             <br />
             <div>Items Accepted By Admin Awaiting Your Approval</div>
-            <ProducerApprovalTable data={this.data} />
+            <ProducerApprovalTable
+              data={this.data}
+              getItemObj={this.getItemObj}
+            />
             <ProductProduceDetail
               approveItem={this.approveItemLivestock}
               itemProduceDetails={this.state.itemProduceDetails}

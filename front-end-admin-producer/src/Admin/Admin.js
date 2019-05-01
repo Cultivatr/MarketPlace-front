@@ -222,6 +222,7 @@ class Admin extends Component {
   };
 
   getItemObj = async e => {
+    console.log("called item obj");
     this.produceItems.length = 0;
     this.livestockItems.length = 0;
     this.state.data.forEach(item => {

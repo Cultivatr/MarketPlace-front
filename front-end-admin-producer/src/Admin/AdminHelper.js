@@ -11,7 +11,7 @@ export default class AdminHelper extends Component {
         </div>
         <ContainerDashboard
           data={this.props.data}
-          itemObj={this.props.getItemObj}
+          itemObj={this.props.itemObj}
         />
       </div>
     );
