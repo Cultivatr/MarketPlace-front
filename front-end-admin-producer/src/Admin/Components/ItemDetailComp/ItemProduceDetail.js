@@ -14,9 +14,7 @@ class ProductProduceDetail extends Component {
     this.priorDeliveredDate = "";
   }
 
-  componentDidMount = () => {
-    console.log("Produce Rendered");
-  };
+  componentDidMount = () => {};
   getPackageTypeValue = () => {
     const element = document.getElementById("packageType");
     switch (this.props.itemProduceDetails.packageType) {

@@ -39,7 +39,7 @@ class SignIn extends Component {
     const logInData = {
       name: "joe",
       email: "byrondaniels@gmail.com",
-      id: 3,
+      id: 1,
       admin: true,
       fullName: "Test User"
     };

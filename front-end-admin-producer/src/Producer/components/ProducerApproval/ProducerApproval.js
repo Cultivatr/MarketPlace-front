@@ -35,6 +35,9 @@ class ProducerApproval extends Component {
         nextStatus: "Accepted"
       })
     }).catch(error => console.log(error));
+    await this.loadProduceData();
+    await this.createData();
+    await this.removeOverlay();
   };
 
   approveItemLivestock = async id => {
@@ -47,6 +50,9 @@ class ProducerApproval extends Component {
         nextStatus: "Accepted"
       })
     }).catch(error => console.log(error));
+    await this.loadLivestockData();
+    await this.createData();
+    await this.removeOverlay();
   };
 
   getItemObj = async e => {
@@ -79,23 +85,31 @@ class ProducerApproval extends Component {
     document.getElementById("livestockOverlay").style.display = "block";
   };
 
+  loadLivestockData = async () => {
+    const user1 = this.state.localId;
+    const response2 = await fetch(domainLink + `livestock/${user1}/`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+    const json2 = await response2.json();
+    this.setState({ items_livestock: json2 });
+  };
+
+  loadProduceData = async () => {
+    const user1 = this.state.localId;
+    const response = await fetch(domainLink + `produce/${user1}/`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    });
+    const json = await response.json();
+    this.setState({ items_produce: json });
+  };
+
   componentDidMount = async () => {
     await this.getId();
-    const user1 = this.state.localId;
     try {
-      const response = await fetch(domainLink + `produce/${user1}/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json = await response.json();
-      console.log("produce:", json);
-      this.setState({ items_produce: json });
-      const response2 = await fetch(domainLink + `livestock/${user1}/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json2 = await response2.json();
-      this.setState({ items_livestock: json2 });
+      await this.loadLivestockData();
+      await this.loadProduceData();
     } catch (error) {
       console.log(error);
     }
@@ -112,6 +126,7 @@ class ProducerApproval extends Component {
   };
 
   createData = () => {
+    this.data.length = 0;
     if (this.state.items_produce.produce) {
       this.state.items_produce.produce.forEach(item => {
         if (item.status === "Pending Producer") {

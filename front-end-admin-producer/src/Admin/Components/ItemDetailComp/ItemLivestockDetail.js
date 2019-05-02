@@ -14,9 +14,7 @@ class ProductLivestockDetail extends Component {
     this.priorBirthDate = "";
     this.priorOnFeedDate = "";
   }
-  componentDidMount = () => {
-    console.log("Livestock Rendered");
-  };
+  componentDidMount = () => {};
   onChange = e => {
     let itemLivestockDetails = this.props.itemLivestockDetails;
     itemLivestockDetails[e.target.name] = e.target.value;
@@ -524,7 +522,7 @@ class ProductLivestockDetail extends Component {
                     this.props.itemLivestockDetails.id,
                     this.props.itemLivestockDetails.status,
                     this.props.itemLivestockDetails.farm,
-                    this.props.itemProduceDetails.email
+                    this.props.itemLivestockDetails.email
                   )
                 }
               >
