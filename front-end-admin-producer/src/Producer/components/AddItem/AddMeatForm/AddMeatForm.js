@@ -38,20 +38,20 @@ class LivestockForm extends Component {
     // estCompletionDate: "0001-01-01"
   };
 
-  camelCaseString = (string, type) => {
-    if (type === "comments" || type === "feedMethod") return string;
-    const text = string
-      .toLowerCase()
-      .split(" ")
-      .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-      .join(" ");
-    return text;
-  };
+  // camelCaseString = (string, type) => {
+  //   if (type === "comments" || type === "feedMethod") return string;
+  //   const text = string
+  //     .toLowerCase()
+  //     .split(" ")
+  //     .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+  //     .join(" ");
+  //   return text;
+  // };
 
   onChange = e => {
     let data = this.state.data;
-    const newValue = this.camelCaseString(e.target.value, e.target.name);
-    let newdata = { ...data, [e.target.name]: newValue };
+    // const newValue = this.camelCaseString(e.target.value, e.target.name);
+    let newdata = { ...data, [e.target.name]: e.target.value };
     this.setState({ data: newdata });
     console.log("Data", newdata);
   };
@@ -330,15 +330,6 @@ class LivestockForm extends Component {
                   />
                 </div>
 
-                <div className="field">
-                  <label>Quantity</label>
-                  <input
-                    onChange={this.onChange}
-                    type="number"
-                    name="quantity"
-                    style={{ border: "3px solid #1ECE88" }}
-                  />
-                </div>
                 <input type="hidden" id="userId" name="userId" value="1" />
               </div>
               <Button>Add</Button>

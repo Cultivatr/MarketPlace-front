@@ -13,7 +13,6 @@ import AdminHelper from "./AdminHelper";
 
 // const domainLink = "http://localhost:5000";
 const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
-// const domainLink2 = "http://localhost:5000";
 
 class Admin extends Component {
   constructor() {
@@ -123,10 +122,6 @@ class Admin extends Component {
     this.setState({ itemProduceDetails: data });
   };
 
-  pushThroughText = status => {
-    return status;
-  };
-
   helperFilterFunction = async dataToPass => {
     await filterData(
       dataToPass,
@@ -180,6 +175,8 @@ class Admin extends Component {
     if (currentStatus === "Delivered") return "Send To Archives";
     if (currentStatus === "Not Accepted") return "Accept";
   };
+
+  pushThroughPrompt = (id, status, farm, email) => {};
 
   pushThroughLivestock = async (id, status, farm, email) => {
     const nextStatus = this.nextStatus(status);

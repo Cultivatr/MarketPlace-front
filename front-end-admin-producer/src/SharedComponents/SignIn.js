@@ -5,6 +5,7 @@ import "./SignIn.css";
 import GoogleLogin from "react-google-login";
 
 const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+// const domainLink = "http://localhost:5000";
 
 class SignIn extends Component {
   constructor() {
@@ -17,66 +18,64 @@ class SignIn extends Component {
 
   componentDidMount() {
     this.setState({ test: "test" });
-    this.getUsers();
   }
-
-  getUsers = async () => {
-    try {
-      const response = await fetch(domainLink + "admin/users/", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      console.log(response);
-      const json = await response.json();
-      console.log(json);
-      await this.setState({ userList: json });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  testingButton = () => {
-    console.log("test button clicked");
-    const logInData = {
-      name: "joe",
-      email: "byrondaniels@gmail.com",
-      id: 1,
-      admin: true,
-      fullName: "Test User"
-    };
-    sessionStorage.setItem("authData", JSON.stringify(logInData));
-    sessionStorage.setItem("loggedIn", true);
-    sessionStorage.setItem("adminAuth", true);
-    setTimeout(this.setState({ isLoggedIn: true, admin: true }), 1000);
+  redirectButton = () => {
+    console.log("redirect button clicked");
+    let logInData = [];
+    fetch(domainLink + "/login/", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        email: "byrondaniels@gmail.com"
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        logInData = {
+          name: data.user.firstName,
+          email: data.user.email,
+          id: data.user.id,
+          admin: data.user.isAdmin,
+          fullName: `${data.user.firstName} ${data.user.lastName}`
+        };
+        sessionStorage.setItem("authData", JSON.stringify(logInData));
+        sessionStorage.setItem("loggedIn", true);
+        sessionStorage.setItem("adminAuth", logInData.admin);
+        setTimeout(
+          this.setState({ isLoggedIn: true, admin: logInData.admin }),
+          1000
+        );
+      })
+      .catch(error => console.log("ERROR:", error));
   };
 
   logIn(res) {
-    //console.log("USER LIST", this.state.userList.users);
-    //console.log("CurrentUser", currentUser);
-    // const logInData = Object.assign({}, res.w3.profileObj);
-    const logInData = {
-      name: res.w3.ofa,
-      email: res.w3.U3,
-      id: "",
-      admin: "",
-      fullName: ""
-    };
-    //console.log("LOG IN DATA", logInData);
-    let currentUser = this.state.userList.users.filter(
-      user => user.email.toLowerCase() === logInData.email.toLowerCase()
-    );
-    logInData.admin = currentUser[0].isAdmin;
-    let adminAuth = logInData.admin;
-    console.log("logindata", logInData.admin);
-    logInData.id = currentUser[0].id;
-    logInData.fullName =
-      currentUser[0].firstName + " " + currentUser[0].lastName;
-    console.log(logInData);
-    if (currentUser) {
-      sessionStorage.setItem("authData", JSON.stringify(logInData));
-      sessionStorage.setItem("loggedIn", true);
-      sessionStorage.setItem("adminAuth", JSON.stringify(adminAuth));
-      this.setState({ isLoggedIn: true, admin: logInData.admin });
-    }
+    let logInData = [];
+    fetch(domainLink + "/login/", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        email: res.w3.U3
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        logInData = {
+          name: data.user.firstName,
+          email: data.user.email,
+          id: data.user.id,
+          admin: data.user.isAdmin,
+          fullName: `${data.user.firstName} ${data.user.lastName}`
+        };
+        sessionStorage.setItem("authData", JSON.stringify(logInData));
+        sessionStorage.setItem("loggedIn", true);
+        sessionStorage.setItem("adminAuth", logInData.admin);
+        setTimeout(
+          this.setState({ isLoggedIn: true, admin: logInData.admin }),
+          1000
+        );
+      })
+      .catch(error => console.log("ERROR:", error));
   }
 
   render() {
@@ -103,7 +102,7 @@ class SignIn extends Component {
               <div className="field" />
               <div className="rememberMeAndLoginBox centeredDisplay">
                 {/* TO BE REMOVED AFTER TESTING COMPLETE */}
-                <div onClick={this.testingButton}>Enter Testing Mode</div>
+                <div onClick={this.redirectButton}>Enter Cultivatr</div>
                 <GoogleLogin
                   clientId="441538396161-n36t34tefa1n3vpd0rfrigm8688d3uat.apps.googleusercontent.com"
                   buttonText="Sign in with Google"
