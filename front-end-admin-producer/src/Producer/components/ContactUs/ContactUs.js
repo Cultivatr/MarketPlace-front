@@ -32,13 +32,10 @@ class ContactUs extends Component {
             <h1 className="ui header">Contact Us</h1>
           </div>
           <div>
-            <h1>
+            <h2>
               For General Inquires Email Me At <i>dmbzan@gmail.com</i>
-            </h1>
+            </h2>
 
-            <h1>
-              or Call Me At <i>403-710-2821</i>
-            </h1>
             {/* <div className="ui form">
                             <div className="field">
                                 <label>Name</label>

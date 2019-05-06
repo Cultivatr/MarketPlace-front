@@ -96,7 +96,7 @@ class SignIn extends Component {
       <div>
         <div className="loginBox">
           <div className="h1-header">
-            <h1 className="ui header">Welcome to Cultivatr</h1>
+            <h1 className="ui header">Welcome to CultivatR</h1>
           </div>
           <div>
             <form className="ui form">
