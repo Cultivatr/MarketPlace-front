@@ -96,10 +96,10 @@ class UserDetailComp extends Component {
     } catch (error) {
       console.log(error);
     }
-    console.log('UserDetailsComp - show users before await', this.props.showUsers());
-    console.log('current data is ', this.state.data); // yes change is getting passed to state
+    console.log('UserDetailsComp - show users before await', this.props.showUsers()); // GF added
+    console.log('current data is ', this.state.data); // yes change is getting passed to state 
     await this.props.showUsers();  // passed as props from admin thru UsersComp
-    console.log('UserDetailsComp - show users after called', this.props.showUsers());
+    console.log('UserDetailsComp - show users after called', this.props.showUsers()); 
   };
 
   getAreaValue = () => {

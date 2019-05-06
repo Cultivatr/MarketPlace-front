@@ -257,7 +257,7 @@ class Admin extends Component {
 
       
       this.geti ++;
-      console.log('Admin.js getusers called line 256 and count is ', this.geti);
+      console.log('Admin.js getusers called line 256 and count is ', this.geti); // GF added this
       const response = await fetch(domainLink + "/admin/users/", {
         method: "GET",
         headers: { "Content-Type": "application/json" }
@@ -311,9 +311,9 @@ class Admin extends Component {
   };
 
   OnClickListUsers = async () => {
-    console.log('Admin.js - after modify clicked ')
+    console.log('Admin.js - after modify clicked ') // added by GF
     await this.getUsers();
-    await this.setState({ dataToShow: "allItems" }); // added as a hack to re-render listUsers to force update of state
+    await this.setState({ dataToShow: "allItems" }); // added as a hack  to re-render listUsers to force update of state
     await this.setState({ dataToShow: "listUsers" });
   };
 
