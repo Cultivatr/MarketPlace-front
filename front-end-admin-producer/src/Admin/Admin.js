@@ -18,6 +18,7 @@ const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
 class Admin extends Component {
   constructor() {
     super();
+    this.geti=0;
     this.produceItems = [];
     this.livestockItems = [];
     this.data = [];
@@ -253,6 +254,10 @@ class Admin extends Component {
 
   getUsers = async () => {
     try {
+
+      
+      this.geti ++;
+      console.log('Admin.js getusers called line 256 and count is ', this.geti);
       const response = await fetch(domainLink + "/admin/users/", {
         method: "GET",
         headers: { "Content-Type": "application/json" }
@@ -306,7 +311,9 @@ class Admin extends Component {
   };
 
   OnClickListUsers = async () => {
+    console.log('Admin.js - after modify clicked ')
     await this.getUsers();
+    await this.setState({ dataToShow: "allItems" }); // added as a hack to re-render listUsers to force update of state
     await this.setState({ dataToShow: "listUsers" });
   };
 
@@ -438,7 +445,7 @@ class Admin extends Component {
                     <UsersComp
                       OnClickListUsers={this.OnClickListUsers}
                       data={this.state.users}
-                      showUsers={this.OnClickListUsers}
+                      showUsers={this.OnClickListUsers} // here
                     />
                   </div>
                 )}
