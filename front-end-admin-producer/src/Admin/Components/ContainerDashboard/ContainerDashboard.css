@@ -7,9 +7,11 @@
   background-color: #16af54;
 }
 
+
+/*manually fixed React table height here - Greg*/
 .ReactTable.-striped.-highlight {
 	/*border: solid black 20px;*/
-	height: 78vh;
+	height: 78vh;  
 }
 /*
 .-btn {

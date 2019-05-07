@@ -118,9 +118,9 @@ export default class ProducerApprovalTable extends Component {
         ]}
         defaultPageSize={20}
         className="-striped -highlight"
-        style={{
-          height: "85vh"
-        }}
+        // style={{
+        //   height: "85vh"
+        // }}
       />
     );
   }

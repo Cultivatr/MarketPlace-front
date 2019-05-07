@@ -137,8 +137,10 @@ class Summary extends Component {
 
     return (
       <div className={Class.table}>
-        <br />
-        <div>Dashboard Table for: {this.state.userFullName}</div>{" "}
+        <div className={Class.prodTableHeader}>
+          <h4>Dashboard Table for: {this.state.userFullName}</h4>{" "}
+        </div>
+
         <ReactTable
           data={data}
           noDataText="No items from producers!"
@@ -253,9 +255,9 @@ class Summary extends Component {
           ]}
           defaultPageSize={20}
           className="-striped -highlight"
-          style={{
-            height: "85vh"
-          }}
+          // style={{
+          //   height: "85vh"
+          // }}
         />
         <ProductProduceDetail
           itemProduceDetails={this.state.itemProduceDetails}

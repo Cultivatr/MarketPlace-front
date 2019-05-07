@@ -164,8 +164,12 @@ class ProducerApproval extends Component {
         <Toolbar />
         <div className="ui container">
           <div className={Class.table}>
-            <br />
-            <div>Items Accepted By Admin Awaiting Your Approval</div>
+            <div className={Class.prodTableHeader}>
+                        
+              <h4>Items Accepted By Admin and Awaiting Your Approval</h4>
+              
+            </div>
+            
             <ProducerApprovalTable
               data={this.data}
               getItemObj={this.getItemObj}
