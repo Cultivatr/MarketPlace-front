@@ -178,11 +178,13 @@ export default class AdminSettings extends Component {
         </div>
         <div className="produce-item-container">
           <strong>Current produce items available from dropdown:</strong>
-          <div className="produce-item-list">
+          <table className="produce-item-list">
+              <tbody>
             {this.produceSelection !== false
               ? this.produceSelection
               : this.errorMessage}
-          </div>
+              </tbody>
+          </table>
         </div>
       </Fragment>
     );
@@ -191,18 +193,16 @@ export default class AdminSettings extends Component {
 
 const ProduceChartItem = props => {
   return (
-    <div className="produce-chart-item">
-      <table>
+      
 
         <tr className="produce-select-item">
           <td>{props.name}</td>
           <td
             onClick={() => props.deleteProduceItemClick(props)}
             className="produce-delete-btn"
-            >{` X `}
+            >{`X`}
           </td>
         </tr>
-      </table>
-    </div>
+      
   );
 };

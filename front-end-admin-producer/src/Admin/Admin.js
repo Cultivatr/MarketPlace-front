@@ -439,9 +439,15 @@ class Admin extends Component {
                   Admin Settings
                 </button>
               </div>
+
               <div className={Class.container1}>
                 {this.state.dataToShow === "listUsers" && (
                   <div className={Class.container2}>
+                    <div className={Class.containerTitle}>
+                      <h4>
+                        List of Users
+                      </h4>
+                    </div>
                     <UsersComp
                       OnClickListUsers={this.OnClickListUsers}
                       data={this.state.users}
@@ -453,7 +459,7 @@ class Admin extends Component {
                   <div className={Class.container3}>
                     <div className={Class.containerTitle}>
                       <h4>
-                        <u>Add New Users</u>
+                        Add New Users
                       </h4>
                     </div>
                     <AddNewProdComp
