@@ -146,9 +146,9 @@ class UsersComp extends Component {
           ]}
           defaultPageSize={20}
           className="-striped -highlight"
-          style={{
-            height: "80vh"
-          }}
+          // style={{
+          //   height: "80vh"
+          // }}
         />
         <UserDetailComp
           userDetails={this.state.userDetails}

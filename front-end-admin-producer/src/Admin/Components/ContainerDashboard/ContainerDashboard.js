@@ -114,9 +114,9 @@ class ContainerDashboard extends React.Component {
           ]}
           defaultPageSize={20}
           className="-striped -highlight"
-          style={{
-            height: "80vh"  // react table height set here
-          }}
+          // style={{
+          //   height: "80vh"  // react table height set here
+          // }}
         />
       </div>
     );

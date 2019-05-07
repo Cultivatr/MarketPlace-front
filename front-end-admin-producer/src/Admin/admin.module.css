@@ -71,7 +71,7 @@
    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),url("../img/CultivatR-01.jpg");
    background-size: cover;
    background-position: center;
-   background-attachment: fixed;
+   /*background-attachment: fixed;*/
    background-color: black;
  }
 
@@ -87,7 +87,8 @@
    height: 100%;
  }
 
- .buttonAdmin{
+ .buttonAdmin{  
+  /*see Button.module.css for actual button css styles*/
    background-color: #1ECE88;
    color:white;
    border-radius: .28571429rem;
