@@ -12,7 +12,8 @@ import AdminSettings from "./Components/AdminSettings/AdminSettings";
 import AdminHelper from "./AdminHelper";
 
 // const domainLink = "http://localhost:5000";
-const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
+// const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
+const domainLink = "https://mysterious-cove-46763.herokuapp.com";
 
 class Admin extends Component {
   constructor() {

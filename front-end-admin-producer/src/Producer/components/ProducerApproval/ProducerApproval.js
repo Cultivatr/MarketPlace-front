@@ -5,7 +5,9 @@ import ProductProduceDetail from "../ProductDetail/ProductProduceDetail";
 import ProductLivestockDetail from "../ProductDetail/ProductLivestockDetail";
 import Class from "./ProducerApproval.module.css";
 import ProducerApprovalTable from "./ProducerApprovalTable";
-const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+// const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+const domainLink = "https://mysterious-cove-46763.herokuapp.com/";
+
 // const domainLink2 = "http://localhost:5000";
 
 class ProducerApproval extends Component {

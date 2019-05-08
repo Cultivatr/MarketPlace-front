@@ -4,7 +4,8 @@ import "./SignIn.css";
 // import GoogleAuth from '../GoogleAuth';
 import GoogleLogin from "react-google-login";
 
-const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
+// const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
+const domainLink = "https://mysterious-cove-46763.herokuapp.com";
 // const domainLink = "http://localhost:5000";
 
 class SignIn extends Component {
