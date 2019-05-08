@@ -31,8 +31,8 @@
   border: 2px solid #1ECE88;
 }
 
+/*set height of table so it fully shows on screen when first opened*/
 .ReactTable.-striped.-highlight {
-
   height: 78vh;  
 }
 

@@ -42,7 +42,7 @@ export default class ProducerApprovalTable extends Component {
               {
                 Header: "Est. Finished Qty",
                 id: "estFinishedQty",
-                width: 250,
+                width: 150,
                 accessor: d => d.estFinishedQty || d.quantity,
                 filterMethod: (filter, rows) =>
                   matchSorter(rows, filter.value, {
@@ -54,7 +54,7 @@ export default class ProducerApprovalTable extends Component {
                 }
               },
               {
-                Header: "Est Completion Date",
+                Header: "Est. Completion Date",
                 id: "estCompletionDate",
                 width: 250,
                 accessor: d => d.estCompletionDate,

@@ -134,6 +134,9 @@ class Summary extends Component {
 
   render() {
     const data = this.data;
+    // console.log('render date is', this.state.data);
+    console.log('produce details are ', this.state.itemProduceDetails);
+
 
     return (
       <div className={Class.table}>
@@ -179,7 +182,7 @@ class Summary extends Component {
                 {
                   Header: "Est. Finished Qty",
                   id: "estFinishedQty",
-                  width: 250,
+                  width: 150,
                   accessor: d => d.estFinishedQty || d.quantity,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, {
@@ -191,7 +194,7 @@ class Summary extends Component {
                   }
                 },
                 {
-                  Header: "Est Completion Date",
+                  Header: "Est. Completion Date",
                   id: "estCompletionDate",
                   width: 250,
                   accessor: d => d.estCompletionDate,

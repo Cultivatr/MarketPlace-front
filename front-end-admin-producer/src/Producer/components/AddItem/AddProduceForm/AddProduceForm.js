@@ -74,10 +74,11 @@ class ProduceForm extends Component {
     const newValue = this.camelCaseString(e.target.value, e.target.name);
     let newdata = { ...data, [e.target.name]: newValue };
     this.setState({ data: newdata });
-    console.log("Data", newdata);
+    // console.log("Data", newdata);
   };
   onCompDateChange = date => {
     this.setState({ estCompletionDate: date });
+    console.log('new date is', this.state.estCompletionDate);
   };
 
   onSubmit = e => {
@@ -107,7 +108,7 @@ class ProduceForm extends Component {
       status
     } = this.state.data;
     const estCompletionDate = this.state.estCompletionDate;
-    console.log("INCOMING DATA: ", this.state.data);
+    // console.log("INCOMING DATA: ", this.state.data);
 
     document.getElementById("submitBtn").className += " loading";
     fetch(domainLink + "produce/", {
@@ -141,7 +142,7 @@ class ProduceForm extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
       })
       .then(form.reset())
       .then(
