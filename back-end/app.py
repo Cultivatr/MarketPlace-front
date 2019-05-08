@@ -67,11 +67,11 @@ class Produce(db.Model):
     estimated_qty_planted=db.Column(db.Integer)
     certified_organic=db.Column(db.Text)
     estimated_finished_qty=db.Column(db.Integer)
-    est_price_to_be_paid=db.Column(db.Integer)
+    est_price_to_be_paid=db.Column(db.Float)
     qty_accepted_for_listing=db.Column(db.Integer)
     qty_accepted_at_delivery=db.Column(db.Integer)
     chargebacks=db.Column(db.Integer)
-    price_paid=db.Column(db.Integer)
+    price_paid=db.Column(db.Float)
     created_date=db.Column(db.Date)
     accepted_date=db.Column(db.Date)
     sold_date=db.Column(db.Date)
@@ -92,7 +92,7 @@ class Livestock(db.Model):
     breed=db.Column(db.Text)
     single_brand=db.Column(db.Text)
     est_birthdate=db.Column(db.Date)
-    registration_number=db.Column(db.Integer)
+    registration_number=db.Column(db.Float)
     rfid_tag=db.Column(db.Integer)
     starting_weight=db.Column(db.Integer)
     hanging_weight=db.Column(db.Integer)
@@ -117,7 +117,7 @@ class Livestock(db.Model):
 
 class ProduceItems(db.Model):
     id=db.Column(db.Integer, primary_key=True)
-    item=db.Column(db.Text )
+    item=db.Column(db.String(50),unique=True )
 
 
 @app.route('/produceItems/all/', methods=['GET'])
@@ -136,7 +136,6 @@ def get_indiv_produce_items():
 @app.route("/produceItems/add/", methods=['POST'])
 def add_new_produce_item():
     data=request.get_json()
-    print("data", data)
     new_p_item=ProduceItems(
     item=data.get('newItem'))
     db.session.add(new_p_item)
@@ -148,8 +147,6 @@ def add_new_produce_item():
 def delete_produce_selection_item():
     data=request.get_json()
     filterId=data.get('itemToDelete')
-    print("ID",filterId)
-    print("items", db.session.query(ProduceItems).filter(ProduceItems.item == filterId))
     db.session.query(ProduceItems).filter(ProduceItems.item == filterId).delete()
     db.session.commit()
     return 'Success', 201
@@ -199,7 +196,6 @@ def get_users():
 @app.route("/admin/", methods=['POST'])
 def add_new_user():
     data=request.get_json()
-    print("date incominging", datetime.today())
     new_user=Users(
     first_name=data.get('firstName'),
     last_name=data.get('lastName'),
@@ -225,7 +221,7 @@ def add_new_user():
     billing_province=data.get('billingAddressProvince'),
     billing_country=data.get('billingAddressCountry'),
     billing_postal_code=data.get('billingAddressPostalCode'),
-    user_comments=data.get('comments')
+    user_comments=data.get('comments'),
     )
     # if not new_user.first_name: return jsonify('Error: You must provide a first name'), 400
     # if not new_user.last_name: return jsonify('Error: You must provide a last name'), 400
@@ -266,16 +262,6 @@ def modify_user():
         userToUpdate.is_admin=0   
     if(data.get('isAdmin')):
         userToUpdate.is_admin=1 
-    # if(data.get('isProducer')):
-    #     userToUpdate.is_admin=1
-    #     print("Admin changed", userToUpdate.is_admin)
-    # if(not data.get('isProducer')):
-    #     userToUpdate.is_admin=0  
-    # if(data.get('isOther')):
-    #     userToUpdate.is_admin=1
-    #     print("Admin changed", userToUpdate.is_admin)
-    # if(not data.get('isOther')):
-    #     userToUpdate.is_admin=0     
     # userToUpdate.is_admin=data.get('isAdmin'),
     # userToUpdate.is_producer=bool(data.get('isProducer')),
     # userToUpdate.is_other=bool(data.get('isOther')),
@@ -323,7 +309,8 @@ def add_livestock_items():
     price_paid=data.get('finalPrice'),
     delivered_date=data.get('deliveredDate'),
     delivered_to=data.get('deliveredTo'),
-    status="Pending Admin"
+    status="Pending Admin",
+    created_date=datetime.datetime.now()
     )
     db.session.add(new_livestock)
     db.session.commit()
@@ -407,7 +394,6 @@ def livestock_get_user(user1):
 def modify_lifestock():
     data=request.get_json()
     filterId=data.get('id')
-    print("livestockdata",data)
     livestock_to_update= db.session.query(Livestock).filter(Livestock.id == filterId).first()
     livestock_to_update.product_name=data.get('type'),
     livestock_to_update.breed=data.get('breed'),
@@ -537,7 +523,8 @@ def add_produce_items():
     delivered_date=data.get('deliveredDate'),
     delivered_to=data.get('deliveredTo'),
     comments=data.get('comments'),
-    status="Pending Admin"
+    status="Pending Admin",
+    created_date=datetime.datetime.now()
     )
     db.session.add(new_produce)
     db.session.commit()
@@ -547,7 +534,6 @@ def add_produce_items():
 def modify_produce():
     data=request.get_json()
     filterId=data.get('id')
-    print("produce",data)
     produce_to_update = db.session.query(Produce).filter(Produce.id == filterId).first()
     produce_to_update.product_name=data.get('type'),
     produce_to_update.package_type=data.get('packageType'),
@@ -590,15 +576,28 @@ def update_produce_items():
 def update_livestock_items():
     data=request.get_json()
     filterId=data.get('id')
-    print("ID",filterId)
     liveToUpdate=db.session.query(Livestock).filter(Livestock.id==filterId).first()
-    print("livetoUpdate",liveToUpdate)
-    print("status",liveToUpdate.status)
     liveToUpdate.status=data.get('nextStatus')
 
     db.session.commit()
     return 'Success', 201
 
+@app.route("/login/", methods = ["POST"])
+def authenticate_login_user():
+    data=request.get_json()
+    loginEmail=data.get('email')
+    user=db.session.query(Users).filter(Users.email==loginEmail.lower()).first()
+    if user:
+        user_data={}
+        user_data['id']=user.id
+        user_data['firstName']=user.first_name
+        user_data['lastName']=user.last_name
+        user_data['email']=user.email
+        user_data['farmName']=user.farm_name
+        user_data['isAdmin']=user.is_admin
+        return jsonify({ 'user': user_data })
+    else:
+        return 'Fail', 400
 
 @app.route("/email/", methods=['POST'])   
 def send_email_alert():

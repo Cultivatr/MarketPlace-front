@@ -97,7 +97,7 @@ class AddNewProdComp extends Component {
         secondaryNumber: secondaryNumber,
         billingAddressCity: billingAddressCity,
         billingAddressProvince: billingAddressProvince,
-        email: email,
+        email: email.toLowerCase(),
         billingAddressCountry: billingAddressCountry,
         billingAddressPostalCode: billingAddressPostalCode,
         farmName: farmName,
