@@ -148,23 +148,23 @@ export default class AdminSettings extends Component {
       <Fragment>
         <div className="ui row form">
           <div className="field">
-            <label>Manage System Produce Types</label>
+            <h4>Manage Available Produce Types</h4>
             <div className="undo-container">
               <div>Status: {this.state.status}</div>
               {this.state.status !== "No Changes" &&
-              this.state.status !== "No item to add" ? (
+                this.state.status !== "No item to add" ? (
                 <div className="admin-btn undo-btn" onClick={this.undoAction}>
                   Undo
                 </div>
-              ) : (
-                ""
+                ) : (
+                  ""
               )}
             </div>
             <div className="input-container">
               <input
                 className="newProduceTypeInput"
                 onChange={this.onChange}
-                placeholder="Add New Produce Type to System"
+                placeholder="Add New Produce Type to Dropdown"
                 name="newItem"
                 type="text"
                 value={this.state.newItem}
@@ -177,12 +177,14 @@ export default class AdminSettings extends Component {
           </div>
         </div>
         <div className="produce-item-container">
-          <strong>Current produce item selection:</strong>
-          <div className="produce-item-list">
+          <strong>Current produce items available from dropdown:</strong>
+          <table className="produce-item-list">
+              <tbody>
             {this.produceSelection !== false
               ? this.produceSelection
               : this.errorMessage}
-          </div>
+              </tbody>
+          </table>
         </div>
       </Fragment>
     );
@@ -191,14 +193,16 @@ export default class AdminSettings extends Component {
 
 const ProduceChartItem = props => {
   return (
-    <div className="produce-chart-item">
-      <div className="produce-select-item">{props.name}</div>
-      <div
-        onClick={() => props.deleteProduceItemClick(props)}
-        className="produce-delete-btn"
-      >
-        X
-      </div>
-    </div>
+      
+
+        <tr className="produce-select-item">
+          <td>{props.name}</td>
+          <td
+            onClick={() => props.deleteProduceItemClick(props)}
+            className="produce-delete-btn"
+            >{`X`}
+          </td>
+        </tr>
+      
   );
 };

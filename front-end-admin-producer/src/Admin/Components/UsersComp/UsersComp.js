@@ -55,7 +55,7 @@ class UsersComp extends Component {
           }
           columns={[
             {
-              Header: "LIST OF USERS",
+              Header: "click on headers to sort or type to filter",
               columns: [
                 {
                   Header: "User ID",
@@ -146,9 +146,9 @@ class UsersComp extends Component {
           ]}
           defaultPageSize={20}
           className="-striped -highlight"
-          style={{
-            height: "85vh"
-          }}
+          // style={{
+          //   height: "80vh"
+          // }}
         />
         <UserDetailComp
           userDetails={this.state.userDetails}

@@ -112,9 +112,10 @@ class DisplayAllDashboard extends React.Component {
           ]}
           defaultPageSize={20}
           className="-striped -highlight"
-          style={{
-            height: "85vh"
-          }}
+          // style={{
+          //   height: "80vh"  // react table height set here
+            
+          // }}
         />
       </div>
     );

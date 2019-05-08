@@ -17,6 +17,7 @@ const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
 class Admin extends Component {
   constructor() {
     super();
+    this.geti=0;
     this.produceItems = [];
     this.livestockItems = [];
     this.data = [];
@@ -250,6 +251,10 @@ class Admin extends Component {
 
   getUsers = async () => {
     try {
+
+      
+      this.geti ++;
+      console.log('Admin.js getusers called line 256 and count is ', this.geti); // GF added this
       const response = await fetch(domainLink + "/admin/users/", {
         method: "GET",
         headers: { "Content-Type": "application/json" }
@@ -303,7 +308,9 @@ class Admin extends Component {
   };
 
   OnClickListUsers = async () => {
+    console.log('Admin.js - after modify clicked ') // added by GF
     await this.getUsers();
+    await this.setState({ dataToShow: "allItems" }); // added as a hack to re-render listUsers to force update of state
     await this.setState({ dataToShow: "listUsers" });
   };
 
@@ -429,13 +436,19 @@ class Admin extends Component {
                   Admin Settings
                 </button>
               </div>
+
               <div className={Class.container1}>
                 {this.state.dataToShow === "listUsers" && (
                   <div className={Class.container2}>
+                    <div className={Class.containerTitle}>
+                      <h4>
+                        List of Users
+                      </h4>
+                    </div>
                     <UsersComp
                       OnClickListUsers={this.OnClickListUsers}
                       data={this.state.users}
-                      showUsers={this.OnClickListUsers}
+                      showUsers={this.OnClickListUsers} // here
                     />
                   </div>
                 )}
@@ -443,7 +456,7 @@ class Admin extends Component {
                   <div className={Class.container3}>
                     <div className={Class.containerTitle}>
                       <h4>
-                        <u>Add New Users</u>
+                        Add New Users
                       </h4>
                     </div>
                     <AddNewProdComp
@@ -467,7 +480,7 @@ class Admin extends Component {
                 {this.state.dataToShow === "adminSettings" && (
                   <div className={Class.container2}>
                     <div className={Class.containerTitle}>
-                      <h4>AdminSettings</h4>
+                      <h2>Admin Settings</h2>
                     </div>
                     <AdminSettings />
                   </div>

@@ -8,39 +8,34 @@
 }
 
 .produce-item-container {
-  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
   padding: 5px;
 }
 
 .produce-item-list {
-  margin-left: 2vw;
-  margin-right: 2vw;
+  margin-left: 1vw;
+  /*margin-right: 2vw;*/
   margin-top: 2vh;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
 
   width: 70vw;
 }
-.produce-chart-item {
-  display: flex;
-  flex-direction: row;
-  margin: 3px;
-  /* background-color: rgb(118, 196, 118); */
-  font-size: 20px;
-  /* border-radius: 15px; */
-  padding: 5px;
+
+td {
+  width: 15vw;
 }
-/* .undo-btn {
-  margin-right: 12.3rem !important;
-  position: absolute;
-  right: 20px;
-} */
 
 .produce-delete-btn {
-  padding: 2px;
+  width: 24px;
+  padding: 3px;
   background-color: red;
-  border-radius: 15px;
+  
+  border-radius: 18px;
+  text-align: center;
 }
 .produce-delete-btn:hover {
   transform: scale(1.2);

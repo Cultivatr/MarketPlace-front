@@ -134,11 +134,16 @@ class Summary extends Component {
 
   render() {
     const data = this.data;
+    // console.log('render date is', this.state.data);
+    console.log('produce details are ', this.state.itemProduceDetails);
+
 
     return (
       <div className={Class.table}>
-        <br />
-        <div>Dashboard Table for: {this.state.userFullName}</div>{" "}
+        <div className={Class.prodTableHeader}>
+          <h4>Dashboard Table for: {this.state.userFullName}</h4>{" "}
+        </div>
+
         <ReactTable
           data={data}
           noDataText="No items from producers!"
@@ -177,7 +182,7 @@ class Summary extends Component {
                 {
                   Header: "Est. Finished Qty",
                   id: "estFinishedQty",
-                  width: 250,
+                  width: 150,
                   accessor: d => d.estFinishedQty || d.quantity,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, {
@@ -189,7 +194,7 @@ class Summary extends Component {
                   }
                 },
                 {
-                  Header: "Est Completion Date",
+                  Header: "Est. Completion Date",
                   id: "estCompletionDate",
                   width: 250,
                   accessor: d => d.estCompletionDate,
@@ -253,9 +258,9 @@ class Summary extends Component {
           ]}
           defaultPageSize={20}
           className="-striped -highlight"
-          style={{
-            height: "85vh"
-          }}
+          // style={{
+          //   height: "85vh"
+          // }}
         />
         <ProductProduceDetail
           itemProduceDetails={this.state.itemProduceDetails}

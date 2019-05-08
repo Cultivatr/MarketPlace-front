@@ -138,19 +138,10 @@ class AddNewProdComp extends Component {
     return (
       <div className="ui grid">
         <br />
-        <div>
-          <view
-            style={{
-              width: 15,
-              height: 15,
-              borderRadius: 150 / 2,
-              backgroundColor: "#1ECE88",
-              position: "relative",
-              top: "20px"
-            }}
-          >
-            Coloured Border Indicates Required Field
-          </view>
+        <div className={Class.borderMsg}>
+          
+            * Green Border Indicates Required Field
+          
         </div>
         <form onSubmit={this.onSubmit} className="ui row form">
           <div className="four wide column">

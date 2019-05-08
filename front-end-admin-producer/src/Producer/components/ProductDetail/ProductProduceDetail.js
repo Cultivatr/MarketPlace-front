@@ -7,7 +7,7 @@ class ProductProduceDetail extends Component {
   constructor() {
     super();
     this.state = {
-      itemProduceDetails: ""
+      itemProduceDetails: ''
     };
     this.priorCompletionDate = 0;
     this.modifiedSeed = "";
@@ -23,7 +23,9 @@ class ProductProduceDetail extends Component {
     let itemProduceDetails = this.props.itemProduceDetails;
     itemProduceDetails[e.target.name] = e.target.value;
     this.setState({ itemProduceDetails: itemProduceDetails });
-    console.log("Produce details:", this.state.itemProduceDetails);
+    console.log("Produce details:", itemProduceDetails);
+    console.log("est completion date", this.props.itemProduceDetails[e.target.name]);
+
   };
 
   getEstCompletionDate = () => {
@@ -56,6 +58,11 @@ class ProductProduceDetail extends Component {
       deliveredTo,
       status
     } = this.props.itemProduceDetails;
+
+    console.log('props from summary', this.props.itemProduceDetails); 
+    // why can I access props here but not in constructor?
+
+
     return (
       <div id="produceOverlay">
         <div className={Class.itemDetailContainer}>
