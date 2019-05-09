@@ -5,7 +5,8 @@ import "react-table/react-table.css";
 import { getUserDetails } from "../../../AppUtils";
 import UserDetailComp from "../UserDetailComp/UserDetailComp";
 
-const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+// const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+const domainLink = "https://mysterious-cove-46763.herokuapp.com/";
 
 class UsersComp extends Component {
   constructor(props) {

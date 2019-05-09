@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import Class from "./AddNewProdComp.module.css";
 import Button from "../../../SharedComponents/UI/Button";
 
-const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+// const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+const domainLink = "https://mysterious-cove-46763.herokuapp.com/";
+
 class AddNewProdComp extends Component {
   state = {
     data: {

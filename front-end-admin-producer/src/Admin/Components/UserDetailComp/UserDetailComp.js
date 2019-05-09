@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Class from "./userDetailComp.module.css";
 import "./userDetailComp.css";
 
-const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+// const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
+const domainLink = "https://mysterious-cove-46763.herokuapp.com/";
 
 class UserDetailComp extends Component {
   constructor(props) {
