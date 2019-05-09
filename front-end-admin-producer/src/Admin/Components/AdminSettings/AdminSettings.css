@@ -12,6 +12,7 @@
   flex-direction: column;
   margin-top: 15px;
   padding: 5px;
+  
 }
 
 .produce-item-list {
@@ -68,4 +69,9 @@ td {
   background-color: #3e8e41 !important ;
   box-shadow: 0 5px #666 !important ;
   transform: translateY(4px) !important ;
+}
+
+tbody {
+  display: flex;
+  flex-wrap: wrap;
 }
