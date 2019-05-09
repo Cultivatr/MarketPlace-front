@@ -171,22 +171,24 @@ export default class AdminSettings extends Component {
                 type="text"
                 value={this.state.newItem}
               />
-
               <div onClick={this.addClick} className="admin-btn">
                 Add
               </div>
             </div>
           </div>
+            
+              
+            
         </div>
         <div className="produce-item-container">
           <strong>Current produce items available from dropdown:</strong>
-          <table className="produce-item-list">
-              <tbody>
+          <div className="produce-item-list">
+              <ul>
             {this.produceSelection !== false
               ? this.produceSelection
               : this.errorMessage}
-              </tbody>
-          </table>
+              </ul>
+          </div>
         </div>
       </Fragment>
     );

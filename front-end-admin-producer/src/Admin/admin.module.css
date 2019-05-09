@@ -54,7 +54,7 @@
    height: 5%;
    display: flex;
    justify-content: space-between;
-   align-items: center;
+   align-items: flex-start;
  }
  
  .container1 {
@@ -79,6 +79,18 @@
     height: 100%;
     /*width: 90%;*/
     margin-left: 1%;
+ }
+
+.containerAdminSettings {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /*width: 90%;*/
+    margin-left: 1%;
+ }
+
+ .containerAdminSettings > h2 {
+    align-items: flex-start;
  }
 
  .container3 {
