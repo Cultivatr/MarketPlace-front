@@ -102,7 +102,7 @@ class SignIn extends Component {
             <form className="ui form">
               <div className="field" />
               <div className="rememberMeAndLoginBox centeredDisplay">
-                <div onClick={this.redirectButton}>CLICK HERE GREG</div>
+                {/*<div onClick={this.redirectButton}>CLICK HERE GREG</div>*/}
                 <GoogleLogin
                   clientId="441538396161-n36t34tefa1n3vpd0rfrigm8688d3uat.apps.googleusercontent.com"
                   buttonText="Sign in with Google"

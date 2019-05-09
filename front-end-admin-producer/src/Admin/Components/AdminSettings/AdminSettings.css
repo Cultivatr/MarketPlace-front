@@ -1,5 +1,5 @@
 .newProduceTypeInput {
-  width: 25% !important;
+  width: 24vw !important;
 }
 
 .input-container {
@@ -22,16 +22,36 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  
+  width: 45vw;
+}
 
-  width: 70vw;
+.produce-item-list > ul {
+  display: flex;
+  /*flex-wrap: wrap;*/
+  flex-direction: column;
+  -webkit-column-count: 2; /* Chrome, Safari, Opera */
+  -moz-column-count: 2; /* Firefox */
+  column-count: 2;
+  height: 25vw;
+  overflow: auto;
+}
+
+.produce-select-item {
+  padding: 2px;
 }
 
 td {
   width: 15vw;
+  /*padding: 3px;*/
 }
 
+.newProduceTypeInput {
+  width: 50%;
+}
 .produce-delete-btn {
   width: 24px;
+  height: 24px;
   padding: 3px;
   background-color: red;
   
@@ -54,7 +74,7 @@ td {
   outline: none !important ;
   border: none !important ;
   border-radius: 4px !important ;
-  margin-top: 10px !important ;
+  /*margin-top: 10px !important ;*/
   margin-bottom: -40px;
   cursor: pointer !important ;
   width: 100px;
@@ -71,7 +91,3 @@ td {
   transform: translateY(4px) !important ;
 }
 
-tbody {
-  display: flex;
-  flex-wrap: wrap;
-}

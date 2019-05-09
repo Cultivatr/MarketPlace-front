@@ -479,7 +479,7 @@ class Admin extends Component {
                   </div>
                 )}
                 {this.state.dataToShow === "adminSettings" && (
-                  <div className={Class.container2}>
+                  <div className={Class.containerAdminSettings}>
                     <div className={Class.containerTitle}>
                       <h2>Admin Settings</h2>
                     </div>
