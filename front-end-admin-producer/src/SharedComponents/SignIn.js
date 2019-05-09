@@ -20,35 +20,35 @@ class SignIn extends Component {
   componentDidMount() {
     this.setState({ test: "test" });
   }
-  // redirectButton = () => {
-  //   console.log("redirect button clicked");
-  //   let logInData = [];
-  //   fetch(domainLink + "/login/", {
-  //     method: "POST",
-  //     headers: { "Content-type": "application/json" },
-  //     body: JSON.stringify({
-  //       email: "byrondaniels@gmail.com"
-  //     })
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       logInData = {
-  //         name: data.user.firstName,
-  //         email: data.user.email,
-  //         id: data.user.id,
-  //         admin: data.user.isAdmin,
-  //         fullName: `${data.user.firstName} ${data.user.lastName}`
-  //       };
-  //       sessionStorage.setItem("authData", JSON.stringify(logInData));
-  //       sessionStorage.setItem("loggedIn", true);
-  //       sessionStorage.setItem("adminAuth", logInData.admin);
-  //       setTimeout(
-  //         this.setState({ isLoggedIn: true, admin: logInData.admin }),
-  //         1000
-  //       );
-  //     })
-  //     .catch(error => console.log("ERROR:", error));
-  // };
+  redirectButton = () => {
+    console.log("redirect button clicked");
+    let logInData = [];
+    fetch(domainLink + "/login/", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        email: "byrondaniels@gmail.com"
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        logInData = {
+          name: data.user.firstName,
+          email: data.user.email,
+          id: data.user.id,
+          admin: data.user.isAdmin,
+          fullName: `${data.user.firstName} ${data.user.lastName}`
+        };
+        sessionStorage.setItem("authData", JSON.stringify(logInData));
+        sessionStorage.setItem("loggedIn", true);
+        sessionStorage.setItem("adminAuth", logInData.admin);
+        setTimeout(
+          this.setState({ isLoggedIn: true, admin: logInData.admin }),
+          1000
+        );
+      })
+      .catch(error => console.log("ERROR:", error));
+  };
 
   logIn(res) {
     let logInData = [];
@@ -102,6 +102,7 @@ class SignIn extends Component {
             <form className="ui form">
               <div className="field" />
               <div className="rememberMeAndLoginBox centeredDisplay">
+                <div onClick={this.redirectButton}>CLICK HERE GREG</div>
                 <GoogleLogin
                   clientId="441538396161-n36t34tefa1n3vpd0rfrigm8688d3uat.apps.googleusercontent.com"
                   buttonText="Sign in with Google"
