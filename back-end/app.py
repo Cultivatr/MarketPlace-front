@@ -310,7 +310,7 @@ def add_livestock_items():
     delivered_date=data.get('deliveredDate'),
     delivered_to=data.get('deliveredTo'),
     status="Pending Admin",
-    created_date=datetime.datetime.now()
+    created_date=datetime.today()
     )
     db.session.add(new_livestock)
     db.session.commit()
@@ -524,7 +524,7 @@ def add_produce_items():
     delivered_to=data.get('deliveredTo'),
     comments=data.get('comments'),
     status="Pending Admin",
-    created_date=datetime.datetime.now()
+    created_date=datetime.today(),
     )
     db.session.add(new_produce)
     db.session.commit()
