@@ -4,13 +4,10 @@ import ReactTable from "react-table";
 import { getItemDetails, filterForPending } from "../../../AppUtils";
 import ProductProduceDetail from "../ProductDetail/ProductProduceDetail";
 import ProductLivestockDetail from "../ProductDetail/ProductLivestockDetail";
+import { loadUserSpecificProduceQuery, loadUserSpecificLivestockQuery } from "../../../SharedComponents/LocalServer/LocalServer"
 import Class from "./Summary.module.css";
 import "./Summary.css";
 
-// const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
-const domainLink = "https://mysterious-cove-46763.herokuapp.com/";
-
-// const domainLink = "http://localhost:5000/";
 class Summary extends Component {
   constructor() {
     super();
@@ -72,24 +69,12 @@ class Summary extends Component {
     await this.getId();
     const user1 = this.state.localId;
     try {
-      const response = await fetch(domainLink + `produce/${user1}/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
+      const response = await loadUserSpecificProduceQuery(user1)
       const json = await response.json();
       this.setState({ items_produce: json });
-      const response2 = await fetch(domainLink + `livestock/${user1}/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
+      const response2 = await loadUserSpecificLivestockQuery(user1)
       const json2 = await response2.json();
       this.setState({ items_livestock: json2 });
-      const response3 = await fetch(domainLink + `produceItems/all/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json3 = await response3.json();
-      this.setState({ produce_type: json3 });
     } catch (error) {
       console.log(error);
     }
@@ -260,9 +245,9 @@ class Summary extends Component {
           ]}
           defaultPageSize={20}
           className="-striped -highlight"
-          // style={{
-          //   height: "85vh"
-          // }}
+        // style={{
+        //   height: "85vh"
+        // }}
         />
         <ProductProduceDetail
           itemProduceDetails={this.state.itemProduceDetails}

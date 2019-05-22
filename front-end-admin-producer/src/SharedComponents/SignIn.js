@@ -3,10 +3,8 @@ import { Redirect } from "react-router-dom";
 import "./SignIn.css";
 // import GoogleAuth from '../GoogleAuth';
 import GoogleLogin from "react-google-login";
+import { loginQuery } from "./LocalServer/LocalServer"
 
-// const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
-const domainLink = "https://mysterious-cove-46763.herokuapp.com";
-// const domainLink = "http://localhost:5000";
 
 class SignIn extends Component {
   constructor() {
@@ -23,14 +21,7 @@ class SignIn extends Component {
   redirectButton = () => {
     console.log("redirect button clicked");
     let logInData = [];
-    fetch(domainLink + "/login/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        email: "byrondaniels@gmail.com"
-      })
-    })
-      .then(response => response.json())
+    loginQuery("byrondaniels@gmail.com")
       .then(data => {
         logInData = {
           name: data.user.firstName,
@@ -52,14 +43,7 @@ class SignIn extends Component {
 
   logIn(res) {
     let logInData = [];
-    fetch(domainLink + "/login/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        email: res.w3.U3
-      })
-    })
-      .then(response => response.json())
+    loginQuery(res.w3.U3)
       .then(data => {
         logInData = {
           name: data.user.firstName,
@@ -85,8 +69,8 @@ class SignIn extends Component {
       return this.state.admin ? (
         <Redirect to={"/admin"} />
       ) : (
-        <Redirect to={"/producer"} />
-      );
+          <Redirect to={"/producer"} />
+        );
     }
 
     const responseGoogle = response => {
@@ -102,7 +86,7 @@ class SignIn extends Component {
             <form className="ui form">
               <div className="field" />
               <div className="rememberMeAndLoginBox centeredDisplay">
-                {/*<div onClick={this.redirectButton}>CLICK HERE GREG</div>*/}
+                <div onClick={this.redirectButton}>CLICK HERE GREG</div>
                 <GoogleLogin
                   clientId="441538396161-n36t34tefa1n3vpd0rfrigm8688d3uat.apps.googleusercontent.com"
                   buttonText="Sign in with Google"

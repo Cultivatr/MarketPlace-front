@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Class from "./ProductDetail.module.css";
 import "./ProductDetail.css";
-import { modifyItemLivestock } from "../../../AppUtils";
+import { modifyItemLivestockQuery } from "../../../SharedComponents/LocalServer/LocalServer"
 
 class ProductLivestockDetail extends Component {
   constructor() {
@@ -20,7 +20,7 @@ class ProductLivestockDetail extends Component {
   };
 
   modifyItem = async () => {
-    modifyItemLivestock(this.state.itemLivestockDetails);
+    modifyItemLivestockQuery(this.state.itemLivestockDetails);
     this.props.removeOverlay();
     this.props.refreshLiveStock(this.state.itemLivestockDetails);
   };
