@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Class from "./ItemDetail.module.css";
 import "./ItemDetail.css";
-import { modifyItemLivestock } from "../../../AppUtils";
+import { modifyItemLivestockQuery } from "../../../SharedComponents/LocalServer/LocalServer"
+
 
 class ProductLivestockDetail extends Component {
   constructor() {
@@ -14,7 +15,7 @@ class ProductLivestockDetail extends Component {
     this.priorBirthDate = "";
     this.priorOnFeedDate = "";
   }
-  componentDidMount = () => {};
+  componentDidMount = () => { };
   onChange = e => {
     let itemLivestockDetails = this.props.itemLivestockDetails;
     itemLivestockDetails[e.target.name] = e.target.value;
@@ -149,7 +150,7 @@ class ProductLivestockDetail extends Component {
   };
 
   modifyItem = async () => {
-    modifyItemLivestock(this.state.itemLivestockDetails);
+    modifyItemLivestockQuery(this.state.itemLivestockDetails);
     this.props.removeOverlay();
     this.props.refreshLiveStock(this.state.itemLivestockDetails);
   };
@@ -514,21 +515,21 @@ class ProductLivestockDetail extends Component {
           </div>
           <div className={Class.itemButtonsContainer}>
             {this.props.itemLivestockDetails.status ===
-            "Pending Producer" ? null : (
-              <button
-                className={Class.itemButtonsModify}
-                onClick={() =>
-                  this.props.pushThroughLivestock(
-                    this.props.itemLivestockDetails.id,
-                    this.props.itemLivestockDetails.status,
-                    this.props.itemLivestockDetails.farm,
-                    this.props.itemLivestockDetails.email
-                  )
-                }
-              >
-                {this.props.pushThroughBtnText}
-              </button>
-            )}
+              "Pending Producer" ? null : (
+                <button
+                  className={Class.itemButtonsModify}
+                  onClick={() =>
+                    this.props.pushThroughLivestock(
+                      this.props.itemLivestockDetails.id,
+                      this.props.itemLivestockDetails.status,
+                      this.props.itemLivestockDetails.farm,
+                      this.props.itemLivestockDetails.email
+                    )
+                  }
+                >
+                  {this.props.pushThroughBtnText}
+                </button>
+              )}
 
             <button
               className={Class.itemButtonsCancel}

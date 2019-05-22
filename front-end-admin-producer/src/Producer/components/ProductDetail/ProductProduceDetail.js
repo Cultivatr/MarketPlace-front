@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Class from "./ProductDetail.module.css";
 import "./ProductDetail.css";
-import { modifyItemProduce } from "../../../AppUtils";
+import { modifyItemProduceQuery } from "../../../SharedComponents/LocalServer/LocalServer"
+
 
 class ProductProduceDetail extends Component {
   constructor() {
@@ -14,7 +15,7 @@ class ProductProduceDetail extends Component {
   }
 
   modifyItem = async () => {
-    modifyItemProduce(this.state.itemProduceDetails);
+    modifyItemProduceQuery(this.state.itemProduceDetails);
     this.props.removeOverlay();
     this.props.refreshProduce(this.state.itemProduceDetails);
   };
@@ -59,7 +60,7 @@ class ProductProduceDetail extends Component {
       status
     } = this.props.itemProduceDetails;
 
-    console.log('props from summary', this.props.itemProduceDetails); 
+    console.log('props from summary', this.props.itemProduceDetails);
     // why can I access props here but not in constructor?
 
 

@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import Class from "./userDetailComp.module.css";
 import "./userDetailComp.css";
-
-// const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
-const domainLink = "https://mysterious-cove-46763.herokuapp.com/";
+import { modifyUserQuery } from "../../../SharedComponents/LocalServer/LocalServer";
 
 class UserDetailComp extends Component {
   constructor(props) {
@@ -29,78 +27,10 @@ class UserDetailComp extends Component {
   };
 
   onSubmit = async e => {
-    this.props.removeOverlay();
     e.preventDefault();
-    const {
-      id,
-      firstName,
-      lastName,
-      billingAddressCity,
-      primaryNumber,
-      secondaryNumber,
-      billingAddressStreet,
-      billingAddressProvince,
-      email,
-      billingAddressCountry,
-      billingAddressPostalCode,
-      farmName,
-      farmLocation,
-      mailingAddressCity,
-      mailingAddressStreet,
-      farmType,
-      area,
-      mailingAddressProvince,
-      rating,
-      mailingAddressCountry,
-      mailingAddressPostalCode,
-      comments,
-
-      isAdmin,
-
-      isProducer,
-      isOther
-    } = this.state.data;
-    try {
-      const response = await fetch(domainLink + "/admin/updateUsers/", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          id: id,
-          firstName: firstName,
-          lastName: lastName,
-          billingAddressStreet: billingAddressStreet,
-          primaryNumber: primaryNumber,
-          secondaryNumber: secondaryNumber,
-          billingAddressCity: billingAddressCity,
-          billingAddressProvince: billingAddressProvince,
-          email: email.toLowerCase(),
-          billingAddressCountry: billingAddressCountry,
-          billingAddressPostalCode: billingAddressPostalCode,
-          farmName: farmName,
-          farmLocation: farmLocation,
-          mailingAddressStreet: mailingAddressStreet,
-          farmType: farmType,
-          area: area,
-          mailingAddressCity: mailingAddressCity,
-          mailingAddressProvince: mailingAddressProvince,
-          rating: rating,
-          mailingAddressCountry: mailingAddressCountry,
-          mailingAddressPostalCode: mailingAddressPostalCode,
-          comments: comments,
-          isAdmin: isAdmin,
-          isProducer: isProducer,
-          isOther: isOther
-        })
-      });
-      const json = await response.json();
-      console.log('JSON response is', json);
-    } catch (error) {
-      console.log(error);
-    }
-    console.log('UserDetailsComp - show users before await', this.props.showUsers()); // GF added
-    console.log('current data is ', this.state.data); // yes change is getting passed to state 
+    await modifyUserQuery(this.state.data)
+    await this.props.removeOverlay();
     await this.props.showUsers();  // passed as props from admin thru UsersComp
-    console.log('UserDetailsComp - show users after called', this.props.showUsers()); 
   };
 
   getAreaValue = () => {
