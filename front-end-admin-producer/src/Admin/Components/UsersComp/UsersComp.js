@@ -4,9 +4,8 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import { getUserDetails } from "../../../AppUtils";
 import UserDetailComp from "../UserDetailComp/UserDetailComp";
+import { deleteUserQuery } from "../../../SharedComponents/LocalServer/LocalServer"
 
-// const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
-const domainLink = "https://mysterious-cove-46763.herokuapp.com/";
 
 class UsersComp extends Component {
   constructor(props) {
@@ -31,15 +30,11 @@ class UsersComp extends Component {
   removeOverlay = () => {
     document.getElementById("userOverlay").style.display = "none";
   };
-  deleteSelectedUser = userId => {
+
+  // DOES NOT REFRESH AFTER USER DELETED
+  deleteSelectedUser = async userId => {
     console.log("Deleted User: ", userId);
-    fetch(domainLink + "/admin/users/delete/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        id: userId
-      })
-    }).catch(error => console.log(error));
+    await deleteUserQuery(userId)
     setTimeout(() => this.props.OnClickListUsers(), 100);
   };
 
@@ -147,9 +142,9 @@ class UsersComp extends Component {
           ]}
           defaultPageSize={20}
           className="-striped -highlight"
-          // style={{
-          //   height: "80vh"
-          // }}
+        // style={{
+        //   height: "80vh"
+        // }}
         />
         <UserDetailComp
           userDetails={this.state.userDetails}

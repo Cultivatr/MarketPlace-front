@@ -6,11 +6,8 @@ import styles from "./AddProduceForm.module.css";
 import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
 import DatePicker from "react-datepicker";
 import "../../../../SharedComponents/miscStyles.css";
+import { refreshProduceItems, addProduceQuery } from "../../../../SharedComponents/LocalServer/LocalServer"
 
-// const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
-const domainLink = "https://mysterious-cove-46763.herokuapp.com/";
-
-// const domainLink2 = "http://localhost:5000/";
 class ProduceForm extends Component {
   // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!
   state = {
@@ -43,10 +40,7 @@ class ProduceForm extends Component {
   };
 
   componentWillMount = async () => {
-    const responseProduceItems = await fetch(domainLink + `produceItems/all/`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" }
-    });
+    const responseProduceItems = await refreshProduceItems()
     const json = await responseProduceItems.json();
     const pItems = json;
     if (pItems) {
@@ -65,7 +59,6 @@ class ProduceForm extends Component {
     let data = this.state.data;
     let newdata = { ...data, [e.target.name]: e.target.value };
     this.setState({ data: newdata });
-    // console.log("Data", newdata);
   };
   onCompDateChange = date => {
     this.setState({ estCompletionDate: date });
@@ -75,69 +68,14 @@ class ProduceForm extends Component {
   onSubmit = e => {
     e.preventDefault();
     const form = e.target;
-    const {
-      type,
-      packageType,
-      packageSize,
-      packageSizeUnit,
-      seedType,
-      modifiedSeed,
-      heirloom,
-      fertilizerTypeUsed,
-      pesticideTypeUsed,
-      estQuantityPlanted,
-      certifiedOrganic,
-      estFinishedQty,
-      estPrice,
-      qtyAcceptedForListing,
-      qtyAcceptedAtDelivery,
-      chargebacks,
-      finalPricePaid,
-      deliveredTo,
-      deliveredDate,
-      comments,
-      status
-    } = this.state.data;
-    const estCompletionDate = this.state.estCompletionDate;
-    // console.log("INCOMING DATA: ", this.state.data);
-
     document.getElementById("submitBtn").className += " loading";
-    fetch(domainLink + "produce/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        userId: JSON.parse(sessionStorage.getItem("authData")).id,
-        type: type,
-        packageType: packageType,
-        packageSize: packageSize,
-        packageSizeUnit: packageSizeUnit,
-        estCompletionDate: estCompletionDate,
-        seedType: seedType,
-        modifiedSeed: modifiedSeed,
-        heirloom: heirloom,
-        fertilizerTypeUsed: fertilizerTypeUsed,
-        pesticideTypeUsed: pesticideTypeUsed,
-        estQuantityPlanted: estQuantityPlanted,
-        certifiedOrganic: certifiedOrganic,
-        estFinishedQty: estFinishedQty,
-        estPrice: estPrice,
-        qtyAcceptedForListing: qtyAcceptedForListing,
-        qtyAcceptedAtDelivery: qtyAcceptedAtDelivery,
-        chargebacks: chargebacks,
-        finalPricePaid: finalPricePaid,
-        deliveredTo: deliveredTo,
-        deliveredDate: deliveredDate,
-        comments: comments,
-        status: status
-      })
-    })
-      .then(response => response.json())
+    addProduceQuery(this.state.data, this.state.estCompletionDate)
       .then(data => {
         // console.log(data);
       })
       .then(form.reset())
       .then(
-        setTimeout(function() {
+        setTimeout(function () {
           document.getElementById("submitBtn").className = "ui button";
         }, 1000)
       )

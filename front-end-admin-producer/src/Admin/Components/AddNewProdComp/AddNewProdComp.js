@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import Class from "./AddNewProdComp.module.css";
 import Button from "../../../SharedComponents/UI/Button";
-
-// const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
-const domainLink = "https://mysterious-cove-46763.herokuapp.com/";
+import {addNewProducer} from "../../../SharedComponents/LocalServer/LocalServer"
 
 class AddNewProdComp extends Component {
   state = {
@@ -61,74 +59,15 @@ class AddNewProdComp extends Component {
   onSubmit = e => {
     e.preventDefault();
     const form = e.target;
-    const {
-      firstName,
-      lastName,
-      billingAddressCity,
-      primaryNumber,
-      secondaryNumber,
-      billingAddressStreet,
-      billingAddressProvince,
-      email,
-      billingAddressCountry,
-      billingAddressPostalCode,
-      farmName,
-      farmLocation,
-      mailingAddressCity,
-      mailingAddressStreet,
-      farmType,
-      area,
-      mailingAddressProvince,
-      rating,
-      mailingAddressCountry,
-      mailingAddressPostalCode,
-      comments,
-      isAdmin,
-      isProducer,
-      isOther
-    } = this.state.data;
     document.getElementById("submitBtn").className += " loading";
-    fetch(domainLink + "/admin/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        billingAddressStreet: billingAddressStreet,
-        primaryNumber: primaryNumber,
-        secondaryNumber: secondaryNumber,
-        billingAddressCity: billingAddressCity,
-        billingAddressProvince: billingAddressProvince,
-        email: email.toLowerCase(),
-        billingAddressCountry: billingAddressCountry,
-        billingAddressPostalCode: billingAddressPostalCode,
-        farmName: farmName,
-        farmLocation: farmLocation,
-        mailingAddressStreet: mailingAddressStreet,
-        farmType: farmType,
-        area: area,
-        mailingAddressCity: mailingAddressCity,
-        mailingAddressProvince: mailingAddressProvince,
-        rating: rating,
-        mailingAddressCountry: mailingAddressCountry,
-        mailingAddressPostalCode: mailingAddressPostalCode,
-        comments: comments,
-        isAdmin: isAdmin,
-        isProducer: isProducer,
-        isOther: isOther
-      })
-    })
-      .then(response => response.json())
+    addNewProducer(this.state.data)
       .then(data => {
-        console.log("DATA i", data[0]);
         if (data[0] === "E") {
-          // Pop up window showing error
           document.getElementById("submitBtn").className = "ui button";
           this.props.errorHandler(data);
           console.log("Error Message");
         } else {
           console.log("No error");
-          // refresh page and move on
           form.reset();
           setTimeout(() => this.props.OnClickListUsers(), 200);
         }

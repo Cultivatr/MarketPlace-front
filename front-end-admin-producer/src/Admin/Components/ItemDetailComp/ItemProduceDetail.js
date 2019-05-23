@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Class from "./ItemDetail.module.css";
 import "./ItemDetail.css";
-import { modifyItemProduce } from "../../../AppUtils";
+import { modifyItemProduceQuery } from "../../../SharedComponents/LocalServer/LocalServer"
 
 class ProductProduceDetail extends Component {
   constructor() {
@@ -14,7 +14,6 @@ class ProductProduceDetail extends Component {
     this.priorDeliveredDate = "";
   }
 
-  componentDidMount = () => {};
   getPackageTypeValue = () => {
     const element = document.getElementById("packageType");
     switch (this.props.itemProduceDetails.packageType) {
@@ -88,14 +87,10 @@ class ProductProduceDetail extends Component {
     }
   };
 
-  statusDependantHelper(status) {
-    // This will be used for conditional rendering dependant on status
-  }
-
   modifyItem = async () => {
-    modifyItemProduce(this.state.itemProduceDetails);
-    this.props.removeOverlay();
-    this.props.refreshProduce(this.state.itemProduceDetails);
+    await modifyItemProduceQuery(this.state.itemProduceDetails);
+    await this.props.removeOverlay();
+    await this.props.refreshProduce(this.state.itemProduceDetails);
   };
 
   render() {
@@ -414,20 +409,20 @@ class ProductProduceDetail extends Component {
             {this.props.itemProduceDetails.status === "Pending Producer" ? (
               ""
             ) : (
-              <button
-                className={Class.itemButtonsModify}
-                onClick={() =>
-                  this.props.pushThroughProduce(
-                    this.props.itemProduceDetails.id,
-                    this.props.itemProduceDetails.status,
-                    this.props.itemProduceDetails.farm,
-                    this.props.itemProduceDetails.email
-                  )
-                }
-              >
-                {this.props.pushThroughBtnText}
-              </button>
-            )}
+                <button
+                  className={Class.itemButtonsModify}
+                  onClick={() =>
+                    this.props.pushThroughProduce(
+                      this.props.itemProduceDetails.id,
+                      this.props.itemProduceDetails.status,
+                      this.props.itemProduceDetails.farm,
+                      this.props.itemProduceDetails.email
+                    )
+                  }
+                >
+                  {this.props.pushThroughBtnText}
+                </button>
+              )}
 
             <button
               className={Class.itemButtonsCancel}

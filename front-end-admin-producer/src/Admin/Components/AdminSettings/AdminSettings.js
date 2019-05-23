@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from "react";
 import "./AdminSettings.css";
-// const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
-const domainLink = "https://mysterious-cove-46763.herokuapp.com/";
+import { refreshProduceItems, deleteProduceItem, addProduceItem } from "../../../SharedComponents/LocalServer/LocalServer";
 
-//const domainLink = "http://localhost:5000/";
 export default class AdminSettings extends Component {
   state = {
     newItem: "",
@@ -36,33 +34,19 @@ export default class AdminSettings extends Component {
   };
 
   refreshItems = async () => {
-    try {
-      const responseProduceItems = await fetch(
-        domainLink + `produceItems/all/`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" }
-        }
-      );
-      const json = await responseProduceItems.json();
-      this.setState({ produceSelection: json });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+    const responseProduceItems = await refreshProduceItems();
+    const json = await responseProduceItems.json();
+    await this.setState({ produceSelection: json });
+  }
+
   deleteItem = async itemToDelete => {
-    await fetch(domainLink + "produceItems/delete/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        itemToDelete: itemToDelete
-      })
-    })
-      .then(response => response.json())
+    await deleteProduceItem(itemToDelete)
       .then(data => {
         console.log("data", data);
       })
       .catch(error => console.log(error));
+    await this.refreshItems()
   };
   componentDidMount = async () => {
     await this.refreshItems();
@@ -116,14 +100,7 @@ export default class AdminSettings extends Component {
   addItem = async () => {
     const { newItem } = this.state;
     console.log("item: ", newItem);
-    await fetch(domainLink + "produceItems/add/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        newItem: newItem
-      })
-    })
-      .then(response => response.json())
+    addProduceItem(newItem)
       .then(data => {
         console.log("data", data);
       })
@@ -155,12 +132,12 @@ export default class AdminSettings extends Component {
               <div>Status: {this.state.status}</div>
               {this.state.status !== "No Changes" &&
                 this.state.status !== "No item to add" ? (
-                <div className="admin-btn undo-btn" onClick={this.undoAction}>
-                  Undo
+                  <div className="admin-btn undo-btn" onClick={this.undoAction}>
+                    Undo
                 </div>
                 ) : (
                   ""
-              )}
+                )}
             </div>
             <div className="input-container">
               <input
@@ -176,18 +153,18 @@ export default class AdminSettings extends Component {
               </div>
             </div>
           </div>
-            
-              
-            
+
+
+
         </div>
         <div className="produce-item-container">
           <strong>Current produce items available from dropdown:</strong>
           <div className="produce-item-list">
-              <ul>
-            {this.produceSelection !== false
-              ? this.produceSelection
-              : this.errorMessage}
-              </ul>
+            <ul>
+              {this.produceSelection !== false
+                ? this.produceSelection
+                : this.errorMessage}
+            </ul>
           </div>
         </div>
       </Fragment>
@@ -197,16 +174,16 @@ export default class AdminSettings extends Component {
 
 const ProduceChartItem = props => {
   return (
-      
 
-        <tr className="produce-select-item">
-          <td>{props.name}</td>
-          <td
-            onClick={() => props.deleteProduceItemClick(props)}
-            className="produce-delete-btn"
-            >{`X`}
-          </td>
-        </tr>
-      
+
+    <tr className="produce-select-item">
+      <td>{props.name}</td>
+      <td
+        onClick={() => props.deleteProduceItemClick(props)}
+        className="produce-delete-btn"
+      >{`X`}
+      </td>
+    </tr>
+
   );
 };

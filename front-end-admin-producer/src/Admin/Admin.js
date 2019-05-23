@@ -10,15 +10,13 @@ import ItemProduceDetail from "./Components/ItemDetailComp/ItemProduceDetail";
 import ErrorModal from "../SharedComponents/ErrorModal";
 import AdminSettings from "./Components/AdminSettings/AdminSettings";
 import AdminHelper from "./AdminHelper";
+import { loadUserQuery, loadProduceQuery, loadLivestockQuery, sendEmailQuery, incrementLivestockQuery, incrementProduceQuery } from "../SharedComponents/LocalServer/LocalServer"
 
-// const domainLink = "http://localhost:5000";
-// const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
-const domainLink = "https://mysterious-cove-46763.herokuapp.com";
 
 class Admin extends Component {
   constructor() {
     super();
-    this.geti=0;
+    this.geti = 0;
     this.produceItems = [];
     this.livestockItems = [];
     this.data = [];
@@ -66,26 +64,17 @@ class Admin extends Component {
   };
 
   loadUserData = async () => {
-    const response3 = await fetch(domainLink + "/admin/users/", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" }
-    });
+    const response3 = await loadUserQuery()
     const json3 = await response3.json();
     this.setState({ users: json3 });
   };
   loadProduceData = async () => {
-    const response = await fetch(domainLink + "/produce/all/", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" }
-    });
+    const response = await loadProduceQuery()
     const json = await response.json();
     this.setState({ items_produce: json });
   };
   loadLivestockData = async () => {
-    const response2 = await fetch(domainLink + "/livestock/all/", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" }
-    });
+    const response2 = await loadLivestockQuery()
     const json2 = await response2.json();
     this.setState({ items_livestock: json2 });
   };
@@ -160,14 +149,7 @@ class Admin extends Component {
     this.pushThroughProduce(id, "Not Accepted");
   };
   sendEmail = (farm, email) => {
-    fetch(domainLink + "/email/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        farmName: farm,
-        email: email
-      })
-    });
+    sendEmailQuery(farm, email)
   };
 
   pushThroughBtnTextHelper = currentStatus => {
@@ -178,20 +160,13 @@ class Admin extends Component {
     if (currentStatus === "Not Accepted") return "Accept";
   };
 
-  pushThroughPrompt = (id, status, farm, email) => {};
+  pushThroughPrompt = (id, status, farm, email) => { };
 
   pushThroughLivestock = async (id, status, farm, email) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
     // this.sendEmail(farm, email);
-    await fetch(domainLink + "/livestock/incrementStatus/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        id: subId,
-        nextStatus: nextStatus
-      })
-    }).catch(error => console.log(error));
+    await incrementLivestockQuery(subId, nextStatus)
     await this.loadLivestockData();
     await this.createData();
     await this.removeOverlay();
@@ -200,14 +175,7 @@ class Admin extends Component {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
     // this.sendEmail(farm, email);
-    await fetch(domainLink + "/produce/incrementStatus/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        id: subId,
-        nextStatus: nextStatus
-      })
-    }).catch(error => console.log("????", error));
+    await incrementProduceQuery(subId, nextStatus)
     await this.loadProduceData();
     await this.createData();
     await this.removeOverlay();
@@ -252,14 +220,9 @@ class Admin extends Component {
 
   getUsers = async () => {
     try {
-
-      
-      this.geti ++;
+      this.geti++;
       console.log('Admin.js getusers called line 256 and count is ', this.geti); // GF added this
-      const response = await fetch(domainLink + "/admin/users/", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
+      const response = loadUserQuery()
       const json = await response.json();
       await this.setState({ users: json });
     } catch (error) {

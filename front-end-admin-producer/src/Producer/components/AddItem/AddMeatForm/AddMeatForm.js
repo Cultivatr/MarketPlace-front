@@ -4,9 +4,8 @@ import Button from "../../../../SharedComponents/UI/Button";
 import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
 import DatePicker from "react-datepicker";
 import "../../../../SharedComponents/UI/react-datepicker.css";
+import { addLivestockQuery } from "../../../../SharedComponents/LocalServer/LocalServer"
 
-// const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
-const domainLink = "https://mysterious-cove-46763.herokuapp.com/";
 
 class LivestockForm extends Component {
   // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!
@@ -39,19 +38,9 @@ class LivestockForm extends Component {
     // estCompletionDate: "0001-01-01"
   };
 
-  // camelCaseString = (string, type) => {
-  //   if (type === "comments" || type === "feedMethod") return string;
-  //   const text = string
-  //     .toLowerCase()
-  //     .split(" ")
-  //     .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-  //     .join(" ");
-  //   return text;
-  // };
 
   onChange = e => {
     let data = this.state.data;
-    // const newValue = this.camelCaseString(e.target.value, e.target.name);
     let newdata = { ...data, [e.target.name]: e.target.value };
     this.setState({ data: newdata });
     console.log("Data", newdata);
@@ -69,72 +58,17 @@ class LivestockForm extends Component {
   onSubmit = e => {
     e.preventDefault();
     const form = e.target;
-    const {
-      type,
-      breed,
-      singleBrand,
-      regNumber,
-      rfid,
-      estStartingWeight,
-      hangingWeight,
-      chargebacks,
-      feedMethod,
-      typeOfPasture,
-      typeOfFeed,
-      estFinishedWeight,
-      estFinalPrice,
-      finalPrice,
-      deliveredDate,
-      deliveredTo,
-      comments,
-      status,
-      quantity
-    } = this.state.data;
-    const dateOnFeed = this.state.dateOnFeed;
-    const estCompletionDate = this.state.estCompletionDate;
-    const birthdate = this.state.birthdate;
     document.getElementById("submitBtn").className += " loading";
-    fetch(domainLink + "livestock/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        userId: JSON.parse(sessionStorage.getItem("authData")).id,
-        type: type,
-        breed: breed,
-        singleBrand: singleBrand,
-        birthdate: birthdate,
-        regNumber: regNumber,
-        rfid: rfid,
-        estStartingWeight: estStartingWeight,
-        hangingWeight: hangingWeight,
-        chargebacks: chargebacks,
-        dateOnFeed: dateOnFeed,
-        feedMethod: feedMethod,
-        typeOfPasture: typeOfPasture,
-        typeOfFeed: typeOfFeed,
-        estCompletionDate: estCompletionDate,
-        estFinishedWeight: estFinishedWeight,
-        estFinalPrice: estFinalPrice,
-        finalPrice: finalPrice,
-        deliveredDate: deliveredDate,
-        deliveredTo: deliveredTo,
-        comments: comments,
-        status: status,
-        quantity: quantity
-      })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
-      .then(form.reset())
+    addLivestockQuery(this.state.data, this.state.dateOnFeed, this.state.estCompletionDate, this.state.birthdate)
+      .then(form.reset(),
+        this.setState({ addedThisSession: this.state.addedThisSession + 1 }))
       .then(
-        setTimeout(function() {
+        setTimeout(function () {
           document.getElementById("submitBtn").className = "ui button";
         }, 2000)
       )
       .catch(error => console.log(error));
-    this.setState({ addedThisSession: this.state.addedThisSession + 1 });
+
   };
 
   render() {

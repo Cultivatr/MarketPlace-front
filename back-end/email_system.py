@@ -1,45 +1,20 @@
 import smtplib
 
-from string import Template
-
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-
-MY_ADDRESS = 'cultivatr111@outlook.com'
-PASSWORD = 'EvolveU1'
-
-
-def read_template(filename):
-    """
-    Returns a Template object comprising the contents of the 
-    file specified by filename.
-    """
-
-    with open(filename, 'r', encoding='utf-8') as template_file:
-        template_file_content = template_file.read()
-    return Template(template_file_content)
+MY_ADDRESS = 'noreply.cultivatr@gmail.com'
+MY_PASSWORD = 'Cheese111'
 
 
 def send_email(farm_name, user_email):
-    message_template = read_template('email_message.txt')
-    # set up the SMTP server
-    s = smtplib.SMTP(host='smtp-mail.outlook.com', port=587)
-    s.starttls()
-    s.login(MY_ADDRESS, PASSWORD)
+    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    server.login(MY_ADDRESS, MY_PASSWORD)
+    SUBJECT = "Cultivatr Email Alert"
+    TEXT = "{},\n\n Your order has been reviewed, please log in to your account to see the status. \n\n Cultivatr Team".format(
+        farm_name)
 
-    # For each contact, send the email:
-    msg = MIMEMultipart()       # create a message
-
-    message = message_template.substitute(
-        FARM_NAME=farm_name)
-
-    msg['From'] = MY_ADDRESS
-    msg['To'] = user_email
-    msg['Subject'] = "Cultivatr Alert Email"
-
-    msg.attach(MIMEText(message, 'plain'))
-
-    s.send_message(msg)
-    del msg
-
-    s.quit()
+    message = 'Subject: {}\n\n{}'.format(SUBJECT, TEXT)
+    print("EMAIL", user_email)
+    server.sendmail(
+        MY_ADDRESS,
+        user_email,
+        message)
+    server.quit()

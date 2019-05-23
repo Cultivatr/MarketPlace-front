@@ -5,10 +5,7 @@ import ProductProduceDetail from "../ProductDetail/ProductProduceDetail";
 import ProductLivestockDetail from "../ProductDetail/ProductLivestockDetail";
 import Class from "./ProducerApproval.module.css";
 import ProducerApprovalTable from "./ProducerApprovalTable";
-// const domainLink = "https://hidden-escarpment-75213.herokuapp.com/";
-const domainLink = "https://mysterious-cove-46763.herokuapp.com/";
-
-// const domainLink2 = "http://localhost:5000";
+import { incrementProduceQuery, incrementLivestockQuery, loadUserSpecificLivestockQuery, loadUserSpecificProduceQuery } from "../../../SharedComponents/LocalServer/LocalServer"
 
 class ProducerApproval extends Component {
   constructor() {
@@ -28,15 +25,7 @@ class ProducerApproval extends Component {
   }
   approveItemProduce = async id => {
     const subId = id.substr(2);
-    console.log("!!!!!", subId);
-    await fetch(domainLink + "produce/incrementStatus/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        id: subId,
-        nextStatus: "Accepted"
-      })
-    }).catch(error => console.log(error));
+    await incrementProduceQuery(subId, "Accepted")
     await this.loadProduceData();
     await this.createData();
     await this.removeOverlay();
@@ -44,14 +33,7 @@ class ProducerApproval extends Component {
 
   approveItemLivestock = async id => {
     const subId = id.substr(2);
-    await fetch(domainLink + "livestock/incrementStatus/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        id: subId,
-        nextStatus: "Accepted"
-      })
-    }).catch(error => console.log(error));
+    await incrementLivestockQuery(subId, "Accepted")
     await this.loadLivestockData();
     await this.createData();
     await this.removeOverlay();
@@ -89,20 +71,14 @@ class ProducerApproval extends Component {
 
   loadLivestockData = async () => {
     const user1 = this.state.localId;
-    const response2 = await fetch(domainLink + `livestock/${user1}/`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" }
-    });
+    const response2 = await loadUserSpecificLivestockQuery(user1)
     const json2 = await response2.json();
     this.setState({ items_livestock: json2 });
   };
 
   loadProduceData = async () => {
     const user1 = this.state.localId;
-    const response = await fetch(domainLink + `produce/${user1}/`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" }
-    });
+    const response = await loadUserSpecificProduceQuery(user1)
     const json = await response.json();
     this.setState({ items_produce: json });
   };
@@ -167,11 +143,11 @@ class ProducerApproval extends Component {
         <div className="ui container">
           <div className={Class.table}>
             <div className={Class.prodTableHeader}>
-                        
+
               <h4>Items Accepted By Admin and Awaiting Your Approval</h4>
-              
+
             </div>
-            
+
             <ProducerApprovalTable
               data={this.data}
               getItemObj={this.getItemObj}
