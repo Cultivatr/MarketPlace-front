@@ -15,9 +15,13 @@ class ProductProduceDetail extends Component {
   }
 
   modifyItem = async () => {
-    modifyItemProduceQuery(this.state.itemProduceDetails);
+    if (this.state.itemProduceDetails !== "") {
+      await modifyItemProduceQuery(this.state.itemProduceDetails);
+      await this.props.refreshProduce(this.state.itemProduceDetails);
+    };
+    
     this.props.removeOverlay();
-    this.props.refreshProduce(this.state.itemProduceDetails);
+    
   };
 
   onChange = e => {

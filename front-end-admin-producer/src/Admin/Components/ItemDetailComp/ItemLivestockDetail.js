@@ -153,11 +153,12 @@ class ProductLivestockDetail extends Component {
   };
 
   modifyItem = async () => {
-    console.log('this.state.itemlivestockdetails.id is ',
-      this.state.itemLivestockDetails.id);
-    modifyItemLivestockQuery(this.state.itemLivestockDetails);
+    // just remove overlay if no changes made otherwise get error
+    if (this.state.itemLivestockDetails !== "") {
+      await modifyItemLivestockQuery(this.state.itemLivestockDetails);  
+      await this.props.refreshLiveStock(this.state.itemLivestockDetails);
+    };
     this.props.removeOverlay();
-    this.props.refreshLiveStock(this.state.itemLivestockDetails);
   };
 
   render() {

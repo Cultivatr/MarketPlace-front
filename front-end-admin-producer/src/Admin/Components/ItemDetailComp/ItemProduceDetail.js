@@ -88,9 +88,13 @@ class ProductProduceDetail extends Component {
   };
 
   modifyItem = async () => {
-    await modifyItemProduceQuery(this.state.itemProduceDetails);
-    await this.props.removeOverlay();
-    await this.props.refreshProduce(this.state.itemProduceDetails);
+    // just remove overlay if no changes made otherwise get error
+    if (this.state.itemProduceDetails !== "") {
+      await modifyItemProduceQuery(this.state.itemProduceDetails);
+      await this.props.refreshProduce(this.state.itemProduceDetails);
+    };
+    this.props.removeOverlay();
+    
   };
 
   render() {

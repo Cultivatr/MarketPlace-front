@@ -19,10 +19,14 @@ class ProductLivestockDetail extends Component {
     console.log("Livestock details:", this.state.itemLivestockDetails);
   };
 
-  modifyItem = async () => {
-    modifyItemLivestockQuery(this.state.itemLivestockDetails);
+  modifyItem = async () => { 
+    if (this.state.itemLivestockDetails !== "") {
+      await modifyItemLivestockQuery(this.state.itemLivestockDetails);
+      await this.props.refreshLiveStock(this.state.itemLivestockDetails);
+    };
+
     this.props.removeOverlay();
-    this.props.refreshLiveStock(this.state.itemLivestockDetails);
+    
   };
 
   getBrandValue = () => {
