@@ -153,12 +153,14 @@ class ProducerApproval extends Component {
               getItemObj={this.getItemObj}
             />
             <ProductProduceDetail
+              displayApprove={true}
               approveItem={this.approveItemProduce}
               itemProduceDetails={this.state.itemProduceDetails}
               removeOverlay={this.removeOverlay}
               refreshProduce={this.refreshProduce}
             />
             <ProductLivestockDetail
+              displayApprove={true}
               approveItem={this.approveItemLivestock}
               itemLivestockDetails={this.state.itemLivestockDetails}
               removeOverlay={this.removeOverlay}

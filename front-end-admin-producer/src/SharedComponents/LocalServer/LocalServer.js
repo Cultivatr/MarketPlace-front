@@ -259,6 +259,7 @@ export function addProduceQuery(data, estCompletionDate) {
 }
 
 export function modifyItemLivestockQuery(livestockItem) {
+    console.log('livestock in func is ', livestockItem.id)
     return fetch(domainLink + "/livestock/modify/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
