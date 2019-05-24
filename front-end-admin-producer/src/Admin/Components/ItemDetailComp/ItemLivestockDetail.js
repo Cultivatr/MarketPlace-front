@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Class from "./ItemDetail.module.css";
 import "./ItemDetail.css";
 import { modifyItemLivestockQuery } from "../../../SharedComponents/LocalServer/LocalServer"
+import OtherInputAdmin from "../../../SharedComponents/OtherInputAdmin"
 
 
 class ProductLivestockDetail extends Component {
@@ -22,6 +23,13 @@ class ProductLivestockDetail extends Component {
   onChange = e => {
     let itemLivestockDetails = this.props.itemLivestockDetails;
     itemLivestockDetails[e.target.name] = e.target.value;
+    this.setState({ itemLivestockDetails: itemLivestockDetails });
+    console.log("Livestock details:", this.state.itemLivestockDetails);
+  };
+
+  onChangeOther = e => {
+    let itemLivestockDetails = this.props.itemLivestockDetails;
+    itemLivestockDetails[e.target.name] = `Other - ${e.target.value}` ;
     this.setState({ itemLivestockDetails: itemLivestockDetails });
     console.log("Livestock details:", this.state.itemLivestockDetails);
   };
@@ -196,23 +204,7 @@ class ProductLivestockDetail extends Component {
                   <td className="three wide column">Status</td>
                   <td className={Class.noInput}>{status}</td>
                 </tr>
-                <tr>
-                  <td>Breed</td>
-                  <td className={Class.row}>
-                    <select
-                      onChange={this.onChange}
-                      id="breed"
-                      name="breed"
-                      multiple=""
-                      className="ui fluid dropdown"
-                    >
-                      <option value="Angus">Angus</option>
-                      <option value="Birkshire">Birkshire</option>
-                      <option value="Other">Other</option>
-                    </select>
-                    {this.getBreedValue()}
-                  </td>
-                </tr>
+                <OtherInputAdmin value={this.props.itemLivestockDetails.breed} labelItem={"breed"} title={"Breed"} options={["Angus", "Birkshire", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
                 <tr>
                   <td>Single Brand</td>
                   <td className={Class.row}>
@@ -302,63 +294,9 @@ class ProductLivestockDetail extends Component {
                     </div>
                   </td>
                 </tr>
-                <tr>
-                  <td>Feed Method</td>
-                  <td className={Class.row}>
-                    <select
-                      onChange={this.onChange}
-                      id="feedMethod"
-                      name="feedMethod"
-                      multiple=""
-                      className="ui fluid dropdown"
-                    >
-                      <option value="Grass">Grass</option>
-                      <option value="GrassBarley">
-                        Grass and Barley Finished
-                      </option>
-                      <option value="GrassGrain">
-                        Grass and Grain Finished
-                      </option>
-                      <option value="FreeRange">Free Range</option>
-                      <option value="Other">Other</option>
-                    </select>
-                    {this.getFeedMethodValue()}
-                  </td>
-                </tr>
-                <tr>
-                  <td>Type Of Pasture</td>
-                  <td className={Class.row}>
-                    <select
-                      onChange={this.onChange}
-                      id="typeOfPasture"
-                      name="typeOfPasture"
-                      multiple=""
-                      className="ui fluid dropdown"
-                    >
-                      <option value="Timothy">Timothy</option>
-                      <option value="Alfa">Alfa</option>
-                      <option value="Other">Other</option>
-                    </select>
-                    {this.getTypeOfPastureValue()}
-                  </td>
-                </tr>
-                <tr>
-                  <td>Type Of Feed</td>
-                  <td className={Class.row}>
-                    <select
-                      onChange={this.onChange}
-                      id="typeOfFeed"
-                      name="typeOfFeed"
-                      multiple=""
-                      className="ui fluid dropdown"
-                    >
-                      <option value="Grain">Grain</option>
-                      <option value="Barley">Barley</option>
-                      <option value="Other">Other</option>
-                    </select>
-                    {this.getTypeOfFeedValue()}
-                  </td>
-                </tr>
+                <OtherInputAdmin value={this.props.itemLivestockDetails.feedMethod} labelItem={"feedMethod"} title={"Feed Method"} options={["Grass", "GrassBarley","GrassGrain","FreeRange", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInputAdmin value={this.props.itemLivestockDetails.typeOfPasture} labelItem={"typeOfPasture"} title={"Type Of Pasture"} options={["Timothy", "Alfa","Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInputAdmin value={this.props.itemLivestockDetails.typeOfFeed} labelItem={"typeOfFeed"} title={"Type Of Feed"} options={["Grain", "Barley","Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
                 <tr>
                   <td>Est Starting Weight in Pounds</td>
                   <td className={Class.row}>

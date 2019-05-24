@@ -39,6 +39,22 @@ class ProducerApproval extends Component {
     await this.removeOverlay();
   };
 
+  rejectItemProduce = async id => {
+    const subId = id.substr(2);
+    await incrementProduceQuery(subId, "Pending Admin")
+    await this.loadProduceData();
+    await this.createData();
+    await this.removeOverlay();
+  };
+
+  rejectItemLivestock = async id => {
+    const subId = id.substr(2);
+    await incrementLivestockQuery(subId, "Pending Admin")
+    await this.loadLivestockData();
+    await this.createData();
+    await this.removeOverlay();
+  };
+
   getItemObj = async e => {
     let i;
     for (i = 0; i < this.state.data.length; i++) {
@@ -143,9 +159,7 @@ class ProducerApproval extends Component {
         <div className="ui container">
           <div className={Class.table}>
             <div className={Class.prodTableHeader}>
-
               <h4>Items Accepted By Admin and Awaiting Your Approval</h4>
-
             </div>
 
             <ProducerApprovalTable
@@ -155,6 +169,7 @@ class ProducerApproval extends Component {
             <ProductProduceDetail
               displayApprove={true}
               approveItem={this.approveItemProduce}
+              rejectItem={this.rejectItemProduce}
               itemProduceDetails={this.state.itemProduceDetails}
               removeOverlay={this.removeOverlay}
               refreshProduce={this.refreshProduce}
@@ -162,6 +177,7 @@ class ProducerApproval extends Component {
             <ProductLivestockDetail
               displayApprove={true}
               approveItem={this.approveItemLivestock}
+              rejectItem={this.rejectItemLivestock}
               itemLivestockDetails={this.state.itemLivestockDetails}
               removeOverlay={this.removeOverlay}
               refreshLiveStock={this.refreshLiveStock}

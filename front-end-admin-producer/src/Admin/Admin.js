@@ -149,6 +149,7 @@ class Admin extends Component {
     this.pushThroughProduce(id, "Not Accepted");
   };
   sendEmail = (farm, email) => {
+    console.log("send email",farm,email)
     sendEmailQuery(farm, email)
   };
 
@@ -165,7 +166,7 @@ class Admin extends Component {
   pushThroughLivestock = async (id, status, farm, email) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
-    // this.sendEmail(farm, email);
+    this.sendEmail(farm, email);
     await incrementLivestockQuery(subId, nextStatus)
     await this.loadLivestockData();
     await this.createData();
@@ -174,7 +175,7 @@ class Admin extends Component {
   pushThroughProduce = async (id, status, farm, email) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
-    // this.sendEmail(farm, email);
+    this.sendEmail(farm, email);
     await incrementProduceQuery(subId, nextStatus)
     await this.loadProduceData();
     await this.createData();

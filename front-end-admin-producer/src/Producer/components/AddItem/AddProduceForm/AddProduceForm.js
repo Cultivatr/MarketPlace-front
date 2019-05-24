@@ -44,7 +44,7 @@ class ProduceForm extends Component {
     const json = await responseProduceItems.json();
     const pItems = json;
     if (pItems) {
-      var pList = document.getElementById("produceItems1");
+      let pList = document.getElementById("produceItems1");
       await pItems.produce_items.forEach(item => {
         let indiv = item.newItem;
         let element = document.createElement("option");
@@ -164,6 +164,7 @@ class ProduceForm extends Component {
                       onChange={this.onCompDateChange}
                       dateFormat="YYYY-MM-dd"
                       selected={this.state.estCompletionDate}
+                      autocomplete="off"
                     />
                   </div>
                 </div>

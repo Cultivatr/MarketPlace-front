@@ -86,8 +86,21 @@ class ProductLivestockDetail extends Component {
       >
         Approve
       </button>
-    ) : null
-    ;
+    ) : null;
+
+    const btnReject = (this.props.itemLivestockDetails.status === "Pending Producer" && this.props.displayApprove) ? (
+      <button
+        className={Class.itemButtonsCancel}
+        onClick={() =>
+          this.props.rejectItem(
+            this.props.itemLivestockDetails.id,
+            this.props.itemLivestockDetails.status
+          )
+        }
+      >
+        Reject
+      </button>
+    ) : null;
 
     return (
       <div id="livestockOverlay">
@@ -262,8 +275,9 @@ class ProductLivestockDetail extends Component {
             >
               Cancel
             </button>
-
-            {btnApprove}
+           
+           {btnApprove}
+            {btnReject}
             
           </div>
         </div>
