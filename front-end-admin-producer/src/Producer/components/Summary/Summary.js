@@ -250,11 +250,13 @@ class Summary extends Component {
         // }}
         />
         <ProductProduceDetail
+          displayApprove={false}
           itemProduceDetails={this.state.itemProduceDetails}
           removeOverlay={this.removeOverlay}
           refreshProduce={this.refreshProduce}
         />
         <ProductLivestockDetail
+          displayApprove={false}
           itemLivestockDetails={this.state.itemLivestockDetails}
           removeOverlay={this.removeOverlay}
           refreshLiveStock={this.refreshLiveStock}

@@ -15,7 +15,10 @@ class ProductLivestockDetail extends Component {
     this.priorBirthDate = "";
     this.priorOnFeedDate = "";
   }
-  componentDidMount = () => { };
+  componentDidMount = () => {
+    console.log("Livestock id is:", this.state.itemLivestockDetails.id);
+   };
+  
   onChange = e => {
     let itemLivestockDetails = this.props.itemLivestockDetails;
     itemLivestockDetails[e.target.name] = e.target.value;
@@ -150,6 +153,8 @@ class ProductLivestockDetail extends Component {
   };
 
   modifyItem = async () => {
+    console.log('this.state.itemlivestockdetails.id is ',
+      this.state.itemLivestockDetails.id);
     modifyItemLivestockQuery(this.state.itemLivestockDetails);
     this.props.removeOverlay();
     this.props.refreshLiveStock(this.state.itemLivestockDetails);

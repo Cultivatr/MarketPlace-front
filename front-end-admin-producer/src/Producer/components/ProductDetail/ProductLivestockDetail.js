@@ -72,6 +72,23 @@ class ProductLivestockDetail extends Component {
       finalPrice,
       status
     } = this.props.itemLivestockDetails;
+
+    // conditional render of Approve button only if on ItemsWaitingApproval view
+    const btnApprove = (this.props.itemLivestockDetails.status === "Pending Producer" && this.props.displayApprove) ? (
+      <button
+        className={Class.itemButtonsCancel}
+        onClick={() =>
+          this.props.approveItem(
+            this.props.itemLivestockDetails.id,
+            this.props.itemLivestockDetails.status
+          )
+        }
+      >
+        Approve
+      </button>
+    ) : null
+    ;
+
     return (
       <div id="livestockOverlay">
         <div className={Class.itemDetailContainer}>
@@ -245,19 +262,9 @@ class ProductLivestockDetail extends Component {
             >
               Cancel
             </button>
-            {this.props.itemLivestockDetails.status === "Pending Producer" ? (
-              <button
-                className={Class.itemButtonsCancel}
-                onClick={() =>
-                  this.props.approveItem(
-                    this.props.itemLivestockDetails.id,
-                    this.props.itemLivestockDetails.status
-                  )
-                }
-              >
-                Approve
-              </button>
-            ) : null}
+
+            {btnApprove}
+            
           </div>
         </div>
       </div>

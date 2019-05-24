@@ -26,7 +26,7 @@
   width: 45vw;
 }
 
-.produce-item-list > ul {
+.produce-item-list > ul {  /*need to figure out a way to stop this list from scrolling below the containing box */
   display: flex;
   /*flex-wrap: wrap;*/
   flex-direction: column;
@@ -52,10 +52,11 @@ td {
 .produce-delete-btn {
   width: 24px;
   height: 24px;
-  padding: 3px;
-  background-color: red;
+  padding: 1px;
+  /*background-color: red;*/
+  border: solid gray 1.5px;
   
-  border-radius: 18px;
+  /*border-radius: 18px;*/
   text-align: center;
 }
 .produce-delete-btn:hover {

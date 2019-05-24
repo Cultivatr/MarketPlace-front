@@ -63,6 +63,21 @@ class ProductProduceDetail extends Component {
     console.log('props from summary', this.props.itemProduceDetails);
     // why can I access props here but not in constructor?
 
+    // conditional render of Approve button only if on ItemsWaitingApproval view
+    const btnApprove = (this.props.itemProduceDetails.status === "Pending Producer" && this.props.displayApprove) ? (
+      <button
+        className={Class.itemButtonsCancel}
+        onClick={() =>
+          this.props.approveItem(
+            this.props.itemProduceDetails.id,
+            this.props.itemProduceDetails.status
+          )
+        }
+      >
+        Approve
+      </button>
+    ) : null
+    ;
 
     return (
       <div id="produceOverlay">
@@ -228,19 +243,9 @@ class ProductProduceDetail extends Component {
             >
               Cancel
             </button>
-            {this.props.itemProduceDetails.status === "Pending Producer" ? (
-              <button
-                className={Class.itemButtonsCancel}
-                onClick={() =>
-                  this.props.approveItem(
-                    this.props.itemProduceDetails.id,
-                    this.props.itemProduceDetails.status
-                  )
-                }
-              >
-                Approve
-              </button>
-            ) : null}
+
+            {btnApprove}
+
           </div>
         </div>
       </div>
