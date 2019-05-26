@@ -83,6 +83,20 @@ class ProductProduceDetail extends Component {
     ) : null
     ;
 
+    const btnReject = (this.props.itemProduceDetails.status === "Pending Producer" && this.props.displayApprove) ? (
+      <button
+        className={Class.itemButtonsCancel}
+        onClick={() =>
+          this.props.rejectItem(
+            this.props.itemProduceDetails.id,
+            this.props.itemProduceDetails.status
+          )
+        }
+      >
+        Reject
+      </button>
+    ) : null;
+
     return (
       <div id="produceOverlay">
         <div className={Class.itemDetailContainer}>
@@ -247,8 +261,8 @@ class ProductProduceDetail extends Component {
             >
               Cancel
             </button>
-
             {btnApprove}
+            {btnReject}
 
           </div>
         </div>

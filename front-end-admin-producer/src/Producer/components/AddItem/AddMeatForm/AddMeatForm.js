@@ -5,6 +5,7 @@ import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
 import DatePicker from "react-datepicker";
 import "../../../../SharedComponents/UI/react-datepicker.css";
 import { addLivestockQuery } from "../../../../SharedComponents/LocalServer/LocalServer"
+import OtherInput from "../../../../SharedComponents/OtherInput"
 
 
 class LivestockForm extends Component {
@@ -43,8 +44,14 @@ class LivestockForm extends Component {
     let data = this.state.data;
     let newdata = { ...data, [e.target.name]: e.target.value };
     this.setState({ data: newdata });
-    console.log("Data", newdata);
   };
+
+  onChangeOther = e => {
+    let data = this.state.data;
+    let newdata = { ...data, [e.target.name]: `Other - ${e.target.value}` };
+    this.setState({ data: newdata });
+  }
+
   onCompDateChange = date => {
     this.setState({ estCompletionDate: date });
   };
@@ -110,20 +117,9 @@ class LivestockForm extends Component {
                     <option value="Beef">Beef</option>
                   </select>
                 </div>
-                <div className="field">
-                  <label>Breed</label>
-                  <select
-                    onChange={this.onChange}
-                    name="breed"
-                    multiple=""
-                    className="ui fluid dropdown"
-                  >
-                    <option value="">Please choose an option</option>
-                    <option value="Angus">Angus</option>
-                    <option value="Birkshire">Birkshire</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
+
+                <OtherInput value={this.state.data.breed} labelItem={"breed"} title={"Breed"} options={["Angus", "Birkshire", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+
                 <div className="field">
                   <label>Single Brand</label>
                   <select
@@ -196,52 +192,12 @@ class LivestockForm extends Component {
                     />
                   </div>
                 </div>
-                <div className="field">
-                  <label>Feed Method</label>
-                  <select
-                    onChange={this.onChange}
-                    name="feedMethod"
-                    multiple=""
-                    className="ui fluid dropdown"
-                  >
-                    <option value="">Please choose an option</option>
-                    <option value="Grass">Grass</option>
-                    <option value="GrassBarley">
-                      Grass and Barley Finished
-                    </option>
-                    <option value="GrassGrain">Grass and Grain Finished</option>
-                    <option value="FreeRange">Free Range</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                <div className="field">
-                  <label>Type of Pasture</label>
-                  <select
-                    onChange={this.onChange}
-                    name="typeOfPasture"
-                    multiple=""
-                    className="ui fluid dropdown"
-                  >
-                    <option value="">Please choose an option</option>
-                    <option value="Timothy">Timothy</option>
-                    <option value="Alfa">Alfa</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                <div className="field">
-                  <label>Type of Feed</label>
-                  <select
-                    onChange={this.onChange}
-                    name="typeOfFeed"
-                    multiple=""
-                    className="ui fluid dropdown"
-                  >
-                    <option value="">Please choose an option</option>
-                    <option value="Grain">Grain</option>
-                    <option value="Barley">Barley</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
+                <OtherInput value={this.state.data.feedMethod} labelItem={"feedMethod"} title={"Feed Method"} options={["Grass", "GrassBarley","GrassGrain","FreeRange", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+
+                <OtherInput value={this.state.data.typeOfPasture} labelItem={"typeOfPasture"} title={"Type of Pasture"} options={["Timothy", "Alfa","Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                
+                <OtherInput value={this.state.data.typeOfFeed} labelItem={"typeOfFeed"} title={"Type of Feed"} options={["Grain", "Barley","Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+
                 <div className="field">
                   <label>Est. Completion Date</label>
                   <div
