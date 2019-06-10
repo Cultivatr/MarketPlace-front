@@ -22,7 +22,8 @@ class Summary extends Component {
       items_livestock: [],
       itemProduceDetails: {},
       itemLivestockDetails: {},
-      localId: ""
+      localId: "",
+      screenWidth: 0
     };
   }
 
@@ -50,7 +51,6 @@ class Summary extends Component {
 
   filterForPendingProducer = async dataToPass => {
     await filterForPending(dataToPass, this.pendingProducer);
-    await console.log("Pending items found", this.pendingProducer.length);
     sessionStorage.setItem(
       "PendingItems",
       JSON.stringify(this.pendingProducer.length)
@@ -65,7 +65,15 @@ class Summary extends Component {
     document.getElementById("livestockOverlay").style.display = "block";
   };
 
+  componentWillMount = () => {
+    window.addEventListener("resize", () => {
+      this.setState({ screenWidth: window.screen.width })
+    });
+
+  }
+
   componentDidMount = async () => {
+    this.setState({ screenWidth: window.screen.width })
     await this.getId();
     const user1 = this.state.localId;
     try {
@@ -121,14 +129,14 @@ class Summary extends Component {
 
   render() {
     const data = this.data;
-    // console.log('render date is', this.state.data);
-    console.log('produce details are ', this.state.itemProduceDetails);
-
 
     return (
+
       <div className={Class.table}>
+
+
         <div className={Class.prodTableHeader}>
-          <h4>Dashboard Table for: {this.state.userFullName}</h4>{" "}
+          <h4>Dashboard Table for: {this.state.userFullName}</h4>
         </div>
 
         <ReactTable
@@ -140,12 +148,14 @@ class Summary extends Component {
           }
           columns={[
             {
-              // Header: "Click on headers to sort or type to filter",
-              columns: [
+              Header: "Click on headers to sort or type to filter",
+              columns: this.state.screenWidth > 650 ? [
+
                 {
                   Header: "Item #",
                   id: "Id",
                   width: 75,
+                  placeholder: "Orange",
                   accessor: d => d.id,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["id"] }),
@@ -227,7 +237,7 @@ class Summary extends Component {
                       onClick={this.getItemObj}
                     >
                       Details
-                    </span>
+                                    </span>
                   ),
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["qty"] }),
@@ -240,7 +250,84 @@ class Summary extends Component {
                     textAlign: "center"
                   }
                 }
-              ]
+              ] :
+
+
+                ///
+                [
+                  {
+                    Header: "Type",
+                    id: "type",
+                    width: 200,
+                    accessor: d => d.type,
+                    filterMethod: (filter, rows) =>
+                      matchSorter(rows, filter.value, { keys: ["type"] }),
+                    filterAll: true,
+                    style: {
+                      textAlign: "center"
+                    }
+                  },
+                  {
+                    Header: "Qty",
+                    id: "estFinishedQty",
+                    width: 75,
+                    accessor: d => d.estFinishedQty || d.quantity,
+                    filterMethod: (filter, rows) =>
+                      matchSorter(rows, filter.value, {
+                        keys: ["estFinishedQty"]
+                      }),
+                    filterAll: true,
+                    style: {
+                      textAlign: "center"
+                    }
+                  },
+                  {
+                    Header: "Order Status",
+                    id: "status",
+                    width: 150,
+                    accessor: d => d.status,
+                    filterMethod: (filter, rows) =>
+                      matchSorter(rows, filter.value, { keys: ["status"] }),
+                    filterAll: true,
+                    style: {
+                      textAlign: "center"
+                    }
+                  },
+                  {
+                    Header: "",
+                    id: "MoreDetails",
+                    width: 75,
+                    accessor: d => (
+                      <span
+                        className="detail-button"
+                        style={{
+                          cursor: "pointer",
+                          fontSize: 10,
+                          border: "1px solid black",
+                          borderRadius: "25px",
+                          padding: "5px 5px",
+                          margin: "3px 0px 3px 0px",
+                          textAlign: "center",
+                          userSelect: "none"
+                        }}
+                        id={d.id}
+                        onClick={this.getItemObj}
+                      >Detail</span>
+                    ),
+                    filterMethod: (filter, rows) =>
+                      matchSorter(rows, filter.value, { keys: ["qty"] }),
+                    filterAll: true,
+                    style: {
+                      cursor: "pointer",
+                      fontSize: 15,
+                      padding: "5px 5px",
+                      userSelect: "none",
+                      textAlign: "center"
+                    }
+                  }
+                ]
+
+              ///
             }
           ]}
           defaultPageSize={20}
@@ -267,3 +354,6 @@ class Summary extends Component {
 }
 
 export default Summary;
+
+
+

@@ -4,7 +4,7 @@ import styles from "./Toolbar.module.css";
 import AdminNav from "../../AdminNav";
 
 const toolbar = () => (
-  <div>
+  <div id="desktop-menu">
     <AdminNav />
     <header className={styles.header}>
       <nav className={styles.nav}>

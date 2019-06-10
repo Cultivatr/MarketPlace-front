@@ -8,7 +8,7 @@
   right: 0;
   bottom: 0;
   background-color: rgba(59, 59, 59, 0.5);
-  z-index: 100;
+  z-index: 1001;
   color: black;
 }
 
@@ -22,6 +22,24 @@
   right: 0;
   bottom: 0;
   background-color: rgba(59, 59, 59, 0.5);
-  z-index: 100;
+  z-index: 1001;
   color: black;
+}
+
+@media only screen and (max-width : 667px) {
+  #produceOverlay> div{
+    height: 90%;
+  }
+  #produceOverlay h4{
+    font-size: 1.71212133em;
+    padding-top: 8px;
+  }
+  #livestockOverlay> div{
+    height: 90%;
+  }
+  #livestockOverlay h4{
+    font-size: 1.71212133em;
+    padding-top: 8px;
+    
+  }
 }

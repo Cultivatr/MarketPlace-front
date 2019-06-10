@@ -43,7 +43,7 @@ class SignIn extends Component {
 
   logIn(res) {
     let logInData = [];
-    loginQuery(res.w3.U3)
+    if (res.w3) loginQuery(res.w3.U3)
       .then(data => {
         logInData = {
           name: data.user.firstName,
@@ -77,7 +77,7 @@ class SignIn extends Component {
       this.logIn(response);
     };
     return (
-      <div>
+      <div className="login-wrapper">
         <div className="loginBox">
           <div className="h1-header">
             <h1 className="ui header">Welcome to CultivatR</h1>

@@ -125,4 +125,5 @@
 .noInput {
   padding-left: 10px;
   background-color: lightgray !important;
+  height: 30px;
 }

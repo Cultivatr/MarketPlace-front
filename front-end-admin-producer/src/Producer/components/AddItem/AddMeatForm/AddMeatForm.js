@@ -1,7 +1,8 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import styles from "./AddMeatForm.module.css";
 import Button from "../../../../SharedComponents/UI/Button";
 import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
+import ProducerSlideMenu from "../../../../SharedComponents/Navigation/SlideMenu/ProducerSlideMenu"
 import DatePicker from "react-datepicker";
 import "../../../../SharedComponents/UI/react-datepicker.css";
 import { addLivestockQuery } from "../../../../SharedComponents/LocalServer/LocalServer"
@@ -31,9 +32,9 @@ class LivestockForm extends Component {
       deliveredTo: "",
       comments: "",
       quantity: 0,
-      status: "Pending Admin"
+      status: "Pending Admin",
     },
-    addedThisSession: 0
+    addedThisSession: 0,
     // birthdate: "0001-01-01",
     // dateOnFeed: "0001-01-01",
     // estCompletionDate: "0001-01-01"
@@ -45,6 +46,13 @@ class LivestockForm extends Component {
     let newdata = { ...data, [e.target.name]: e.target.value };
     this.setState({ data: newdata });
   };
+
+  componentWillMount = () => {
+    window.addEventListener("resize", () => {
+      this.setState({ screenWidth: window.screen.width })
+    });
+
+  }
 
   onChangeOther = e => {
     let data = this.state.data;
@@ -80,26 +88,17 @@ class LivestockForm extends Component {
 
   render() {
     return (
-      <Fragment>
+      <div>
         <Toolbar />
-        <h2>Add Livestock</h2>
+        <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
+        <h2 className="mobile-header-title">Add Livestock</h2>
         <div className={styles.wrapper}>
-          <content
-            style={{
-              width: 15,
-              height: 15,
-              borderRadius: 150 / 2,
-              backgroundColor: "#1ECE88",
-              position: "relative",
-              top: "0px",
-              left: "100px"
-            }}
-          >
+          <span className="required-header">
             Coloured Border Indicates Required Field
-          </content>
+          </span>
           <div className="ui grid container">
-            <form onSubmit={this.onSubmit} className="ui row form">
-              <div className="eight wide column">
+            <form onSubmit={this.onSubmit} className="ui row form add-meat-mobile" autoComplete="off">
+              <div className="form-column-8">
                 <div className="field">
                   <label>Type</label>
                   <select
@@ -140,11 +139,13 @@ class LivestockForm extends Component {
                     style={{ border: "3px solid #1ECE88", width: "150px" }}
                   >
                     <DatePicker
+                      autocomplete="off"
                       name="birthdate"
                       onChange={this.onBirthDateChange}
-                      dateFormat="YYYY-MM-dd"
+                      dateFormat="yyyy-MM-dd"
                       selected={this.state.birthdate}
                     />
+
                   </div>
                 </div>
                 <div className="field">
@@ -177,7 +178,7 @@ class LivestockForm extends Component {
                   />
                 </div>
               </div>
-              <div className="eight wide column">
+              <div className="form-column-8">
                 <div className="field">
                   <label>Date on Feed</label>
                   <div
@@ -187,16 +188,14 @@ class LivestockForm extends Component {
                     <DatePicker
                       name="dateOnFeed"
                       onChange={this.onDateOnFeedChange}
-                      dateFormat="YYYY-MM-dd"
+                      dateFormat="yyyy-MM-dd"
                       selected={this.state.dateOnFeed}
                     />
                   </div>
                 </div>
-                <OtherInput value={this.state.data.feedMethod} labelItem={"feedMethod"} title={"Feed Method"} options={["Grass", "GrassBarley","GrassGrain","FreeRange", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
-
-                <OtherInput value={this.state.data.typeOfPasture} labelItem={"typeOfPasture"} title={"Type of Pasture"} options={["Timothy", "Alfa","Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
-                
-                <OtherInput value={this.state.data.typeOfFeed} labelItem={"typeOfFeed"} title={"Type of Feed"} options={["Grain", "Barley","Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInput value={this.state.data.feedMethod} labelItem={"feedMethod"} title={"Feed Method"} options={["Grass", "GrassBarley", "GrassGrain", "FreeRange", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInput value={this.state.data.typeOfPasture} labelItem={"typeOfPasture"} title={"Type of Pasture"} options={["Timothy", "Alfa", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInput value={this.state.data.typeOfFeed} labelItem={"typeOfFeed"} title={"Type of Feed"} options={["Grain", "Barley", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
 
                 <div className="field">
                   <label>Est. Completion Date</label>
@@ -207,7 +206,7 @@ class LivestockForm extends Component {
                     <DatePicker
                       name="estCompletionDate"
                       onChange={this.onCompDateChange}
-                      dateFormat="YYYY-MM-dd"
+                      dateFormat="yyyy-MM-dd"
                       selected={this.state.estCompletionDate}
                     />
                   </div>
@@ -231,7 +230,7 @@ class LivestockForm extends Component {
             </strong>
           </div>
         </div>
-      </Fragment>
+      </div>
     );
   }
 }

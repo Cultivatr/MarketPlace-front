@@ -242,7 +242,7 @@ def delete_user():
     db.session.query(Livestock).filter(Livestock.user_id == filterId).delete()
     db.session.query(Users).filter(Users.id == filterId).delete()
     db.session.commit()
-    return 'Success', 201
+    return jsonify({ "Success": True })
 
 @app.route("/admin/updateUsers/", methods=['POST'])
 def modify_user():
@@ -279,7 +279,7 @@ def modify_user():
     userToUpdate.billing_postal_code=data.get('billingAddressPostalCode'),
     userToUpdate.user_comments=data.get('comments')
     db.session.commit()
-    return 'Success', 201   
+    return jsonify({ "Success": True })
 
 
 
@@ -314,7 +314,7 @@ def add_livestock_items():
     )
     db.session.add(new_livestock)
     db.session.commit()
-    return 'Success', 201
+    return jsonify({ "Success": True })
 
 
 @app.route('/livestock/all/', methods=['GET'])
@@ -420,7 +420,7 @@ def modify_lifestock():
     livestock_to_update.delivered_date=data.get('deliveredDate'),
     livestock_to_update.delivered_to=data.get('deliveredTo'),
     db.session.commit()
-    return 'Success', 201  
+    return jsonify({ "Success": True })
  
 
 
@@ -528,7 +528,7 @@ def add_produce_items():
     )
     db.session.add(new_produce)
     db.session.commit()
-    return 'Success', 201
+    return jsonify({ "Success": True })
 
 @app.route("/produce/modify/", methods=['POST'])
 def modify_produce():
@@ -559,7 +559,7 @@ def modify_produce():
     
   
     db.session.commit()
-    return 'Success', 201 
+    return jsonify({ "Success": True })
 
 
 @app.route("/produce/incrementStatus/", methods=['POST'])
@@ -569,7 +569,8 @@ def update_produce_items():
     prodToUpdate=db.session.query(Produce).filter(Produce.id == filterId).first()
     prodToUpdate.status=data.get('nextStatus')
     db.session.commit()
-    return 'Success', 201
+    return jsonify({ "Success": True })
+
 
 
 @app.route("/livestock/incrementStatus/", methods=['POST'])   
@@ -580,7 +581,8 @@ def update_livestock_items():
     liveToUpdate.status=data.get('nextStatus')
 
     db.session.commit()
-    return 'Success', 201
+    return jsonify({ "Success": True })
+
 
 @app.route("/login/", methods = ["POST"])
 def authenticate_login_user():
@@ -606,7 +608,8 @@ def send_email_alert():
     user_email=data.get('email')
 
     email_system.send_email(farm_name,user_email)
-    return 'Success', 201
+    return jsonify({ "Success": True })
+
 
 
 def test_print_function():

@@ -1,11 +1,12 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import "./AddProduceForm.module.css";
 import "../../../../SharedComponents/UI/react-datepicker.css";
 import Button from "../../../../SharedComponents/UI/Button";
 import styles from "./AddProduceForm.module.css";
-import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
+// import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
 import DatePicker from "react-datepicker";
 import "../../../../SharedComponents/miscStyles.css";
+import ProducerSlideMenu from "../../../../SharedComponents/Navigation/SlideMenu/ProducerSlideMenu"
 import { refreshProduceItems, addProduceQuery } from "../../../../SharedComponents/LocalServer/LocalServer"
 
 class ProduceForm extends Component {
@@ -78,33 +79,24 @@ class ProduceForm extends Component {
         setTimeout(function () {
           document.getElementById("submitBtn").className = "ui button";
         }, 1000)
-      )
+      ).then(this.setState({ addedThisSession: this.state.addedThisSession + 1 }))
       .catch(error => console.log(error));
-    this.setState({ addedThisSession: this.state.addedThisSession + 1 });
+
   };
 
   render() {
     return (
-      <Fragment>
-        <Toolbar />
-        <h2>Add Produce</h2>
+      <div>
+        {/* <Toolbar /> */}
+        <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
+        <h2 className="mobile-header-title">Add Produce</h2>
         <div className={styles.wrapper}>
-          <content
-            style={{
-              width: 15,
-              height: 15,
-              borderRadius: 150 / 2,
-              backgroundColor: "#1ECE88",
-              position: "relative",
-              top: "0px",
-              left: "100px"
-            }}
-          >
+          <span className="required-header">
             Coloured Border Indicates Required Field
-          </content>
+          </span>
           <div className="ui grid container">
             <form onSubmit={this.onSubmit} className="ui row form">
-              <div className="eight wide column">
+              <div className="form-column-8">
                 <div className="field">
                   <label>Type</label>
                   <select
@@ -162,7 +154,7 @@ class ProduceForm extends Component {
                     <DatePicker
                       name="estCompletionDate"
                       onChange={this.onCompDateChange}
-                      dateFormat="YYYY-MM-dd"
+                      dateFormat="yyyy-MM-dd"
                       selected={this.state.estCompletionDate}
                       autocomplete="off"
                     />
@@ -208,7 +200,7 @@ class ProduceForm extends Component {
                   />
                 </div>
               </div>
-              <div className="eight wide column">
+              <div className="form-column-8">
                 <div className="field">
                   <label>Estimated Quantity Planted</label>
                   <input
@@ -271,7 +263,7 @@ class ProduceForm extends Component {
             </strong>
           </div>
         </div>
-      </Fragment>
+      </div>
     );
   }
 }

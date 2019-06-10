@@ -5,6 +5,7 @@
   padding: 40px;
   margin-top: 100px;
   border-radius: 2px;
+  background: white;
 }
 
 .h1-header {
@@ -60,4 +61,13 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+
+.login-wrapper{
+  position: absolute;
+  background-image: url("../../src/cultivatr2.jpg");
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
 }

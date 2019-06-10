@@ -6,3 +6,14 @@
 .detail-button:hover {
   background-color: #16af54;
 }
+
+.ReactTable .rt-tbody{
+  overflow-x: hidden;
+}
+
+
+@media only screen and (max-width : 999px) {
+  #page-wrap .ReactTable {
+    height: initial;
+}
+}

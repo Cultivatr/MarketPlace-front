@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Toolbar from "../../../SharedComponents/Navigation/Toolbar/Toolbar";
+import ProducerSlideMenu from "../../../SharedComponents/Navigation/SlideMenu/ProducerSlideMenu"
 import styles from "./ContactUs.module.css";
 
 class ContactUs extends Component {
@@ -21,16 +22,15 @@ class ContactUs extends Component {
     this.setState({ message: e.target.value });
   };
 
-  onSubmit = () => {};
+  onSubmit = () => { };
 
   render() {
     return (
-      <div>
+      <div >
         <Toolbar />
+        <h2 className="mobile-header-title">Contact Us</h2>
+        <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
         <div className={styles.loginBox}>
-          <div className="h1-header">
-            <h1 className="ui header">Contact Us</h1>
-          </div>
           <div>
             <h2>
               For General Inquires Email Me At <i>dmbzan@gmail.com</i>

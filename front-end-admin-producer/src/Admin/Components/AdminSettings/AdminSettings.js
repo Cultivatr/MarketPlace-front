@@ -131,12 +131,10 @@ export default class AdminSettings extends Component {
             <div className="undo-container">
               <div>Status: {this.state.status}</div>
               {this.state.status !== "No Changes" &&
-                this.state.status !== "No item to add" ? (
+                this.state.status !== "No item to add" && (
                   <div className="admin-btn undo-btn" onClick={this.undoAction}>
                     Undo
                 </div>
-                ) : (
-                  ""
                 )}
             </div>
             <div className="input-container">

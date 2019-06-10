@@ -1,6 +1,7 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { getItemDetails } from "../../../AppUtils";
 import Toolbar from "../../../SharedComponents/Navigation/Toolbar/Toolbar";
+import ProducerSlideMenu from "../../../SharedComponents/Navigation/SlideMenu/ProducerSlideMenu"
 import ProductProduceDetail from "../ProductDetail/ProductProduceDetail";
 import ProductLivestockDetail from "../ProductDetail/ProductLivestockDetail";
 import Class from "./ProducerApproval.module.css";
@@ -20,7 +21,8 @@ class ProducerApproval extends Component {
       items_livestock: [],
       itemProduceDetails: {},
       itemLivestockDetails: {},
-      localId: ""
+      localId: "",
+      screenWidth: 0
     };
   }
   approveItemProduce = async id => {
@@ -110,6 +112,14 @@ class ProducerApproval extends Component {
     await this.createData();
   };
 
+  componentWillMount = () => {
+    this.setState({ screenWidth: window.screen.width })
+    window.addEventListener("resize", () => {
+      this.setState({ screenWidth: window.screen.width })
+    });
+
+  }
+
   getId = () => {
     const tempId = JSON.parse(sessionStorage.getItem("authData")).id;
     console.log("ID", tempId);
@@ -154,15 +164,18 @@ class ProducerApproval extends Component {
 
   render() {
     return (
-      <Fragment>
+      <div>
         <Toolbar />
+        <h2 className="mobile-header-title">Items to be Approved</h2>
+        <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
         <div className="ui container">
           <div className={Class.table}>
             <div className={Class.prodTableHeader}>
-              <h4>Items Accepted By Admin and Awaiting Your Approval</h4>
+              <h4>Click on headers to sort or type to filter</h4>
             </div>
 
             <ProducerApprovalTable
+              screenWidth={this.state.screenWidth}
               data={this.data}
               getItemObj={this.getItemObj}
             />
@@ -184,7 +197,7 @@ class ProducerApproval extends Component {
             />
           </div>
         </div>
-      </Fragment>
+      </div>
     );
   }
 }

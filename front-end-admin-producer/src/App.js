@@ -32,7 +32,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div id="outer-container">
         <Router>
           <Switch>
             <Route path="/" component={SignIn} exact />

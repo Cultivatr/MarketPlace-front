@@ -16,10 +16,7 @@ class ProductLivestockDetail extends Component {
     this.priorBirthDate = "";
     this.priorOnFeedDate = "";
   }
-  componentDidMount = () => {
-    console.log("Livestock id is:", this.state.itemLivestockDetails.id);
-   };
-  
+
   onChange = e => {
     let itemLivestockDetails = this.props.itemLivestockDetails;
     itemLivestockDetails[e.target.name] = e.target.value;
@@ -29,7 +26,7 @@ class ProductLivestockDetail extends Component {
 
   onChangeOther = e => {
     let itemLivestockDetails = this.props.itemLivestockDetails;
-    itemLivestockDetails[e.target.name] = `Other - ${e.target.value}` ;
+    itemLivestockDetails[e.target.name] = `Other - ${e.target.value}`;
     this.setState({ itemLivestockDetails: itemLivestockDetails });
     console.log("Livestock details:", this.state.itemLivestockDetails);
   };
@@ -163,7 +160,7 @@ class ProductLivestockDetail extends Component {
   modifyItem = async () => {
     // just remove overlay if no changes made otherwise get error
     if (this.state.itemLivestockDetails !== "") {
-      await modifyItemLivestockQuery(this.state.itemLivestockDetails);  
+      await modifyItemLivestockQuery(this.state.itemLivestockDetails);
       await this.props.refreshLiveStock(this.state.itemLivestockDetails);
     };
     this.props.removeOverlay();
@@ -295,9 +292,9 @@ class ProductLivestockDetail extends Component {
                     </div>
                   </td>
                 </tr>
-                <OtherInputAdmin value={this.props.itemLivestockDetails.feedMethod} labelItem={"feedMethod"} title={"Feed Method"} options={["Grass", "GrassBarley","GrassGrain","FreeRange", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
-                <OtherInputAdmin value={this.props.itemLivestockDetails.typeOfPasture} labelItem={"typeOfPasture"} title={"Type Of Pasture"} options={["Timothy", "Alfa","Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
-                <OtherInputAdmin value={this.props.itemLivestockDetails.typeOfFeed} labelItem={"typeOfFeed"} title={"Type Of Feed"} options={["Grain", "Barley","Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInputAdmin value={this.props.itemLivestockDetails.feedMethod} labelItem={"feedMethod"} title={"Feed Method"} options={["Grass", "GrassBarley", "GrassGrain", "FreeRange", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInputAdmin value={this.props.itemLivestockDetails.typeOfPasture} labelItem={"typeOfPasture"} title={"Type Of Pasture"} options={["Timothy", "Alfa", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInputAdmin value={this.props.itemLivestockDetails.typeOfFeed} labelItem={"typeOfFeed"} title={"Type Of Feed"} options={["Grain", "Barley", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
                 <tr>
                   <td>Est Starting Weight in Pounds</td>
                   <td className={Class.row}>
