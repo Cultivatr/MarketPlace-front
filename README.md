@@ -15,7 +15,7 @@
 
 1. run pipenv shell (should get you into the environment)
 
-1. run python server2.py (should start your flask server)
+1. run python3 app.py (should start your flask server)
 
 \*\* TO BE ABLE TO ADD USERS OR OFFERED ITEMS BE SURE TO HAVE A CULTIVATR DATABASE WHERE POSTGRES IS A SUPERUSER and PASSWORD is 'password'
 
