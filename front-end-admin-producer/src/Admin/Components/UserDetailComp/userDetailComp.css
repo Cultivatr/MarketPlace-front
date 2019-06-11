@@ -8,6 +8,17 @@
     right: 0;
     bottom: 0;
     background-color: rgba(59, 59, 59, 0.5);
-    z-index: 100;
+    z-index: 1001;
     color:black;
   }
+
+
+  @media only screen and (max-width : 667px) {
+  #userOverlay > div{
+    height: 90%;
+    padding-bottom: 50px;
+    width: 100%;
+    margin-left: 0;
+  }
+
+}

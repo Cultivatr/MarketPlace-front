@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import matchSorter from "match-sorter";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import Class from "../../admin.module.css";
 import { getUserDetails } from "../../../AppUtils";
 import UserDetailComp from "../UserDetailComp/UserDetailComp";
 import { deleteUserQuery } from "../../../SharedComponents/LocalServer/LocalServer"
@@ -42,6 +43,9 @@ class UsersComp extends Component {
     const data = this.state.data.data;
     return (
       <div className="table">
+        <div id="desktop-menu" className={Class.containerTitle}>
+          <h4 >{this.props.title}</h4>
+        </div>
         <ReactTable
           data={data.users}
           noDataText="No Users!"

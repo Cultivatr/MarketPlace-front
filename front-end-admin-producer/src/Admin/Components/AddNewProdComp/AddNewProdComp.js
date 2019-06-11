@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Class from "./AddNewProdComp.module.css";
 import Button from "../../../SharedComponents/UI/Button";
-import {addNewProducer} from "../../../SharedComponents/LocalServer/LocalServer"
+import { addNewProducer } from "../../../SharedComponents/LocalServer/LocalServer"
 
 class AddNewProdComp extends Component {
   state = {
@@ -77,14 +77,14 @@ class AddNewProdComp extends Component {
 
   render() {
     return (
-      <div className="ui grid">
-        <br />
-        <div className={Class.borderMsg}>
-          
-            * Green Border Indicates Required Field
-          
+      <div className="ui grid" id="add-user-form">
+        <div id="desktop-menu" className={Class.containerTitle}>
+          <h4 >Add New User</h4>
         </div>
-        <form onSubmit={this.onSubmit} className="ui row form">
+        <div className="required-header" id="add-user-required-id">
+          Coloured Border Indicates Required Field
+        </div>
+        <form onSubmit={this.onSubmit} className="ui row form" >
           <div className="four wide column">
             <div className={Class.field}>
               <div className="field">

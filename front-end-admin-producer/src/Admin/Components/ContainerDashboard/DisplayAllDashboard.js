@@ -1,6 +1,7 @@
 import React from "react";
 import matchSorter from "match-sorter";
 import ReactTable from "react-table";
+import Class from "../../admin.module.css";
 import "./ContainerDashboard.css";
 import "react-table/react-table.css";
 
@@ -13,7 +14,10 @@ class DisplayAllDashboard extends React.Component {
   render() {
     const { data } = this.props;
     return (
-      <div className="table">
+      <div className={Class.container2}>
+        <div id="desktop-menu" className={Class.containerTitle}>
+          <h4 >{this.props.title}</h4>
+        </div>
         <ReactTable
           data={data}
           noDataText="No items from producers!"
@@ -112,10 +116,10 @@ class DisplayAllDashboard extends React.Component {
           ]}
           defaultPageSize={20}
           className="-striped -highlight"
-          // style={{
-          //   height: "80vh"  // react table height set here
-            
-          // }}
+        // style={{
+        //   height: "80vh"  // react table height set here
+
+        // }}
         />
       </div>
     );

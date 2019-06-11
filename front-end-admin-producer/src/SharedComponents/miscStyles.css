@@ -17,7 +17,27 @@
   margin: auto;
   margin-top: 20px;
 }
+#add-user-form{
+  margin: 0;
+  
+}
 
+
+
+@media only screen and (max-width : 1000px) {
+  .admin-mobile {
+    width: 100%;
+    padding-left: 80px;
+    font-size: 20px;
+    text-align: initial;
+    padding-right: 0px;
+ }
+
+ #mobile-parent-container{
+  height: initial;
+  margin-top: 100px;
+}
+}
 
 
 @media only screen and (max-width : 667px) {
@@ -29,6 +49,10 @@
     left: calc(50vw - 125px);
     bottom: 10px;
   }
+  #add-user-required-id{
+    margin: auto;
+    position: initial;
+  }
   #submitBtn{
     width: 90vw;
   }
@@ -36,8 +60,19 @@
   .ui.form .field>label{
     font-size: 1.211345422em;
   }
+
+  #add-user-form .column{
+    width: 100% !important;
+  }
+
+  #mobile-admin-container{
+    width: initial;
+  }
  }
+
  @media only screen and (min-width : 668px) {
+
+  td
   .form-column-8{
     width:50%;
     padding-left: 10px;
@@ -49,5 +84,9 @@
   }
   #submitBtn{
     width: 300px;
+  }
+  #add-user-required-id{
+    top: 10px;
+    left: 20px;
   }
  }

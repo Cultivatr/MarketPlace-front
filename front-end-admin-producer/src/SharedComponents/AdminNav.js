@@ -18,25 +18,27 @@ export default class AdminNav extends Component {
 
   render() {
     return (
-      <div className="displayEnd">
-        {/* {this.redirectHandler()} */}
+      <div id="desktop-menu">
+        <div className="displayEnd ">
+          {/* {this.redirectHandler()} */}
 
-        {JSON.parse(sessionStorage.getItem("adminAuth")) ? (
-          <div className="magicbox">
-            <Link className="link" to={"/Admin"}>
-              Admin
+          {JSON.parse(sessionStorage.getItem("adminAuth")) ? (
+            <div className="magicbox">
+              <Link className="link" to={"/Admin"}>
+                Admin
             </Link>
-            <Link className="link" to={"/Producer"}>
-              Producer
+              <Link className="link" to={"/Producer"}>
+                Producer
             </Link>
-          </div>
-        ) : null}
+            </div>
+          ) : null}
 
-        {JSON.parse(sessionStorage.getItem("loggedIn")) ? (
-          <a href="/" className="link" onClick={this.SignOutClick}>
-            Sign Out
+          {JSON.parse(sessionStorage.getItem("loggedIn")) ? (
+            <a href="/" className="link" onClick={this.SignOutClick}>
+              Sign Out
           </a>
-        ) : null}
+          ) : null}
+        </div>
       </div>
     );
   }

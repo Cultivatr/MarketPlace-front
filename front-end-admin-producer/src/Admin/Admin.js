@@ -10,6 +10,7 @@ import ItemProduceDetail from "./Components/ItemDetailComp/ItemProduceDetail";
 import ErrorModal from "../SharedComponents/ErrorModal";
 import AdminSettings from "./Components/AdminSettings/AdminSettings";
 import AdminHelper from "./AdminHelper";
+import AdminSlideMenu from "../SharedComponents/Navigation/SlideMenu/AdminSlideMenu"
 import { loadUserQuery, loadProduceQuery, loadLivestockQuery, sendEmailQuery, incrementLivestockQuery, incrementProduceQuery } from "../SharedComponents/LocalServer/LocalServer"
 
 
@@ -149,7 +150,7 @@ class Admin extends Component {
     this.pushThroughProduce(id, "Not Accepted");
   };
   sendEmail = (farm, email) => {
-    console.log("send email",farm,email)
+    console.log("send email", farm, email)
     sendEmailQuery(farm, email)
   };
 
@@ -222,7 +223,6 @@ class Admin extends Component {
   getUsers = async () => {
     try {
       this.geti++;
-      console.log('Admin.js getusers called line 256 and count is ', this.geti); // GF added this
       const response = loadUserQuery()
       const json = await response.json();
       await this.setState({ users: json });
@@ -273,7 +273,6 @@ class Admin extends Component {
   };
 
   OnClickListUsers = async () => {
-    console.log('Admin.js - after modify clicked ') // added by GF
     await this.getUsers();
     await this.setState({ dataToShow: "allItems" }); // added as a hack to re-render listUsers to force update of state
     await this.setState({ dataToShow: "listUsers" });
@@ -299,7 +298,18 @@ class Admin extends Component {
     return (
       <div className="App">
         <AdminNav />
-        <h1 className={Class.heading}>Welcome Dan!</h1>
+        <AdminSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"}
+          OnClickAllItems={this.OnClickAllItems}
+          OnClickAccept={this.OnClickAccept}
+          OnClickAwaitingProd={this.OnClickAwaitingProd}
+          OnClickConditional={this.OnClickConditional}
+          OnClickSold={this.OnClickSold}
+          OnClickDelivered={this.OnClickDelivered}
+          OnClickNotAccepted={this.OnClickNotAccepted}
+          OnClickArchive={this.OnClickArchive}
+          OnClickListUsers={this.OnClickListUsers}
+          OnClickAddUser={this.OnClickAddUser}
+          OnClickAdminSettings={this.OnClickAdminSettings} />
         <main>
           <ErrorModal
             errorModalIsOpen={this.state.errorModalIsOpen}
@@ -324,7 +334,7 @@ class Admin extends Component {
           />
           <div className={Class.container}>
             <div className={Class.boxContainer}>
-              <div className={Class.leftNav}>
+              <div id="desktop-menu" className={Class.leftNav}>
                 <button
                   id="button-allItems"
                   className={Class.buttonAdmin}
@@ -372,7 +382,7 @@ class Admin extends Component {
                   className={Class.buttonAdmin}
                   onClick={this.OnClickNotAccepted}
                 >
-                  Items Not Accepted
+                  Rejected Items
                 </button>
                 <button
                   id="archive"
@@ -402,11 +412,11 @@ class Admin extends Component {
                 </button>
               </div>
 
-              <div className={Class.container1}>
+              <div id="mobile-parent-container" className={Class.container1}>
                 {this.state.dataToShow === "listUsers" && (
                   <div className={Class.container2}>
                     <div className={Class.containerTitle}>
-                      <h4>
+                      <h4 className="mobile-header-title admin-mobile">
                         List of Users
                       </h4>
                     </div>
@@ -414,13 +424,14 @@ class Admin extends Component {
                       OnClickListUsers={this.OnClickListUsers}
                       data={this.state.users}
                       showUsers={this.OnClickListUsers} // here
+                      title="List of Users"
                     />
                   </div>
                 )}
                 {this.state.dataToShow === "addNewProd" && (
-                  <div className={Class.container3}>
+                  <div id="mobile-admin-container" className={Class.container3}>
                     <div className={Class.containerTitle}>
-                      <h4>
+                      <h4 className="mobile-header-title admin-mobile">
                         Add New Users
                       </h4>
                     </div>
@@ -432,72 +443,106 @@ class Admin extends Component {
                   </div>
                 )}
                 {this.state.dataToShow === "allItems" && (
-                  <div className={Class.container2}>
-                    <div className={Class.containerTitle}>
-                      <h4>List of All items</h4>
-                    </div>
+                  <div className={Class.containerAdminSettings}>
+                    <h4 className="mobile-header-title admin-mobile">List of All items</h4>
                     <DisplayAllDashboard
                       data={this.state.data}
                       itemObj={this.getItemObj}
+                      title="List of All Items"
                     />
                   </div>
                 )}
                 {this.state.dataToShow === "adminSettings" && (
                   <div className={Class.containerAdminSettings}>
                     <div className={Class.containerTitle}>
-                      <h2>Admin Settings</h2>
+                      <h4 className="mobile-header-title admin-mobile">Admin Settings</h4>
                     </div>
                     <AdminSettings />
-                  </div>
-                )}
+                  </div>)}
                 {this.state.dataToShow === "toBeAccepted" && (
-                  <AdminHelper
-                    title="Items To Be Accepted Conditionally"
-                    data={this.state.pendingAdmin}
-                    itemObj={this.getItemObj}
-                  />
-                )}
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile ">To be Accepted Conditionally</h4>
+                    </div>
+                    <AdminHelper
+                      data={this.state.pendingAdmin}
+                      itemObj={this.getItemObj}
+                      title="To be Accepted Conditionally"
+                    />
+                  </div>)}
                 {this.state.dataToShow === "awaitingProducer" && (
-                  <AdminHelper
-                    title="Items Awaiting Producer Acceptance"
-                    data={this.state.pendingProducer}
-                    itemObj={this.getItemObj}
-                  />
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile ">Awaiting Producer Acceptance</h4>
+                    </div>
+                    <AdminHelper
+                      data={this.state.pendingProducer}
+                      itemObj={this.getItemObj}
+                      title="Awaiting Producer Acceptance"
+                    />
+                  </div>
+
                 )}
                 {this.state.dataToShow === "acceptedConditional" && (
-                  <AdminHelper
-                    title="Items Accepted Conditionally"
-                    data={this.state.accepted}
-                    itemObj={this.getItemObj}
-                  />
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile ">Items Accepted Conditionally</h4>
+                    </div>
+                    <AdminHelper
+                      data={this.state.accepted}
+                      itemObj={this.getItemObj}
+                      title="Items Accepted Conditionally"
+                    />
+                  </div>
+
                 )}
                 {this.state.dataToShow === "soldToBeDelivered" && (
-                  <AdminHelper
-                    title="Items Sold To Be Delivered"
-                    data={this.state.sold}
-                    itemObj={this.getItemObj}
-                  />
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile ">Items Sold To Be Delivered</h4>
+                    </div>
+                    <AdminHelper
+                      data={this.state.sold}
+                      itemObj={this.getItemObj}
+                      title="Items Sold To Be Delivered"
+                    />
+                  </div>
                 )}
                 {this.state.dataToShow === "delivered" && (
-                  <AdminHelper
-                    title="Items Delivered"
-                    data={this.state.delivered}
-                    itemObj={this.getItemObj}
-                  />
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile ">Items Delivered</h4>
+                    </div>
+                    <AdminHelper
+                      data={this.state.delivered}
+                      itemObj={this.getItemObj}
+                      title="Items Delivered"
+                    />
+                  </div>
                 )}
                 {this.state.dataToShow === "notAccepted" && (
-                  <AdminHelper
-                    title="Items Not Accepted"
-                    data={this.state.notAccepted}
-                    itemObj={this.getItemObj}
-                  />
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile ">Items Not Accepted</h4>
+                    </div>
+                    <AdminHelper
+                      data={this.state.notAccepted}
+                      itemObj={this.getItemObj}
+                      title="Items Not Accepted"
+                    />
+                  </div>
                 )}
                 {this.state.dataToShow === "archive" && (
-                  <AdminHelper
-                    title="Archives"
-                    data={this.state.archive}
-                    itemObj={this.getItemObj}
-                  />
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile ">Archive</h4>
+                    </div>
+                    <AdminHelper
+                      data={this.state.archive}
+                      itemObj={this.getItemObj}
+                      title="Archive"
+                    />
+                  </div>
                 )}
               </div>
             </div>
