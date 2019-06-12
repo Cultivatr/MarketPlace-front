@@ -39,20 +39,26 @@ margin-bottom: 10px;
 width: 100%;
  }
 
- .pop-up-btn{
-     background: purple;
-     border: solid green 3px;
-     color: lime;
-     text-decoration: none;
-     font-size: 120%;
-     padding: 7.325px;
-     font-weight: 900;
- }
+ .pop-up-btn {
+    padding: 8px 30px;
+    background: #1ece88;
+    color: #fff;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    text-decoration: none;
 
- .pop-up-btn:hover{
-     cursor: pointer;
-     background: white;
- }
+  }
+  .pop-up-btn:hover {
+    background-color: #60bd3c;
+  }
+  .pop-up-btn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
 
  .pop-up-title{
     display: flex;
