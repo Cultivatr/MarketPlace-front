@@ -10,7 +10,7 @@ import OtherInput from "../../../../SharedComponents/OtherInput"
 
 
 class LivestockForm extends Component {
-  // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!
+  // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!!
   state = {
     data: {
       userId: 1,
