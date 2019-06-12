@@ -8,6 +8,9 @@ import DatePicker from "react-datepicker";
 import "../../../../SharedComponents/miscStyles.css";
 import ProducerSlideMenu from "../../../../SharedComponents/Navigation/SlideMenu/ProducerSlideMenu"
 import { refreshProduceItems, addProduceQuery } from "../../../../SharedComponents/LocalServer/LocalServer"
+import AddItemPopUp from "../AddItemPopup";
+
+
 
 class ProduceForm extends Component {
   // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!
@@ -37,9 +40,22 @@ class ProduceForm extends Component {
       status: "Pending Admin"
     },
     produceListItems: [],
-    addedThisSession: 0
+    addedThisSession: 0,
+    showItemPopup: false
   };
+  form = undefined
 
+  componentDidMount() {
+    document.addEventListener("keydown", this.escFunction, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.escFunction, false);
+  }
+  escFunction = (event) => {
+    if (event.keyCode === 27) {
+      this.hideItemPopup()
+    }
+  }
   componentWillMount = async () => {
     const responseProduceItems = await refreshProduceItems()
     const json = await responseProduceItems.json();
@@ -65,21 +81,30 @@ class ProduceForm extends Component {
     this.setState({ estCompletionDate: date });
     console.log('new date is', this.state.estCompletionDate);
   };
+  hideItemPopup = () => {
+    this.setState({ showItemPopup: false })
+  }
+  clearForm = () => {
+    this.setState({ showItemPopup: false })
+    this.form.reset()
+  }
 
   onSubmit = e => {
     e.preventDefault();
-    const form = e.target;
+    this.form = e.target;
     document.getElementById("submitBtn").className += " loading";
     addProduceQuery(this.state.data, this.state.estCompletionDate)
       .then(data => {
         // console.log(data);
       })
-      .then(form.reset())
       .then(
         setTimeout(function () {
           document.getElementById("submitBtn").className = "ui button";
         }, 1000)
-      ).then(this.setState({ addedThisSession: this.state.addedThisSession + 1 }))
+      ).then(this.setState({
+        addedThisSession: this.state.addedThisSession + 1,
+        showItemPopup: true
+      }))
       .catch(error => console.log(error));
 
   };
@@ -266,6 +291,7 @@ class ProduceForm extends Component {
             </strong>
           </div>
         </div>
+        {this.state.showItemPopup && <AddItemPopUp hideItemPopup={this.hideItemPopup} type={this.state.data.type} clearForm={this.clearForm} />}
       </div>
     );
   }

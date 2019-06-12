@@ -22,6 +22,10 @@
 .env.production.local
 /back-end/.mypy_cache
 /back-end/.gitignore
+.vscode
+__pycache__
+.cache
+.pytest_cache
 
 /back-end/Pipfile.lock
 /back-end/.DS_Store

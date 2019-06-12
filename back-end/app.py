@@ -5,16 +5,30 @@ from flask_cors import CORS
 from datetime import datetime
 from flask_migrate import Migrate
 
-app=Flask(__name__)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
+##################################################
+###THE FOLLOWING IS FOR HEROKU POSTGRES SERVER####
+##################################################
+
+# app=Flask(__name__)
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+
+# db=SQLAlchemy(app)
+# migrate = Migrate(app, db)
+
+# CORS(app)
+
+##################################################
+####THE FOLLOWING IS FOR LOCAL POSTGRES SERVER####
+##################################################
+
+app=Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:password@localhost/cultivatr'
 db=SQLAlchemy(app)
 migrate = Migrate(app, db)
-
-
-CORS(app)
+CORS(app, supports_credentials=True)
 
 
 class Users(db.Model):
