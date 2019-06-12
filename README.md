@@ -10,7 +10,6 @@
 2. navigate to Marketplace/back-end
 `cd back-end`
 
-
 3. Install the environment dependancies with the following command:
 
 `pip install pipenv`
@@ -26,7 +25,6 @@
 5. Migrate the database with the following terminal commands:
 
 `export FLASK_APP=app.py`
-`flask db init`
 `flask db upgrade`
 `flask db migrate`
 

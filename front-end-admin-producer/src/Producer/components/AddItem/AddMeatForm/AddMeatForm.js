@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import "../../../../SharedComponents/UI/react-datepicker.css";
 import { addLivestockQuery } from "../../../../SharedComponents/LocalServer/LocalServer"
 import OtherInput from "../../../../SharedComponents/OtherInput"
+import AddItemPopUp from "../AddItemPopup";
 
 
 class LivestockForm extends Component {
@@ -35,6 +36,7 @@ class LivestockForm extends Component {
       status: "Pending Admin",
     },
     addedThisSession: 0,
+    showItemPopup: false
     // birthdate: "0001-01-01",
     // dateOnFeed: "0001-01-01",
     // estCompletionDate: "0001-01-01"
@@ -51,7 +53,21 @@ class LivestockForm extends Component {
     window.addEventListener("resize", () => {
       this.setState({ screenWidth: window.screen.width })
     });
-
+  }
+  componentDidMount() {
+    document.addEventListener("keydown", this.escFunction, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.escFunction, false);
+  }
+  escFunction = (event) => {
+    if (event.keyCode === 27) {
+      this.hideItemPopup()
+    }
+  }
+  clearForm = () => {
+    this.setState({ showItemPopup: false })
+    this.form.reset()
   }
 
   onChangeOther = e => {
@@ -69,6 +85,9 @@ class LivestockForm extends Component {
   onDateOnFeedChange = date => {
     this.setState({ dateOnFeed: date });
   };
+  hideItemPopup = () => {
+    this.setState({ showItemPopup: false })
+  }
 
   onSubmit = e => {
     e.preventDefault();
@@ -76,7 +95,10 @@ class LivestockForm extends Component {
     document.getElementById("submitBtn").className += " loading";
     addLivestockQuery(this.state.data, this.state.dateOnFeed, this.state.estCompletionDate, this.state.birthdate)
       .then(form.reset(),
-        this.setState({ addedThisSession: this.state.addedThisSession + 1 }))
+        this.setState({
+          addedThisSession: this.state.addedThisSession + 1,
+          showItemPopup: true
+        }))
       .then(
         setTimeout(function () {
           document.getElementById("submitBtn").className = "ui button";
@@ -222,7 +244,7 @@ class LivestockForm extends Component {
 
                 <input type="hidden" id="userId" name="userId" value="1" />
               </div>
-              <Button>Add</Button>
+              <Button className="form-column-8">Add</Button>
             </form>
             <strong>
               {" "}
@@ -230,6 +252,7 @@ class LivestockForm extends Component {
             </strong>
           </div>
         </div>
+        {this.state.showItemPopup && <AddItemPopUp hideItemPopup={this.hideItemPopup} clearForm={this.clearForm} />}
       </div>
     );
   }
