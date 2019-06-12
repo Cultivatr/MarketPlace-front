@@ -17,7 +17,6 @@ class ProduceForm extends Component {
       packageType: "",
       packageSize: 0,
       packageSizeUnit: "",
-      estCompletionDate: "0001-01-01",
       seedType: "",
       modifiedSeed: false,
       heirloom: false,
@@ -37,7 +36,8 @@ class ProduceForm extends Component {
       status: "Pending Admin"
     },
     produceListItems: [],
-    addedThisSession: 0
+    addedThisSession: 0,
+    estCompletionDate: "",
   };
 
   componentWillMount = async () => {
@@ -63,24 +63,39 @@ class ProduceForm extends Component {
   };
   onCompDateChange = date => {
     this.setState({ estCompletionDate: date });
-    console.log('new date is', this.state.estCompletionDate);
   };
 
   onSubmit = e => {
     e.preventDefault();
     const form = e.target;
     document.getElementById("submitBtn").className += " loading";
-    addProduceQuery(this.state.data, this.state.estCompletionDate)
-      .then(data => {
-        // console.log(data);
-      })
-      .then(form.reset())
-      .then(
-        setTimeout(function () {
-          document.getElementById("submitBtn").className = "ui button";
-        }, 1000)
-      ).then(this.setState({ addedThisSession: this.state.addedThisSession + 1 }))
-      .catch(error => console.log(error));
+    //required field enforcement
+    let greenlight = [false,false,false,false];
+    console.log(this.state.estCompletionDate)
+    if(form===e.target){
+      this.state.data.type.length===0 ? greenlight[0]=false : greenlight[0]=true;
+      this.state.data.packageType==="" ? greenlight[1]=false : greenlight[1]=true;
+      this.state.data.estFinishedQty===0 ? greenlight[2]=false : greenlight[2]=true;
+      this.state.estCompletionDate==="" ? greenlight[3]=false : greenlight[3]=true;
+    }
+    console.log(greenlight)
+    if(greenlight[0]&&greenlight[1]&&greenlight[2]&&greenlight[3]===true){
+      console.log("All True");
+      //end of required field enforcement
+      addProduceQuery(this.state.data, this.state.estCompletionDate)
+        .then(data => {
+          // console.log(data);
+        })
+        .then(form.reset())
+        .then(
+          setTimeout(function () {
+            document.getElementById("submitBtn").className = "ui button";
+          }, 1000)
+        ).then(this.setState({ addedThisSession: this.state.addedThisSession + 1 }))
+        .catch(error => console.log(error));
+    }else{
+      alert("Please Fill In Required Fields, Press 'Enter' Key To Continue")
+    }
 
   };
 

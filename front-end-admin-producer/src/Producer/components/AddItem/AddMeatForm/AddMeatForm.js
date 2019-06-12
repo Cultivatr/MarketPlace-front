@@ -33,11 +33,12 @@ class LivestockForm extends Component {
       comments: "",
       quantity: 0,
       status: "Pending Admin",
+
     },
     addedThisSession: 0,
-    // birthdate: "0001-01-01",
-    // dateOnFeed: "0001-01-01",
-    // estCompletionDate: "0001-01-01"
+    birthdate: "",
+    dateOnFeed: "",
+    estCompletionDate: ""
   };
 
 
@@ -64,6 +65,7 @@ class LivestockForm extends Component {
     this.setState({ estCompletionDate: date });
   };
   onBirthDateChange = date => {
+    console.log(date)
     this.setState({ birthdate: date });
   };
   onDateOnFeedChange = date => {
@@ -74,16 +76,32 @@ class LivestockForm extends Component {
     e.preventDefault();
     const form = e.target;
     document.getElementById("submitBtn").className += " loading";
-    addLivestockQuery(this.state.data, this.state.dateOnFeed, this.state.estCompletionDate, this.state.birthdate)
-      .then(form.reset(),
-        this.setState({ addedThisSession: this.state.addedThisSession + 1 }))
-      .then(
-        setTimeout(function () {
-          document.getElementById("submitBtn").className = "ui button";
-        }, 2000)
-      )
-      .catch(error => console.log(error));
 
+    //required field enforcement
+    let greenlight = [false,false,false,false];
+    //console.log(this.state.birthdate)
+    if(form===e.target){
+      this.state.data.type.length===0 ? greenlight[0]=false : greenlight[0]=true;
+      this.state.birthdate==="" ? greenlight[1]=false : greenlight[1]=true;
+      this.state.dateOnFeed==="" ? greenlight[2]=false : greenlight[2]=true;
+      this.state.estCompletionDate==="" ? greenlight[3]=false : greenlight[3]=true;
+    }
+    console.log(greenlight)
+    if(greenlight[0]&&greenlight[1]&&greenlight[2]&&greenlight[3]===true){
+      console.log("All True");
+      //field enforcement ends here
+      addLivestockQuery(this.state.data, this.state.dateOnFeed, this.state.estCompletionDate, this.state.birthdate)
+        .then(form.reset(),
+          this.setState({ addedThisSession: this.state.addedThisSession + 1 }))
+        .then(
+          setTimeout(function () {
+            document.getElementById("submitBtn").className = "ui button";
+          }, 2000)
+        )
+        .catch(error => console.log(error));
+    }else{
+      alert("Please Fill In Required Fields, Press 'Enter' Key To Continue")
+    }
   };
 
   render() {
@@ -96,7 +114,7 @@ class LivestockForm extends Component {
           <span 
           className="required-header"
           >
-            Coloured Border Indicates Required Field
+            * Border Indicates Required Field
           </span>
           <div className="ui grid container">
             <form onSubmit={this.onSubmit} className="ui row form add-meat-mobile" autoComplete="off">
