@@ -1,6 +1,0 @@
-{
-  "back-end/DB/scripts/test_sql.py": true,
-  "back-end/Tests/test_app_dev_Livestock.py": true,
-  "back-end/Tests/test_app_dev_Users.py": true,
-  "back-end/Tests/test_server2.py": true
-}

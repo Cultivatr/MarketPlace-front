@@ -1,7 +1,0 @@
-[
-  "test_app_dev_Livestock.py::TestGetLivestock::test_get_livestock_empty",
-  "test_app_dev_Livestock.py::TestGetLivestock::test_get_livestock_one",
-  "test_app_dev_Livestock.py::TestAddLivestock::test_add_one_livestock",
-  "test_app_dev_Livestock.py::TestIncrementLivestockStatus::test_increment_livestock_status",
-  "test_app_dev_Livestock.py::TestGetLivestockById::test_get_livestock_by_id"
-]
