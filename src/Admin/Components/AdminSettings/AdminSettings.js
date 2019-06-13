@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import "./AdminSettings.css";
-import { refreshProduceItems, deleteProduceItem, addProduceItem } from "../../../SharedComponents/LocalServer/LocalServer";
+import { refreshProduceItems, deleteProduceItem, addProduceItem, refreshLivestockItems } from "../../../SharedComponents/LocalServer/LocalServer";
+import EditLivestockTypes from "../EditLivestockTypes/EditLivestockTypes"
+import EditBreedTypes from "../EditBreedTypes/EditBreedTypes"
 
 export default class AdminSettings extends Component {
   state = {
@@ -9,7 +11,8 @@ export default class AdminSettings extends Component {
     refresh: "",
     status: "No Changes",
     lastAction: "",
-    lastItem: ""
+    lastItem: "",
+    currentLivestock: ""
   };
   produceSelection = [];
   errorMessage = "No Items in Database";
@@ -122,49 +125,55 @@ export default class AdminSettings extends Component {
       });
     } else this.setState({ status: "No item to add" });
   };
+
+  onNewLiveStock = () => {
+    refreshLivestockItems()
+      .then(data => data.json())
+      .then(response => {
+        this.setState({ currentLivestock: response.livestock_items })
+      })
+  }
   render() {
     return (
       <Fragment>
-        <div className="ui row form">
-          <div className="field">
-            <h4>Manage Available Produce Types</h4>
-            <div className="undo-container">
-              <div>Status: {this.state.status}</div>
-              {this.state.status !== "No Changes" &&
-                this.state.status !== "No item to add" && (
-                  <div className="admin-btn undo-btn" onClick={this.undoAction}>
-                    Undo
+        <div className="outer-container">
+
+          <div className="livestock-container">
+            <div className="livestock">
+              <EditLivestockTypes onNewLiveStock={this.onNewLiveStock} />
+            </div>
+
+            <div className="breed-container">
+              <EditBreedTypes currentLivestock={this.state.currentLivestock} />
+            </div>
+          </div>
+          <div className="produce-container">
+            <div className="ui row form">
+              <div className="field">
+                <h4>Manage Available Produce Types</h4>
+                <div className="undo-container">
+                  <div>Status: {this.state.status}</div>
+                  {this.state.status !== "No Changes" &&
+                    this.state.status !== "No item to add" && (
+                      <div className="admin-btn undo-btn" onClick={this.undoAction}>
+                        Undo
+                        </div>
+                    )}
                 </div>
-                )}
-            </div>
-            <div className="input-container">
-              <input
-                className="newProduceTypeInput"
-                onChange={this.onChange}
-                placeholder="Add New Produce Type to Dropdown"
-                name="newItem"
-                type="text"
-                value={this.state.newItem}
-              />
-              <div onClick={this.addClick} className="admin-btn">
-                Add
-              </div>
-            </div>
-          </div>
-
-
-
-        </div>
-        <div className="produce-item-container">
-          <strong>Current produce items available from dropdown:</strong>
-          <div className="produce-item-list">
-            <ul>
-              {this.produceSelection !== false
-                ? this.produceSelection
-                : this.errorMessage}
-            </ul>
-          </div>
-        </div>
+                <div className="input-container">
+                  <input className="newProduceTypeInput" onChange={this.onChange} placeholder="Add New Produce Type to Dropdown"
+                    name="newItem"
+                    type="text"
+                    value={this.state.newItem}
+                  />
+                  <div onClick={this.addClick} className="admin-btn">Add</div></div>
+              </div></div><div className="produce-item-container">
+              <strong>Current produce items available from dropdown:</strong>
+              <div className="produce-item-list">
+                <ul>
+                  {this.produceSelection !== false
+                    ? this.produceSelection : this.errorMessage}
+                </ul></div></div></div></div>
       </Fragment>
     );
   }

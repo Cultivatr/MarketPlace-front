@@ -92,3 +92,20 @@ td {
   transform: translateY(4px) !important ;
 }
 
+.outer-container{
+  display:flex;
+  flex-direction: column;
+  padding:20px
+}
+
+.livestock-container{
+  display:flex;
+  flex-direction: row;
+  height:100%
+
+}
+
+.admin_container1__3V0qA{
+  height: 100%
+}
+
