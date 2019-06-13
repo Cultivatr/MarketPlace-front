@@ -1,7 +1,8 @@
 
 // const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
-const domainLink = "https://cultivatr-backend-developer.herokuapp.com";
+// const domainLink = "https://cultivatr-backend-developer.herokuapp.com";
 // const domainLink = "http://localhost:5000";
+const domainLink = "http://127.0.0.1:5000"
 
 
 export function loginQuery(googleEmail) {
@@ -150,6 +151,7 @@ export function loadUserSpecificProduceQuery(user1) {
 }
 
 export function sendEmailQuery(farm, email) {
+    console.log("TRYING TO SEND EMAIL")
     fetch(domainLink + "/email/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
