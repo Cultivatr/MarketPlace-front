@@ -43,6 +43,7 @@ class SignIn extends Component {
 
   logIn(res) {
     let logInData = [];
+    console.log("RESPONSE", res)
     if (res.w3) loginQuery(res.w3.U3)
       .then(data => {
         logInData = {
@@ -88,7 +89,7 @@ class SignIn extends Component {
               <div className="rememberMeAndLoginBox centeredDisplay">
                 <div onClick={this.redirectButton}>CLICK HERE GREG</div>
                 <GoogleLogin
-                  clientId="441538396161-n36t34tefa1n3vpd0rfrigm8688d3uat.apps.googleusercontent.com"
+                  clientId="441538396161-96k3lmo0iv81qq4b5h0p6u21iefi0ia7.apps.googleusercontent.com"
                   buttonText="Sign in with Google"
                   onSuccess={responseGoogle}
                   onFailure={responseGoogle}
@@ -104,3 +105,4 @@ class SignIn extends Component {
 }
 
 export default SignIn;
+
