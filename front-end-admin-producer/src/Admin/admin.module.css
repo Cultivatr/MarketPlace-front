@@ -24,70 +24,102 @@
  }
  
  main {
-   height: 90vh;
- }
- 
- .container {
-   display: inline-flex;
-   width: 100%;
-   height: 100%; 
+   height: 88vh;
  }
  
  .boxContainer {
    display: flex;
-   justify-content: flex-end;
-   height: 100%;
-   width: 100%;
+   flex-direction: row;
+   justify-content: center;
+   width: 99%;
+   margin: 10px;
  }
  
  .leftNav {
-   display: inline-block;
-   width: 13%;
-   height: 90vh;
-   color: white;
+   display: inline-flex;
+   flex-direction: column;
+   width: 15%;
+   /* height: 90vh;
+   color: white; */
  }
 
  .containerTitle {
    height: 5%;
    display: flex;
    justify-content: space-between;
-   align-items: center;
+   align-items: flex-start;
+ }
+
+ @media only screen and (min-width : 1001px) {
+  .containerTitle {
+    display: none;
+  }
+}
+
+ @media only screen and (max-width : 1000px) {
+  .containerTitle {
+    height: initial;
+    width: 100vw;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: initial;
+  }
+
  }
  
  .container1 {
    display: block;
    flex-wrap: wrap;
    width: 87%;
-   height: 90vh;
+   height: 83vh;
    border: 2px solid #1ECE88;
    margin: 2px;
+   padding-right: 1%;
    justify-content: center;
    font-weight: 400;
    font-size: medium;
    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),url("../img/CultivatR-01.jpg");
    background-size: cover;
    background-position: center;
-   background-attachment: fixed;
+   /*background-attachment: fixed;*/
    background-color: black;
  }
 
  .container2 {
-   height: 100%;
+    height: 100%;
+    /*width: 90%;*/
+    margin-left: 1%;
+ }
+
+.containerAdminSettings {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /*width: 90%;*/
+    margin-left: 1%;
+ }
+
+ .containerAdminSettings > h2 {
+    align-items: flex-start;
  }
 
  .container3 {
    width: 90%;
-   margin-left: 5%;
+   margin-left: 1%;
    height: 100%;
  }
 
- .buttonAdmin{
+ .buttonAdmin{  
+
+  
+  /*see Button.module.css for actual button css styles*/
    background-color: #1ECE88;
    color:white;
    border-radius: .28571429rem;
    font-weight: 700;
-   margin: 10px .25em 0 10px;
-   padding: .78571429em 1.5em .78571429em;
+   /*margin: 10px .25em 0 10px;*/
+   /*padding: .78571429em 1.5em .78571429em;*/
    font-family: 'Lato','Helvetica Neue',Arial,Helvetica,sans-serif;
    line-height: 1em;
    border: none;
@@ -124,5 +156,5 @@
  
 .heading {
   text-align: center;
-  margin-top: 20px !important;
+  margin-top: 12px !important;
 }

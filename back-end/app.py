@@ -1,23 +1,47 @@
+import os
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import datetime
+from flask_migrate import Migrate
+
+
+##################################################
+###THE FOLLOWING IS FOR HEROKU POSTGRES SERVER####
+##################################################
+
+# app=Flask(__name__)
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+
+# db=SQLAlchemy(app)
+# migrate = Migrate(app, db)
+
+# CORS(app)
+
+##################################################
+####THE FOLLOWING IS FOR LOCAL POSTGRES SERVER####
+##################################################
 
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:password@localhost/cultivatr'
 db=SQLAlchemy(app)
+migrate = Migrate(app, db)
 CORS(app, supports_credentials=True)
+
 
 class Users(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     first_name=db.Column(db.Text)
-    last_name=db.Column(db.Text)
-    primary_phone=db.Column(db.Text)
+    last_name=db.Column(db.Text, nullable=False)
+    primary_phone=db.Column(db.Text, nullable=False)
     secondary_phone=db.Column(db.Text)
-    email=db.Column(db.Text)
-    farm_name=db.Column(db.Text)
+    email=db.Column(db.Text, nullable=False)
+    farm_name=db.Column(db.Text, nullable=False)
     farm_location=db.Column(db.Text)
     area=db.Column(db.Text)
+    ## is_producer & is_other are no longer being used.
     is_producer=db.Column(db.Boolean)
     is_admin=db.Column(db.Boolean)
     is_other=db.Column(db.Boolean)
@@ -46,20 +70,25 @@ class Produce(db.Model):
     )
     product_name=db.Column(db.Text)
     package_type=db.Column(db.Text)
-    date_planted=db.Column(db.Date)
+    package_size=db.Column(db.Integer)
+    package_size_unit=db.Column(db.Text)
+    est_completion_date=db.Column(db.Date)
     seed_type=db.Column(db.Text)
     modified_seed=db.Column(db.Text)
     heirloom=db.Column(db.Text)
     fertilizer_type_used=db.Column(db.Text)
     pesticide_type_used=db.Column(db.Text)
     estimated_qty_planted=db.Column(db.Integer)
-    gmo=db.Column(db.Text)
+    certified_organic=db.Column(db.Text)
     estimated_finished_qty=db.Column(db.Integer)
-    est_price_to_be_paid=db.Column(db.Integer)
+    est_price_to_be_paid=db.Column(db.Float)
     qty_accepted_for_listing=db.Column(db.Integer)
     qty_accepted_at_delivery=db.Column(db.Integer)
     chargebacks=db.Column(db.Integer)
-    price_paid=db.Column(db.Integer)
+    price_paid=db.Column(db.Float)
+    created_date=db.Column(db.Date)
+    accepted_date=db.Column(db.Date)
+    sold_date=db.Column(db.Date)
     delivered_date=db.Column(db.Date)
     delivered_to=db.Column(db.Text)
     comments=db.Column(db.Text)
@@ -77,7 +106,7 @@ class Livestock(db.Model):
     breed=db.Column(db.Text)
     single_brand=db.Column(db.Text)
     est_birthdate=db.Column(db.Date)
-    registration_number=db.Column(db.Integer)
+    registration_number=db.Column(db.Float)
     rfid_tag=db.Column(db.Integer)
     starting_weight=db.Column(db.Integer)
     hanging_weight=db.Column(db.Integer)
@@ -92,12 +121,53 @@ class Livestock(db.Model):
     quantity=db.Column(db.Integer)
     comments=db.Column(db.Text)
     price_paid=db.Column(db.Integer)
+    created_date=db.Column(db.Date)
+    accepted_date=db.Column(db.Date)
+    sold_date=db.Column(db.Date)
     delivered_date=db.Column(db.Date)
     delivered_to=db.Column(db.Text)
     status=db.Column(db.Text)
 
 
-db.create_all()
+class ProduceItems(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    item=db.Column(db.String(50),unique=True )
+
+
+@app.route('/produceItems/all/', methods=['GET'])
+def get_indiv_produce_items():
+    p_items=db.session.query(ProduceItems)
+    output=[]
+    for p_item in p_items:
+        p_item_data={}
+        p_item_data['newItem']=p_item.item
+        output.append(p_item_data)
+
+    return jsonify({ 'produce_items': output })
+
+
+
+@app.route("/produceItems/add/", methods=['POST'])
+def add_new_produce_item():
+    data=request.get_json()
+    new_p_item=ProduceItems(
+    item=data.get('newItem'))
+    db.session.add(new_p_item)
+    db.session.commit()
+    
+    return jsonify({'name': new_p_item.item}), 201
+
+@app.route("/produceItems/delete/", methods=['POST'])
+def delete_produce_selection_item():
+    data=request.get_json()
+    filterId=data.get('itemToDelete')
+    db.session.query(ProduceItems).filter(ProduceItems.item == filterId).delete()
+    db.session.commit()
+    return 'Success', 201
+
+@app.route('/', methods=['GET'])
+def hello_world():
+    return 'Hello, World!'
 
 
 @app.route('/admin/users/', methods=['GET'])
@@ -140,7 +210,6 @@ def get_users():
 @app.route("/admin/", methods=['POST'])
 def add_new_user():
     data=request.get_json()
-    print("incoming data:", data)
     new_user=Users(
     first_name=data.get('firstName'),
     last_name=data.get('lastName'),
@@ -166,8 +235,15 @@ def add_new_user():
     billing_province=data.get('billingAddressProvince'),
     billing_country=data.get('billingAddressCountry'),
     billing_postal_code=data.get('billingAddressPostalCode'),
-    user_comments=data.get('comments')
+    user_comments=data.get('comments'),
     )
+    # if not new_user.first_name: return jsonify('Error: You must provide a first name'), 400
+    # if not new_user.last_name: return jsonify('Error: You must provide a last name'), 400
+    # if not new_user.primary_phone: return jsonify('Error: You must provide a phone number'), 400
+    # if not new_user.email: return jsonify('Error: You must provide an email'), 400
+    error_message  = []
+ 
+
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'id': new_user.id}), 201
@@ -176,9 +252,11 @@ def add_new_user():
 def delete_user():
     data=request.get_json()
     filterId=data.get('id')
+    db.session.query(Produce).filter(Produce.user_id == filterId).delete()
+    db.session.query(Livestock).filter(Livestock.user_id == filterId).delete()
     db.session.query(Users).filter(Users.id == filterId).delete()
     db.session.commit()
-    return 'Success', 201
+    return jsonify({ "Success": True })
 
 @app.route("/admin/updateUsers/", methods=['POST'])
 def modify_user():
@@ -193,21 +271,11 @@ def modify_user():
     userToUpdate.farm_name=data.get('farmName'),
     userToUpdate.farm_location=data.get('farmLocation'),
     userToUpdate.area=data.get('area'),
-    if(data.get('isAdmin')):
-        userToUpdate.is_admin=1
-        print("Admin changed", userToUpdate.is_admin)
+    userToUpdate.is_admin=data.get('isAdmin')
     if(not data.get('isAdmin')):
         userToUpdate.is_admin=0   
-    if(data.get('isProducer')):
-        userToUpdate.is_admin=1
-        print("Admin changed", userToUpdate.is_admin)
-    if(not data.get('isProducer')):
-        userToUpdate.is_admin=0  
-    if(data.get('isOther')):
-        userToUpdate.is_admin=1
-        print("Admin changed", userToUpdate.is_admin)
-    if(not data.get('isOther')):
-        userToUpdate.is_admin=0     
+    if(data.get('isAdmin')):
+        userToUpdate.is_admin=1 
     # userToUpdate.is_admin=data.get('isAdmin'),
     # userToUpdate.is_producer=bool(data.get('isProducer')),
     # userToUpdate.is_other=bool(data.get('isOther')),
@@ -225,7 +293,7 @@ def modify_user():
     userToUpdate.billing_postal_code=data.get('billingAddressPostalCode'),
     userToUpdate.user_comments=data.get('comments')
     db.session.commit()
-    return 'Success', 201   
+    return jsonify({ "Success": True })
 
 
 
@@ -255,11 +323,12 @@ def add_livestock_items():
     price_paid=data.get('finalPrice'),
     delivered_date=data.get('deliveredDate'),
     delivered_to=data.get('deliveredTo'),
-    status="Pending Approval"
+    status="Pending Admin",
+    created_date=datetime.today()
     )
     db.session.add(new_livestock)
     db.session.commit()
-    return 'Success', 201
+    return jsonify({ "Success": True })
 
 
 @app.route('/livestock/all/', methods=['GET'])
@@ -295,11 +364,12 @@ def livestock_get_all():
         item_livestock_data['status']=item_livestock.status
         output.append(item_livestock_data)
 
-    return jsonify(output)
+    return jsonify({ 'livestock': output })
 
 @app.route('/livestock/<user1>/', methods=['GET'])
 def livestock_get_user(user1):
     user_id=user1
+
     livestock=db.session.query(Livestock).filter(Livestock.user_id==user_id).all()
     output=[]
     for item_livestock in livestock:
@@ -331,18 +401,20 @@ def livestock_get_user(user1):
         item_livestock_data['status']=item_livestock.status
         output.append(item_livestock_data)
 
-    return jsonify(output)
+    return jsonify({ 'livestock': output })
 
 
 @app.route("/livestock/modify/", methods=['POST'])
 def modify_lifestock():
     data=request.get_json()
     filterId=data.get('id')
-    print("livestockdata",data)
     livestock_to_update= db.session.query(Livestock).filter(Livestock.id == filterId).first()
     livestock_to_update.product_name=data.get('type'),
     livestock_to_update.breed=data.get('breed'),
-    # livestock_to_update.single_brand=data.get('singleBrand'),
+    if(not data.get('singleBrand')):
+            livestock_to_update.single_brand=0   
+    if(data.get('singleBrand')):
+            livestock_to_update.single_brand=1 ,
     livestock_to_update.est_birthdate=data.get('birthdate'),
     livestock_to_update.registration_number=data.get('regNumber'),
     livestock_to_update.rfid_tag=data.get('rfid'),
@@ -362,17 +434,8 @@ def modify_lifestock():
     livestock_to_update.delivered_date=data.get('deliveredDate'),
     livestock_to_update.delivered_to=data.get('deliveredTo'),
     db.session.commit()
-    return 'Success', 201  
-
-
-
-@app.route("/livestock/update/", methods=['POST'])
-def modify_livestock():
-    data=request.get_json()
-    filterId=data.get('id') 
-    print("LIVESTOCK: ",filterId)
-    db.session.commit()
-    return 'Success', 201    
+    return jsonify({ "Success": True })
+ 
 
 
 @app.route('/produce/all/', methods=['GET'])
@@ -386,14 +449,16 @@ def produce_get_all():
         item_produce_data['userId']=item_produce.user_id
         item_produce_data['type']=item_produce.product_name
         item_produce_data['packageType']=item_produce.package_type
-        item_produce_data['datePlanted']=item_produce.date_planted
+        item_produce_data['packageSize']=item_produce.package_size
+        item_produce_data['packageSizeUnit']=item_produce.package_size_unit
+        item_produce_data['estCompletionDate']=item_produce.est_completion_date
         item_produce_data['seedType']=item_produce.seed_type
         item_produce_data['modifiedSeed']=item_produce.modified_seed
         item_produce_data['heirloom']=item_produce.heirloom
         item_produce_data['fertilizerTypeUsed']=item_produce.fertilizer_type_used
         item_produce_data['pesticideTypeUsed']=item_produce.pesticide_type_used
         item_produce_data['estQuantityPlanted']=item_produce.estimated_qty_planted
-        item_produce_data['gmo']=item_produce.gmo
+        item_produce_data['certifiedOrganic']=item_produce.certified_organic
         item_produce_data['estFinishedQty']=item_produce.estimated_finished_qty
         item_produce_data['estPrice']=item_produce.est_price_to_be_paid
         item_produce_data['qtyAcceptedForListing']=item_produce.qty_accepted_for_listing
@@ -406,7 +471,7 @@ def produce_get_all():
         item_produce_data['status']=item_produce.status
         output.append(item_produce_data)
 
-    return jsonify(output)
+    return jsonify({ 'produce': output })
 
 
 @app.route('/produce/<user1>/', methods=['GET'])
@@ -421,14 +486,16 @@ def produce_get_user(user1):
         item_produce_data['userId']=item_produce.user_id
         item_produce_data['type']=item_produce.product_name
         item_produce_data['packageType']=item_produce.package_type
-        item_produce_data['datePlanted']=item_produce.date_planted
+        item_produce_data['packageSize']=item_produce.package_size
+        item_produce_data['packageSizeUnit']=item_produce.package_size_unit
+        item_produce_data['estCompletionDate']=item_produce.est_completion_date
         item_produce_data['seedType']=item_produce.seed_type
         item_produce_data['modifiedSeed']=item_produce.modified_seed
         item_produce_data['heirloom']=item_produce.heirloom
         item_produce_data['fertilizerTypeUsed']=item_produce.fertilizer_type_used
         item_produce_data['pesticideTypeUsed']=item_produce.pesticide_type_used
         item_produce_data['estQuantityPlanted']=item_produce.estimated_qty_planted
-        item_produce_data['gmo']=item_produce.gmo
+        item_produce_data['certifiedOrganic']=item_produce.certified_organic
         item_produce_data['estFinishedQty']=item_produce.estimated_finished_qty
         item_produce_data['estPrice']=item_produce.est_price_to_be_paid
         item_produce_data['qtyAcceptedForListing']=item_produce.qty_accepted_for_listing
@@ -441,7 +508,7 @@ def produce_get_user(user1):
         item_produce_data['status']=item_produce.status
         output.append(item_produce_data)
 
-    return jsonify(output)
+    return jsonify({ 'produce': output })
     
 @app.route("/produce/", methods=['POST'])
 def add_produce_items():
@@ -451,14 +518,16 @@ def add_produce_items():
     user_id=data.get('userId'),
     product_name=data.get('type'),
     package_type=data.get('packageType'),
-    date_planted=data.get('datePlanted'),
+    package_size=data.get('packageSize'),
+    package_size_unit=data.get('packageSizeUnit'),
+    est_completion_date=data.get('estCompletionDate'),
     seed_type=data.get('seedType'),
     modified_seed=data.get('modifiedSeed'),
     heirloom=data.get('heirloom'),
     fertilizer_type_used=data.get('fertilizerTypeUsed'),
     pesticide_type_used=data.get('pesticideTypeUsed'),
     estimated_qty_planted=data.get('estQuantityPlanted'),
-    gmo=data.get('gmo'),
+    certified_organic=data.get('certifiedOrganic'),
     estimated_finished_qty=data.get('estFinishedQty'),
     est_price_to_be_paid=data.get('estPrice'),
     qty_accepted_for_listing=data.get('qtyAcceptedForListing'),
@@ -468,28 +537,30 @@ def add_produce_items():
     delivered_date=data.get('deliveredDate'),
     delivered_to=data.get('deliveredTo'),
     comments=data.get('comments'),
-    status="Pending Approval"
+    status="Pending Admin",
+    created_date=datetime.today(),
     )
     db.session.add(new_produce)
     db.session.commit()
-    return 'Success', 201
+    return jsonify({ "Success": True })
 
 @app.route("/produce/modify/", methods=['POST'])
 def modify_produce():
     data=request.get_json()
     filterId=data.get('id')
-    print("produce",data)
     produce_to_update = db.session.query(Produce).filter(Produce.id == filterId).first()
     produce_to_update.product_name=data.get('type'),
     produce_to_update.package_type=data.get('packageType'),
-    produce_to_update.date_planted=data.get('datePlanted'),
+    produce_to_update.package_size=data.get('packageSize'),
+    produce_to_update.package_size_unit=data.get('packageSizeUnit'),
+    produce_to_update.est_completion_date=data.get('estCompletionDate'),
     produce_to_update.seed_type=data.get('seedType'),
     produce_to_update.modified_seed=data.get('modifiedSeed'),
     produce_to_update.heirloom=data.get('heirloom'),
     produce_to_update.fertilizer_type_used=data.get('fertilizerTypeUsed'),
     produce_to_update.pesticide_type_used=data.get('pesticideTypeUsed'),
     produce_to_update.estimated_qty_planted=data.get('estQuantityPlanted'),
-    produce_to_update.gmo=data.get('gmo'),
+    produce_to_update.certified_organic=data.get('certifiedOrganic'),
     produce_to_update.estimated_finished_qty=data.get('estFinishedQty'),
     produce_to_update.est_price_to_be_paid=data.get('estPrice'),
     produce_to_update.qty_accepted_for_listing=data.get('qtyAcceptedForListing'),
@@ -502,7 +573,7 @@ def modify_produce():
     
   
     db.session.commit()
-    return 'Success', 201 
+    return jsonify({ "Success": True })
 
 
 @app.route("/produce/incrementStatus/", methods=['POST'])
@@ -512,7 +583,8 @@ def update_produce_items():
     prodToUpdate=db.session.query(Produce).filter(Produce.id == filterId).first()
     prodToUpdate.status=data.get('nextStatus')
     db.session.commit()
-    return 'Success', 201
+    return jsonify({ "Success": True })
+
 
 
 @app.route("/livestock/incrementStatus/", methods=['POST'])   
@@ -521,8 +593,37 @@ def update_livestock_items():
     filterId=data.get('id')
     liveToUpdate=db.session.query(Livestock).filter(Livestock.id==filterId).first()
     liveToUpdate.status=data.get('nextStatus')
+
     db.session.commit()
-    return 'Success', 201
+    return jsonify({ "Success": True })
+
+
+@app.route("/login/", methods = ["POST"])
+def authenticate_login_user():
+    data=request.get_json()
+    loginEmail=data.get('email')
+    user=db.session.query(Users).filter(Users.email==loginEmail.lower()).first()
+    if user:
+        user_data={}
+        user_data['id']=user.id
+        user_data['firstName']=user.first_name
+        user_data['lastName']=user.last_name
+        user_data['email']=user.email
+        user_data['farmName']=user.farm_name
+        user_data['isAdmin']=user.is_admin
+        return jsonify({ 'user': user_data })
+    else:
+        return 'Fail', 400
+
+@app.route("/email/", methods=['POST'])   
+def send_email_alert():
+    data=request.get_json()
+    farm_name=data.get('farmName')
+    user_email=data.get('email')
+
+    email_system.send_email(farm_name,user_email)
+    return jsonify({ "Success": True })
+
 
 
 def test_print_function():
@@ -530,4 +631,5 @@ def test_print_function():
 
 
 if __name__ == '__main__':
+    app.debug = True
     app.run()

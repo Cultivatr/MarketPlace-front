@@ -1,19 +1,22 @@
-import React, {Component, Fragment} from 'react';
-import Summary from './components/Summary/Summary';
-import Toolbar from '../SharedComponents/Navigation/Toolbar/Toolbar';
+import React, { Component } from "react";
+import Summary from "./components/Summary/Summary";
+import Toolbar from "../SharedComponents/Navigation/Toolbar/Toolbar";
+import ProducerSlideMenu from "../SharedComponents/Navigation/SlideMenu/ProducerSlideMenu";
 // import Layout from '../Producer/containers/Layout/Layout';
 
 class Producer extends Component {
-    render() {
-        return (
-            <Fragment>
-                <Toolbar/>
-                <div className='ui container'>
-                    <Summary/>
-                </div>
-            </Fragment>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <Toolbar />
+        <h2 className="mobile-header-title">Producer Items</h2>
+        <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
+        <div className="ui container" id="page-wrap">
+          <Summary />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Producer;

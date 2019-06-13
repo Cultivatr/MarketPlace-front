@@ -1,24 +1,76 @@
 import React, { Component } from "react";
 import Class from "./ItemDetail.module.css";
 import "./ItemDetail.css";
-import { modifyItemLivestock } from "../../../AppUtils"
+import { modifyItemLivestockQuery } from "../../../SharedComponents/LocalServer/LocalServer"
+import OtherInputAdmin from "../../../SharedComponents/OtherInputAdmin"
+
 
 class ProductLivestockDetail extends Component {
-
   constructor() {
     super();
     this.state = {
-      itemLivestockDetails:''
-    }
+      itemLivestockDetails: ""
+    };
+    this.priorCompletionDate = "";
+    this.priorDeliveredDate = "";
+    this.priorBirthDate = "";
+    this.priorOnFeedDate = "";
   }
-  componentDidMount = () => {
-    console.log("Livestock Rendered");
-  };
+
   onChange = e => {
     let itemLivestockDetails = this.props.itemLivestockDetails;
     itemLivestockDetails[e.target.name] = e.target.value;
     this.setState({ itemLivestockDetails: itemLivestockDetails });
     console.log("Livestock details:", this.state.itemLivestockDetails);
+  };
+
+  onChangeOther = e => {
+    let itemLivestockDetails = this.props.itemLivestockDetails;
+    itemLivestockDetails[e.target.name] = `Other - ${e.target.value}`;
+    this.setState({ itemLivestockDetails: itemLivestockDetails });
+    console.log("Livestock details:", this.state.itemLivestockDetails);
+  };
+
+  getEstCompletionDate = () => {
+    const propCompletionDate = this.props.itemLivestockDetails
+      .estCompletionDate;
+    if (propCompletionDate) {
+      if (propCompletionDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+        this.priorCompletionDate = "No value entered";
+      } else {
+        this.priorCompletionDate = propCompletionDate;
+      }
+    }
+  };
+  getDeliveredDate = () => {
+    const propDeliveredDate = this.props.itemLivestockDetails.deliveredDate;
+    if (propDeliveredDate) {
+      if (propDeliveredDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+        this.priorDeliveredDate = "No value entered";
+      } else {
+        this.priorDeliveredDate = propDeliveredDate;
+      }
+    }
+  };
+  getBirthDate = () => {
+    const propBirthDate = this.props.itemLivestockDetails.birthdate;
+    if (propBirthDate) {
+      if (propBirthDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+        this.priorBirthDate = "No value entered";
+      } else {
+        this.priorBirthDate = propBirthDate;
+      }
+    }
+  };
+  getOnFeedDate = () => {
+    const propOnFeedDate = this.props.itemLivestockDetails.dateOnFeed;
+    if (propOnFeedDate) {
+      if (propOnFeedDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+        this.priorOnFeedDate = "No value entered";
+      } else {
+        this.priorOnFeedDate = propOnFeedDate;
+      }
+    }
   };
 
   getBreedValue = () => {
@@ -106,9 +158,12 @@ class ProductLivestockDetail extends Component {
   };
 
   modifyItem = async () => {
-    modifyItemLivestock(this.state.itemLivestockDetails);
+    // just remove overlay if no changes made otherwise get error
+    if (this.state.itemLivestockDetails !== "") {
+      await modifyItemLivestockQuery(this.state.itemLivestockDetails);
+      await this.props.refreshLiveStock(this.state.itemLivestockDetails);
+    };
     this.props.removeOverlay();
-    this.props.refreshLiveStock(this.state.itemLivestockDetails);
   };
 
   render() {
@@ -147,23 +202,7 @@ class ProductLivestockDetail extends Component {
                   <td className="three wide column">Status</td>
                   <td className={Class.noInput}>{status}</td>
                 </tr>
-                <tr>
-                  <td>Breed</td>
-                  <td className={Class.row}>
-                    <select
-                      onChange={this.onChange}
-                      id="breed"
-                      name="breed"
-                      multiple=""
-                      className="ui fluid dropdown"
-                    >
-                      <option value="Angus">Angus</option>
-                      <option value="Birkshire">Birkshire</option>
-                      <option value="Other">Other</option>
-                    </select>
-                    {this.getBreedValue()}
-                  </td>
-                </tr>
+                <OtherInputAdmin value={this.props.itemLivestockDetails.breed} labelItem={"breed"} title={"Breed"} options={["Angus", "Birkshire", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
                 <tr>
                   <td>Single Brand</td>
                   <td className={Class.row}>
@@ -181,16 +220,34 @@ class ProductLivestockDetail extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>Estimated Birthdate</td>
+                  <td>Est Date of Birth</td>
+                  <td className={Class.row}>
+                    <div className="tableRowDateParent">
+                      <input
+                        className="tableRowDate1"
+                        type="date"
+                        id="birthdate"
+                        onChange={this.onChange}
+                        name="birthdate"
+                        value={birthdate}
+                      />
+                      <div className="tableRowDate2">
+                        {this.getBirthDate()}
+                        Current: {this.priorBirthDate}
+                      </div>
+                    </div>
+                  </td>
+
+                  {/* <td>Estimated Birthdate</td>
                   <td className={Class.row}>
                     <input
-                     onChange={this.onChange}
+                      onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={birthdate}
-                      name = "birthdate"
+                      name="birthdate"
                     />
-                  </td>
+                  </td> */}
                 </tr>
                 <tr>
                   <td>Registration Number</td>
@@ -198,9 +255,9 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={regNumber}
-                      name = "regNumber"
+                      type="number"
+                      value={regNumber}
+                      name="regNumber"
                     />
                   </td>
                 </tr>
@@ -210,90 +267,43 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={rfid}
-                      name = "rfid"
+                      type="number"
+                      value={rfid}
+                      name="rfid"
                     />
                   </td>
                 </tr>
                 <tr>
                   <td>Date On Feed</td>
                   <td className={Class.row}>
-                    <input
-                      onChange={this.onChange}
-                      className={Class.tableRow}
-                      type="text"
-                      placeholder={dateOnFeed}
-                      name = "dateOnFeed"
-                    />
+                    <div className="tableRowDateParent">
+                      <input
+                        className="tableRowDate1"
+                        type="date"
+                        id="dateOnFeed"
+                        onChange={this.onChange}
+                        name="dateOnFeed"
+                        value={dateOnFeed}
+                      />
+                      <div className="tableRowDate2">
+                        {this.getOnFeedDate()}
+                        Current: {this.priorOnFeedDate}
+                      </div>
+                    </div>
                   </td>
                 </tr>
+                <OtherInputAdmin value={this.props.itemLivestockDetails.feedMethod} labelItem={"feedMethod"} title={"Feed Method"} options={["Grass", "GrassBarley", "GrassGrain", "FreeRange", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInputAdmin value={this.props.itemLivestockDetails.typeOfPasture} labelItem={"typeOfPasture"} title={"Type Of Pasture"} options={["Timothy", "Alfa", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInputAdmin value={this.props.itemLivestockDetails.typeOfFeed} labelItem={"typeOfFeed"} title={"Type Of Feed"} options={["Grain", "Barley", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
                 <tr>
-                  <td>Feed Method</td>
-                  <td className={Class.row}>
-                    <select
-                      onChange={this.onChange}
-                      id="feedMethod"
-                      name="feedMethod"
-                      multiple=""
-                      className="ui fluid dropdown"
-                    >
-                      <option value="Grass">Grass</option>
-                      <option value="GrassBarley">
-                        Grass and Barley Finished
-                      </option>
-                      <option value="GrassGrain">
-                        Grass and Grain Finished
-                      </option>
-                      <option value="FreeRange">Free Range</option>
-                      <option value="Other">Other</option>
-                    </select>
-                    {this.getFeedMethodValue()}
-                  </td>
-                </tr>
-                <tr>
-                  <td>Type Of Pasture</td>
-                  <td className={Class.row}>
-                    <select
-                      onChange={this.onChange}
-                      id="typeOfPasture"
-                      name="typeOfPasture"
-                      multiple=""
-                      className="ui fluid dropdown"
-                    >
-                      <option value="Timothy">Timothy</option>
-                      <option value="Alfa">Alfa</option>
-                      <option value="Other">Other</option>
-                    </select>
-                    {this.getTypeOfPastureValue()}
-                  </td>
-                </tr>
-                <tr>
-                  <td>Type Of Feed</td>
-                  <td className={Class.row}>
-                    <select
-                      onChange={this.onChange}
-                      id="typeOfFeed"
-                      name="typeOfFeed"
-                      multiple=""
-                      className="ui fluid dropdown"
-                    >
-                      <option value="Grain">Grain</option>
-                      <option value="Barley">Barley</option>
-                      <option value="Other">Other</option>
-                    </select>
-                    {this.getTypeOfFeedValue()}
-                  </td>
-                </tr>
-                <tr>
-                  <td>Est Starting Weight</td>
+                  <td>Est Starting Weight in Pounds</td>
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={estStartingWeight}
-                      name = "estStartingWeight"
+                      type="number"
+                      value={estStartingWeight}
+                      name="estStartingWeight"
                     />
                   </td>
                 </tr>
@@ -303,33 +313,40 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={quantity}
-                      name = "quantity"
+                      type="number"
+                      value={quantity}
+                      name="quantity"
                     />
                   </td>
                 </tr>
                 <tr>
                   <td>Est Completion Date</td>
                   <td className={Class.row}>
-                    <input
-                      onChange={this.onChange}
-                      className={Class.tableRow}
-                      type="text"
-                      placeholder={estCompletionDate}
-                      name = "estCompletionDate"
-                    />
+                    <div className="tableRowDateParent">
+                      <input
+                        className="tableRowDate1"
+                        type="date"
+                        id="estCompletionDate"
+                        onChange={this.onChange}
+                        name="estCompletionDate"
+                        value={estCompletionDate}
+                      />
+                      <div className="tableRowDate2">
+                        {this.getEstCompletionDate()}
+                        Current: {this.priorCompletionDate}
+                      </div>
+                    </div>
                   </td>
                 </tr>
                 <tr>
-                  <td>Est Finished Weight</td>
+                  <td>Est Finished Weight in Pounds</td>
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={estFinishedWeight}
-                      name = "estFinishedWeight"
+                      type="number"
+                      value={estFinishedWeight}
+                      name="estFinishedWeight"
                     />
                   </td>
                 </tr>
@@ -339,21 +356,21 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={estFinalPrice}
-                      name = "estFinalPrice"
+                      type="number"
+                      value={estFinalPrice}
+                      name="estFinalPrice"
                     />
                   </td>
                 </tr>
                 <tr>
-                  <td>Hanging Weight</td>
+                  <td>Hanging Weight in Pounds</td>
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={hangingWeight}
-                      name = "hangingWeight"
+                      type="number"
+                      value={hangingWeight}
+                      name="hangingWeight"
                     />
                   </td>
                 </tr>
@@ -363,23 +380,40 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={finalPrice}
-                      name = "finalPrice"
+                      type="number"
+                      value={finalPrice}
+                      name="finalPrice"
                     />
                   </td>
                 </tr>
                 <tr>
                   <td>Delivered Date</td>
                   <td className={Class.row}>
+                    <div className="tableRowDateParent">
+                      <input
+                        className="tableRowDate1"
+                        type="date"
+                        id="deliveredDate"
+                        onChange={this.onChange}
+                        name="deliveredDate"
+                        value={deliveredDate}
+                      />
+                      <div className="tableRowDate2">
+                        {this.getDeliveredDate()}
+                        Current: {this.priorDeliveredDate}
+                      </div>
+                    </div>
+                  </td>
+                  {/* <td>Delivered Date</td>
+                  <td className={Class.row}>
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
                       placeholder={deliveredDate}
-                      name = "deliveredDate"
+                      name="deliveredDate"
                     />
-                  </td>
+                  </td> */}
                 </tr>
                 <tr>
                   <td>Delivered To</td>
@@ -388,8 +422,8 @@ class ProductLivestockDetail extends Component {
                       onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
-                      placeholder={deliveredTo}
-                      name = "deliveredTo"
+                      value={deliveredTo}
+                      name="deliveredTo"
                     />
                   </td>
                 </tr>
@@ -399,9 +433,9 @@ class ProductLivestockDetail extends Component {
                     <input
                       onChange={this.onChange}
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={chargebacks}
-                      name = "chargebacks"
+                      type="number"
+                      value={chargebacks}
+                      name="chargebacks"
                     />
                   </td>
                 </tr>
@@ -412,8 +446,8 @@ class ProductLivestockDetail extends Component {
                       onChange={this.onChange}
                       className={Class.tableRow}
                       type="text"
-                      placeholder={comments}
-                      name = "comments"
+                      value={comments}
+                      name="comments"
                     />
                   </td>
                 </tr>
@@ -421,17 +455,23 @@ class ProductLivestockDetail extends Component {
             </table>
           </div>
           <div className={Class.itemButtonsContainer}>
-            <button
-              className={Class.itemButtonsModify}
-              onClick={() =>
-                this.props.pushThroughLivestock(
-                  this.props.itemLivestockDetails.id,
-                  this.props.itemLivestockDetails.status
-                )
-              }
-            >
-              Push Through
-            </button>
+            {this.props.itemLivestockDetails.status ===
+              "Pending Producer" ? null : (
+                <button
+                  className={Class.itemButtonsModify}
+                  onClick={() =>
+                    this.props.pushThroughLivestock(
+                      this.props.itemLivestockDetails.id,
+                      this.props.itemLivestockDetails.status,
+                      this.props.itemLivestockDetails.farm,
+                      this.props.itemLivestockDetails.email
+                    )
+                  }
+                >
+                  {this.props.pushThroughBtnText}
+                </button>
+              )}
+
             <button
               className={Class.itemButtonsCancel}
               onClick={this.props.removeOverlay}
@@ -444,6 +484,7 @@ class ProductLivestockDetail extends Component {
             >
               Modify
             </button>
+
             <button
               className={Class.itemButtonsCancel}
               onClick={() =>

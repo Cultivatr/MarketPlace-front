@@ -1,0 +1,19 @@
+.detail-button {
+  background-color: #73e9a2;
+  position: relative;
+  right: -5px;
+}
+.detail-button:hover {
+  background-color: #16af54;
+}
+
+.ReactTable .rt-tbody{
+  overflow-x: hidden;
+}
+
+
+@media only screen and (max-width : 999px) {
+  #page-wrap .ReactTable {
+    height: initial;
+}
+}

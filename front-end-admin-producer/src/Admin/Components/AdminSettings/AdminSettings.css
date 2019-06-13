@@ -1,0 +1,94 @@
+.newProduceTypeInput {
+  width: 24vw !important;
+}
+
+.input-container {
+  display: flex !important;
+  flex-direction: row !important;
+}
+
+.produce-item-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  padding: 5px;
+  
+}
+
+.produce-item-list {
+  margin-left: 1vw;
+  /*margin-right: 2vw;*/
+  margin-top: 2vh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  
+  width: 45vw;
+}
+
+.produce-item-list > ul {  /*need to figure out a way to stop this list from scrolling below the containing box */
+  display: flex;
+  /*flex-wrap: wrap;*/
+  flex-direction: column;
+  -webkit-column-count: 2; /* Chrome, Safari, Opera */
+  -moz-column-count: 2; /* Firefox */
+  column-count: 2;
+  height: 25vw;
+  overflow: auto;
+}
+
+.produce-select-item {
+  padding: 2px;
+}
+
+td {
+  width: 15vw;
+  /*padding: 3px;*/
+}
+
+.newProduceTypeInput {
+  width: 50%;
+}
+.produce-delete-btn {
+  width: 24px;
+  height: 24px;
+  padding: 1px;
+  /*background-color: red;*/
+  border: solid gray 1.5px;
+  
+  /*border-radius: 18px;*/
+  text-align: center;
+}
+.produce-delete-btn:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+.undo-container {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 50px;
+}
+.admin-btn {
+  padding: 8px 30px !important ;
+  background: #1ece88 !important ;
+  color: #fff !important ;
+  outline: none !important ;
+  border: none !important ;
+  border-radius: 4px !important ;
+  /*margin-top: 10px !important ;*/
+  margin-bottom: -40px;
+  cursor: pointer !important ;
+  width: 100px;
+  height: 30px;
+  position: absolute;
+  left: 25vw;
+}
+.admin-btn:hover {
+  background-color: #60bd3c !important ;
+}
+.admin-btn:active {
+  background-color: #3e8e41 !important ;
+  box-shadow: 0 5px #666 !important ;
+  transform: translateY(4px) !important ;
+}
+

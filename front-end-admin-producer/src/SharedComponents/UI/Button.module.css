@@ -1,20 +1,18 @@
 button {
-   padding: 8px 30px !important ; 
-   background: #1ECE88 !important ;
-   color: #fff !important ;
-   outline: none !important ;
-   border: none !important ;
-   border-radius: 4px !important ;
-   margin-top: 10px !important ;
-   margin-left: 1rem !important ;
-   cursor: pointer !important ;
-
+  padding: 8px 30px;
+  background: #1ece88;
+  color: #fff;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
 button:hover {
-  background-color: #60bd3c !important ;
+  background-color: #60bd3c;
 }
 button:active {
-  background-color: #3e8e41 !important ;
-  box-shadow: 0 5px #666 !important ;
-  transform: translateY(4px) !important ;
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }

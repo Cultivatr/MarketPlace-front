@@ -1,20 +1,19 @@
 import React, { Component } from "react";
 import Class from "./ItemDetail.module.css";
 import "./ItemDetail.css";
-import { modifyItemProduce } from "../../../AppUtils"
+import { modifyItemProduceQuery } from "../../../SharedComponents/LocalServer/LocalServer"
 
 class ProductProduceDetail extends Component {
-  
   constructor() {
     super();
     this.state = {
-      itemProduceDetails:''
-    }
+      itemProduceDetails: "",
+      pushThroughText: "Accept"
+    };
+    this.priorCompletionDate = "";
+    this.priorDeliveredDate = "";
   }
 
-  componentDidMount = () => {
-    console.log("Produce Rendered");
-  };
   getPackageTypeValue = () => {
     const element = document.getElementById("packageType");
     switch (this.props.itemProduceDetails.packageType) {
@@ -29,6 +28,25 @@ class ProductProduceDetail extends Component {
         break;
       default:
         break;
+    }
+  };
+
+  getEstCompletionDate = () => {
+    const propCompletionDate = this.props.itemProduceDetails.estCompletionDate;
+    if (propCompletionDate) {
+      if (propCompletionDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+        this.priorCompletionDate = "No value entered";
+      } else {
+        this.priorCompletionDate = propCompletionDate;
+      }
+    }
+  };
+  getDeliveredDate = () => {
+    const propDeliveredDate = this.props.itemProduceDetails.deliveredDate;
+    if (propDeliveredDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+      this.priorDeliveredDate = "No value entered";
+    } else {
+      this.priorDeliveredDate = propDeliveredDate;
     }
   };
 
@@ -59,34 +77,33 @@ class ProductProduceDetail extends Component {
     }
   };
 
-  getGmoValue = () => {
-    const propGmo = this.props.itemProduceDetails.gmo;
-    const element = document.getElementById("gmo");
-    if (propGmo === true) {
+  getCOValue = () => {
+    const propCO = this.props.itemProduceDetails.certifiedOrganic;
+    const element = document.getElementById("certifiedOrganic");
+    if (propCO === true) {
       element.value = "Yes";
-    } else if (propGmo === false) {
+    } else if (propCO === false) {
       element.value = "No";
     }
   };
-  returnButtonRender = () => {
-    console.log("hey man 2");
-    if (this.props.itemProduceDetails.state === "Pending Approval") {
-      console.log("Hey man");
-    }
-  };
-
 
   modifyItem = async () => {
-    modifyItemProduce(this.state.itemProduceDetails);
+    // just remove overlay if no changes made otherwise get error
+    if (this.state.itemProduceDetails !== "") {
+      await modifyItemProduceQuery(this.state.itemProduceDetails);
+      await this.props.refreshProduce(this.state.itemProduceDetails);
+    };
     this.props.removeOverlay();
-    this.props.refreshProduce(this.state.itemProduceDetails);
+    
   };
 
   render() {
     const {
       id,
       type,
-      datePlanted,
+      packageSize,
+      packageSizeUnit,
+      estCompletionDate,
       seedType,
       fertilizerTypeUsed,
       pesticideTypeUsed,
@@ -135,15 +152,46 @@ class ProductProduceDetail extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td className="two wide column">Date Planted</td>
+                  <td>Package Size</td>
                   <td className={Class.row}>
-                    <input
-                      onChange={this.onChange}
-                      name = "datePlanted"
-                      className={Class.tableRow}
-                      type="text"
-                      placeholder={datePlanted}
-                    />
+                    <div className="qty-container">
+                      <input
+                        onChange={this.onChange}
+                        type="text"
+                        name="packageSize"
+                        className="qty-form"
+                        value={packageSize}
+                      />
+                      <select
+                        onChange={this.onChange}
+                        name="packageSizeUnit"
+                        multiple=""
+                        value={packageSizeUnit}
+                        className="ui fluid dropdown qty-dropdown"
+                      >
+                        <option value="Pounds">Pounds</option>
+                        <option value="Grams">Grams</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Est Completion Date</td>
+                  <td className={Class.row}>
+                    <div className="tableRowDateParent">
+                      <input
+                        className="tableRowDate1"
+                        type="date"
+                        id="estCompletionDate"
+                        onChange={this.onChange}
+                        name="estCompletionDate"
+                        placeholder={estCompletionDate}
+                      />
+                      <div className="tableRowDate2">
+                        {this.getEstCompletionDate()}
+                        Current: {this.priorCompletionDate}
+                      </div>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -151,10 +199,10 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "seedType"
+                      name="seedType"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={seedType}
+                      value={seedType}
                     />
                   </td>
                 </tr>
@@ -195,10 +243,10 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "fertilizerTypeUsed"
+                      name="fertilizerTypeUsed"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={fertilizerTypeUsed}
+                      value={fertilizerTypeUsed}
                     />
                   </td>
                 </tr>
@@ -207,10 +255,10 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "pesticideTypeUsed"
+                      name="pesticideTypeUsed"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={pesticideTypeUsed}
+                      value={pesticideTypeUsed}
                     />
                   </td>
                 </tr>
@@ -219,27 +267,27 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "estQuantityPlanted"
+                      name="estQuantityPlanted"
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={estQuantityPlanted}
+                      type="number"
+                      value={estQuantityPlanted}
                     />
                   </td>
                 </tr>
                 <tr>
-                  <td>GMO</td>
+                  <td>Certified Organic</td>
                   <td className={Class.row}>
                     <select
                       onChange={this.onChange}
-                      id="gmo"
-                      name="gmo"
+                      id="certifiedOrganic"
+                      name="certifiedOrganic"
                       multiple=""
                       className="ui fluid dropdown"
                     >
                       <option value="Yes">Yes</option>
                       <option value="No">No</option>
                     </select>
-                    {this.getGmoValue()}
+                    {this.getCOValue()}
                   </td>
                 </tr>
                 <tr>
@@ -247,10 +295,10 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "estFinishedQty"
+                      name="estFinishedQty"
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={estFinishedQty}
+                      type="number"
+                      value={estFinishedQty}
                     />
                   </td>
                 </tr>
@@ -259,10 +307,10 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "estPrice"
+                      name="estPrice"
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={estPrice}
+                      type="number"
+                      value={estPrice}
                     />
                   </td>
                 </tr>
@@ -271,10 +319,10 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = 'qtyAcceptedForListing'
+                      name="qtyAcceptedForListing"
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={qtyAcceptedForListing}
+                      type="number"
+                      value={qtyAcceptedForListing}
                     />
                   </td>
                 </tr>
@@ -283,10 +331,10 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "qtyAcceptedAtDelivery"
+                      name="qtyAcceptedAtDelivery"
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={qtyAcceptedAtDelivery}
+                      type="number"
+                      value={qtyAcceptedAtDelivery}
                     />
                   </td>
                 </tr>
@@ -295,23 +343,31 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "finalPricePaid"
+                      name="finalPricePaid"
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={finalPricePaid}
+                      type="number"
+                      value={finalPricePaid}
                     />
                   </td>
                 </tr>
                 <tr>
                   <td>Delivered Date</td>
                   <td className={Class.row}>
-                    <input
-                      onChange={this.onChange}
-                      name = "deliveredDate"
-                      className={Class.tableRow}
-                      type="text"
-                      placeholder={deliveredDate}
-                    />
+                    <div className="tableRowDateParent">
+                      <input
+                        className="tableRowDate1"
+                        type="date"
+                        id="deliveredDate"
+                        onChange={this.onChange}
+                        name="deliveredDate"
+                        value={deliveredDate}
+                        placeholder={estCompletionDate}
+                      />
+                      <div className="tableRowDate2">
+                        {this.getDeliveredDate()}
+                        Current: {this.priorDeliveredDate}
+                      </div>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -320,9 +376,9 @@ class ProductProduceDetail extends Component {
                     <input
                       className={Class.tableRow}
                       onChange={this.onChange}
-                      name = "deliveredTo"
+                      name="deliveredTo"
                       type="text"
-                      placeholder={deliveredTo}
+                      value={deliveredTo}
                     />
                   </td>
                 </tr>
@@ -331,10 +387,10 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "chargebacks"
+                      name="chargebacks"
                       className={Class.tableRow}
-                      type="text"
-                      placeholder={chargebacks}
+                      type="number"
+                      value={chargebacks}
                     />
                   </td>
                 </tr>
@@ -343,10 +399,10 @@ class ProductProduceDetail extends Component {
                   <td className={Class.row}>
                     <input
                       onChange={this.onChange}
-                      name = "comments"
+                      name="comments"
                       className={Class.tableRow}
                       type="text"
-                      placeholder={comments}
+                      value={comments}
                     />
                   </td>
                 </tr>
@@ -354,24 +410,31 @@ class ProductProduceDetail extends Component {
             </table>
           </div>
           <div className={Class.itemButtonsContainer}>
-            <button
-              className={Class.itemButtonsModify}
-              onClick={() =>
-                this.props.pushThroughProduce(
-                  this.props.itemProduceDetails.id,
-                  this.props.itemProduceDetails.status
-                )
-              }
-            >
-              Push Through
-            </button>
+            {this.props.itemProduceDetails.status === "Pending Producer" ? (
+              ""
+            ) : (
+                <button
+                  className={Class.itemButtonsModify}
+                  onClick={() =>
+                    this.props.pushThroughProduce(
+                      this.props.itemProduceDetails.id,
+                      this.props.itemProduceDetails.status,
+                      this.props.itemProduceDetails.farm,
+                      this.props.itemProduceDetails.email
+                    )
+                  }
+                >
+                  {this.props.pushThroughBtnText}
+                </button>
+              )}
+
             <button
               className={Class.itemButtonsCancel}
               onClick={this.props.removeOverlay}
             >
               Cancel
             </button>
-           <button
+            <button
               className={Class.itemButtonsCancel}
               onClick={this.modifyItem}
             >

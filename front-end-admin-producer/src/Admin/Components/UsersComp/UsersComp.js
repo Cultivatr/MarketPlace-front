@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import matchSorter from "match-sorter";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+import Class from "../../admin.module.css";
 import { getUserDetails } from "../../../AppUtils";
 import UserDetailComp from "../UserDetailComp/UserDetailComp";
+import { deleteUserQuery } from "../../../SharedComponents/LocalServer/LocalServer"
+
 
 class UsersComp extends Component {
   constructor(props) {
@@ -15,8 +18,8 @@ class UsersComp extends Component {
     };
   }
 
-  getProducerObj = e => {
-    this.setState({
+  getProducerObj = async e => {
+    await this.setState({
       userDetails: getUserDetails(
         parseInt(e.target.id),
         this.state.data.data.users
@@ -28,15 +31,11 @@ class UsersComp extends Component {
   removeOverlay = () => {
     document.getElementById("userOverlay").style.display = "none";
   };
-  deleteSelectedUser = userId => {
+
+  // DOES NOT REFRESH AFTER USER DELETED
+  deleteSelectedUser = async userId => {
     console.log("Deleted User: ", userId);
-    fetch("http://localhost:5000/admin/users/delete/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        id: userId
-      })
-    }).catch(error => console.log(error));
+    await deleteUserQuery(userId)
     setTimeout(() => this.props.OnClickListUsers(), 100);
   };
 
@@ -44,6 +43,9 @@ class UsersComp extends Component {
     const data = this.state.data.data;
     return (
       <div className="table">
+        <div id="desktop-menu" className={Class.containerTitle}>
+          <h4 >{this.props.title}</h4>
+        </div>
         <ReactTable
           data={data.users}
           noDataText="No Users!"
@@ -53,7 +55,7 @@ class UsersComp extends Component {
           }
           columns={[
             {
-              Header: "LIST OF USERS",
+              Header: "click on headers to sort or type to filter",
               columns: [
                 {
                   Header: "User ID",
@@ -122,28 +124,31 @@ class UsersComp extends Component {
                   accessor: d => (
                     <span
                       className="detailButton"
+                      style={{
+                        cursor: "pointer",
+                        fontSize: 10,
+                        border: "1px solid black",
+                        borderRadius: "25px",
+                        padding: "5px 5px",
+                        margin: "5px 0px 5px 0px",
+                        textAlign: "center",
+                        userSelect: "none"
+                      }}
                       id={d.id}
                       onClick={this.getProducerObj}
                     >
                       Details
                     </span>
-                  ),
-                  style: {
-                    cursor: "pointer",
-                    fontSize: 15,
-                    padding: "5px 5px",
-                    textAlign: "center",
-                    userSelect: "none"
-                  }
+                  ) //radio button
                 }
               ]
             }
           ]}
           defaultPageSize={20}
           className="-striped -highlight"
-          style={{
-            height: "85vh"
-          }}
+        // style={{
+        //   height: "80vh"
+        // }}
         />
         <UserDetailComp
           userDetails={this.state.userDetails}

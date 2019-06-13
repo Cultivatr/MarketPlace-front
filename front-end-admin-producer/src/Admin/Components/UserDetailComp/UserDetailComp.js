@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Class from "./userDetailComp.module.css";
 import "./userDetailComp.css";
+import { modifyUserQuery } from "../../../SharedComponents/LocalServer/LocalServer";
 
 class UserDetailComp extends Component {
   constructor(props) {
@@ -20,83 +21,16 @@ class UserDetailComp extends Component {
   onChange = e => {
     let data = this.state.data;
     data.isAdmin = document.getElementById("isAdmin").checked;
-    data.isProducer = document.getElementById("isProd").checked;
-    data.isOther = document.getElementById("isOther").checked;
+    console.log("IS ADMIN", data.isAdmin);
     let newdata = { ...data, [e.target.name]: e.target.value };
     this.setState({ data: newdata });
   };
 
   onSubmit = async e => {
-    this.props.removeOverlay();
     e.preventDefault();
-    const {
-      id,
-      firstName,
-      lastName,
-      billingAddressCity,
-      primaryNumber,
-      secondaryNumber,
-      billingAddressStreet,
-      billingAddressProvince,
-      email,
-      billingAddressCountry,
-      billingAddressPostalCode,
-      farmName,
-      farmLocation,
-      mailingAddressCity,
-      mailingAddressStreet,
-      farmType,
-      area,
-      mailingAddressProvince,
-      rating,
-      mailingAddressCountry,
-      mailingAddressPostalCode,
-      comments,
-      isAdmin,
-      isProducer,
-      isOther
-    } = this.state.data;
-    try {
-      const response = await fetch("http://localhost:5000/admin/updateUsers/", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          id: id,
-          firstName: firstName,
-          lastName: lastName,
-          billingAddressStreet: billingAddressStreet,
-          primaryNumber: primaryNumber,
-          secondaryNumber: secondaryNumber,
-          billingAddressCity: billingAddressCity,
-          billingAddressProvince: billingAddressProvince,
-          email: email,
-          billingAddressCountry: billingAddressCountry,
-          billingAddressPostalCode: billingAddressPostalCode,
-          farmName: farmName,
-          farmLocation: farmLocation,
-          mailingAddressStreet: mailingAddressStreet,
-          farmType: farmType,
-          area: area,
-          mailingAddressCity: mailingAddressCity,
-          mailingAddressProvince: mailingAddressProvince,
-          rating: rating,
-          mailingAddressCountry: mailingAddressCountry,
-          mailingAddressPostalCode: mailingAddressPostalCode,
-          comments: comments,
-          isAdmin: isAdmin,
-          isProducer: isProducer,
-          isOther: isOther
-        })
-      });
-      const json = await response.json();
-      console.log(json);
-      // .then(data => { console.log(data) })
-      // .then(this.props.getUsers())
-      // .catch(error => console.log(error))
-      this.props.showUsers();
-    } catch (error) {
-      console.log(error);
-    }
+    await modifyUserQuery(this.state.data)
+    await this.props.removeOverlay();
+    await this.props.showUsers();  // passed as props from admin thru UsersComp
   };
 
   getAreaValue = () => {
@@ -161,8 +95,6 @@ class UserDetailComp extends Component {
 
   getAuthValue = () => {
     this.checkIsAdmin();
-    this.checkIsProducer();
-    this.checkIsOther();
   };
 
   checkIsAdmin = () => {
@@ -170,22 +102,6 @@ class UserDetailComp extends Component {
       document.getElementById("isAdmin").checked = true;
     } else if (this.state.data.isAdmin === false) {
       document.getElementById("isAdmin").checked = false;
-    }
-  };
-
-  checkIsProducer = () => {
-    if (this.state.data.isProducer === true) {
-      document.getElementById("isProd").checked = true;
-    } else if (this.state.data.isProducer === false) {
-      document.getElementById("isProd").checked = false;
-    }
-  };
-
-  checkIsOther = () => {
-    if (this.state.data.isOther === true) {
-      document.getElementById("isOther").checked = true;
-    } else if (this.state.data.isOther === false) {
-      document.getElementById("isOther").checked = false;
     }
   };
 
@@ -462,18 +378,6 @@ class UserDetailComp extends Component {
                     <input
                       type="checkbox"
                       id="isAdmin"
-                      onChange={this.onChange}
-                    />{" "}
-                    <b>Producer:</b>{" "}
-                    <input
-                      type="checkbox"
-                      id="isProd"
-                      onChange={this.onChange}
-                    />{" "}
-                    <b>Both:</b>{" "}
-                    <input
-                      type="checkbox"
-                      id="isOther"
                       onChange={this.onChange}
                     />
                   </td>

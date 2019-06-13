@@ -3,6 +3,8 @@ import { Redirect } from "react-router-dom";
 import "./SignIn.css";
 // import GoogleAuth from '../GoogleAuth';
 import GoogleLogin from "react-google-login";
+import { loginQuery } from "./LocalServer/LocalServer"
+
 
 class SignIn extends Component {
   constructor() {
@@ -14,70 +16,79 @@ class SignIn extends Component {
   }
 
   componentDidMount() {
-    this.getUsers();
+    this.setState({ test: "test" });
   }
-
-  getUsers = async () => {
-    try {
-      const response = await fetch(`http://localhost:5000/admin/users/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json = await response.json();
-      await this.setState({ userList: json });
-    } catch (error) {
-      console.log(error);
-    }
+  redirectButton = () => {
+    console.log("redirect button clicked");
+    let logInData = [];
+    loginQuery("byrondaniels@gmail.com")
+      .then(data => {
+        logInData = {
+          name: data.user.firstName,
+          email: data.user.email,
+          id: data.user.id,
+          admin: data.user.isAdmin,
+          fullName: `${data.user.firstName} ${data.user.lastName}`
+        };
+        sessionStorage.setItem("authData", JSON.stringify(logInData));
+        sessionStorage.setItem("loggedIn", true);
+        sessionStorage.setItem("adminAuth", logInData.admin);
+        setTimeout(
+          this.setState({ isLoggedIn: true, admin: logInData.admin }),
+          1000
+        );
+      })
+      .catch(error => console.log("ERROR:", error));
   };
 
   logIn(res) {
-    //console.log("USER LIST", this.state.userList.users);
-    //console.log("CurrentUser", currentUser);
-    // const logInData = Object.assign({}, res.w3.profileObj);
-    const logInData = {
-      name: res.w3.ofa,
-      email: res.w3.U3,
-      id: "",
-      admin: ""
-    };
-    //console.log("LOG IN DATA", logInData);
-    let currentUser = this.state.userList.users.filter(
-      user => user.email === logInData.email
-    );
-    logInData.admin = currentUser[0].isAdmin;
-    logInData.id = currentUser[0].id;
-    console.log(logInData);
-    if (currentUser) {
-      sessionStorage.setItem("authData", JSON.stringify(logInData));
-      sessionStorage.setItem("loggedIn", true);
-      this.setState({ isLoggedIn: true, admin: logInData.admin });
-      this.props.logInToken(true);
-    }
+    let logInData = [];
+    if (res.w3) loginQuery(res.w3.U3)
+      .then(data => {
+        logInData = {
+          name: data.user.firstName,
+          email: data.user.email,
+          id: data.user.id,
+          admin: data.user.isAdmin,
+          fullName: `${data.user.firstName} ${data.user.lastName}`
+        };
+        sessionStorage.setItem("authData", JSON.stringify(logInData));
+        sessionStorage.setItem("loggedIn", true);
+        sessionStorage.setItem("adminAuth", logInData.admin);
+        setTimeout(
+          this.setState({ isLoggedIn: true, admin: logInData.admin }),
+          1000
+        );
+      })
+      .catch(error => console.log("ERROR:", error));
   }
 
   render() {
     let loggedIn = JSON.parse(sessionStorage.getItem("loggedIn"));
     if (this.state.isLoggedIn || loggedIn) {
-      return this.state.admin 
-      ? (<Redirect to={"/admin"} />) 
-      : (<Redirect to={"/producer"} />);
+      return this.state.admin ? (
+        <Redirect to={"/admin"} />
+      ) : (
+          <Redirect to={"/producer"} />
+        );
     }
 
     const responseGoogle = response => {
       this.logIn(response);
     };
     return (
-      <div>
+      <div className="login-wrapper">
         <div className="loginBox">
           <div className="h1-header">
-            <h1 className="ui header">Welcome to Cultivatr</h1>
+            <h1 className="ui header">Welcome to CultivatR</h1>
           </div>
           <div>
             <form className="ui form">
               <div className="field" />
               <div className="rememberMeAndLoginBox centeredDisplay">
+                <div onClick={this.redirectButton}>CLICK HERE GREG</div>
                 <GoogleLogin
-                  clientId="225894951024-d2b5jugscfmfsp8fr6vd5mqhfl5si3uq.apps.googleusercontent.com"
+                  clientId="441538396161-n36t34tefa1n3vpd0rfrigm8688d3uat.apps.googleusercontent.com"
                   buttonText="Sign in with Google"
                   onSuccess={responseGoogle}
                   onFailure={responseGoogle}

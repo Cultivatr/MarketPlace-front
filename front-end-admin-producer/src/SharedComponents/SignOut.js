@@ -15,6 +15,8 @@ class SignOut extends Component {
 
   logOut = () => {
     sessionStorage.removeItem("loggedIn");
+    sessionStorage.removeItem("authData");
+    sessionStorage.removeItem("adminAuth");
     this.setState({ isLoggedIn: false });
 
 }
@@ -27,7 +29,7 @@ class SignOut extends Component {
       <GoogleLogout 
                   buttonText="Logout" 
                   onLogoutSuccess={this.logOut}
-                  clientId="225894951024-d2b5jugscfmfsp8fr6vd5mqhfl5si3uq.apps.googleusercontent.com">
+                  clientId="441538396161-eujcfeek91eu5r0okb7od4v9k428t0rf.apps.googleusercontent.com">
       </GoogleLogout>
       </div>
     )

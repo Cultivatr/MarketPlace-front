@@ -1,8 +1,16 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import "./AddProduceForm.module.css";
+import "../../../../SharedComponents/UI/react-datepicker.css";
 import Button from "../../../../SharedComponents/UI/Button";
 import styles from "./AddProduceForm.module.css";
 import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
+import DatePicker from "react-datepicker";
+import "../../../../SharedComponents/miscStyles.css";
+import ProducerSlideMenu from "../../../../SharedComponents/Navigation/SlideMenu/ProducerSlideMenu"
+import { refreshProduceItems, addProduceQuery } from "../../../../SharedComponents/LocalServer/LocalServer"
+import AddItemPopUp from "../AddItemPopup";
+
+
 
 class ProduceForm extends Component {
   // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!
@@ -10,14 +18,16 @@ class ProduceForm extends Component {
     data: {
       type: "",
       packageType: "",
-      datePlanted: "0001-01-01",
+      packageSize: 0,
+      packageSizeUnit: "",
+      estCompletionDate: "0001-01-01",
       seedType: "",
       modifiedSeed: false,
       heirloom: false,
       fertilizerTypeUsed: "",
       pesticideTypeUsed: "",
       estQuantityPlanted: 0,
-      gmo: false,
+      certifiedOrganic: false,
       estFinishedQty: 0,
       estPrice: 0,
       qtyAcceptedForListing: 0,
@@ -27,7 +37,38 @@ class ProduceForm extends Component {
       deliveredTo: "",
       deliveredDate: "0001-01-01",
       comments: "",
-      status: "Pending Approval"
+      status: "Pending Admin"
+    },
+    produceListItems: [],
+    addedThisSession: 0,
+    showItemPopup: false
+  };
+  form = undefined
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.escFunction, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.escFunction, false);
+  }
+  escFunction = (event) => {
+    if (event.keyCode === 27) {
+      this.hideItemPopup()
+    }
+  }
+  componentWillMount = async () => {
+    const responseProduceItems = await refreshProduceItems()
+    const json = await responseProduceItems.json();
+    const pItems = json;
+    if (pItems) {
+      let pList = document.getElementById("produceItems1");
+      await pItems.produce_items.forEach(item => {
+        let indiv = item.newItem;
+        let element = document.createElement("option");
+        element.textContent = indiv;
+        element.value = indiv;
+        pList.appendChild(element);
+      });
     }
   };
 
@@ -36,86 +77,65 @@ class ProduceForm extends Component {
     let newdata = { ...data, [e.target.name]: e.target.value };
     this.setState({ data: newdata });
   };
+  onCompDateChange = date => {
+    this.setState({ estCompletionDate: date });
+    console.log('new date is', this.state.estCompletionDate);
+  };
+  hideItemPopup = () => {
+    this.setState({ showItemPopup: false })
+  }
+  clearForm = () => {
+    this.setState({ showItemPopup: false })
+    this.form.reset()
+  }
 
   onSubmit = e => {
     e.preventDefault();
-    const form = e.target;
-    const {
-      type,
-      packageType,
-      datePlanted,
-      seedType,
-      modifiedSeed,
-      heirloom,
-      fertilizerTypeUsed,
-      pesticideTypeUsed,
-      estQuantityPlanted,
-      gmo,
-      estFinishedQty,
-      estPrice,
-      qtyAcceptedForListing,
-      qtyAcceptedAtDelivery,
-      chargebacks,
-      finalPricePaid,
-      deliveredTo,
-      deliveredDate,
-      comments,
-      status
-    } = this.state.data;
-
+    this.form = e.target;
     document.getElementById("submitBtn").className += " loading";
-    fetch("http://localhost:5000/produce/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        userId: JSON.parse(sessionStorage.getItem("authData")).id,
-        type: type,
-        packageType: packageType,
-        datePlanted: datePlanted,
-        seedType: seedType,
-        modifiedSeed: modifiedSeed,
-        heirloom: heirloom,
-        fertilizerTypeUsed: fertilizerTypeUsed,
-        pesticideTypeUsed: pesticideTypeUsed,
-        estQuantityPlanted: estQuantityPlanted,
-        gmo: gmo,
-        estFinishedQty: estFinishedQty,
-        estPrice: estPrice,
-        qtyAcceptedForListing: qtyAcceptedForListing,
-        qtyAcceptedAtDelivery: qtyAcceptedAtDelivery,
-        chargebacks: chargebacks,
-        finalPricePaid: finalPricePaid,
-        deliveredTo: deliveredTo,
-        deliveredDate: deliveredDate,
-        comments: comments,
-        status: status
-      })
-    })
-      .then(response => response.json())
+    addProduceQuery(this.state.data, this.state.estCompletionDate)
       .then(data => {
-        console.log(data);
+        // console.log(data);
       })
-      .then(form.reset())
       .then(
-        setTimeout(function() {
+        setTimeout(function () {
           document.getElementById("submitBtn").className = "ui button";
         }, 1000)
-      )
+      ).then(this.setState({
+        addedThisSession: this.state.addedThisSession + 1,
+        showItemPopup: true
+      }))
       .catch(error => console.log(error));
+
   };
 
   render() {
     return (
-      <Fragment>
+      <div>
         <Toolbar />
-        <h2>Add Produce</h2>
+        <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
+        <h2 className="mobile-header-title">Add Produce</h2>
         <div className={styles.wrapper}>
+          <span 
+          className="required-header"
+          
+          >
+            Coloured Border Indicates Required Field
+          </span>
           <div className="ui grid container">
             <form onSubmit={this.onSubmit} className="ui row form">
-              <div className="eight wide column">
+              <div className="form-column-8">
                 <div className="field">
                   <label>Type</label>
-                  <input onChange={this.onChange} type="text" name="type" />
+                  <select
+                    onChange={this.onChange}
+                    type="text"
+                    name="type"
+                    id="produceItems1"
+                    style={{ border: "3px solid #F92E2E" }}
+                  >
+                    <option>Select Produce Item</option>
+                  </select>
                 </div>
                 <div className="field">
                   <label>Package Type</label>
@@ -124,6 +144,7 @@ class ProduceForm extends Component {
                     name="packageType"
                     multiple=""
                     className="ui fluid dropdown"
+                    style={{ border: "3px solid #F92E2E" }}
                   >
                     <option value="">Please choose an option</option>
                     <option value="Bunch">Bunch</option>
@@ -131,13 +152,41 @@ class ProduceForm extends Component {
                     <option value="Bag">Bag</option>
                   </select>
                 </div>
+                <div className="field size-container">
+                  <label>Package Size</label>
+                  <div className="qty-container">
+                    <input
+                      onChange={this.onChange}
+                      type="text"
+                      name="packageSize"
+                      className="qty-form"
+                    />
+                    <select
+                      onChange={this.onChange}
+                      name="packageSizeUnit"
+                      multiple=""
+                      className="ui fluid dropdown qty-dropdown"
+                    >
+                      <option value="Pounds">Pounds</option>
+                      <option value="Grams">Grams</option>
+                    </select>
+                  </div>
+                </div>
+
                 <div className="field">
-                  <label>Date Planted</label>
-                  <input
-                    onChange={this.onChange}
-                    type="date"
-                    name="datePlanted"
-                  />
+                  <label>Est Completion Date</label>
+                  <div
+                    className="dpicker"
+                    style={{ border: "3px solid #F92E2E", width: "150px" }}
+                  >
+                    <DatePicker
+                      name="estCompletionDate"
+                      onChange={this.onCompDateChange}
+                      dateFormat="yyyy-MM-dd"
+                      selected={this.state.estCompletionDate}
+                      autocomplete="off"
+                    />
+                  </div>
                 </div>
                 <div className="field">
                   <label>Seed Type</label>
@@ -179,20 +228,20 @@ class ProduceForm extends Component {
                   />
                 </div>
               </div>
-              <div className="eight wide column">
+              <div className="form-column-8">
                 <div className="field">
                   <label>Estimated Quantity Planted</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="estQuantityPlanted"
                   />
                 </div>
                 <div className="field">
-                  <label>GMO</label>
+                  <label>Certified Organic</label>
                   <select
                     onChange={this.onChange}
-                    name="gmo"
+                    name="certifiedOrganic"
                     multiple=""
                     className="ui fluid dropdown"
                   >
@@ -205,13 +254,10 @@ class ProduceForm extends Component {
                   <label>Estimated Finished Qty</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="estFinishedQty"
+                    style={{ border: "3px solid #F92E2E" }}
                   />
-                </div>
-                <div className="field">
-                  <label>Est Price</label>
-                  <input onChange={this.onChange} type="text" name="estPrice" />
                 </div>
                 <div className="field">
                   <label>Fertilizer Type Used</label>
@@ -239,9 +285,14 @@ class ProduceForm extends Component {
               </div>
               <Button>Add</Button>
             </form>
+            <strong>
+              {" "}
+              # of Produce Items Added: {this.state.addedThisSession}
+            </strong>
           </div>
         </div>
-      </Fragment>
+        {this.state.showItemPopup && <AddItemPopUp hideItemPopup={this.hideItemPopup} type={this.state.data.type} clearForm={this.clearForm} />}
+      </div>
     );
   }
 }

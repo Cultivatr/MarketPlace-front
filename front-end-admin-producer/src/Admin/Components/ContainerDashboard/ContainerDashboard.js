@@ -1,6 +1,7 @@
 import React from "react";
 import matchSorter from "match-sorter";
 import ReactTable from "react-table";
+import "./ContainerDashboard.css";
 import "react-table/react-table.css";
 
 class ContainerDashboard extends React.Component {
@@ -71,12 +72,14 @@ class ContainerDashboard extends React.Component {
                   }
                 },
                 {
-                  Header: "Est.Date",
+                  Header: "Est Finished Date",
                   id: "estCompletionDate",
                   // width: 340,
-                  accessor: d => d.feedMethod,
+                  accessor: d => d.estCompletionDate,
                   filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["feedMethod"] }),
+                    matchSorter(rows, filter.value, {
+                      keys: ["estCompletionDate"]
+                    }),
                   filterAll: true,
                   style: {
                     textAlign: "center"
@@ -88,29 +91,32 @@ class ContainerDashboard extends React.Component {
                   width: 100,
                   accessor: d => (
                     <span
-                      className="detail-button"
+                      className="detail-button-container"
+                      style={{
+                        cursor: "pointer",
+                        fontSize: 10,
+                        border: "1px solid black",
+                        borderRadius: "25px",
+                        padding: "5px 5px",
+                        margin: "3px 0px 3px 0px",
+                        textAlign: "center",
+                        userSelect: "none"
+                      }}
                       id={d.id}
                       onClick={this.props.itemObj}
                     >
                       Details
                     </span>
-                  ),
-                  style: {
-                    cursor: "pointer",
-                    fontSize: 15,
-                    padding: "5px 5px",
-                    textAlign: "center",
-                    userSelect: "none"
-                  }
+                  )
                 }
               ]
             }
           ]}
           defaultPageSize={20}
           className="-striped -highlight"
-          style={{
-            height: "85vh"
-          }}
+          // style={{
+          //   height: "80vh"  // react table height set here
+          // }}
         />
       </div>
     );

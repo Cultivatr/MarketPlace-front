@@ -1,27 +1,31 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import styles from "./AddMeatForm.module.css";
 import Button from "../../../../SharedComponents/UI/Button";
 import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
+import ProducerSlideMenu from "../../../../SharedComponents/Navigation/SlideMenu/ProducerSlideMenu"
+import DatePicker from "react-datepicker";
+import "../../../../SharedComponents/UI/react-datepicker.css";
+import { addLivestockQuery } from "../../../../SharedComponents/LocalServer/LocalServer"
+import OtherInput from "../../../../SharedComponents/OtherInput"
+import AddItemPopUp from "../AddItemPopup";
+
 
 class LivestockForm extends Component {
-    // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!
+  // There are items in this class that are not being used. Removing them will cause DB errors. Attention Byron!!!!!!!!!!!!!!
   state = {
     data: {
       userId: 1,
       type: "",
       breed: "",
       singleBrand: false,
-      birthdate: "0001-01-01",
       regNumber: 0,
       rfid: 0,
       estStartingWeight: 0,
       hangingWeight: 0,
       chargebacks: 0,
-      dateOnFeed: "0001-01-01",
       feedMethod: "",
       typeOfPasture: "",
       typeOfFeed: "",
-      estCompletionDate: "0001-01-01",
       estFinishedWeight: 0,
       estFinalPrice: 0,
       finalPrice: 0,
@@ -29,9 +33,15 @@ class LivestockForm extends Component {
       deliveredTo: "",
       comments: "",
       quantity: 0,
-      status: "Pending Approval"
-    }
+      status: "Pending Admin",
+    },
+    addedThisSession: 0,
+    showItemPopup: false
+    // birthdate: "0001-01-01",
+    // dateOnFeed: "0001-01-01",
+    // estCompletionDate: "0001-01-01"
   };
+
 
   onChange = e => {
     let data = this.state.data;
@@ -39,86 +49,80 @@ class LivestockForm extends Component {
     this.setState({ data: newdata });
   };
 
+  componentWillMount = () => {
+    window.addEventListener("resize", () => {
+      this.setState({ screenWidth: window.screen.width })
+    });
+  }
+  componentDidMount() {
+    document.addEventListener("keydown", this.escFunction, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.escFunction, false);
+  }
+  escFunction = (event) => {
+    if (event.keyCode === 27) {
+      this.hideItemPopup()
+    }
+  }
+  clearForm = () => {
+    this.setState({ showItemPopup: false })
+    this.form.reset()
+  }
+
+  onChangeOther = e => {
+    let data = this.state.data;
+    let newdata = { ...data, [e.target.name]: `Other - ${e.target.value}` };
+    this.setState({ data: newdata });
+  }
+
+  onCompDateChange = date => {
+    this.setState({ estCompletionDate: date });
+  };
+  onBirthDateChange = date => {
+    this.setState({ birthdate: date });
+  };
+  onDateOnFeedChange = date => {
+    this.setState({ dateOnFeed: date });
+  };
+  hideItemPopup = () => {
+    this.setState({ showItemPopup: false })
+  }
+
   onSubmit = e => {
     e.preventDefault();
     const form = e.target;
-    const {
-      type,
-      breed,
-      singleBrand,
-      birthdate,
-      regNumber,
-      rfid,
-      estStartingWeight,
-      hangingWeight,
-      chargebacks,
-      dateOnFeed,
-      feedMethod,
-      typeOfPasture,
-      typeOfFeed,
-      estCompletionDate,
-      estFinishedWeight,
-      estFinalPrice,
-      finalPrice,
-      deliveredDate,
-      deliveredTo,
-      comments,
-      status,
-      quantity
-    } = this.state.data;
-
     document.getElementById("submitBtn").className += " loading";
-    fetch("http://localhost:5000/livestock/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        userId: JSON.parse(sessionStorage.getItem("authData")).id,
-        type: type,
-        breed: breed,
-        singleBrand: singleBrand,
-        birthdate: birthdate,
-        regNumber: regNumber,
-        rfid: rfid,
-        estStartingWeight: estStartingWeight,
-        hangingWeight: hangingWeight,
-        chargebacks: chargebacks,
-        dateOnFeed: dateOnFeed,
-        feedMethod: feedMethod,
-        typeOfPasture: typeOfPasture,
-        typeOfFeed: typeOfFeed,
-        estCompletionDate: estCompletionDate,
-        estFinishedWeight: estFinishedWeight,
-        estFinalPrice: estFinalPrice,
-        finalPrice: finalPrice,
-        deliveredDate: deliveredDate,
-        deliveredTo: deliveredTo,
-        comments: comments,
-        status: status,
-        quantity: quantity
-      })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
-      .then(form.reset())
+    addLivestockQuery(this.state.data, this.state.dateOnFeed, this.state.estCompletionDate, this.state.birthdate)
+      .then(form.reset(),
+        this.setState({
+          addedThisSession: this.state.addedThisSession + 1,
+          showItemPopup: true
+        }))
       .then(
-        setTimeout(function() {
+        setTimeout(function () {
           document.getElementById("submitBtn").className = "ui button";
         }, 2000)
       )
       .catch(error => console.log(error));
+
   };
 
   render() {
     return (
-      <Fragment>
+      <div>
         <Toolbar />
-        <h2>Add Livestock</h2>
+        <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
+        <h2 className="mobile-header-title">Add Livestock</h2>
         <div className={styles.wrapper}>
+          <span 
+          className="required-header"
+          >
+            Coloured Border Indicates Required Field
+          </span>
           <div className="ui grid container">
-            <form onSubmit={this.onSubmit} className="ui row form">
-              <div className="eight wide column">
+            <form onSubmit={this.onSubmit} className="ui row form add-meat-mobile" autoComplete="off">
+              <div className="form-column-8">
                 <div className="field">
                   <label>Type</label>
                   <select
@@ -126,6 +130,7 @@ class LivestockForm extends Component {
                     name="type"
                     multiple=""
                     className="ui fluid dropdown"
+                    style={{ border: "3px solid #F92E2E" }}
                   >
                     <option value="">Please choose an option</option>
                     <option value="Pork">Pork</option>
@@ -135,20 +140,9 @@ class LivestockForm extends Component {
                     <option value="Beef">Beef</option>
                   </select>
                 </div>
-                <div className="field">
-                  <label>Breed</label>
-                  <select
-                    onChange={this.onChange}
-                    name="breed"
-                    multiple=""
-                    className="ui fluid dropdown"
-                  >
-                    <option value="">Please choose an option</option>
-                    <option value="Angus">Angus</option>
-                    <option value="Birkshire">Birkshire</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
+
+                <OtherInput value={this.state.data.breed} labelItem={"breed"} title={"Breed"} options={["Angus", "Birkshire", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+
                 <div className="field">
                   <label>Single Brand</label>
                   <select
@@ -163,30 +157,38 @@ class LivestockForm extends Component {
                   </select>
                 </div>
                 <div className="field">
-                  <label>Birthdate</label>
-                  <input
-                    onChange={this.onChange}
-                    type="date"
-                    name="birthdate"
-                  />
+                  <label>Est Date of Birth</label>
+                  <div
+                    className="dpicker"
+                    style={{ border: "3px solid #F92E2E", width: "150px" }}
+                  >
+                    <DatePicker
+                      autocomplete="off"
+                      name="birthdate"
+                      onChange={this.onBirthDateChange}
+                      dateFormat="yyyy-MM-dd"
+                      selected={this.state.birthdate}
+                    />
+
+                  </div>
                 </div>
                 <div className="field">
                   <label>Registration Number</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="regNumber"
                   />
                 </div>
                 <div className="field">
                   <label>RFID Tag</label>
-                  <input onChange={this.onChange} type="text" name="rfid" />
+                  <input onChange={this.onChange} type="number" name="rfid" />
                 </div>
                 <div className="field">
-                  <label>Est. Starting Weight</label>
+                  <label>Est. Starting Weight in Pounds</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="estStartingWeight"
                   />
                 </div>
@@ -200,97 +202,60 @@ class LivestockForm extends Component {
                   />
                 </div>
               </div>
-              <div className="eight wide column">
+              <div className="form-column-8">
                 <div className="field">
                   <label>Date on Feed</label>
-                  <input
-                    onChange={this.onChange}
-                    type="date"
-                    name="dateOnFeed"
-                  />
-                </div>
-                <div className="field">
-                  <label>Feed Method</label>
-                  <select
-                    onChange={this.onChange}
-                    name="feedMethod"
-                    multiple=""
-                    className="ui fluid dropdown"
+                  <div
+                    className="dpicker"
+                    style={{ border: "3px solid #F92E2E", width: "150px" }}
                   >
-                    <option value="">Please choose an option</option>
-                    <option value="Grass">Grass</option>
-                    <option value="GrassBarley">
-                      Grass and Barley Finished
-                    </option>
-                    <option value="GrassGrain">Grass and Grain Finished</option>
-                    <option value="FreeRange">Free Range</option>
-                    <option value="Other">Other</option>
-                  </select>
+                    <DatePicker
+                      name="dateOnFeed"
+                      onChange={this.onDateOnFeedChange}
+                      dateFormat="yyyy-MM-dd"
+                      selected={this.state.dateOnFeed}
+                    />
+                  </div>
                 </div>
-                <div className="field">
-                  <label>Type of Pasture</label>
-                  <select
-                    onChange={this.onChange}
-                    name="typeOfPasture"
-                    multiple=""
-                    className="ui fluid dropdown"
-                  >
-                    <option value="">Please choose an option</option>
-                    <option value="Timothy">Timothy</option>
-                    <option value="Alfa">Alfa</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                <div className="field">
-                  <label>Type of Feed</label>
-                  <select
-                    onChange={this.onChange}
-                    name="typeOfFeed"
-                    multiple=""
-                    className="ui fluid dropdown"
-                  >
-                    <option value="">Please choose an option</option>
-                    <option value="Grain">Grain</option>
-                    <option value="Barley">Barley</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
+                <OtherInput value={this.state.data.feedMethod} labelItem={"feedMethod"} title={"Feed Method"} options={["Grass", "GrassBarley", "GrassGrain", "FreeRange", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInput value={this.state.data.typeOfPasture} labelItem={"typeOfPasture"} title={"Type of Pasture"} options={["Timothy", "Alfa", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInput value={this.state.data.typeOfFeed} labelItem={"typeOfFeed"} title={"Type of Feed"} options={["Grain", "Barley", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+
                 <div className="field">
                   <label>Est. Completion Date</label>
-                  <input
-                    onChange={this.onChange}
-                    type="date"
-                    name="estCompletionDate"
-                  />
+                  <div
+                    className="dpicker"
+                    style={{ border: "3px solid #F92E2E", width: "150px" }}
+                  >
+                    <DatePicker
+                      name="estCompletionDate"
+                      onChange={this.onCompDateChange}
+                      dateFormat="yyyy-MM-dd"
+                      selected={this.state.estCompletionDate}
+                    />
+                  </div>
                 </div>
                 <div className="field">
-                  <label>Est. Finished Weight</label>
+                  <label>Est. Finished Weight in Pounds</label>
                   <input
                     onChange={this.onChange}
-                    type="text"
+                    type="number"
                     name="estFinishedWeight"
                   />
                 </div>
-                <div className="field">
-                  <label>Hanging Weight</label>
-                  <input
-                    onChange={this.onChange}
-                    type="text"
-                    name="hangingWeight"
-                  />
-                </div>
-               
-                <div className="field">
-                  <label>Quantity</label>
-                  <input onChange={this.onChange} type="text" name="quantity" />
-                </div>
+
                 <input type="hidden" id="userId" name="userId" value="1" />
               </div>
-              <Button>Add</Button>
+              <Button className="form-column-8">Add</Button>
             </form>
+            <strong>
+              {" "}
+              # of Livestock Items Added: {this.state.addedThisSession}
+            </strong>
           </div>
         </div>
-      </Fragment>
+        {this.state.showItemPopup && <AddItemPopUp hideItemPopup={this.hideItemPopup} clearForm={this.clearForm} />}
+      </div>
     );
   }
 }

@@ -1,30 +1,45 @@
-
 #produceOverlay {
-    position: absolute;
-    display: none;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(59, 59, 59, 0.5);
-    z-index: 100;
-    color:black;
-  }
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(59, 59, 59, 0.5);
+  z-index: 1001;
+  color: black;
+}
 
-  #livestockOverlay {
-    position: absolute;
-    display: none;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(59, 59, 59, 0.5);
-    z-index: 100;
-    color:black;
-  }
+#livestockOverlay {
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(59, 59, 59, 0.5);
+  z-index: 1001;
+  color: black;
+}
 
-  
+@media only screen and (max-width : 667px) {
+  #produceOverlay> div{
+    height: 90%;
+  }
+  #produceOverlay h4{
+    font-size: 1.71212133em;
+    padding-top: 8px;
+  }
+  #livestockOverlay> div{
+    height: 90%;
+  }
+  #livestockOverlay h4{
+    font-size: 1.71212133em;
+    padding-top: 8px;
+    
+  }
+}

@@ -1,59 +1,46 @@
 import React, { Component } from "react";
 import Class from "./ProductDetail.module.css";
 import "./ProductDetail.css";
+import { modifyItemProduceQuery } from "../../../SharedComponents/LocalServer/LocalServer"
+
 
 class ProductProduceDetail extends Component {
-  modifyProduce = id => {
-    console.log("Produce within Clicked: ", id);
-    const newId = id.substring(2);
-    console.log("New id: ", newId);
-    console.log("Edited details: ", this.props.itemProduceDetails);
+  constructor() {
+    super();
+    this.state = {
+      itemProduceDetails: ''
+    };
+    this.priorCompletionDate = 0;
+    this.modifiedSeed = "";
+  }
+
+  modifyItem = async () => {
+    if (this.state.itemProduceDetails !== "") {
+      await modifyItemProduceQuery(this.state.itemProduceDetails);
+      await this.props.refreshProduce(this.state.itemProduceDetails);
+    };
+
+    this.props.removeOverlay();
+
   };
 
-  getPackageTypeValue = () => {
-    const element = document.getElementById("packageType");
-    switch (this.props.itemProduceDetails.packageType) {
-      case "Bunch":
-        element.value = "Bunch";
-        break;
-      case "Head":
-        element.value = "Head";
-        break;
-      case "Bag":
-        element.value = "Bag";
-        break;
-      default:
-        break;
-    }
+  onChange = e => {
+    let itemProduceDetails = this.props.itemProduceDetails;
+    itemProduceDetails[e.target.name] = e.target.value;
+    this.setState({ itemProduceDetails: itemProduceDetails });
+    console.log("Produce details:", itemProduceDetails);
+    console.log("est completion date", this.props.itemProduceDetails[e.target.name]);
+
   };
 
-  getModifiedSeedValue = () => {
-    const propModifiedSeed = this.props.itemProduceDetails.modifiedSeed;
-    const element = document.getElementById("modifiedSeed");
-    if (propModifiedSeed === true) {
-      element.value = "Yes";
-    } else if (propModifiedSeed === false) {
-      element.value = "No";
-    }
-  };
-
-  getHeirloomValue = () => {
-    const propHeirloom = this.props.itemProduceDetails.heirloom;
-    const element = document.getElementById("heirloom");
-    if (propHeirloom === true) {
-      element.value = "Yes";
-    } else if (propHeirloom === false) {
-      element.value = "No";
-    }
-  };
-
-  getGmoValue = () => {
-    const propGmo = this.props.itemProduceDetails.gmo;
-    const element = document.getElementById("gmo");
-    if (propGmo === true) {
-      element.value = "Yes";
-    } else if (propGmo === false) {
-      element.value = "No";
+  getEstCompletionDate = () => {
+    const propCompletionDate = this.props.itemProduceDetails.estCompletionDate;
+    if (propCompletionDate) {
+      if (propCompletionDate === "Mon, 01 Jan 1 00:00:00 GMT") {
+        this.priorCompletionDate = "No value entered";
+      } else {
+        this.priorCompletionDate = propCompletionDate;
+      }
     }
   };
 
@@ -61,7 +48,7 @@ class ProductProduceDetail extends Component {
     const {
       id,
       type,
-      datePlanted,
+      estCompletionDate,
       seedType,
       fertilizerTypeUsed,
       pesticideTypeUsed,
@@ -76,6 +63,36 @@ class ProductProduceDetail extends Component {
       deliveredTo,
       status
     } = this.props.itemProduceDetails;
+
+    const btnApprove = (this.props.itemProduceDetails.status === "Pending Producer" && this.props.displayApprove) ? (
+      <button
+        className={Class.itemButtonsCancel}
+        onClick={() =>
+          this.props.approveItem(
+            this.props.itemProduceDetails.id,
+            this.props.itemProduceDetails.status
+          )
+        }
+      >
+        Approve
+      </button>
+    ) : null
+      ;
+
+    const btnReject = (this.props.itemProduceDetails.status === "Pending Producer" && this.props.displayApprove) ? (
+      <button
+        className={Class.itemButtonsCancel}
+        onClick={() =>
+          this.props.rejectItem(
+            this.props.itemProduceDetails.id,
+            this.props.itemProduceDetails.status
+          )
+        }
+      >
+        Reject
+      </button>
+    ) : null;
+
     return (
       <div id="produceOverlay">
         <div className={Class.itemDetailContainer}>
@@ -93,148 +110,119 @@ class ProductProduceDetail extends Component {
                 </tr>
                 <tr>
                   <td>Package Type</td>
-                  <td className={Class.row}>
-                    <select
-                      onChange={this.onChange}
-                      id="packageType"
-                      name="packageType"
-                      multiple=""
-                      className="ui fluid dropdown"
-                    >
-                      <option value="Bunch">Bunch</option>
-                      <option value="Head">Head</option>
-                      <option value="Bag">Bag</option>
-                    </select>
-                    {this.getPackageTypeValue()}
+                  <td className={Class.noInput}>
+                    {this.props.itemProduceDetails.packageType}
                   </td>
                 </tr>
                 <tr>
-                  <td className="two wide column">Date Planted</td>
+                  <td>Package Size</td>
+                  <td className={Class.noInput}>
+                    {this.props.itemProduceDetails.packageSize}{" "}
+                    {this.props.itemProduceDetails.packageSizeUnit}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Est Completion Date</td>
                   <td className={Class.row}>
-                    <input
-                      className={Class.tableRow}
-                      type="text"
-                      placeholder={datePlanted}
-                    />
+                    <div className={Class.tableRowDateParent}>
+                      <input
+                        className={Class.tableRow}
+                        type="date"
+                        id="estCompletionDate"
+                        onChange={this.onChange}
+                        name="estCompletionDate"
+                        value={estCompletionDate}
+                        placeholder={estCompletionDate}
+                      />
+                      <div className={Class.tableRowDate2}>
+                        {this.getEstCompletionDate()}
+                        Current: {this.priorCompletionDate}
+                      </div>
+                    </div>
                   </td>
                 </tr>
                 <tr>
                   <td>Seed Type</td>
-                  <td className={Class.row}>
-                    <input
-                      className={Class.tableRow}
-                      type="text"
-                      placeholder={seedType}
-                    />
-                  </td>
+                  <td className={Class.noInput}>{seedType}</td>
                 </tr>
                 <tr>
                   <td>Modified Seed</td>
-                  <td className={Class.row}>
-                    <select
-                      onChange={this.onChange}
-                      id="modifiedSeed"
-                      name="modifiedSeed"
-                      multiple=""
-                      className="ui fluid dropdown"
-                    >
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </select>
-                    {this.getModifiedSeedValue()}
+                  <td className={Class.noInput}>
+                    {this.props.itemProduceDetails.modifiedSeed ? "Yes" : "No"}
                   </td>
                 </tr>
                 <tr>
                   <td>Heirloom</td>
-                  <td className={Class.row}>
-                    <select
-                      onChange={this.onChange}
-                      id="heirloom"
-                      name="heirloom"
-                      multiple=""
-                      className="ui fluid dropdown"
-                    >
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </select>
-                    {this.getHeirloomValue()}
+                  <td className={Class.noInput}>
+                    {this.props.itemProduceDetails.heirloom ? "Yes" : "No"}
                   </td>
                 </tr>
                 <tr>
                   <td>Fertilizer Type</td>
-                  <td className={Class.row}>
-                    <input
-                      className={Class.tableRow}
-                      type="text"
-                      placeholder={fertilizerTypeUsed}
-                    />
-                  </td>
+                  <td className={Class.noInput}>{fertilizerTypeUsed}</td>
                 </tr>
                 <tr>
                   <td>Pesticide Type</td>
-                  <td className={Class.row}>
-                    <input
-                      className={Class.tableRow}
-                      type="text"
-                      placeholder={pesticideTypeUsed}
-                    />
-                  </td>
+                  <td className={Class.noInput}>{pesticideTypeUsed}</td>
                 </tr>
                 <tr>
                   <td>Est. Quantity Planted</td>
-                  <td className={Class.row}>
-                    <input
-                      className={Class.tableRow}
-                      type="text"
-                      placeholder={estQuantityPlanted}
-                    />
+                  <td className={Class.noInput}>
+                    {estQuantityPlanted === 0 ? "" : estQuantityPlanted}
                   </td>
                 </tr>
                 <tr>
-                  <td>GMO</td>
-                  <td className={Class.row}>
-                    <select
-                      onChange={this.onChange}
-                      id="gmo"
-                      name="gmo"
-                      multiple=""
-                      className="ui fluid dropdown"
-                    >
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </select>
-                    {this.getGmoValue()}
+                  <td>Certified Organic</td>
+                  <td className={Class.noInput}>
+                    {this.props.itemProduceDetails.certifiedOrganic
+                      ? "Yes"
+                      : "No"}
                   </td>
                 </tr>
                 <tr>
                   <td>Est. Finished Qty</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name="estFinishedQty"
                       className={Class.tableRow}
-                      type="text"
+                      type="number"
                       placeholder={estFinishedQty}
+                      value={estFinishedQty}
                     />
                   </td>
                 </tr>
                 <tr>
                   <td>Est. Price</td>
-                  <td className={Class.noInput}>{estPrice}</td>
+                  <td className={Class.noInput}>
+                    {estPrice === 0 ? "" : estPrice}
+                  </td>
                 </tr>
                 <tr>
                   <td>Qty Accepted For Listing</td>
-                  <td className={Class.noInput}>{qtyAcceptedForListing}</td>
+                  <td className={Class.noInput}>
+                    {qtyAcceptedForListing === 0 ? "" : qtyAcceptedForListing}
+                  </td>
                 </tr>
                 <tr>
                   <td>Qty Accepted At Delivery</td>
-                  <td className={Class.noInput}>{qtyAcceptedAtDelivery}</td>
+                  <td className={Class.noInput}>
+                    {qtyAcceptedAtDelivery === 0 ? "" : qtyAcceptedAtDelivery}
+                  </td>
                 </tr>
                 <tr>
                   <td>Final Price Paid</td>
-                  <td className={Class.noInput}>{finalPricePaid}</td>
+                  <td className={Class.noInput}>
+                    {finalPricePaid === 0 ? "" : finalPricePaid}
+                  </td>
                 </tr>
                 <tr>
                   <td>Delivered Date</td>
-                  <td className={Class.noInput}>{deliveredDate}</td>
+                  <td className={Class.noInput}>
+                    {deliveredDate === "Mon, 01 Jan 1 00:00:00 GMT"
+                      ? ""
+                      : deliveredDate}
+                  </td>
                 </tr>
                 <tr>
                   <td>Delivered To</td>
@@ -244,9 +232,12 @@ class ProductProduceDetail extends Component {
                   <td>Comments</td>
                   <td className={Class.row}>
                     <input
+                      onChange={this.onChange}
+                      name="comments"
                       className={Class.tableRow}
                       type="text"
                       placeholder={comments}
+                      value={comments}
                     />
                   </td>
                 </tr>
@@ -256,9 +247,7 @@ class ProductProduceDetail extends Component {
           <div className={Class.itemButtonsContainer}>
             <button
               className={Class.itemButtonsModify}
-              onClick={() =>
-                this.modifyProduce(this.props.itemProduceDetails.id)
-              }
+              onClick={() => this.modifyItem()}
             >
               Modify
             </button>
@@ -268,6 +257,9 @@ class ProductProduceDetail extends Component {
             >
               Cancel
             </button>
+            {btnApprove}
+            {btnReject}
+
           </div>
         </div>
       </div>

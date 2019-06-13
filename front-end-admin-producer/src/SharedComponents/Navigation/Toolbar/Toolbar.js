@@ -1,15 +1,17 @@
-import React from 'react';
-import NavigationItems from '../NavigationItems/NavigationItems';
-import styles from './Toolbar.module.css';
-// import Logo from '../../UI/Logo/Logo';
+import React from "react";
+import NavigationItems from "../NavigationItems/NavigationItems";
+import styles from "./Toolbar.module.css";
+import AdminNav from "../../AdminNav";
 
-const toolbar = (props) => (
-   <header className={styles.header}>
+const toolbar = () => (
+  <div id="desktop-menu">
+    <AdminNav />
+    <header className={styles.header}>
       <nav className={styles.nav}>
-         {/* <Logo/> */}
-         <NavigationItems/>
+        <NavigationItems />
       </nav>
-   </header>
-)
+    </header>
+  </div>
+);
 
 export default toolbar;

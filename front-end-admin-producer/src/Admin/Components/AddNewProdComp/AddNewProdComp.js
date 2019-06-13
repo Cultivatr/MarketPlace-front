@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Class from "./AddNewProdComp.module.css";
 import Button from "../../../SharedComponents/UI/Button";
+import { addNewProducer } from "../../../SharedComponents/LocalServer/LocalServer"
 
 class AddNewProdComp extends Component {
   state = {
@@ -17,9 +18,9 @@ class AddNewProdComp extends Component {
       billingAddressPostalCode: "",
       farmName: "",
       farmLocation: "",
-      farmType: "LiveStock",
+      farmType: "",
       mailingAddressStreet: "",
-      area: "Southern AB",
+      area: "",
       mailingAddressCity: "",
       mailingAddressProvince: "Alberta",
       rating: 0,
@@ -30,95 +31,70 @@ class AddNewProdComp extends Component {
       //Byron will delete the following two variables once he has time
       // to trace them all the way through the code
       isProducer: false,
-      isOther: false
+      isOther: false,
+      errorMessage: ""
     }
+  };
+
+  camelCaseString = string => {
+    if (string.name === "area" || string.name === "farmType") {
+      return string.value;
+    }
+    const text = string.value
+      .toLowerCase()
+      .split(" ")
+      .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+      .join(" ");
+    return text;
   };
 
   onChange = e => {
     let data = this.state.data;
     data.isAdmin = document.getElementById("isAdmin").checked;
-    let newdata = { ...data, [e.target.name]: e.target.value };
+    const newValue = this.camelCaseString(e.target);
+    let newdata = { ...data, [e.target.name]: newValue };
     this.setState({ data: newdata });
   };
 
   onSubmit = e => {
     e.preventDefault();
     const form = e.target;
-    const {
-      firstName,
-      lastName,
-      billingAddressCity,
-      primaryNumber,
-      secondaryNumber,
-      billingAddressStreet,
-      billingAddressProvince,
-      email,
-      billingAddressCountry,
-      billingAddressPostalCode,
-      farmName,
-      farmLocation,
-      mailingAddressCity,
-      mailingAddressStreet,
-      farmType,
-      area,
-      mailingAddressProvince,
-      rating,
-      mailingAddressCountry,
-      mailingAddressPostalCode,
-      comments,
-      isAdmin,
-      isProducer,
-      isOther
-    } = this.state.data;
     document.getElementById("submitBtn").className += " loading";
-    fetch("http://localhost:5000/admin/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        billingAddressStreet: billingAddressStreet,
-        primaryNumber: primaryNumber,
-        secondaryNumber: secondaryNumber,
-        billingAddressCity: billingAddressCity,
-        billingAddressProvince: billingAddressProvince,
-        email: email,
-        billingAddressCountry: billingAddressCountry,
-        billingAddressPostalCode: billingAddressPostalCode,
-        farmName: farmName,
-        farmLocation: farmLocation,
-        mailingAddressStreet: mailingAddressStreet,
-        farmType: farmType,
-        area: area,
-        mailingAddressCity: mailingAddressCity,
-        mailingAddressProvince: mailingAddressProvince,
-        rating: rating,
-        mailingAddressCountry: mailingAddressCountry,
-        mailingAddressPostalCode: mailingAddressPostalCode,
-        comments: comments,
-        isAdmin: isAdmin,
-        isProducer: isProducer,
-        isOther: isOther
-      })
-    })
-      .then(response => response.json())
+    addNewProducer(this.state.data)
       .then(data => {
-        console.log(data);
+        if (data[0] === "E") {
+          document.getElementById("submitBtn").className = "ui button";
+          this.props.errorHandler(data);
+          console.log("Error Message");
+        } else {
+          console.log("No error");
+          form.reset();
+          setTimeout(() => this.props.OnClickListUsers(), 200);
+        }
       })
-      .then(form.reset())
-      .catch(error => console.log(error));
-    setTimeout(() => this.props.OnClickListUsers(), 1000);
+      .catch(error => console.log("ERROR:", error));
   };
 
   render() {
     return (
-      <div className="ui grid">
-        <form onSubmit={this.onSubmit} className="ui row form">
+      <div className="ui grid" id="add-user-form">
+        <div id="desktop-menu" className={Class.containerTitle}>
+          <h4 >Add New User</h4>
+        </div>
+        <div className="required-header" id="add-user-required-id">
+          Coloured Border Indicates Required Field
+        </div>
+        <form onSubmit={this.onSubmit} className="ui row form" >
           <div className="four wide column">
             <div className={Class.field}>
               <div className="field">
                 <label>First Name</label>
-                <input onChange={this.onChange} type="text" name="firstName" />
+                <input
+                  onChange={this.onChange}
+                  type="text"
+                  name="firstName"
+                  style={{ border: "3px solid #1ECE88" }}
+                />
               </div>
             </div>
           </div>
@@ -126,14 +102,19 @@ class AddNewProdComp extends Component {
             <div className={Class.field}>
               <div className="field">
                 <label>Last Name</label>
-                <input onChange={this.onChange} type="text" name="lastName" />
+                <input
+                  onChange={this.onChange}
+                  type="text"
+                  name="lastName"
+                  style={{ border: "3px solid #1ECE88" }}
+                />
               </div>
             </div>
           </div>
           <div className="eight wide column">
             <div className={Class.field}>
               <div className="field">
-                <label>* Billing Address - Street</label>
+                <label>Billing Address - Street</label>
                 <input
                   onChange={this.onChange}
                   type="text"
@@ -148,9 +129,10 @@ class AddNewProdComp extends Component {
                 <label>Primary Number</label>
                 <input
                   onChange={this.onChange}
-                  type="text"
+                  type="number"
                   name="primaryNumber"
                   placeholder="xxx-xxx-xxxx"
+                  style={{ border: "3px solid #1ECE88" }}
                 />
               </div>
             </div>
@@ -161,7 +143,7 @@ class AddNewProdComp extends Component {
                 <label>Secondary Number</label>
                 <input
                   onChange={this.onChange}
-                  type="text"
+                  type="number"
                   name="secondaryNumber"
                   placeholder="xxx-xxx-xxxx"
                 />
@@ -204,6 +186,7 @@ class AddNewProdComp extends Component {
                   type="email"
                   name="email"
                   placeholder="must contain @ symbol"
+                  style={{ border: "3px solid #1ECE88" }}
                 />
               </div>
             </div>
@@ -259,7 +242,7 @@ class AddNewProdComp extends Component {
           <div className="eight wide column">
             <div className={Class.field}>
               <div className="field">
-                <label>* Mailing Address - Street</label>
+                <label>Mailing Address - Street</label>
                 <input
                   onChange={this.onChange}
                   type="text"
@@ -278,7 +261,7 @@ class AddNewProdComp extends Component {
                   multiple=""
                   className="ui fluid dropdown"
                 >
-                  <option value="LiveStock">Live Stock</option>
+                  <option value="Livestock">Live Stock</option>
                   <option value="Produce">Produce</option>
                   <option value="Other">Other</option>
                 </select>
@@ -431,17 +414,7 @@ class AddNewProdComp extends Component {
           </div>
 
           <div className={Class.buttonContainer}>
-            <Button>Clear Fields</Button>
-            <div className={Class.addNewProdButton}>
-              <button type="submit" className="ui button">
-                Submit
-              </button>
-            </div>
-            <div className={Class.addNewProdButton}>
-              <button type="cancel" className="ui button">
-                Cancel
-              </button>
-            </div>
+            <Button>Submit</Button>
           </div>
         </form>
       </div>

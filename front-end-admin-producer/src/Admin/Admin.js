@@ -1,26 +1,36 @@
 import React, { Component } from "react";
 import Class from "./admin.module.css";
-import ContainerDashboard from "./Components/ContainerDashboard/ContainerDashboard";
+import AdminNav from "../SharedComponents/AdminNav";
+import DisplayAllDashboard from "./Components/ContainerDashboard/DisplayAllDashboard";
 import { filterData, getItemDetails } from "../AppUtils";
 import AddNewProdComp from "./Components/AddNewProdComp/AddNewProdComp";
 import UsersComp from "./Components/UsersComp/UsersComp";
 import ItemLiveStockDetail from "./Components/ItemDetailComp/ItemLivestockDetail";
 import ItemProduceDetail from "./Components/ItemDetailComp/ItemProduceDetail";
+import ErrorModal from "../SharedComponents/ErrorModal";
+import AdminSettings from "./Components/AdminSettings/AdminSettings";
+import AdminHelper from "./AdminHelper";
+import AdminSlideMenu from "../SharedComponents/Navigation/SlideMenu/AdminSlideMenu"
+import { loadUserQuery, loadProduceQuery, loadLivestockQuery, sendEmailQuery, incrementLivestockQuery, incrementProduceQuery } from "../SharedComponents/LocalServer/LocalServer"
+
 
 class Admin extends Component {
   constructor() {
     super();
+    this.geti = 0;
     this.produceItems = [];
     this.livestockItems = [];
     this.data = [];
-    this.pending = [];
+    this.pendingAdmin = [];
+    this.pendingProducer = [];
     this.accepted = [];
     this.sold = [];
     this.delivered = [];
     this.notAccepted = [];
+    this.archive = [];
     this.state = {
       logInData: "",
-      dataToShow: "",
+      dataToShow: "toBeAccepted",
       data: {},
       items_produce: [],
       items_livestock: [],
@@ -31,7 +41,10 @@ class Admin extends Component {
       accepted: [],
       sold: [],
       delivered: [],
-      notAccepted: []
+      notAccepted: [],
+      pushThroughBtnText: "",
+      errorModalIsOpen: false,
+      modalErrorMessage: ""
     };
   }
 
@@ -45,161 +58,163 @@ class Admin extends Component {
       await this.loadUserData();
       await this.loadProduceData();
       await this.loadLivestockData();
-
-      
+      await this.createData();
     } catch (error) {
       console.log("Admin Error", error);
     }
-
-    await this.createData();
-
-    console.log("USERS:", this.state.users);
-    console.log("PRODUCE:", this.state.items_produce);
-    console.log("LIVESTOCK:", this.state.items_livestock);
   };
 
   loadUserData = async () => {
-    const response3 = await fetch(`http://localhost:5000/admin/users/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json3 = await response3.json();
-      this.setState({ users: json3 });
-  }
-      loadProduceData = async () => {
-      const response = await fetch(`http://localhost:5000/livestock/all/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json = await response.json();
-      this.setState({ items_produce: json });
-  }
-      loadLivestockData = async () => {
-      const response2 = await fetch(`http://localhost:5000/produce/all/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-      const json2 = await response2.json();
-      this.setState({ items_livestock: json2 });
-  }
+    const response3 = await loadUserQuery()
+    const json3 = await response3.json();
+    this.setState({ users: json3 });
+  };
+  loadProduceData = async () => {
+    const response = await loadProduceQuery()
+    const json = await response.json();
+    this.setState({ items_produce: json });
+  };
+  loadLivestockData = async () => {
+    const response2 = await loadLivestockQuery()
+    const json2 = await response2.json();
+    this.setState({ items_livestock: json2 });
+  };
 
-  createData = () => {
-    if (this.state.items_produce || this.state.items_livestock) {
-      if (
-        this.state.items_produce.length > 0 ||
-        this.state.items_livestock.length > 0
-      ) {
-        for (let i = 0; i < this.state.items_produce.length; i++) {
-          this.data.push(this.state.items_produce[i]);
-        }
-        for (let i = 0; i < this.state.items_livestock.length; i++) {
-          this.data.push(this.state.items_livestock[i]);
-        }
-
-        for (let i = 0; i < this.data.length; i++) {
-          const temp = this.state.users.users.filter(
-            user => user.id === this.data[i].userId
-          );
-          this.data[i].farm = temp[0].farmName;
-        }
-      } else {
-        this.setState({ data: this.data });
-      }
-      this.setState({ data: this.data });
-      this.helperFilterFunction();
+  createData = async () => {
+    this.data.length = 0;
+    if (this.state.items_produce.produce) {
+      this.state.items_produce.produce.forEach(item => {
+        this.data.push(item);
+      });
     }
+
+    if (this.state.items_livestock.livestock) {
+      this.state.items_livestock.livestock.forEach(item => {
+        this.data.push(item);
+      });
+    }
+    if (this.data) {
+      this.data.forEach(item => {
+        const temp = this.state.users.users.filter(
+          user => user.id === item.userId
+        );
+        item.farm = temp[0].farmName;
+        item.email = temp[0].email;
+      });
+    }
+    await this.setState({ data: this.data });
+    const dataToPass = this.data;
+    await this.helperFilterFunction(dataToPass);
   };
 
   refreshLiveStock = data => {
-    this.setState({ items_livestock: data });
+    this.setState({ itemLivestockDetails: data });
   };
   refreshProduce = data => {
-    this.setState({ items_produce: data });
+    this.setState({ itemProduceDetails: data });
   };
 
-  helperFilterFunction = () => {
-    filterData(
-      this.state.data,
-      this.pending,
+  helperFilterFunction = async dataToPass => {
+    await filterData(
+      dataToPass,
+      this.pendingAdmin,
+      this.pendingProducer,
       this.accepted,
       this.sold,
       this.delivered,
-      this.notAccepted
+      this.notAccepted,
+      this.archive
     );
-    this.setState({
-      pending: this.pending,
+    await this.setState({
+      pendingAdmin: this.pendingAdmin,
+      pendingProducer: this.pendingProducer,
       accepted: this.accepted,
       sold: this.sold,
       delivered: this.delivered,
-      notAccepted: this.notAccepted
-    })
+      notAccepted: this.notAccepted,
+      archive: this.archive
+    });
   };
 
   nextStatus = status => {
-    if (status === "Pending Approval") return "accepted";
-    if (status === "accepted") return "sold";
-    if (status === "sold") return "delivered";
-    if (status === "delivered") return "Pending Approval";
-    if (status === "not accepted") return "not accepted";
+    if (status === "Pending Admin") return "Pending Producer";
+    if (status === "Accepted") return "Sold";
+    if (status === "Sold") return "Delivered";
+    if (status === "Delivered") return "Archive";
+    if (status === "Not Accepted") return "Not Accepted";
   };
   rejectLivestock = id => {
-    this.pushThroughLivestock(id, "not accepted");
+    this.pushThroughLivestock(id, "Not Accepted");
   };
   rejectProduce = id => {
-    this.pushThroughProduce(id, "not accepted");
+    this.pushThroughProduce(id, "Not Accepted");
+  };
+  sendEmail = (farm, email) => {
+    console.log("send email", farm, email)
+    sendEmailQuery(farm, email)
   };
 
-  pushThroughLivestock = async (id, status) => {
+  pushThroughBtnTextHelper = currentStatus => {
+    if (currentStatus === "Pending Admin") return "Accept";
+    if (currentStatus === "Accepted") return "Mark As Sold";
+    if (currentStatus === "Sold") return "Mark As Delivered";
+    if (currentStatus === "Delivered") return "Send To Archives";
+    if (currentStatus === "Not Accepted") return "Accept";
+  };
+
+  pushThroughPrompt = (id, status, farm, email) => { };
+
+  pushThroughLivestock = async (id, status, farm, email) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
-    await fetch("http://localhost:5000/livestock/incrementStatus/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        id: subId,
-        nextStatus: nextStatus
-      })
-    }).catch(error => console.log(error));
+    this.sendEmail(farm, email);
+    await incrementLivestockQuery(subId, nextStatus)
     await this.loadLivestockData();
     await this.createData();
-    this.removeOverlay();
+    await this.removeOverlay();
   };
-  pushThroughProduce = (id, status) => {
+  pushThroughProduce = async (id, status, farm, email) => {
     const nextStatus = this.nextStatus(status);
     const subId = id.substr(2);
-    fetch("http://localhost:5000/produce/incrementStatus/", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        id: subId,
-        nextStatus: nextStatus
-      })
-    }).catch(error => console.log(error));
-    this.helperFilterFunction();
-    this.removeOverlay();
+    this.sendEmail(farm, email);
+    await incrementProduceQuery(subId, nextStatus)
+    await this.loadProduceData();
+    await this.createData();
+    await this.removeOverlay();
   };
-  removeOverlay = event => {
+  removeOverlay = () => {
     document.getElementById("itemProduceOverlay").style.display = "none";
     document.getElementById("itemLivestockOverlay").style.display = "none";
   };
 
   getItemObj = async e => {
-    let i;
-    for (i = 0; i < this.state.data.length; i++) {
-      if (this.state.data[i].datePlanted) {
-        this.produceItems.push(this.state.data[i]);
-      } else if (this.state.data[i].birthdate) {
-        this.livestockItems.push(this.state.data[i]);
+    this.produceItems.length = 0;
+    this.livestockItems.length = 0;
+    this.state.data.forEach(item => {
+      if (item.id[0] === "P") {
+        this.produceItems.push(item);
+      } else if (item.id[0] === "L") {
+        this.livestockItems.push(item);
       }
-    }
+    });
     if (e.target.id.search("P") === 0) {
       await this.setState({
         itemProduceDetails: getItemDetails(e.target.id, this.produceItems)
+      });
+      await this.setState({
+        pushThroughBtnText: this.pushThroughBtnTextHelper(
+          this.state.itemProduceDetails.status
+        )
       });
       this.showOverlayProduce();
     } else if (e.target.id.search("L") === 0) {
       await this.setState({
         itemLivestockDetails: getItemDetails(e.target.id, this.livestockItems)
+      });
+      await this.setState({
+        pushThroughBtnText: this.pushThroughBtnTextHelper(
+          this.state.itemLivestockDetails.status
+        )
       });
       this.showOverlayLivestock();
     }
@@ -207,10 +222,8 @@ class Admin extends Component {
 
   getUsers = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/admin/users/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
+      this.geti++;
+      const response = loadUserQuery()
       const json = await response.json();
       await this.setState({ users: json });
     } catch (error) {
@@ -228,9 +241,15 @@ class Admin extends Component {
   showOverlayLivestock = () => {
     document.getElementById("itemLivestockOverlay").style.display = "block";
   };
+  OnClickAllItems = () => {
+    this.setState({ dataToShow: "allItems" });
+  };
 
   OnClickAccept = () => {
     this.setState({ dataToShow: "toBeAccepted" });
+  };
+  OnClickAwaitingProd = () => {
+    this.setState({ dataToShow: "awaitingProducer" });
   };
 
   OnClickConditional = () => {
@@ -249,101 +268,61 @@ class Admin extends Component {
     this.setState({ dataToShow: "notAccepted" });
   };
 
+  OnClickArchive = () => {
+    this.setState({ dataToShow: "archive" });
+  };
+
   OnClickListUsers = async () => {
     await this.getUsers();
-    await this.setState({ dataToShow: "toBeAccepted" });
+    await this.setState({ dataToShow: "allItems" }); // added as a hack to re-render listUsers to force update of state
     await this.setState({ dataToShow: "listUsers" });
   };
 
   OnClickAddUser = () => {
     this.setState({ dataToShow: "addNewProd" });
   };
+  OnClickAdminSettings = () => {
+    this.setState({ dataToShow: "adminSettings" });
+  };
+  errorHandler = input => {
+    this.setState({
+      errorModalIsOpen: true,
+      modalErrorMessage: input
+    });
+  };
+  closeErrorModal = () => {
+    this.setState({ errorModalIsOpen: false });
+  };
 
   render() {
-    let toShow;
-    if (this.state.dataToShow === "toBeAccepted") {
-      toShow = (
-        <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <h4>Items To Be Accepted Conditionally</h4>
-          </div>
-          <ContainerDashboard data={this.pending} itemObj={this.getItemObj} />
-        </div>
-      );
-    } else if (this.state.dataToShow === "acceptedConditional") {
-      toShow = (
-        <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <h4>Items Accepted Conditionally</h4>
-          </div>
-          <ContainerDashboard data={this.state.accepted} itemObj={this.getItemObj} />
-        </div>
-      );
-    } else if (this.state.dataToShow === "soldToBeDelivered") {
-      toShow = (
-        <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <h4>Items Sold To Be Delivered</h4>
-          </div>
-          <ContainerDashboard data={this.state.sold} itemObj={this.getItemObj} />
-        </div>
-      );
-    } else if (this.state.dataToShow === "delivered") {
-      toShow = (
-        <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <h4>Items Delivered</h4>
-          </div>
-          <ContainerDashboard data={this.state.delivered} itemObj={this.getItemObj} />
-        </div>
-      );
-    } else if (this.state.dataToShow === "notAccepted") {
-      toShow = (
-        <div className={Class.container2}>
-          <div className={Class.containerTitle}>
-            <h4>Items Not Accepted</h4>
-          </div>
-          <ContainerDashboard
-            data={this.state.notAccepted}
-            itemObj={this.getItemObj}
-          />
-        </div>
-      );
-    } else if (this.state.dataToShow === "listUsers") {
-      toShow = (
-        <div className={Class.container2}>
-          <UsersComp
-            OnClickListUsers={this.OnClickListUsers}
-            data={this.state.users}
-            showUsers={this.OnClickListUsers}
-          />
-        </div>
-      );
-    } else if (this.state.dataToShow === "addNewProd") {
-      toShow = (
-        <div className={Class.container3}>
-          <div className={Class.containerTitle}>
-            <h4>
-              <u>Add New Users</u>
-            </h4>
-          </div>
-          <AddNewProdComp
-            OnClickListUsers={this.OnClickListUsers}
-            refreshUsers={this.refreshUsers}
-          />
-        </div>
-      );
-    }
     return (
       <div className="App">
-        <h1 className={Class.heading}>Welcome Dan!</h1>
+        <AdminNav />
+        <AdminSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"}
+          OnClickAllItems={this.OnClickAllItems}
+          OnClickAccept={this.OnClickAccept}
+          OnClickAwaitingProd={this.OnClickAwaitingProd}
+          OnClickConditional={this.OnClickConditional}
+          OnClickSold={this.OnClickSold}
+          OnClickDelivered={this.OnClickDelivered}
+          OnClickNotAccepted={this.OnClickNotAccepted}
+          OnClickArchive={this.OnClickArchive}
+          OnClickListUsers={this.OnClickListUsers}
+          OnClickAddUser={this.OnClickAddUser}
+          OnClickAdminSettings={this.OnClickAdminSettings} />
         <main>
+          <ErrorModal
+            errorModalIsOpen={this.state.errorModalIsOpen}
+            closeErrorModal={this.closeErrorModal}
+            modalErrorMessage={this.state.modalErrorMessage}
+          />
           <ItemProduceDetail
             itemProduceDetails={this.state.itemProduceDetails}
             removeOverlay={this.removeOverlay}
             pushThroughProduce={this.pushThroughProduce}
             rejectProduce={this.rejectProduce}
             refreshProduce={this.refreshProduce}
+            pushThroughBtnText={this.state.pushThroughBtnText}
           />
           <ItemLiveStockDetail
             itemLivestockDetails={this.state.itemLivestockDetails}
@@ -351,16 +330,31 @@ class Admin extends Component {
             pushThroughLivestock={this.pushThroughLivestock}
             rejectLivestock={this.rejectLivestock}
             refreshLiveStock={this.refreshLiveStock}
+            pushThroughBtnText={this.state.pushThroughBtnText}
           />
           <div className={Class.container}>
             <div className={Class.boxContainer}>
-              <div className={Class.leftNav}>
+              <div id="desktop-menu" className={Class.leftNav}>
+                <button
+                  id="button-allItems"
+                  className={Class.buttonAdmin}
+                  onClick={this.OnClickAllItems}
+                >
+                  All Items
+                </button>
                 <button
                   id="button-accept"
                   className={Class.buttonAdmin}
                   onClick={this.OnClickAccept}
                 >
                   Items To Accept
+                </button>
+                <button
+                  id="button-conditional"
+                  className={Class.buttonAdmin}
+                  onClick={this.OnClickAwaitingProd}
+                >
+                  Awaiting Producer
                 </button>
                 <button
                   id="button-conditional"
@@ -388,7 +382,14 @@ class Admin extends Component {
                   className={Class.buttonAdmin}
                   onClick={this.OnClickNotAccepted}
                 >
-                  Items Not Accepted
+                  Rejected Items
+                </button>
+                <button
+                  id="archive"
+                  className={Class.buttonAdmin}
+                  onClick={this.OnClickArchive}
+                >
+                  Archive
                 </button>
                 <button
                   id="button-listUsers"
@@ -403,8 +404,147 @@ class Admin extends Component {
                 >
                   Add User
                 </button>
+                <button
+                  className={Class.buttonAdmin}
+                  onClick={this.OnClickAdminSettings}
+                >
+                  Admin Settings
+                </button>
               </div>
-              <div className={Class.container1}>{toShow}</div>
+
+              <div id="mobile-parent-container" className={Class.container1}>
+                {this.state.dataToShow === "listUsers" && (
+                  <div className={Class.container2}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile">
+                        List of Users
+                      </h4>
+                    </div>
+                    <UsersComp
+                      OnClickListUsers={this.OnClickListUsers}
+                      data={this.state.users}
+                      showUsers={this.OnClickListUsers} // here
+                      title="List of Users"
+                    />
+                  </div>
+                )}
+                {this.state.dataToShow === "addNewProd" && (
+                  <div id="mobile-admin-container" className={Class.container3}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile">
+                        Add New Users
+                      </h4>
+                    </div>
+                    <AddNewProdComp
+                      OnClickListUsers={this.OnClickListUsers}
+                      refreshUsers={this.refreshUsers}
+                      errorHandler={this.errorHandler}
+                    />
+                  </div>
+                )}
+                {this.state.dataToShow === "allItems" && (
+                  <div className={Class.containerAdminSettings}>
+                    <h4 className="mobile-header-title admin-mobile">List of All items</h4>
+                    <DisplayAllDashboard
+                      data={this.state.data}
+                      itemObj={this.getItemObj}
+                      title="List of All Items"
+                    />
+                  </div>
+                )}
+                {this.state.dataToShow === "adminSettings" && (
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile">Admin Settings</h4>
+                    </div>
+                    <AdminSettings />
+                  </div>)}
+                {this.state.dataToShow === "toBeAccepted" && (
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile ">To be Accepted Conditionally</h4>
+                    </div>
+                    <AdminHelper
+                      data={this.state.pendingAdmin}
+                      itemObj={this.getItemObj}
+                      title="To be Accepted Conditionally"
+                    />
+                  </div>)}
+                {this.state.dataToShow === "awaitingProducer" && (
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile ">Awaiting Producer Acceptance</h4>
+                    </div>
+                    <AdminHelper
+                      data={this.state.pendingProducer}
+                      itemObj={this.getItemObj}
+                      title="Awaiting Producer Acceptance"
+                    />
+                  </div>
+
+                )}
+                {this.state.dataToShow === "acceptedConditional" && (
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile ">Items Accepted Conditionally</h4>
+                    </div>
+                    <AdminHelper
+                      data={this.state.accepted}
+                      itemObj={this.getItemObj}
+                      title="Items Accepted Conditionally"
+                    />
+                  </div>
+
+                )}
+                {this.state.dataToShow === "soldToBeDelivered" && (
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile ">Items Sold To Be Delivered</h4>
+                    </div>
+                    <AdminHelper
+                      data={this.state.sold}
+                      itemObj={this.getItemObj}
+                      title="Items Sold To Be Delivered"
+                    />
+                  </div>
+                )}
+                {this.state.dataToShow === "delivered" && (
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile ">Items Delivered</h4>
+                    </div>
+                    <AdminHelper
+                      data={this.state.delivered}
+                      itemObj={this.getItemObj}
+                      title="Items Delivered"
+                    />
+                  </div>
+                )}
+                {this.state.dataToShow === "notAccepted" && (
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile ">Items Not Accepted</h4>
+                    </div>
+                    <AdminHelper
+                      data={this.state.notAccepted}
+                      itemObj={this.getItemObj}
+                      title="Items Not Accepted"
+                    />
+                  </div>
+                )}
+                {this.state.dataToShow === "archive" && (
+                  <div className={Class.containerAdminSettings}>
+                    <div className={Class.containerTitle}>
+                      <h4 className="mobile-header-title admin-mobile ">Archive</h4>
+                    </div>
+                    <AdminHelper
+                      data={this.state.archive}
+                      itemObj={this.getItemObj}
+                      title="Archive"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </main>

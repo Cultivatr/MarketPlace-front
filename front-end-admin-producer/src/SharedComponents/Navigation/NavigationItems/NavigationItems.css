@@ -1,0 +1,29 @@
+#awaiting-approval {
+  border: red solid !important ;
+  font-size: 80%;
+  padding: 0;
+  margin: 2px;
+  background: red;
+  font-weight: 900;
+  color: white !important;
+}
+
+#awaiting-approval:hover {
+  color: white !important;
+}
+
+
+@media only screen and (max-width : 999px) {
+#desktop-menu{
+  display: none;
+}
+
+}
+@media only screen and (min-width : 1000px) {
+.mobile-header-title, .mobile-top-menu{
+  display: none;
+}
+#desktop-menu{
+  display: initial;
+}
+}

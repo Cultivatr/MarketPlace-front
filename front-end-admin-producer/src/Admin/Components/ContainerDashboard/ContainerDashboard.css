@@ -1,0 +1,23 @@
+.detail-button-container {
+  background-color: #1ece88;
+  position: relative;
+  right: -30px;
+}
+.detail-button-container:hover {
+  background-color: #16af54;
+}
+
+
+/*manually fixed React table height here - Greg*/
+.ReactTable.-striped.-highlight {
+	/*border: solid black 20px;*/
+	height: 78vh;  
+}
+/*
+.-btn {
+	margin-top: 0px;
+}
+
+button {
+	margin-top: 1px;
+}*/

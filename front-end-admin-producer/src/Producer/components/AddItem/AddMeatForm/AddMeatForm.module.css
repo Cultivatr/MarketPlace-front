@@ -1,3 +1,7 @@
+
+html .eight.wide.column {
+    width: 100% !important;
+ }
 .form-box {
     margin-top: 20px;
     padding: 10px 15px;
@@ -24,8 +28,19 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 50px 0;
+    background-color: white;
  }
+
 
  h2 {
     text-align: center;
 }
+
+@media only screen and (max-width: 425px) {
+
+    .add-meat-mobile{
+        display: flex;
+        flex-direction: column;
+    }
+  
+  }

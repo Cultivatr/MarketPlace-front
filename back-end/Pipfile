@@ -11,7 +11,17 @@ simplejson = "*"
 pytest = "*"
 "psycopg2-binary" = "*"
 "Flask-SQLAlchemy" = "*"
+Flask-Migrate = "*"
+Flask-Heroku = "*"
+gunicorn = "*"
+
 [dev-packages]
+autopep8 = "*"
+gunicorn = "*"
 
 [requires]
+<<<<<<< HEAD
 python_version = "3.7"
+=======
+python_version = "3.6"
+>>>>>>> 7011cedd72236afb0bba2dac5fd8ea4f2902c137

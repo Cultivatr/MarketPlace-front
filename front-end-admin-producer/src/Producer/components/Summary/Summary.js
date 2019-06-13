@@ -1,36 +1,41 @@
 import React, { Component } from "react";
 import matchSorter from "match-sorter";
 import ReactTable from "react-table";
-import { getItemDetails } from "../../../AppUtils";
+import { getItemDetails, filterForPending } from "../../../AppUtils";
 import ProductProduceDetail from "../ProductDetail/ProductProduceDetail";
 import ProductLivestockDetail from "../ProductDetail/ProductLivestockDetail";
+import { loadUserSpecificProduceQuery, loadUserSpecificLivestockQuery } from "../../../SharedComponents/LocalServer/LocalServer"
 import Class from "./Summary.module.css";
+import "./Summary.css";
 
 class Summary extends Component {
   constructor() {
     super();
     this.produceItems = [];
     this.livestockItems = [];
+    this.pendingProducer = [];
     this.data = [];
     this.state = {
+      userFullName: "",
       data: {},
       items_produce: [],
       items_livestock: [],
       itemProduceDetails: {},
       itemLivestockDetails: {},
-      localId: ""
+      localId: "",
+      screenWidth: 0
     };
   }
 
   getItemObj = async e => {
-    let i;
-    for (i = 0; i < this.state.data.length; i++) {
-      if (this.state.data[i].datePlanted) {
-        this.produceItems.push(this.state.data[i]);
-      } else if (this.state.data[i].birthdate) {
-        this.livestockItems.push(this.state.data[i]);
+    this.state.data.forEach(item => {
+      if (item.id[0] === "P") {
+        this.produceItems.push(item);
+      } else if (item.id[0] === "L") {
+        this.livestockItems.push(item);
       }
-    }
+    });
+
     if (e.target.id.search("P") === 0) {
       await this.setState({
         itemProduceDetails: getItemDetails(e.target.id, this.produceItems)
@@ -44,6 +49,14 @@ class Summary extends Component {
     }
   };
 
+  filterForPendingProducer = async dataToPass => {
+    await filterForPending(dataToPass, this.pendingProducer);
+    sessionStorage.setItem(
+      "PendingItems",
+      JSON.stringify(this.pendingProducer.length)
+    );
+  };
+
   showOverlayProduce = () => {
     document.getElementById("produceOverlay").style.display = "block";
   };
@@ -52,24 +65,22 @@ class Summary extends Component {
     document.getElementById("livestockOverlay").style.display = "block";
   };
 
+  componentWillMount = () => {
+    window.addEventListener("resize", () => {
+      this.setState({ screenWidth: window.screen.width })
+    });
+
+  }
+
   componentDidMount = async () => {
+    this.setState({ screenWidth: window.screen.width })
     await this.getId();
     const user1 = this.state.localId;
     try {
-      const response = await fetch(`http://localhost:5000/produce/${user1}/`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
+      const response = await loadUserSpecificProduceQuery(user1)
       const json = await response.json();
-      console.log("Produce items:", json);
       this.setState({ items_produce: json });
-      const response2 = await fetch(
-        `http://localhost:5000/livestock/${user1}/`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" }
-        }
-      );
+      const response2 = await loadUserSpecificLivestockQuery(user1)
       const json2 = await response2.json();
       this.setState({ items_livestock: json2 });
     } catch (error) {
@@ -80,27 +91,27 @@ class Summary extends Component {
 
   getId = () => {
     const tempId = JSON.parse(sessionStorage.getItem("authData")).id;
-    this.setState({ localId: tempId });
+    this.setState({
+      localId: tempId,
+      userFullName: JSON.parse(sessionStorage.getItem("authData")).fullName
+    });
   };
 
-  createData = () => {
-    let i;
-    if (this.state.items_produce || this.state.items_livestock) {
-      if (
-        this.state.items_produce.length > 0 ||
-        this.state.items_livestock.length > 0
-      ) {
-        for (i = 0; i < this.state.items_produce.length; i++) {
-          this.data.push(this.state.items_produce[i]);
-        }
-        for (i = 0; i < this.state.items_livestock.length; i++) {
-          this.data.push(this.state.items_livestock[i]);
-        }
-      } else {
-        this.setState({ data: this.data });
-      }
-      this.setState({ data: this.data });
+  createData = async () => {
+    this.data.length = 0;
+    if (this.state.items_produce.produce) {
+      this.state.items_produce.produce.forEach(item => {
+        this.data.push(item);
+      });
     }
+    if (this.state.items_livestock.livestock) {
+      this.state.items_livestock.livestock.forEach(item => {
+        this.data.push(item);
+      });
+    }
+    await this.setState({ data: this.data });
+    const dataToPass = this.data;
+    await this.filterForPendingProducer(dataToPass);
   };
 
   removeOverlay = event => {
@@ -108,16 +119,26 @@ class Summary extends Component {
     document.getElementById("livestockOverlay").style.display = "none";
   };
 
-  refreshLiveStock = (data) => {
+  refreshLiveStock = data => {
     this.setState({ items_livestock: data });
-}
+  };
+
+  refreshProduce = data => {
+    this.setState({ itemProduceDetails: data });
+  };
 
   render() {
     const data = this.data;
 
     return (
-      <div className="table">
-        <br />
+
+      <div className={Class.table}>
+
+
+        <div className={Class.prodTableHeader}>
+          <h4>Dashboard Table for: {this.state.userFullName}</h4>
+        </div>
+
         <ReactTable
           data={data}
           noDataText="No items from producers!"
@@ -127,12 +148,14 @@ class Summary extends Component {
           }
           columns={[
             {
-              // Header: "Click on headers to sort or type to filter",
-              columns: [
+              Header: "Click on headers to sort or type to filter",
+              columns: this.state.screenWidth > 650 ? [
+
                 {
                   Header: "Item #",
                   id: "Id",
                   width: 75,
+                  placeholder: "Orange",
                   accessor: d => d.id,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["id"] }),
@@ -156,7 +179,7 @@ class Summary extends Component {
                 {
                   Header: "Est. Finished Qty",
                   id: "estFinishedQty",
-                  width: 250,
+                  width: 150,
                   accessor: d => d.estFinishedQty || d.quantity,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, {
@@ -168,13 +191,13 @@ class Summary extends Component {
                   }
                 },
                 {
-                  Header: "Delivered Date",
-                  id: "product",
+                  Header: "Est. Completion Date",
+                  id: "estCompletionDate",
                   width: 250,
-                  accessor: d => d.deliveredDate,
+                  accessor: d => d.estCompletionDate,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, {
-                      keys: ["DeliveredDate"]
+                      keys: ["estCompletionDate"]
                     }),
                   filterAll: true,
                   style: {
@@ -199,12 +222,22 @@ class Summary extends Component {
                   width: 75,
                   accessor: d => (
                     <span
-                      className={Class.detailButton}
+                      className="detail-button"
+                      style={{
+                        cursor: "pointer",
+                        fontSize: 10,
+                        border: "1px solid black",
+                        borderRadius: "25px",
+                        padding: "5px 5px",
+                        margin: "3px 0px 3px 0px",
+                        textAlign: "center",
+                        userSelect: "none"
+                      }}
                       id={d.id}
                       onClick={this.getItemObj}
                     >
                       Details
-                    </span>
+                                    </span>
                   ),
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["qty"] }),
@@ -217,23 +250,103 @@ class Summary extends Component {
                     textAlign: "center"
                   }
                 }
-              ]
+              ] :
+
+
+                ///
+                [
+                  {
+                    Header: "Type",
+                    id: "type",
+                    width: 200,
+                    accessor: d => d.type,
+                    filterMethod: (filter, rows) =>
+                      matchSorter(rows, filter.value, { keys: ["type"] }),
+                    filterAll: true,
+                    style: {
+                      textAlign: "center"
+                    }
+                  },
+                  {
+                    Header: "Qty",
+                    id: "estFinishedQty",
+                    width: 75,
+                    accessor: d => d.estFinishedQty || d.quantity,
+                    filterMethod: (filter, rows) =>
+                      matchSorter(rows, filter.value, {
+                        keys: ["estFinishedQty"]
+                      }),
+                    filterAll: true,
+                    style: {
+                      textAlign: "center"
+                    }
+                  },
+                  {
+                    Header: "Order Status",
+                    id: "status",
+                    width: 150,
+                    accessor: d => d.status,
+                    filterMethod: (filter, rows) =>
+                      matchSorter(rows, filter.value, { keys: ["status"] }),
+                    filterAll: true,
+                    style: {
+                      textAlign: "center"
+                    }
+                  },
+                  {
+                    Header: "",
+                    id: "MoreDetails",
+                    width: 75,
+                    accessor: d => (
+                      <span
+                        className="detail-button"
+                        style={{
+                          cursor: "pointer",
+                          fontSize: 10,
+                          border: "1px solid black",
+                          borderRadius: "25px",
+                          padding: "5px 5px",
+                          margin: "3px 0px 3px 0px",
+                          textAlign: "center",
+                          userSelect: "none"
+                        }}
+                        id={d.id}
+                        onClick={this.getItemObj}
+                      >Detail</span>
+                    ),
+                    filterMethod: (filter, rows) =>
+                      matchSorter(rows, filter.value, { keys: ["qty"] }),
+                    filterAll: true,
+                    style: {
+                      cursor: "pointer",
+                      fontSize: 15,
+                      padding: "5px 5px",
+                      userSelect: "none",
+                      textAlign: "center"
+                    }
+                  }
+                ]
+
+              ///
             }
           ]}
           defaultPageSize={20}
           className="-striped -highlight"
-          style={{
-            height: "85vh"
-          }}
+        // style={{
+        //   height: "85vh"
+        // }}
         />
         <ProductProduceDetail
+          displayApprove={false}
           itemProduceDetails={this.state.itemProduceDetails}
           removeOverlay={this.removeOverlay}
+          refreshProduce={this.refreshProduce}
         />
         <ProductLivestockDetail
+          displayApprove={false}
           itemLivestockDetails={this.state.itemLivestockDetails}
           removeOverlay={this.removeOverlay}
-          refreshLiveStock = {this.refreshLiveStock}
+          refreshLiveStock={this.refreshLiveStock}
         />
       </div>
     );
@@ -241,3 +354,6 @@ class Summary extends Component {
 }
 
 export default Summary;
+
+
+
