@@ -116,7 +116,10 @@ class ProduceForm extends Component {
         <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
         <h2 className="mobile-header-title">Add Produce</h2>
         <div className={styles.wrapper}>
-          <span className="required-header">
+          <span 
+          className="required-header"
+          
+          >
             Coloured Border Indicates Required Field
           </span>
           <div className="ui grid container">
@@ -129,7 +132,7 @@ class ProduceForm extends Component {
                     type="text"
                     name="type"
                     id="produceItems1"
-                    style={{ border: "3px solid #1ECE88" }}
+                    style={{ border: "3px solid #F92E2E" }}
                   >
                     <option>Select Produce Item</option>
                   </select>
@@ -141,7 +144,7 @@ class ProduceForm extends Component {
                     name="packageType"
                     multiple=""
                     className="ui fluid dropdown"
-                    style={{ border: "3px solid #1ECE88" }}
+                    style={{ border: "3px solid #F92E2E" }}
                   >
                     <option value="">Please choose an option</option>
                     <option value="Bunch">Bunch</option>
@@ -174,7 +177,7 @@ class ProduceForm extends Component {
                   <label>Est Completion Date</label>
                   <div
                     className="dpicker"
-                    style={{ border: "3px solid #1ECE88", width: "150px" }}
+                    style={{ border: "3px solid #F92E2E", width: "150px" }}
                   >
                     <DatePicker
                       name="estCompletionDate"
@@ -253,7 +256,7 @@ class ProduceForm extends Component {
                     onChange={this.onChange}
                     type="number"
                     name="estFinishedQty"
-                    style={{ border: "3px solid #1ECE88" }}
+                    style={{ border: "3px solid #F92E2E" }}
                   />
                 </div>
                 <div className="field">
