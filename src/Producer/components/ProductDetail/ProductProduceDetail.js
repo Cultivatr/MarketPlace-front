@@ -249,7 +249,7 @@ class ProductProduceDetail extends Component {
               className={Class.itemButtonsModify}
               onClick={() => this.modifyItem()}
             >
-              Modify
+              Save
             </button>
             <button
               className={Class.itemButtonsCancel}
