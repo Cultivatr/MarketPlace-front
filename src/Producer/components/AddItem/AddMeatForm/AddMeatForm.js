@@ -115,7 +115,9 @@ class LivestockForm extends Component {
         <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
         <h2 className="mobile-header-title">Add Livestock</h2>
         <div className={styles.wrapper}>
-          <span className="required-header">
+          <span 
+          className="required-header"
+          >
             Coloured Border Indicates Required Field
           </span>
           <div className="ui grid container">
@@ -128,7 +130,7 @@ class LivestockForm extends Component {
                     name="type"
                     multiple=""
                     className="ui fluid dropdown"
-                    style={{ border: "3px solid #1ECE88" }}
+                    style={{ border: "3px solid #F92E2E" }}
                   >
                     <option value="">Please choose an option</option>
                     <option value="Pork">Pork</option>
@@ -158,7 +160,7 @@ class LivestockForm extends Component {
                   <label>Est Date of Birth</label>
                   <div
                     className="dpicker"
-                    style={{ border: "3px solid #1ECE88", width: "150px" }}
+                    style={{ border: "3px solid #F92E2E", width: "150px" }}
                   >
                     <DatePicker
                       autocomplete="off"
@@ -205,7 +207,7 @@ class LivestockForm extends Component {
                   <label>Date on Feed</label>
                   <div
                     className="dpicker"
-                    style={{ border: "3px solid #1ECE88", width: "150px" }}
+                    style={{ border: "3px solid #F92E2E", width: "150px" }}
                   >
                     <DatePicker
                       name="dateOnFeed"
@@ -223,7 +225,7 @@ class LivestockForm extends Component {
                   <label>Est. Completion Date</label>
                   <div
                     className="dpicker"
-                    style={{ border: "3px solid #1ECE88", width: "150px" }}
+                    style={{ border: "3px solid #F92E2E", width: "150px" }}
                   >
                     <DatePicker
                       name="estCompletionDate"
