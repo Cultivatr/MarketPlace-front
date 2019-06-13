@@ -153,7 +153,7 @@ class Summary extends Component {
 
                 {
                   Header: "Item #",
-                  id: "Id",
+                  id: "id",
                   width: 75,
                   placeholder: "Orange",
                   accessor: d => d.id,
