@@ -21,3 +21,12 @@
 button {
 	margin-top: 1px;
 }*/
+
+
+@media only screen and (max-width : 999px) {
+  #all-items-title{
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  }

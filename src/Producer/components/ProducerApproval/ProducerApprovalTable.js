@@ -19,7 +19,7 @@ export default class ProducerApprovalTable extends Component {
                 [
                   {
                     Header: "Item #",
-                    id: "Id",
+                    id: "id",
                     width: 75,
                     accessor: d => d.id,
                     filterMethod: (filter, rows) =>

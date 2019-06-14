@@ -1,7 +1,10 @@
 
 // const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
-const domainLink = "https://cultivatr-backend-developer.herokuapp.com";
+// const domainLink = "https://cultivatr-backend-developer.herokuapp.com";
 // const domainLink = "http://localhost:5000";
+// const domainLink = "http://127.0.0.1:5000"
+const domainLink = "http://localhost:5000";
+
 
 
 export function loginQuery(googleEmail) {
@@ -15,9 +18,68 @@ export function loginQuery(googleEmail) {
         .then(response => response.json())
 }
 
+export function getAllBreeds() {
+    return fetch(
+        domainLink + `/breed/all/`,
+        {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        }
+    );
+}
+
+export function addNewBreed(livestockId, breed) {
+
+    return fetch(domainLink + "/breed/add/", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+            livestockId: livestockId,
+            breed: breed
+        })
+    })
+        .then(response => response.json())
+}
+
+
+export function getBreedsWithId(livestockId) {
+    return fetch(domainLink + `/breed/${livestockId}/`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+    });
+}
+
+
+
+export function deleteBreed(breed, livestockId) {
+
+    return fetch(domainLink + "/breed/delete/", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+            breed, livestockId
+        })
+    })
+        .then(response => response.json())
+}
+
+
+
+
+
 export function refreshProduceItems() {
     return fetch(
         domainLink + `/produceItems/all/`,
+        {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        }
+    );
+}
+
+export function refreshLivestockItems() {
+    return fetch(
+        domainLink + `/livestockItems/all/`,
         {
             method: "GET",
             headers: { "Content-Type": "application/json" }
@@ -36,8 +98,31 @@ export function deleteProduceItem(itemToDelete) {
     })
         .then(response => response.json())
 }
+
+export function deleteLivestockItem(itemToDelete) {
+
+    return fetch(domainLink + "/livestockItems/delete/", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+            itemToDelete: itemToDelete
+        })
+    })
+        .then(response => response.json())
+}
 export function addProduceItem(itemToAdd) {
     return fetch(domainLink + "/produceItems/add/", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+            newItem: itemToAdd
+        })
+    })
+        .then(response => response.json())
+}
+
+export function addLiveStockItem(itemToAdd) {
+    return fetch(domainLink + "/livestockItems/add/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
@@ -150,6 +235,7 @@ export function loadUserSpecificProduceQuery(user1) {
 }
 
 export function sendEmailQuery(farm, email) {
+    console.log("TRYING TO SEND EMAIL")
     fetch(domainLink + "/email/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
