@@ -82,26 +82,26 @@ export default class ProducerApprovalTable extends Component {
                     }
                   },
                   {
-                    Header: "",
+                    Header: "Details",
                     id: "MoreDetails",
                     width: 75,
                     accessor: d => (
                       <span
                         className="detail-button"
                         style={{
-                          cursor: "pointer",
+                          cursor: "pointer", 
                           fontSize: 10,
                           border: "1px solid black",
-                          borderRadius: "100%",
-                          padding: "5px 5px",
-                          margin: "3px 0px 3px 0px",
+                          borderRadius: 25,
+                          padding: "5px", 
+                          margin: "3px 0px",
                           textAlign: "center",
-                          userSelect: "none"
+                          userSelect: "none"                     
                         }}
                         id={d.id}
                         onClick={this.props.getItemObj}
                       >
-                        {"<>"}
+                        {"Details"}
                       </span>
                     ),
                     filterMethod: (filter, rows) =>
