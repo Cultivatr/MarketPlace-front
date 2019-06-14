@@ -3,10 +3,10 @@ import styles from "./AddMeatForm.module.css";
 import Button from "../../../../SharedComponents/UI/Button";
 import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
 import ProducerSlideMenu from "../../../../SharedComponents/Navigation/SlideMenu/ProducerSlideMenu"
+import OtherInput from "../../../../SharedComponents/OtherInput"
 import DatePicker from "react-datepicker";
 import "../../../../SharedComponents/UI/react-datepicker.css";
-import { addLivestockQuery } from "../../../../SharedComponents/LocalServer/LocalServer"
-import OtherInput from "../../../../SharedComponents/OtherInput"
+import { refreshLivestockItems, addLivestockQuery, getBreedsWithId } from "../../../../SharedComponents/LocalServer/LocalServer"
 import AddItemPopUp from "../AddItemPopup";
 import i from '../../../../img/i-icon.png'
 import Tooltip from '../../../../SharedComponents/UI/Tooltip'
@@ -47,16 +47,44 @@ class LivestockForm extends Component {
 
 
   onChange = e => {
+    if (e.target.name === "type") {
+      const currentTypeObject = this.state.livestockItems.filter(item => {
+        if (Object.values(item)[0] === e.target.value) {
+          return true
+        }
+        return false
+      })[0]
+      const currentType = Number(Object.keys(currentTypeObject))
+      console.log("TCL: LivestockForm -> currentType", currentType)
+      getBreedsWithId(currentType)
+        .then(response => response.json())
+        .then(breeds => {
+          this.setState({ selectedBreeds: Object.values(breeds)[0] }, () => { console.log(this.state.selectedBreeds) })
+        })
+    }
     let data = this.state.data;
     let newdata = { ...data, [e.target.name]: e.target.value };
     this.setState({ data: newdata });
   };
 
-  componentWillMount = () => {
+  componentWillMount = async () => {
     window.addEventListener("resize", () => {
       this.setState({ screenWidth: window.screen.width })
     });
-  }
+    const responseLivestockItems = await refreshLivestockItems()
+    const livestock = await responseLivestockItems.json();
+    if (livestock) {
+      this.setState({ livestockItems: livestock.livestock_items })
+      let pList = document.getElementById("livestockItems1");
+      await livestock.livestock_items.forEach(item => {
+        let indiv = Object.values(item)
+        let element = document.createElement("option");
+        element.textContent = indiv;
+        element.value = indiv;
+        pList.appendChild(element);
+      });
+    }
+  };
   componentDidMount() {
     document.addEventListener("keydown", this.escFunction, false);
   }
@@ -73,11 +101,11 @@ class LivestockForm extends Component {
     this.form.reset()
   }
 
-  onChangeOther = e => {
-    let data = this.state.data;
-    let newdata = { ...data, [e.target.name]: `Other - ${e.target.value}` };
-    this.setState({ data: newdata });
-  }
+  // onChangeOther = e => {
+  //   let data = this.state.data;
+  //   let newdata = { ...data, [e.target.name]: `Other - ${e.target.value}` };
+  //   this.setState({ data: newdata });
+  // }
 
   onCompDateChange = date => {
     this.setState({ estCompletionDate: date });
@@ -118,8 +146,8 @@ class LivestockForm extends Component {
         <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
         <h2 className="mobile-header-title">Add Livestock</h2>
         <div className={styles.wrapper}>
-          <span 
-          className="required-header"
+          <span
+            className="required-header"
           >
             Coloured Border Indicates Required Field
           </span>
@@ -132,20 +160,37 @@ class LivestockForm extends Component {
                     onChange={this.onChange}
                     name="type"
                     multiple=""
+                    id="livestockItems1"
                     className="ui fluid dropdown"
                     style={{ border: "3px solid #F92E2E" }}
                     required={true}
                   >
                     <option value="">Please choose an option</option>
-                    <option value="Pork">Pork</option>
-                    <option value="Chicken">Chicken</option>
-                    <option value="Lamb">Lamb</option>
-                    <option value="Goat">Goat</option>
-                    <option value="Beef">Beef</option>
                   </select>
                 </div>
 
-                <OtherInput value={this.state.data.breed} labelItem={"breed"} title={"Breed"} options={["Angus", "Birkshire", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                {/* <OtherInput value={this.state.data.breed} labelItem={"breed"} title={"Breed"} options={["Angus", "Birkshire", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} /> */}
+                <div className="field">
+                  <label>Breed</label>
+                  <select
+                    onChange={this.onChange}
+                    // onChangeOther={this.onChangeOther}
+                    name="breed"
+                    multiple=""
+                    // id="livestockItems1"
+                    className="ui fluid dropdown"
+                    style={{ border: "3px solid #1ECE88" }}
+                  >
+                    <option>Please choose an option</option>
+                    {this.state.selectedBreeds && this.state.selectedBreeds.map(breed => {
+                      return (<option value={breed}>{breed}</option>)
+                    }
+                    )}
+
+                  </select>
+                </div>
+
+
 
                 <div className="field">
                   <div><label>Single Brand </label><Tooltip message={'Hello This Is Sinle Brand'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>

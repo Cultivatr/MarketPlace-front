@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import NavigationItem from "./NavigationItem/NavigationItem";
 import styles from "./NavigationItems.module.css";
 import GoogleAuth from "../../../GoogleAuth";
 import "./NavigationItems.css";
 
-export default class navigationItems extends Component {
+export default class navigationItems extends PureComponent {
   constructor() {
     super();
     this.state = {
@@ -13,10 +13,6 @@ export default class navigationItems extends Component {
   }
 
   componentWillMount = () => {
-    setTimeout(this.loadItems, 1000);
-  };
-
-  loadItems = () => {
     this.setState({
       pendingItemsNumber: JSON.parse(sessionStorage.getItem("PendingItems"))
     });

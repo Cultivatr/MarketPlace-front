@@ -153,12 +153,12 @@ class Summary extends Component {
 
                 {
                   Header: "Item #",
-                  id: "Id",
+                  id: "id",
                   width: 75,
                   placeholder: "Orange",
                   accessor: d => d.id,
                   filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["id"] }),
+                    matchSorter(rows, filter.value, { keys: ["id"], threshold: 3 }),
                   filterAll: true,
                   style: {
                     textAlign: "center"
@@ -170,7 +170,7 @@ class Summary extends Component {
                   width: 200,
                   accessor: d => d.type,
                   filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["type"] }),
+                    matchSorter(rows, filter.value, { keys: ["type"], threshold: 3 }),
                   filterAll: true,
                   style: {
                     textAlign: "center"
@@ -210,7 +210,7 @@ class Summary extends Component {
                   width: 250,
                   accessor: d => d.status,
                   filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["status"] }),
+                    matchSorter(rows, filter.value, { keys: ["status"], threshold: 3 }),
                   filterAll: true,
                   style: {
                     textAlign: "center"
@@ -240,7 +240,7 @@ class Summary extends Component {
                                     </span>
                   ),
                   filterMethod: (filter, rows) =>
-                    matchSorter(rows, filter.value, { keys: ["qty"] }),
+                    matchSorter(rows, filter.value, { keys: ["qty"], threshold: 3 }),
                   filterAll: true,
                   style: {
                     cursor: "pointer",
@@ -261,7 +261,7 @@ class Summary extends Component {
                     width: 200,
                     accessor: d => d.type,
                     filterMethod: (filter, rows) =>
-                      matchSorter(rows, filter.value, { keys: ["type"] }),
+                      matchSorter(rows, filter.value, { keys: ["type"], threshold: 3 }),
                     filterAll: true,
                     style: {
                       textAlign: "center"
@@ -287,7 +287,7 @@ class Summary extends Component {
                     width: 150,
                     accessor: d => d.status,
                     filterMethod: (filter, rows) =>
-                      matchSorter(rows, filter.value, { keys: ["status"] }),
+                      matchSorter(rows, filter.value, { keys: ["status"], threshold: 3 }),
                     filterAll: true,
                     style: {
                       textAlign: "center"
@@ -315,7 +315,7 @@ class Summary extends Component {
                       >Detail</span>
                     ),
                     filterMethod: (filter, rows) =>
-                      matchSorter(rows, filter.value, { keys: ["qty"] }),
+                      matchSorter(rows, filter.value, { keys: ["qty"], threshold: 3 }),
                     filterAll: true,
                     style: {
                       cursor: "pointer",
