@@ -8,6 +8,9 @@ import "../../../../SharedComponents/UI/react-datepicker.css";
 import { addLivestockQuery } from "../../../../SharedComponents/LocalServer/LocalServer"
 import OtherInput from "../../../../SharedComponents/OtherInput"
 import AddItemPopUp from "../AddItemPopup";
+import i from '../../../../img/i-icon.png'
+import Tooltip from '../../../../SharedComponents/UI/Tooltip'
+import "../../../../SharedComponents/UI/Tooltip.scss"
 
 
 class LivestockForm extends Component {
@@ -124,13 +127,14 @@ class LivestockForm extends Component {
             <form onSubmit={this.onSubmit} className="ui row form add-meat-mobile" autoComplete="off">
               <div className="form-column-8">
                 <div className="field">
-                  <label>Type</label>
+                  <div><label>Type </label><Tooltip message={'Hello This Is Type'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     name="type"
                     multiple=""
                     className="ui fluid dropdown"
                     style={{ border: "3px solid #F92E2E" }}
+                    required={true}
                   >
                     <option value="">Please choose an option</option>
                     <option value="Pork">Pork</option>
@@ -144,7 +148,7 @@ class LivestockForm extends Component {
                 <OtherInput value={this.state.data.breed} labelItem={"breed"} title={"Breed"} options={["Angus", "Birkshire", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
 
                 <div className="field">
-                  <label>Single Brand</label>
+                  <div><label>Single Brand </label><Tooltip message={'Hello This Is Sinle Brand'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     name="singleBrand"
@@ -157,7 +161,7 @@ class LivestockForm extends Component {
                   </select>
                 </div>
                 <div className="field">
-                  <label>Est Date of Birth</label>
+                  <div><label>Est Date of Birth </label><Tooltip message={'Hello This Is Est Date Of Birth'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <div
                     className="dpicker"
                     style={{ border: "3px solid #F92E2E", width: "150px" }}
@@ -168,12 +172,13 @@ class LivestockForm extends Component {
                       onChange={this.onBirthDateChange}
                       dateFormat="yyyy-MM-dd"
                       selected={this.state.birthdate}
+                      required={true}
                     />
 
                   </div>
                 </div>
                 <div className="field">
-                  <label>Registration Number</label>
+                  <div><label>Registration Number </label><Tooltip message={'Hello This Is Registration Number'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <input
                     onChange={this.onChange}
                     type="number"
@@ -181,11 +186,11 @@ class LivestockForm extends Component {
                   />
                 </div>
                 <div className="field">
-                  <label>RFID Tag</label>
+                  <div><label>RFID Tag </label><Tooltip message={'Hello This Is RFID Tag'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <input onChange={this.onChange} type="number" name="rfid" />
                 </div>
                 <div className="field">
-                  <label>Est. Starting Weight in Pounds</label>
+                  <div><label>Est. Starting Weight in Pounds </label><Tooltip message={"Hello This Is Est Starting Weight In 'LBS'"} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <input
                     onChange={this.onChange}
                     type="number"
@@ -204,7 +209,7 @@ class LivestockForm extends Component {
               </div>
               <div className="form-column-8">
                 <div className="field">
-                  <label>Date on Feed</label>
+                  <div><label>Date on Feed </label><Tooltip message={'Hello This Is Date on Feed'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <div
                     className="dpicker"
                     style={{ border: "3px solid #F92E2E", width: "150px" }}
@@ -214,6 +219,7 @@ class LivestockForm extends Component {
                       onChange={this.onDateOnFeedChange}
                       dateFormat="yyyy-MM-dd"
                       selected={this.state.dateOnFeed}
+                      required={true}
                     />
                   </div>
                 </div>
@@ -222,7 +228,7 @@ class LivestockForm extends Component {
                 <OtherInput value={this.state.data.typeOfFeed} labelItem={"typeOfFeed"} title={"Type of Feed"} options={["Grain", "Barley", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
 
                 <div className="field">
-                  <label>Est. Completion Date</label>
+                  <div><label>Est. Completion Date </label><Tooltip message={'Hello This Is est Completion Date'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <div
                     className="dpicker"
                     style={{ border: "3px solid #F92E2E", width: "150px" }}
@@ -232,11 +238,12 @@ class LivestockForm extends Component {
                       onChange={this.onCompDateChange}
                       dateFormat="yyyy-MM-dd"
                       selected={this.state.estCompletionDate}
+                      required={true}
                     />
                   </div>
                 </div>
                 <div className="field">
-                  <label>Est. Finished Weight in Pounds</label>
+                  <div><label>Est. Finished Weight in Pounds </label><Tooltip message={"Hello This Is Est Finished Weight In 'LBS'"} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <input
                     onChange={this.onChange}
                     type="number"
