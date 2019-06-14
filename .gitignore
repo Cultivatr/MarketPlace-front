@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 .././.mypy_cache/3.7
+/.vscode
 
 # testing
 /coverage
