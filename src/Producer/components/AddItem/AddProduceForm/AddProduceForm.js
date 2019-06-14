@@ -9,7 +9,9 @@ import "../../../../SharedComponents/miscStyles.css";
 import ProducerSlideMenu from "../../../../SharedComponents/Navigation/SlideMenu/ProducerSlideMenu"
 import { refreshProduceItems, addProduceQuery } from "../../../../SharedComponents/LocalServer/LocalServer"
 import AddItemPopUp from "../AddItemPopup";
-
+import i from '../../../../img/i-icon.png'
+import Tooltip from '../../../../SharedComponents/UI/Tooltip'
+import "../../../../SharedComponents/UI/Tooltip.scss"
 
 
 class ProduceForm extends Component {
@@ -126,25 +128,27 @@ class ProduceForm extends Component {
             <form onSubmit={this.onSubmit} className="ui row form">
               <div className="form-column-8">
                 <div className="field">
-                  <label>Type</label>
+                  <div><label>Type </label><Tooltip message={'Hello This Is Type'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     type="text"
                     name="type"
                     id="produceItems1"
                     style={{ border: "3px solid #F92E2E" }}
+                    required={true}
                   >
                     <option>Select Produce Item</option>
                   </select>
                 </div>
                 <div className="field">
-                  <label>Package Type</label>
+                  <div><label>Package Type </label><Tooltip message={'Hello This Is Package Type'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     name="packageType"
                     multiple=""
                     className="ui fluid dropdown"
                     style={{ border: "3px solid #F92E2E" }}
+                    required={true}
                   >
                     <option value="">Please choose an option</option>
                     <option value="Bunch">Bunch</option>
@@ -153,7 +157,7 @@ class ProduceForm extends Component {
                   </select>
                 </div>
                 <div className="field size-container">
-                  <label>Package Size</label>
+                  <div><label>Package Size </label><Tooltip message={'Hello This Is Package Size'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <div className="qty-container">
                     <input
                       onChange={this.onChange}
@@ -174,7 +178,7 @@ class ProduceForm extends Component {
                 </div>
 
                 <div className="field">
-                  <label>Est Completion Date</label>
+                  <div><label>Est Completion Date </label><Tooltip message={'Hello This Is Est Completion Date'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <div
                     className="dpicker"
                     style={{ border: "3px solid #F92E2E", width: "150px" }}
@@ -185,15 +189,16 @@ class ProduceForm extends Component {
                       dateFormat="yyyy-MM-dd"
                       selected={this.state.estCompletionDate}
                       autocomplete="off"
+                      required={true}
                     />
                   </div>
                 </div>
                 <div className="field">
-                  <label>Seed Type</label>
+                  <div><label>Seed Type </label><Tooltip message={'Hello This Is Seed Type'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <input onChange={this.onChange} type="text" name="seedType" />
                 </div>
                 <div className="field">
-                  <label>Modified Seed</label>
+                  <div><label>Modified Seed </label><Tooltip message={'Hello This Is Modified Seed'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     name="modifiedSeed"
@@ -206,7 +211,7 @@ class ProduceForm extends Component {
                   </select>
                 </div>
                 <div className="field">
-                  <label>Heirloom</label>
+                  <div><label>Heirloom </label><Tooltip message={'Hello This Is Heirloom'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     name="heirloom"
@@ -219,7 +224,7 @@ class ProduceForm extends Component {
                   </select>
                 </div>
                 <div className="field">
-                  <label>Comments</label>
+                  <label>Comments </label>
                   <textarea
                     onChange={this.onChange}
                     placeholder="Tell us more"
@@ -230,7 +235,7 @@ class ProduceForm extends Component {
               </div>
               <div className="form-column-8">
                 <div className="field">
-                  <label>Estimated Quantity Planted</label>
+                  <div><label>Estimated Quantity Planted </label><Tooltip message={'Hello This Is Est Quanity Planted'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <input
                     onChange={this.onChange}
                     type="number"
@@ -238,7 +243,7 @@ class ProduceForm extends Component {
                   />
                 </div>
                 <div className="field">
-                  <label>Certified Organic</label>
+                  <div><label>Certified Organic </label><Tooltip message={'Hello This Is Cert. Organic'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     name="certifiedOrganic"
@@ -251,16 +256,17 @@ class ProduceForm extends Component {
                   </select>
                 </div>
                 <div className="field">
-                  <label>Estimated Finished Qty</label>
+                  <div><label>Estimated Finished Qty </label><Tooltip message={'Hello This Is Est Finished Quanity'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <input
                     onChange={this.onChange}
                     type="number"
                     name="estFinishedQty"
                     style={{ border: "3px solid #F92E2E" }}
+                    required={true}
                   />
                 </div>
                 <div className="field">
-                  <label>Fertilizer Type Used</label>
+                  <div><label>Fertilizer Type Used </label><Tooltip message={'Hello This Is Fertilizer Type Used'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <input
                     onChange={this.onChange}
                     type="text"
@@ -268,7 +274,7 @@ class ProduceForm extends Component {
                   />
                 </div>
                 <div className="field">
-                  <label>Pesticide Type Used</label>
+                  <div><label>Pesticide Type Used </label><Tooltip message={'Hello This Is Pesticide Type Used'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <input
                     onChange={this.onChange}
                     type="text"
