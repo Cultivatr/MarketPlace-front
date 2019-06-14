@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { refreshLivestockItems, deleteLivestockItem, addLiveStockItem } from "../../../SharedComponents/LocalServer/LocalServer";
+import { refreshLivestockItems, deleteLivestockItem, addLiveStockItem } from "../../../../SharedComponents/LocalServer/LocalServer"
 
 
 export default class EditLivestockTypes extends Component {
@@ -29,8 +29,8 @@ export default class EditLivestockTypes extends Component {
                             name={value}
                             deleteLivestockItemClick={this.deleteLivestockItemClick}
                         />
-                    );
-                });
+                    )
+                })
         }
     };
 
@@ -42,9 +42,6 @@ export default class EditLivestockTypes extends Component {
 
     deleteItem = async itemToDelete => {
         await deleteLivestockItem(itemToDelete)
-            .then(data => {
-                console.log("data", data);
-            })
             .catch(error => console.log(error));
         await this.refreshItems()
     };
@@ -75,7 +72,6 @@ export default class EditLivestockTypes extends Component {
     };
     undoAction = async () => {
         if (this.state.lastAction === "delete") {
-            // We need to call add item, set this.state.data.newItem = lastItem
             await this.setState({ newItem: this.state.lastItem });
             await this.addItem();
             await this.refreshItems();
@@ -100,12 +96,7 @@ export default class EditLivestockTypes extends Component {
 
     addItem = async () => {
         const { newItem } = this.state;
-        console.log("item: ", newItem);
-
-        addLiveStockItem(newItem)
-            .then(data => {
-                console.log("data", data);
-            })
+        await addLiveStockItem(newItem)
             .catch(error => console.log(error));
     };
 
@@ -135,23 +126,20 @@ export default class EditLivestockTypes extends Component {
                             <div>Status: {this.state.status}</div>
                             {this.state.status !== "No Changes" &&
                                 this.state.status !== "No item to add" && (
-                                    <div className="admin-btn undo-btn" onClick={this.undoAction}>
-                                        Undo
-                </div>
-                                )}
-                        </div>
+                                    <div className="admin-btn undo-btn"
+                                        onClick={this.undoAction}>
+                                        Undo</div>)} </div>
                         <div className="input-container">
                             <input
                                 className="newProduceTypeInput"
                                 onChange={this.onChange}
-                                placeholder="Add New Livestock Type to Dropdown"
+                                placeholder="Add New Livestock Type"
                                 name="newItem"
                                 type="text"
-                                value={this.state.newItem}
-                            />
-                            <div onClick={this.addClick} className="admin-btn">
-                                Add
-              </div>
+                                value={this.state.newItem} />
+                            <div onClick={this.addClick}
+                                className="admin-btn">
+                                Add </div>
                         </div>
                     </div>
 
@@ -166,24 +154,21 @@ export default class EditLivestockTypes extends Component {
                         </ul>
                     </div>
                 </div>
-
             </Fragment>
-
-
         );
     }
 }
 
 const LivestockChartItem = props => {
     return (
-        <tr className="produce-select-item">
-            <td>{props.name}</td>
-            <td
+        <li className="produce-select-item">
+            <div>{props.name}</div>
+            <div
                 onClick={() => props.deleteLivestockItemClick(props)}
                 className="produce-delete-btn"
             >{`X`}
-            </td>
-        </tr>
+            </div>
+        </li>
 
     );
 };

@@ -223,7 +223,7 @@ class Admin extends Component {
   getUsers = async () => {
     try {
       this.geti++;
-      const response = loadUserQuery()
+      const response = await loadUserQuery()
       const json = await response.json();
       await this.setState({ users: json });
     } catch (error) {
@@ -274,7 +274,7 @@ class Admin extends Component {
 
   OnClickListUsers = async () => {
     await this.getUsers();
-    await this.setState({ dataToShow: "allItems" }); // added as a hack to re-render listUsers to force update of state
+    await this.setState({ dataToShow: "allItems" });
     await this.setState({ dataToShow: "listUsers" });
   };
 
@@ -444,7 +444,7 @@ class Admin extends Component {
                 )}
                 {this.state.dataToShow === "allItems" && (
                   <div className={Class.containerAdminSettings}>
-                    <h4 className="mobile-header-title admin-mobile">List of All items</h4>
+                    <h4 id="all-items-title" className="mobile-header-title admin-mobile">List of All items</h4>
                     <DisplayAllDashboard
                       data={this.state.data}
                       itemObj={this.getItemObj}

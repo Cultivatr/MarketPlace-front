@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import "./EditBreedTypes.css";
-import { getBreedsWithId, deleteBreed, addNewBreed, refreshLivestockItems } from "../../../SharedComponents/LocalServer/LocalServer";
-
+import { getBreedsWithId, deleteBreed, addNewBreed, refreshLivestockItems } from "../../../../SharedComponents/LocalServer/LocalServer"
 
 export default class EditBreedTypes extends Component {
     state = {
@@ -25,9 +24,6 @@ export default class EditBreedTypes extends Component {
 
     deleteItem = async (name) => {
         await deleteBreed(name, this.state.selectedLivestock)
-            .then(data => {
-                console.log("data", data);
-            })
             .catch(error => console.log(error));
         await this.refreshItems()
     };
@@ -57,9 +53,7 @@ export default class EditBreedTypes extends Component {
         });
     };
     undoAction = async () => {
-
         if (this.state.lastAction === "delete") {
-            // We need to call add item, set this.state.data.newItem = lastItem
             await this.setState({ newItem: this.state.lastItem });
             await this.addItem();
             await this.refreshItems();
@@ -83,11 +77,7 @@ export default class EditBreedTypes extends Component {
     addItem = async () => {
         const { newItem } = this.state;
         const { selectedLivestock } = this.state
-        addNewBreed(selectedLivestock, newItem)
-            .then(data => {
-
-                console.log("data", data);
-            })
+        await addNewBreed(selectedLivestock, newItem)
             .catch(error => console.log(error));
     };
 
@@ -134,6 +124,7 @@ export default class EditBreedTypes extends Component {
                             <select
                                 onChange={this.onChangeOther}
                                 name="livestockOption"
+                                id="livestockOptionDropdown"
                                 className="ui fluid dropdown"
                                 style={{ border: "3px solid #1ECE88" }}
                             >
@@ -149,36 +140,36 @@ export default class EditBreedTypes extends Component {
                             <input
                                 className="newProduceTypeInput"
                                 onChange={this.onChange}
-                                placeholder="Add New Livestock Type to Dropdown"
+                                placeholder="Add Livestock Type"
                                 name="newItem"
                                 type="text"
                                 value={this.state.newItem}
                             />
-                            <div onClick={this.addClick} className="admin-btn">
-                                Add
-              </div>
+                            <div onClick={this.addClick}
+                                className="admin-btn"> Add </div>
                         </div>
                     </div>
 
                 </div>
                 <div className="produce-item-container">
                     <strong>Current breeds available from dropdown:</strong>
-                    <tr className="produce-select-item">
-                        {this.state.breedSelection.length > 0 &&
-                            this.state.breedSelection.map(name => {
-                                return (<>
-                                    <td key={name + Math.random()}>{name}</td>
-                                    <td
-                                        onClick={() => this.deleteBreedClick(name)}
-                                        className="produce-delete-btn"
-                                    >
-                                        {`X`}
-                                    </td>
-                                    <br />
-                                </>
-                                )
-                            })}
-                    </tr>
+                    <div className="produce-item-list">
+                        <ul>
+                            {this.state.breedSelection.length > 0 &&
+                                this.state.breedSelection.map(name => {
+                                    return (<li className="produce-select-item">
+                                        <div key={name}>{name}</div>
+                                        <div
+                                            onClick={() => this.deleteBreedClick(name)}
+                                            className="produce-delete-btn"
+                                        > {`X`}
+                                        </div>
+                                        <br />
+                                    </li>
+                                    )
+                                })}
+                        </ul>
+                    </div>
                 </div>
 
             </Fragment>

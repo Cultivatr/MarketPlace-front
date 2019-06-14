@@ -3,7 +3,7 @@
 }
 
 .input-container {
-  display: flex !important;
+  display: flex!important;
   flex-direction: row !important;
 }
 
@@ -12,38 +12,39 @@
   flex-direction: column;
   margin-top: 15px;
   padding: 5px;
-  
 }
 
 .produce-item-list {
   margin-left: 1vw;
-  /*margin-right: 2vw;*/
   margin-top: 2vh;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  
-  width: 45vw;
 }
 
-.produce-item-list > ul {  /*need to figure out a way to stop this list from scrolling below the containing box */
+.produce-item-list > ul { 
   display: flex;
-  /*flex-wrap: wrap;*/
   flex-direction: column;
-  -webkit-column-count: 2; /* Chrome, Safari, Opera */
-  -moz-column-count: 2; /* Firefox */
+  -webkit-column-count: 2;
   column-count: 2;
-  height: 25vw;
+  height: 150px;
   overflow: auto;
+  background: lightgray;
+  width: 300px;
+  padding: 5px;
+}
+
+.produce-select-item:not(:last-child){
+  border-bottom: 2px solid #666;
 }
 
 .produce-select-item {
-  padding: 2px;
+  display: flex;
+  margin: 0;
+  padding: 3px;
 }
-
-td {
-  width: 15vw;
-  /*padding: 3px;*/
+.produce-select-item > div:first-child {
+  flex-basis: 100%;
 }
 
 .newProduceTypeInput {
@@ -53,10 +54,7 @@ td {
   width: 24px;
   height: 24px;
   padding: 1px;
-  /*background-color: red;*/
   border: solid gray 1.5px;
-  
-  /*border-radius: 18px;*/
   text-align: center;
 }
 .produce-delete-btn:hover {
@@ -75,7 +73,6 @@ td {
   outline: none !important ;
   border: none !important ;
   border-radius: 4px !important ;
-  /*margin-top: 10px !important ;*/
   margin-bottom: -40px;
   cursor: pointer !important ;
   width: 100px;
@@ -102,10 +99,41 @@ td {
   display:flex;
   flex-direction: row;
   height:100%
-
+}
+.livestock-container > div {
+  flex-basis: 50%;
 }
 
 .admin_container1__3V0qA{
   height: 100%
 }
 
+#livestockOptionDropdown{
+  width: 24vw;
+}
+
+@media only screen and (max-width : 908px) {
+  .livestock-container {
+    flex-direction: column
+  }
+  .admin-btn{
+    width: initial;
+    height: initial;
+    position: initial;
+    left: 0;
+    margin-top: 5px;
+  }
+  .newProduceTypeInput, #livestockOptionDropdown{
+    width: 100% !important;
+  }
+  .input-container{
+    flex-direction: column !important;
+    align-items: center!important;
+    height: 60px!important;
+  }
+
+  .produce-item-list, .produce-item-list > ul{
+    width: initial;
+  }
+
+}

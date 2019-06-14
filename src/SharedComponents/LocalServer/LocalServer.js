@@ -1,9 +1,9 @@
 
 // const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
-const domainLink = "https://cultivatr-backend-developer.herokuapp.com";
+// const domainLink = "https://cultivatr-backend-developer.herokuapp.com";
 // const domainLink = "http://localhost:5000";
 // const domainLink = "http://127.0.0.1:5000"
-const domainLink2 = "http://localhost:5000";
+const domainLink = "http://localhost:5000";
 
 
 
@@ -20,7 +20,7 @@ export function loginQuery(googleEmail) {
 
 export function getAllBreeds() {
     return fetch(
-        domainLink2 + `/breed/all/`,
+        domainLink + `/breed/all/`,
         {
             method: "GET",
             headers: { "Content-Type": "application/json" }
@@ -30,7 +30,7 @@ export function getAllBreeds() {
 
 export function addNewBreed(livestockId, breed) {
 
-    return fetch(domainLink2 + "/breed/add/", {
+    return fetch(domainLink + "/breed/add/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
@@ -43,7 +43,7 @@ export function addNewBreed(livestockId, breed) {
 
 
 export function getBreedsWithId(livestockId) {
-    return fetch(domainLink2 + `/breed/${livestockId}/`, {
+    return fetch(domainLink + `/breed/${livestockId}/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" }
     });
@@ -53,7 +53,7 @@ export function getBreedsWithId(livestockId) {
 
 export function deleteBreed(breed, livestockId) {
 
-    return fetch(domainLink2 + "/breed/delete/", {
+    return fetch(domainLink + "/breed/delete/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
@@ -79,7 +79,7 @@ export function refreshProduceItems() {
 
 export function refreshLivestockItems() {
     return fetch(
-        domainLink2 + `/livestockItems/all/`,
+        domainLink + `/livestockItems/all/`,
         {
             method: "GET",
             headers: { "Content-Type": "application/json" }
@@ -101,7 +101,7 @@ export function deleteProduceItem(itemToDelete) {
 
 export function deleteLivestockItem(itemToDelete) {
 
-    return fetch(domainLink2 + "/livestockItems/delete/", {
+    return fetch(domainLink + "/livestockItems/delete/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
@@ -122,7 +122,7 @@ export function addProduceItem(itemToAdd) {
 }
 
 export function addLiveStockItem(itemToAdd) {
-    return fetch(domainLink2 + "/livestockItems/add/", {
+    return fetch(domainLink + "/livestockItems/add/", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
