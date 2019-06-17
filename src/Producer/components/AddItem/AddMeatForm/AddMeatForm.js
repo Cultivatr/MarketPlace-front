@@ -148,8 +148,9 @@ class LivestockForm extends Component {
         <div className={styles.wrapper}>
           <span
             className="required-header"
+
           >
-            Coloured Border Indicates Required Field
+            * Coloured Border Indicates Required Field
           </span>
           <div className="ui grid container">
             <form onSubmit={this.onSubmit} className="ui row form add-meat-mobile" autoComplete="off">
@@ -171,7 +172,7 @@ class LivestockForm extends Component {
 
                 {/* <OtherInput value={this.state.data.breed} labelItem={"breed"} title={"Breed"} options={["Angus", "Birkshire", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} /> */}
                 <div className="field">
-                  <label>Breed</label>
+                  <div><label>Breed </label><Tooltip message={'Hello This Is Type of Breed'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     // onChangeOther={this.onChangeOther}
@@ -209,7 +210,7 @@ class LivestockForm extends Component {
                   <div><label>Est Date of Birth </label><Tooltip message={'Hello This Is Est Date Of Birth'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <div
                     className="dpicker"
-                    style={{ border: "3px solid #F92E2E", width: "150px" }}
+                    style={{ border: "3px solid #F92E2E", width: "150px"}}
                   >
                     <DatePicker
                       autocomplete="off"
@@ -257,7 +258,7 @@ class LivestockForm extends Component {
                   <div><label>Date on Feed </label><Tooltip message={'Hello This Is Date on Feed'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <div
                     className="dpicker"
-                    style={{ border: "3px solid #F92E2E", width: "150px" }}
+                    style={{ border: "3px solid #F92E2E", width: "150px",}}
                   >
                     <DatePicker
                       name="dateOnFeed"
@@ -276,7 +277,7 @@ class LivestockForm extends Component {
                   <div><label>Est. Completion Date </label><Tooltip message={'Hello This Is est Completion Date'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
                   <div
                     className="dpicker"
-                    style={{ border: "3px solid #F92E2E", width: "150px" }}
+                    style={{ border: "3px solid #F92E2E", width: "150px"}}
                   >
                     <DatePicker
                       name="estCompletionDate"
