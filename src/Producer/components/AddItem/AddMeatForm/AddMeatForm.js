@@ -179,7 +179,7 @@ class LivestockForm extends Component {
                     multiple=""
                     // id="livestockItems1"
                     className="ui fluid dropdown"
-                    style={{ border: "3px solid #1ECE88" }}
+                    style={{ border: "3px solid #F92E2E" }}
                   >
                     <option>Please choose an option</option>
                     {this.state.selectedBreeds && this.state.selectedBreeds.map(breed => {
@@ -268,9 +268,9 @@ class LivestockForm extends Component {
                     />
                   </div>
                 </div>
-                <OtherInput value={this.state.data.feedMethod} labelItem={"feedMethod"} title={"Feed Method"} options={["Grass", "GrassBarley", "GrassGrain", "FreeRange", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
-                <OtherInput value={this.state.data.typeOfPasture} labelItem={"typeOfPasture"} title={"Type of Pasture"} options={["Timothy", "Alfa", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
-                <OtherInput value={this.state.data.typeOfFeed} labelItem={"typeOfFeed"} title={"Type of Feed"} options={["Grain", "Barley", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInput value={this.state.data.feedMethod} labelItem={"feedMethod"} title={<div><label>Feed Method </label><Tooltip message={'Hello This Is Feed Method'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>} options={["Grass", "GrassBarley", "GrassGrain", "FreeRange", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInput value={this.state.data.typeOfPasture} labelItem={"typeOfPasture"} title={<div><label>Type of Pasture </label><Tooltip message={'Hello This Is Type of Pasture'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>} options={["Timothy", "Alfa", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInput value={this.state.data.typeOfFeed} labelItem={"typeOfFeed"} title={<div><label>Type of Feed </label><Tooltip message={'Hello This Is Type of Feed'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>} options={["Grain", "Barley", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
 
                 <div className="field">
                   <div><label>Est. Completion Date </label><Tooltip message={'Hello This Is est Completion Date'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
@@ -282,6 +282,7 @@ class LivestockForm extends Component {
                       name="estCompletionDate"
                       onChange={this.onCompDateChange}
                       dateFormat="yyyy-MM-dd"
+
                       selected={this.state.estCompletionDate}
                       required={true}
                     />
