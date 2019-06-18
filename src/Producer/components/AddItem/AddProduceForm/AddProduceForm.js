@@ -122,7 +122,7 @@ class ProduceForm extends Component {
           className="required-header"
           
           >
-            Coloured Border Indicates Required Field
+            * Coloured Border Indicates Required Field
           </span>
           <div className="ui grid container">
             <form onSubmit={this.onSubmit} className="ui row form">
