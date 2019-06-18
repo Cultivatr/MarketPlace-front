@@ -10,7 +10,7 @@ const domainLink = "https://cultivatr-backend-developer.herokuapp.com";
 export function loginQuery(googleEmail) {
     return fetch(domainLink + "/login/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token")},
         body: JSON.stringify({
             email: googleEmail
         })
@@ -23,7 +23,7 @@ export function getAllBreeds() {
         domainLink + `/breed/all/`,
         {
             method: "GET",
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json", "Authorization": sessionStorage.getItem("id_token") }
         }
     );
 }
@@ -32,7 +32,7 @@ export function addNewBreed(livestockId, breed) {
 
     return fetch(domainLink + "/breed/add/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             livestockId: livestockId,
             breed: breed
@@ -45,7 +45,7 @@ export function addNewBreed(livestockId, breed) {
 export function getBreedsWithId(livestockId) {
     return fetch(domainLink + `/breed/${livestockId}/`, {
         method: "GET",
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json", "Authorization": sessionStorage.getItem("id_token") }
     });
 }
 
@@ -55,7 +55,7 @@ export function deleteBreed(breed, livestockId) {
 
     return fetch(domainLink + "/breed/delete/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             breed, livestockId
         })
@@ -72,7 +72,7 @@ export function refreshProduceItems() {
         domainLink + `/produceItems/all/`,
         {
             method: "GET",
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json", "Authorization": sessionStorage.getItem("id_token") }
         }
     );
 }
@@ -82,7 +82,7 @@ export function refreshLivestockItems() {
         domainLink + `/livestockItems/all/`,
         {
             method: "GET",
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json", "Authorization": sessionStorage.getItem("id_token") }
         }
     );
 }
@@ -91,7 +91,7 @@ export function deleteProduceItem(itemToDelete) {
 
     return fetch(domainLink + "/produceItems/delete/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             itemToDelete: itemToDelete
         })
@@ -103,7 +103,7 @@ export function deleteLivestockItem(itemToDelete) {
 
     return fetch(domainLink + "/livestockItems/delete/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             itemToDelete: itemToDelete
         })
@@ -113,7 +113,7 @@ export function deleteLivestockItem(itemToDelete) {
 export function addProduceItem(itemToAdd) {
     return fetch(domainLink + "/produceItems/add/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             newItem: itemToAdd
         })
@@ -124,7 +124,7 @@ export function addProduceItem(itemToAdd) {
 export function addLiveStockItem(itemToAdd) {
     return fetch(domainLink + "/livestockItems/add/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             newItem: itemToAdd
         })
@@ -135,7 +135,7 @@ export function addLiveStockItem(itemToAdd) {
 export function addNewProducer(details) {
     return fetch(domainLink + "/admin/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             firstName: details.firstName,
             lastName: details.lastName,
@@ -167,7 +167,7 @@ export function addNewProducer(details) {
 export function modifyUserQuery(user) {
     return fetch(domainLink + "/admin/updateUsers/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             id: user.id,
             firstName: user.firstName,
@@ -202,35 +202,35 @@ export function loadUserQuery() {
 
     return fetch(domainLink + "/admin/users/", {
         method: "GET",
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json", "Authorization": sessionStorage.getItem("id_token") }
     });
 }
 
 export function loadProduceQuery() {
     return fetch(domainLink + "/produce/all/", {
         method: "GET",
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json", "Authorization": sessionStorage.getItem("id_token") }
     });
 }
 
 export function loadLivestockQuery() {
     return fetch(domainLink + "/livestock/all/", {
         method: "GET",
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json", "Authorization": sessionStorage.getItem("id_token") }
     });
 }
 
 export function loadUserSpecificLivestockQuery(user1) {
     return fetch(domainLink + `/livestock/${user1}/`, {
         method: "GET",
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json", "Authorization": sessionStorage.getItem("id_token") }
     });
 }
 
 export function loadUserSpecificProduceQuery(user1) {
     return fetch(domainLink + `/produce/${user1}/`, {
         method: "GET",
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json", "Authorization": sessionStorage.getItem("id_token") }
     });
 }
 
@@ -238,7 +238,7 @@ export function sendEmailQuery(farm, email) {
     console.log("TRYING TO SEND EMAIL")
     fetch(domainLink + "/email/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             farmName: farm,
             email: email
@@ -249,7 +249,7 @@ export function sendEmailQuery(farm, email) {
 export function incrementLivestockQuery(subId, nextStatus) {
     return fetch(domainLink + "/livestock/incrementStatus/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             id: subId,
             nextStatus: nextStatus
@@ -260,7 +260,7 @@ export function incrementLivestockQuery(subId, nextStatus) {
 export function incrementProduceQuery(subId, nextStatus) {
     return fetch(domainLink + "/produce/incrementStatus/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             id: subId,
             nextStatus: nextStatus
@@ -270,7 +270,7 @@ export function incrementProduceQuery(subId, nextStatus) {
 export function deleteUserQuery(userId) {
     fetch(domainLink + "/admin/users/delete/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             id: userId
         })
@@ -280,7 +280,7 @@ export function deleteUserQuery(userId) {
 export function addLivestockQuery(data, dateOnFeed, estCompletionDate, birthdate) {
     return fetch(domainLink + "/livestock/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             userId: JSON.parse(sessionStorage.getItem("authData")).id,
             type: data.type,
@@ -314,7 +314,7 @@ export function addLivestockQuery(data, dateOnFeed, estCompletionDate, birthdate
 export function addProduceQuery(data, estCompletionDate) {
     return fetch(domainLink + "/produce/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             userId: JSON.parse(sessionStorage.getItem("authData")).id,
             type: data.type,
@@ -348,7 +348,7 @@ export function modifyItemLivestockQuery(livestockItem) {
     console.log('livestock in func is ', livestockItem.id)
     return fetch(domainLink + "/livestock/modify/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             id: livestockItem.id.substring(2),
             type: livestockItem.type,
@@ -376,7 +376,7 @@ export function modifyItemLivestockQuery(livestockItem) {
 export function modifyItemProduceQuery(produceItem) {
     return fetch(domainLink + "/produce/modify/", {
         method: "POST",
-        headers: { "Content-type": "application/json" },
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             id: produceItem.id.substring(2),
             type: produceItem.type,

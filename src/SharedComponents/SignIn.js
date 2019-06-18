@@ -52,6 +52,7 @@ class SignIn extends Component {
     }
 
     const responseGoogle = response => {
+      sessionStorage.setItem("id_token", response.getAuthResponse().id_token)
       this.logIn(response);
     };
     return (
