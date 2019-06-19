@@ -157,13 +157,12 @@ class ProductLivestockDetail extends Component {
     }
   };
 
-  modifyItem = async () => {
-    // just remove overlay if no changes made otherwise get error
+  modifyItem = async (removeO = true) => {
     if (this.state.itemLivestockDetails !== "") {
       await modifyItemLivestockQuery(this.state.itemLivestockDetails);
       await this.props.refreshLiveStock(this.state.itemLivestockDetails);
     };
-    this.props.removeOverlay();
+    removeO && this.props.removeOverlay();
   };
 
   render() {
@@ -200,7 +199,23 @@ class ProductLivestockDetail extends Component {
               <tbody>
                 <tr>
                   <td className="three wide column">Status</td>
-                  <td className={Class.noInput}>{status}</td>
+                  <td className={Class.row}>
+                    <select
+                      onChange={this.onChange}
+                      id="status"
+                      name="status"
+                      value={status}
+                      multiple=""
+                      className="ui fluid dropdown"
+                    >
+                      <option value="Pending Admin">Pending Admin</option>
+                      <option value="Pending Producer">Pending Producer</option>
+                      <option value="Accepted">Accepted</option>
+                      <option value="Sold">Sold</option>
+                      <option value="Delivered">Delivered</option>
+                      <option value="Sold">Sold</option>
+                      <option value="Not Accepted">"Not Accepted</option>
+                    </select></td>
                 </tr>
                 <OtherInputAdmin value={this.props.itemLivestockDetails.breed} labelItem={"breed"} title={"Breed"} options={["Angus", "Birkshire", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
                 <tr>
@@ -459,14 +474,13 @@ class ProductLivestockDetail extends Component {
               "Pending Producer" ? null : (
                 <button
                   className={Class.itemButtonsModify}
-                  onClick={() =>
-                    this.props.pushThroughLivestock(
-                      this.props.itemLivestockDetails.id,
+                  onClick={() => {
+                    this.modifyItem(false)
+                    this.props.openPushThroughPopUp(
                       this.props.itemLivestockDetails.status,
-                      this.props.itemLivestockDetails.farm,
-                      this.props.itemLivestockDetails.email
+                      "livestock",
                     )
-                  }
+                  }}
                 >
                   {this.props.pushThroughBtnText}
                 </button>

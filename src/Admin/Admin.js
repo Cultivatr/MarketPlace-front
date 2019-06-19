@@ -7,11 +7,15 @@ import AddNewProdComp from "./Components/AddNewProdComp/AddNewProdComp";
 import UsersComp from "./Components/UsersComp/UsersComp";
 import ItemLiveStockDetail from "./Components/ItemDetailComp/ItemLivestockDetail";
 import ItemProduceDetail from "./Components/ItemDetailComp/ItemProduceDetail";
-import ErrorModal from "../SharedComponents/ErrorModal";
 import AdminSettings from "./Components/AdminSettings/AdminSettings";
 import AdminHelper from "./AdminHelper";
 import AdminSlideMenu from "../SharedComponents/Navigation/SlideMenu/AdminSlideMenu"
-import { loadUserQuery, loadProduceQuery, loadLivestockQuery, sendEmailQuery, incrementLivestockQuery, incrementProduceQuery } from "../SharedComponents/LocalServer/LocalServer"
+import PushThroughPopUp from "./PushThroughPopUp"
+import {
+  loadUserQuery, loadProduceQuery,
+  loadLivestockQuery, sendEmailQueryStatusUpdate,
+  incrementLivestockQuery, incrementProduceQuery,
+} from "../SharedComponents/LocalServer/LocalServer"
 
 
 class Admin extends Component {
@@ -42,9 +46,11 @@ class Admin extends Component {
       sold: [],
       delivered: [],
       notAccepted: [],
+      currentType: "",
+      currentPrice: "",
+      forSeriousCurrentType: "",
       pushThroughBtnText: "",
-      errorModalIsOpen: false,
-      modalErrorMessage: ""
+      popUpIsOpen: false,
     };
   }
 
@@ -150,8 +156,7 @@ class Admin extends Component {
     this.pushThroughProduce(id, "Not Accepted");
   };
   sendEmail = (farm, email) => {
-    console.log("send email", farm, email)
-    sendEmailQuery(farm, email)
+    sendEmailQueryStatusUpdate(farm, email)
   };
 
   pushThroughBtnTextHelper = currentStatus => {
@@ -162,7 +167,38 @@ class Admin extends Component {
     if (currentStatus === "Not Accepted") return "Accept";
   };
 
-  pushThroughPrompt = (id, status, farm, email) => { };
+  openPushThroughPopUp = (status, type) => {
+    if (status === "Pending Admin" && type === "produce") this.setState({
+      popUpIsOpen: true,
+      forSeriousCurrentType: type,
+      currentType: this.state.itemProduceDetails.type,
+      currentPrice: this.state.itemProduceDetails.estPrice
+    })
+    else if (status === "Pending Admin" && type === "livestock") this.setState({
+      popUpIsOpen: true,
+      forSeriousCurrentType: type,
+      currentType: this.state.itemLivestockDetails.type,
+      currentPrice: this.state.itemLivestockDetails.estFinalPrice
+    })
+    else if (type === "produce") {
+      this.pushThroughProduce(
+        this.state.itemProduceDetails.id,
+        this.state.itemProduceDetails.status,
+        this.state.itemProduceDetails.farm,
+        this.state.itemProduceDetails.email,
+        this.state.itemProduceDetails.estPrice
+      )
+
+    } else if (type === "livestock") {
+      this.pushThroughLivestock(
+        this.state.itemLivestockDetails.id,
+        this.state.itemLivestockDetails.status,
+        this.state.itemLivestockDetails.farm,
+        this.state.itemLivestockDetails.email,
+        this.state.itemLivestockDetails.estFinalPrice)
+    }
+  }
+
 
   pushThroughLivestock = async (id, status, farm, email) => {
     const nextStatus = this.nextStatus(status);
@@ -172,6 +208,7 @@ class Admin extends Component {
     await this.loadLivestockData();
     await this.createData();
     await this.removeOverlay();
+
   };
   pushThroughProduce = async (id, status, farm, email) => {
     const nextStatus = this.nextStatus(status);
@@ -284,20 +321,17 @@ class Admin extends Component {
   OnClickAdminSettings = () => {
     this.setState({ dataToShow: "adminSettings" });
   };
-  errorHandler = input => {
-    this.setState({
-      errorModalIsOpen: true,
-      modalErrorMessage: input
-    });
-  };
-  closeErrorModal = () => {
-    this.setState({ errorModalIsOpen: false });
+
+  closePopUp = () => {
+    this.setState({ popUpIsOpen: false });
   };
 
   render() {
     return (
       <div className="App">
         <AdminNav />
+        {this.state.popUpIsOpen && <PushThroughPopUp closePopUp={this.closePopUp}
+          price={this.state.currentPrice} type={this.state.currentType} confirm={this.openPushThroughPopUp} realType={this.state.forSeriousCurrentType} />}
         <AdminSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"}
           OnClickAllItems={this.OnClickAllItems}
           OnClickAccept={this.OnClickAccept}
@@ -311,15 +345,10 @@ class Admin extends Component {
           OnClickAddUser={this.OnClickAddUser}
           OnClickAdminSettings={this.OnClickAdminSettings} />
         <main>
-          <ErrorModal
-            errorModalIsOpen={this.state.errorModalIsOpen}
-            closeErrorModal={this.closeErrorModal}
-            modalErrorMessage={this.state.modalErrorMessage}
-          />
           <ItemProduceDetail
             itemProduceDetails={this.state.itemProduceDetails}
             removeOverlay={this.removeOverlay}
-            pushThroughProduce={this.pushThroughProduce}
+            openPushThroughPopUp={this.openPushThroughPopUp}
             rejectProduce={this.rejectProduce}
             refreshProduce={this.refreshProduce}
             pushThroughBtnText={this.state.pushThroughBtnText}
@@ -327,7 +356,7 @@ class Admin extends Component {
           <ItemLiveStockDetail
             itemLivestockDetails={this.state.itemLivestockDetails}
             removeOverlay={this.removeOverlay}
-            pushThroughLivestock={this.pushThroughLivestock}
+            openPushThroughPopUp={this.openPushThroughPopUp}
             rejectLivestock={this.rejectLivestock}
             refreshLiveStock={this.refreshLiveStock}
             pushThroughBtnText={this.state.pushThroughBtnText}
@@ -423,7 +452,7 @@ class Admin extends Component {
                     <UsersComp
                       OnClickListUsers={this.OnClickListUsers}
                       data={this.state.users}
-                      showUsers={this.OnClickListUsers} // here
+                      showUsers={this.OnClickListUsers}
                       title="List of Users"
                     />
                   </div>

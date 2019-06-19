@@ -167,7 +167,7 @@ class Summary extends Component {
                 {
                   Header: "Type",
                   id: "type",
-                  width: 200,
+                  width: 300,
                   accessor: d => d.type,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["type"], threshold: 3 }),
