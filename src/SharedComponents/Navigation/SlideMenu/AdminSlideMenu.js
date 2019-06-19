@@ -47,7 +47,7 @@ class AdminSlideMenu extends React.Component {
                     <div onClick={this.props.OnClickAdminSettings} className="menu-item">Admin Settings</div>
                     {JSON.parse(sessionStorage.getItem("adminAuth")) && <>
                         <Link to={"/Admin"} className="menu-item bm-item bm-admin-link" >Admin</Link>
-                        <Link to={"/Producer"} className="menu-item bm-item bm-admin-link"> Producer </Link></>}
+                        <Link to={"/Producer/home"} className="menu-item bm-item bm-admin-link"> Producer </Link></>}
                     <Link to={"/"} className="menu-item bm-item bm-signout" onClick={this.SignOutClick}>Sign Out</Link>
                 </Menu>
             </div >

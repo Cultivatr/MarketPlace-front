@@ -1,8 +1,8 @@
 
 // const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
 // const domainLink = "https://cultivatr-backend-production.herokuapp.com";
-// const domainLink = "https://cultivatr-backend-developer.herokuapp.com";
-const domainLink = "http://localhost:5000";
+const domainLink = "https://cultivatr-backend-developer.herokuapp.com";
+// const domainLink = "http://localhost:5000";
 // const domainLink = "http://127.0.0.1:5000";
 
 let email = undefined

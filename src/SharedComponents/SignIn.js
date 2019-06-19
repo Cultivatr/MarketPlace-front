@@ -47,7 +47,7 @@ class SignIn extends Component {
       return this.state.admin ? (
         <Redirect to={"/admin"} />
       ) : (
-          <Redirect to={"/producer"} />
+          <Redirect to={"/producer/home"} />
         );
     }
 

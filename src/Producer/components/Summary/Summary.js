@@ -101,11 +101,13 @@ class Summary extends Component {
     this.data.length = 0;
     if (this.state.items_produce.produce) {
       this.state.items_produce.produce.forEach(item => {
+        item.tableId = Number(item.id.substring(2))
         this.data.push(item);
       });
     }
     if (this.state.items_livestock.livestock) {
       this.state.items_livestock.livestock.forEach(item => {
+        item.tableId = Number(item.id.substring(2))
         this.data.push(item);
       });
     }
@@ -141,6 +143,7 @@ class Summary extends Component {
 
         <ReactTable
           data={data}
+          defaultSorted={[{ id: "id", desc: true }]}
           noDataText="No items from producers!"
           filterable
           defaultFilterMethod={(filter, row) =>
@@ -155,7 +158,9 @@ class Summary extends Component {
                   Header: "Item #",
                   id: "id",
                   width: 75,
-                  placeholder: "Orange",
+                  sortMethod: (a, b) => {
+                    return (Number(a.substring(2)) > Number(b.substring(2))) ? 1 : -1
+                  },
                   accessor: d => d.id,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["id"], threshold: 3 }),

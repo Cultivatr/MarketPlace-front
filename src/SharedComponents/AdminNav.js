@@ -18,7 +18,7 @@ export default class AdminNav extends Component {
 
   render() {
     return (
-      <div id="desktop-menu">
+      <div id="desktop-menu" onClick={this.props.updateApp}>
         <div className="displayEnd ">
           {/* {this.redirectHandler()} */}
 
@@ -27,7 +27,7 @@ export default class AdminNav extends Component {
               <Link className="link" to={"/Admin"}>
                 Admin
             </Link>
-              <Link className="link" to={"/Producer"}>
+              <Link className="link" to={"/Producer/home"}>
                 Producer
             </Link>
             </div>

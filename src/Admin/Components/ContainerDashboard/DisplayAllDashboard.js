@@ -21,6 +21,7 @@ class DisplayAllDashboard extends React.Component {
         <ReactTable
           data={data}
           noDataText="No items from producers!"
+          defaultSorted={[{ id: "id", desc: true }]}
           filterable
           defaultFilterMethod={(filter, row) =>
             String(row[filter.id]) === filter.value
@@ -35,6 +36,9 @@ class DisplayAllDashboard extends React.Component {
                   width: 80,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["id"] }),
+                  sortMethod: (a, b) => {
+                    return (Number(a.substring(2)) > Number(b.substring(2))) ? 1 : -1
+                  },
                   filterAll: true,
                   style: {
                     textAlign: "center"

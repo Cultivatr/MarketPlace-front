@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styles from "./AddMeatForm.module.css";
 import Button from "../../../../SharedComponents/UI/Button";
-import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
 import ProducerSlideMenu from "../../../../SharedComponents/Navigation/SlideMenu/ProducerSlideMenu"
 import OtherInput from "../../../../SharedComponents/OtherInput"
 import DatePicker from "react-datepicker";
@@ -143,7 +142,6 @@ class LivestockForm extends Component {
   render() {
     return (
       <div>
-        <Toolbar />
         <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
         <h2 className="mobile-header-title">Add Livestock</h2>
         <div className={styles.wrapper}>
@@ -309,7 +307,7 @@ class LivestockForm extends Component {
             </strong>
           </div>
         </div>
-        {this.state.showItemPopup && <AddItemPopUp hideItemPopup={this.hideItemPopup} clearForm={this.clearForm} />}
+        {this.state.showItemPopup && <AddItemPopUp hideItemPopup={this.hideItemPopup} type={this.state.data.type} clearForm={this.clearForm} />}
       </div>
     );
   }

@@ -19,14 +19,14 @@ class ProductLivestockDetail extends Component {
     console.log("Livestock details:", this.state.itemLivestockDetails);
   };
 
-  modifyItem = async () => { 
+  modifyItem = async () => {
     if (this.state.itemLivestockDetails !== "") {
       await modifyItemLivestockQuery(this.state.itemLivestockDetails);
       await this.props.refreshLiveStock(this.state.itemLivestockDetails);
     };
 
     this.props.removeOverlay();
-    
+
   };
 
   getBrandValue = () => {
@@ -81,12 +81,13 @@ class ProductLivestockDetail extends Component {
     const btnApprove = (this.props.itemLivestockDetails.status === "Pending Producer" && this.props.displayApprove) ? (
       <button
         className={Class.itemButtonsCancel}
-        onClick={() =>
+        onClick={() => {
+          this.modifyItem()
           this.props.approveItem(
             this.props.itemLivestockDetails.id,
             this.props.itemLivestockDetails.status
           )
-        }
+        }}
       >
         Approve
       </button>
@@ -279,10 +280,10 @@ class ProductLivestockDetail extends Component {
             >
               Cancel
             </button>
-           
-           {btnApprove}
+
+            {btnApprove}
             {btnReject}
-            
+
           </div>
         </div>
       </div>

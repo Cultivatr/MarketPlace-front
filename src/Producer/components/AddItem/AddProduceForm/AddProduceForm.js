@@ -3,7 +3,6 @@ import "./AddProduceForm.module.css";
 import "../../../../SharedComponents/UI/react-datepicker.css";
 import Button from "../../../../SharedComponents/UI/Button";
 import styles from "./AddProduceForm.module.css";
-import Toolbar from "../../../../SharedComponents/Navigation/Toolbar/Toolbar";
 import DatePicker from "react-datepicker";
 import "../../../../SharedComponents/miscStyles.css";
 import ProducerSlideMenu from "../../../../SharedComponents/Navigation/SlideMenu/ProducerSlideMenu"
@@ -115,7 +114,6 @@ class ProduceForm extends Component {
   render() {
     return (
       <div>
-        <Toolbar />
         <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
         <h2 className="mobile-header-title">Add Produce</h2>
         <div className={styles.wrapper}>

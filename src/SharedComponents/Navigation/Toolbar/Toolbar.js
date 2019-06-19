@@ -1,14 +1,14 @@
 import React from "react";
-import NavigationItems from "../NavigationItems/NavigationItems";
+import { NavigationItems } from "../NavigationItems/NavigationItems";
 import styles from "./Toolbar.module.css";
 import AdminNav from "../../AdminNav";
 
-const toolbar = () => (
+const toolbar = ({ pendingLength, updateApp }) => (
   <div id="desktop-menu">
-    <AdminNav />
+    <AdminNav updateApp={updateApp} />
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <NavigationItems />
+        <NavigationItems pendingLength={pendingLength} updateApp={updateApp} />
       </nav>
     </header>
   </div>
