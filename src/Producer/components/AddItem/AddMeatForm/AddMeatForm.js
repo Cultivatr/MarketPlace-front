@@ -233,8 +233,11 @@ class LivestockForm extends Component {
                   />
                 </div>
                 <div className="field">
-                  <div><label>RFID Tag </label><Tooltip message={'Hello This Is RFID Tag'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
-                  <input onChange={this.onChange} type="number" name="rfid" />
+
+
+                  <div><label>RFID Tag </label><Tooltip message={'Hello This Is RFID Tag'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
+                  <input onChange={this.onChange} type="text" name="rfid" />
+
                 </div>
                 <div className="field">
                   <div><label>Est. Starting Weight in Pounds </label><Tooltip message={"Hello This Is Est Starting Weight In 'LBS'"} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
