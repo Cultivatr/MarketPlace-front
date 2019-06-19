@@ -133,7 +133,7 @@ class LivestockForm extends Component {
               addedThisSession: prevstate.addedThisSession + 1,
               showItemPopup: true
             }))
-          }, 2000)
+          }, 500)
         } else document.getElementById("submitBtn").className = "ui button";
       })
       .catch(error => console.log(error));
