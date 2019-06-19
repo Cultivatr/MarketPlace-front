@@ -16,6 +16,7 @@ class ContainerDashboard extends React.Component {
       <div className="table">
         <ReactTable
           data={data}
+          defaultSorted={[{ id: "id", desc: true }]}
           noDataText="No items from producers!"
           filterable
           defaultFilterMethod={(filter, row) =>
@@ -31,6 +32,9 @@ class ContainerDashboard extends React.Component {
                   width: 80,
                   filterMethod: (filter, rows) =>
                     matchSorter(rows, filter.value, { keys: ["id"] }),
+                  sortMethod: (a, b) => {
+                    return (Number(a.substring(2)) > Number(b.substring(2))) ? 1 : -1
+                  },
                   filterAll: true,
                   style: {
                     textAlign: "center"
@@ -114,9 +118,9 @@ class ContainerDashboard extends React.Component {
           ]}
           defaultPageSize={20}
           className="-striped -highlight"
-          // style={{
-          //   height: "80vh"  // react table height set here
-          // }}
+        // style={{
+        //   height: "80vh"  // react table height set here
+        // }}
         />
       </div>
     );

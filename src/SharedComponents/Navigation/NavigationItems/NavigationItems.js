@@ -1,48 +1,34 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import NavigationItem from "./NavigationItem/NavigationItem";
 import styles from "./NavigationItems.module.css";
 import GoogleAuth from "../../../GoogleAuth";
 import "./NavigationItems.css";
 
-export default class navigationItems extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      pendingItemsNumber: ""
-    };
-  }
+export const NavigationItems = ({ pendingLength, updateApp }) => (
 
-  componentWillMount = () => {
-    this.setState({
-      pendingItemsNumber: JSON.parse(sessionStorage.getItem("PendingItems"))
-    });
-  };
 
-  render() {
-    return (
-      <ul className={styles.list}>
-        <li>
-          <NavigationItem link={"/producer"}>Home</NavigationItem>
-        </li>
-        <li>
-          <NavigationItem link={"/awaiting-approval"}>
-            Items Awaiting Approval
-            {this.state.pendingItemsNumber ? (
-              <sup id="awaiting-approval">{this.state.pendingItemsNumber}</sup>
-            ) : null}
-          </NavigationItem>
-        </li>
-        <li>
-          <NavigationItem link={"/add-livestock"}>Add Livestock</NavigationItem>
-        </li>
-        <li>
-          <NavigationItem link={"/add-produce"}>Add Produce</NavigationItem>
-        </li>
-        <li>
-          <NavigationItem link={"/contact-us"}>Contact Us</NavigationItem>
-        </li>
-        <GoogleAuth />
-      </ul>
-    );
-  }
-}
+  <ul className={styles.list} onClick={updateApp}>
+    <li style={(window.location.pathname === "/producer/home") ? { transform: "rotate(10deg)" } : {}}>
+      <NavigationItem link={"/producer/home"}>Home</NavigationItem>
+    </li>
+    <li style={(window.location.pathname === "/producer/awaiting-approval") ? { transform: "rotate(10deg)" } : {}}>
+      <NavigationItem link={"/producer/awaiting-approval"}>
+        Items Awaiting Approval
+            {pendingLength ? (
+          <sup id="awaiting-approval">{pendingLength}</sup>
+        ) : null}
+      </NavigationItem>
+    </li>
+    <li style={(window.location.pathname === "/producer/add-livestock") ? { transform: "rotate(10deg)" } : {}}>
+      <NavigationItem link={"/producer/add-livestock"}>Add Livestock</NavigationItem>
+    </li>
+    <li style={(window.location.pathname === "/producer/add-produce") ? { transform: "rotate(10deg)" } : {}}>
+      <NavigationItem link={"/producer/add-produce"}>Add Produce</NavigationItem>
+    </li>
+    <li style={(window.location.pathname === "/producer/contact-us") ? { transform: "rotate(10deg)" } : {}}>
+      <NavigationItem link={"/producer/contact-us"}>Contact Us</NavigationItem>
+    </li>
+    <GoogleAuth />
+  </ul>
+);
+

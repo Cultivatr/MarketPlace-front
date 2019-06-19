@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Toolbar from "../../../SharedComponents/Navigation/Toolbar/Toolbar";
 import ProducerSlideMenu from "../../../SharedComponents/Navigation/SlideMenu/ProducerSlideMenu"
 import styles from "./ContactUs.module.css";
 
@@ -27,7 +26,6 @@ class ContactUs extends Component {
   render() {
     return (
       <div >
-        <Toolbar />
         <h2 className="mobile-header-title">Contact Us</h2>
         <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
         <div className={styles.loginBox}>

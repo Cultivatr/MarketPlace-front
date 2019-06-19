@@ -22,6 +22,9 @@ export default class ProducerApprovalTable extends Component {
                     id: "id",
                     width: 75,
                     accessor: d => d.id,
+                    sortMethod: (a, b) => {
+                      return (Number(a.substring(2)) > Number(b.substring(2))) ? 1 : -1
+                    },
                     filterMethod: (filter, rows) =>
                       matchSorter(rows, filter.value, { keys: ["id"] }),
                     filterAll: true,
@@ -89,14 +92,14 @@ export default class ProducerApprovalTable extends Component {
                       <span
                         className="detail-button"
                         style={{
-                          cursor: "pointer", 
+                          cursor: "pointer",
                           fontSize: 10,
                           border: "1px solid black",
                           borderRadius: 25,
-                          padding: "5px", 
+                          padding: "5px",
                           margin: "3px 0px",
                           textAlign: "center",
-                          userSelect: "none"                     
+                          userSelect: "none"
                         }}
                         id={d.id}
                         onClick={this.props.getItemObj}

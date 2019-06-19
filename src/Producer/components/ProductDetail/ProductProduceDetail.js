@@ -67,12 +67,14 @@ class ProductProduceDetail extends Component {
     const btnApprove = (this.props.itemProduceDetails.status === "Pending Producer" && this.props.displayApprove) ? (
       <button
         className={Class.itemButtonsCancel}
-        onClick={() =>
+        onClick={() => {
+          this.modifyItem()
           this.props.approveItem(
             this.props.itemProduceDetails.id,
             this.props.itemProduceDetails.status
           )
-        }
+
+        }}
       >
         Approve
       </button>
@@ -247,7 +249,7 @@ class ProductProduceDetail extends Component {
           <div className={Class.itemButtonsContainer}>
             <button
               className={Class.itemButtonsModify}
-              onClick={() => this.modifyItem()}
+              onClick={this.modifyItem}
             >
               Save
             </button>

@@ -322,6 +322,7 @@ class Admin extends Component {
     this.setState({ dataToShow: "adminSettings" });
   };
 
+
   closePopUp = () => {
     this.setState({ popUpIsOpen: false });
   };
@@ -329,7 +330,7 @@ class Admin extends Component {
   render() {
     return (
       <div className="App">
-        <AdminNav />
+        <AdminNav updateApp={this.props.updateApp} />
         {this.state.popUpIsOpen && <PushThroughPopUp closePopUp={this.closePopUp}
           price={this.state.currentPrice} type={this.state.currentType} confirm={this.openPushThroughPopUp} realType={this.state.forSeriousCurrentType} />}
         <AdminSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"}
