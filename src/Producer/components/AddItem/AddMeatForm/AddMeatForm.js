@@ -6,7 +6,7 @@ import ProducerSlideMenu from "../../../../SharedComponents/Navigation/SlideMenu
 import OtherInput from "../../../../SharedComponents/OtherInput"
 import DatePicker from "react-datepicker";
 import "../../../../SharedComponents/UI/react-datepicker.css";
-import { refreshLivestockItems, addLivestockQuery, getBreedsWithId } from "../../../../SharedComponents/LocalServer/LocalServer"
+import { refreshLivestockItems, addLivestockQuery, getBreedsWithId, sendEmailQueryNewItem } from "../../../../SharedComponents/LocalServer/LocalServer"
 import AddItemPopUp from "../AddItemPopup";
 import i from '../../../../img/i-icon.png'
 import Tooltip from '../../../../SharedComponents/UI/Tooltip'
@@ -55,11 +55,10 @@ class LivestockForm extends Component {
         return false
       })[0]
       const currentType = Number(Object.keys(currentTypeObject))
-      console.log("TCL: LivestockForm -> currentType", currentType)
       getBreedsWithId(currentType)
         .then(response => response.json())
         .then(breeds => {
-          this.setState({ selectedBreeds: Object.values(breeds)[0] }, () => { console.log(this.state.selectedBreeds) })
+          this.setState({ selectedBreeds: Object.values(breeds)[0] })
         })
     }
     let data = this.state.data;
@@ -122,19 +121,21 @@ class LivestockForm extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const form = e.target;
+    this.form = e.target;
     document.getElementById("submitBtn").className += " loading";
     addLivestockQuery(this.state.data, this.state.dateOnFeed, this.state.estCompletionDate, this.state.birthdate)
-      .then(form.reset(),
-        this.setState({
-          addedThisSession: this.state.addedThisSession + 1,
-          showItemPopup: true
-        }))
-      .then(
-        setTimeout(function () {
-          document.getElementById("submitBtn").className = "ui button";
-        }, 2000)
-      )
+      .then(res => {
+        if (res.Success) {
+          setTimeout(() => {
+            document.getElementById("submitBtn").className = "ui button"
+            sendEmailQueryNewItem()
+            this.setState((prevstate) => ({
+              addedThisSession: prevstate.addedThisSession + 1,
+              showItemPopup: true
+            }))
+          }, 2000)
+        } else document.getElementById("submitBtn").className = "ui button";
+      })
       .catch(error => console.log(error));
 
   };
@@ -156,7 +157,7 @@ class LivestockForm extends Component {
             <form onSubmit={this.onSubmit} className="ui row form add-meat-mobile" autoComplete="off">
               <div className="form-column-8">
                 <div className="field">
-                  <div><label>Type </label><Tooltip message={'Hello This Is Type'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
+                  <div><label>Type </label><Tooltip message={'Hello This Is Type'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     name="type"
@@ -172,7 +173,7 @@ class LivestockForm extends Component {
 
                 {/* <OtherInput value={this.state.data.breed} labelItem={"breed"} title={"Breed"} options={["Angus", "Birkshire", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} /> */}
                 <div className="field">
-                  <div><label>Breed </label><Tooltip message={'Hello This Is Type of Breed'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
+                  <div><label>Breed </label><Tooltip message={'Hello This Is Type of Breed'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     // onChangeOther={this.onChangeOther}
@@ -184,7 +185,7 @@ class LivestockForm extends Component {
                   >
                     <option>Please choose an option</option>
                     {this.state.selectedBreeds && this.state.selectedBreeds.map(breed => {
-                      return (<option value={breed}>{breed}</option>)
+                      return (<option key={breed} value={breed}>{breed}</option>)
                     }
                     )}
 
@@ -194,7 +195,7 @@ class LivestockForm extends Component {
 
 
                 <div className="field">
-                  <div><label>Single Brand </label><Tooltip message={'Hello This Is Sinle Brand'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
+                  <div><label>Single Brand </label><Tooltip message={'Hello This Is Sinle Brand'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     name="singleBrand"
@@ -207,10 +208,10 @@ class LivestockForm extends Component {
                   </select>
                 </div>
                 <div className="field">
-                  <div><label>Est Date of Birth </label><Tooltip message={'Hello This Is Est Date Of Birth'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
+                  <div><label>Est Date of Birth </label><Tooltip message={'Hello This Is Est Date Of Birth'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <div
                     className="dpicker"
-                    style={{ border: "3px solid #F92E2E", width: "150px"}}
+                    style={{ border: "3px solid #F92E2E", width: "150px" }}
                   >
                     <DatePicker
                       autocomplete="off"
@@ -224,7 +225,7 @@ class LivestockForm extends Component {
                   </div>
                 </div>
                 <div className="field">
-                  <div><label>Registration Number </label><Tooltip message={'Hello This Is Registration Number'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
+                  <div><label>Registration Number </label><Tooltip message={'Hello This Is Registration Number'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <input
                     onChange={this.onChange}
                     type="number"
@@ -232,11 +233,11 @@ class LivestockForm extends Component {
                   />
                 </div>
                 <div className="field">
-                  <div><label>RFID Tag </label><Tooltip message={'Hello This Is RFID Tag'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
+                  <div><label>RFID Tag </label><Tooltip message={'Hello This Is RFID Tag'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <input onChange={this.onChange} type="number" name="rfid" />
                 </div>
                 <div className="field">
-                  <div><label>Est. Starting Weight in Pounds </label><Tooltip message={"Hello This Is Est Starting Weight In 'LBS'"} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
+                  <div><label>Est. Starting Weight in Pounds </label><Tooltip message={"Hello This Is Est Starting Weight In 'LBS'"} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <input
                     onChange={this.onChange}
                     type="number"
@@ -255,10 +256,10 @@ class LivestockForm extends Component {
               </div>
               <div className="form-column-8">
                 <div className="field">
-                  <div><label>Date on Feed </label><Tooltip message={'Hello This Is Date on Feed'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
+                  <div><label>Date on Feed </label><Tooltip message={'Hello This Is Date on Feed'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <div
                     className="dpicker"
-                    style={{ border: "3px solid #F92E2E", width: "150px",}}
+                    style={{ border: "3px solid #F92E2E", width: "150px", }}
                   >
                     <DatePicker
                       name="dateOnFeed"
@@ -269,15 +270,15 @@ class LivestockForm extends Component {
                     />
                   </div>
                 </div>
-                <OtherInput value={this.state.data.feedMethod} labelItem={"feedMethod"} title={<div><label>Feed Method </label><Tooltip message={'Hello This Is Feed Method'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>} options={["Grass", "GrassBarley", "GrassGrain", "FreeRange", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
-                <OtherInput value={this.state.data.typeOfPasture} labelItem={"typeOfPasture"} title={<div><label>Type of Pasture </label><Tooltip message={'Hello This Is Type of Pasture'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>} options={["Timothy", "Alfa", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
-                <OtherInput value={this.state.data.typeOfFeed} labelItem={"typeOfFeed"} title={<div><label>Type of Feed </label><Tooltip message={'Hello This Is Type of Feed'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>} options={["Grain", "Barley", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInput value={this.state.data.feedMethod} labelItem={"feedMethod"} title={<div><label>Feed Method </label><Tooltip message={'Hello This Is Feed Method'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>} options={["Grass", "GrassBarley", "GrassGrain", "FreeRange", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInput value={this.state.data.typeOfPasture} labelItem={"typeOfPasture"} title={<div><label>Type of Pasture </label><Tooltip message={'Hello This Is Type of Pasture'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>} options={["Timothy", "Alfa", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
+                <OtherInput value={this.state.data.typeOfFeed} labelItem={"typeOfFeed"} title={<div><label>Type of Feed </label><Tooltip message={'Hello This Is Type of Feed'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>} options={["Grain", "Barley", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
 
                 <div className="field">
-                  <div><label>Est. Completion Date </label><Tooltip message={'Hello This Is est Completion Date'} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
+                  <div><label>Est. Completion Date </label><Tooltip message={'Hello This Is est Completion Date'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <div
                     className="dpicker"
-                    style={{ border: "3px solid #F92E2E", width: "150px"}}
+                    style={{ border: "3px solid #F92E2E", width: "150px" }}
                   >
                     <DatePicker
                       name="estCompletionDate"
@@ -290,7 +291,7 @@ class LivestockForm extends Component {
                   </div>
                 </div>
                 <div className="field">
-                  <div><label>Est. Finished Weight in Pounds </label><Tooltip message={"Hello This Is Est Finished Weight In 'LBS'"} position={'top'}><img style={{width:"15px", height: "15px"}} src={i}></img></Tooltip></div>
+                  <div><label>Est. Finished Weight in Pounds </label><Tooltip message={"Hello This Is Est Finished Weight In 'LBS'"} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <input
                     onChange={this.onChange}
                     type="number"

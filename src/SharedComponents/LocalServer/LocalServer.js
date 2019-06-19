@@ -1,16 +1,17 @@
 
 // const domainLink = "https://hidden-escarpment-75213.herokuapp.com";
 // const domainLink = "https://cultivatr-backend-production.herokuapp.com";
-const domainLink = "https://cultivatr-backend-developer.herokuapp.com";
-// const domainLink = "http://localhost:5000";
-// const domainLink = "http://127.0.0.1:5000"
+// const domainLink = "https://cultivatr-backend-developer.herokuapp.com";
+const domainLink = "http://localhost:5000";
+// const domainLink = "http://127.0.0.1:5000";
 
-
+let email = undefined
 
 export function loginQuery(googleEmail) {
+    email = googleEmail;
     return fetch(domainLink + "/login/", {
         method: "POST",
-        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token")},
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             email: googleEmail
         })
@@ -49,8 +50,6 @@ export function getBreedsWithId(livestockId) {
     });
 }
 
-
-
 export function deleteBreed(breed, livestockId) {
 
     return fetch(domainLink + "/breed/delete/", {
@@ -62,9 +61,6 @@ export function deleteBreed(breed, livestockId) {
     })
         .then(response => response.json())
 }
-
-
-
 
 
 export function refreshProduceItems() {
@@ -234,9 +230,8 @@ export function loadUserSpecificProduceQuery(user1) {
     });
 }
 
-export function sendEmailQuery(farm, email) {
-    console.log("TRYING TO SEND EMAIL")
-    fetch(domainLink + "/email/", {
+export function sendEmailQueryStatusUpdate(farm, email) {
+    fetch(domainLink + "/email/item_status/", {
         method: "POST",
         headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
@@ -246,13 +241,24 @@ export function sendEmailQuery(farm, email) {
     });
 }
 
+export function sendEmailQueryNewItem() {
+    fetch(domainLink + "/email/new_item/", {
+        method: "POST",
+        headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
+        body: JSON.stringify({
+            email: email,
+        })
+    });
+}
+
+
 export function incrementLivestockQuery(subId, nextStatus) {
     return fetch(domainLink + "/livestock/incrementStatus/", {
         method: "POST",
         headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             id: subId,
-            nextStatus: nextStatus
+            nextStatus: nextStatus,
         })
     })
 }
@@ -263,7 +269,7 @@ export function incrementProduceQuery(subId, nextStatus) {
         headers: { "Content-type": "application/json", "Authorization": sessionStorage.getItem("id_token") },
         body: JSON.stringify({
             id: subId,
-            nextStatus: nextStatus
+            nextStatus: nextStatus,
         })
     })
 }
