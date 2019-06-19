@@ -144,8 +144,7 @@ class ProductProduceDetail extends Component {
                       <option value="Accepted">Accepted</option>
                       <option value="Sold">Sold</option>
                       <option value="Delivered">Delivered</option>
-                      <option value="Sold">Sold</option>
-                      <option value="Not Accepted">"Not Accepted</option>
+                      <option value="Not Accepted">Not Accepted</option>
                     </select></td>
                 </tr>
                 <tr>
