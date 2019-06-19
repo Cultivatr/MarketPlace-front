@@ -213,8 +213,7 @@ class ProductLivestockDetail extends Component {
                       <option value="Accepted">Accepted</option>
                       <option value="Sold">Sold</option>
                       <option value="Delivered">Delivered</option>
-                      <option value="Sold">Sold</option>
-                      <option value="Not Accepted">"Not Accepted</option>
+                      <option value="Not Accepted">Not Accepted</option>
                     </select></td>
                 </tr>
                 <OtherInputAdmin value={this.props.itemLivestockDetails.breed} labelItem={"breed"} title={"Breed"} options={["Angus", "Birkshire", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
