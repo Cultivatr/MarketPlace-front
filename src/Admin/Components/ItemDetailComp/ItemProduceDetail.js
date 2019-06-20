@@ -12,7 +12,30 @@ class ProductProduceDetail extends Component {
     };
     this.priorCompletionDate = "";
     this.priorDeliveredDate = "";
+    this.rejectshow = false;
   }
+
+  componentDidMount(){
+    switch (this.props.itemProduceDetails.status) {
+      case "Sold":
+        this.rejectshow = false;
+        break;
+      case "Delivered":
+        this.rejectshow = false;
+        break;
+      case "Archive":
+        this.rejectshow = false;
+        break;
+      case "Not Accepted":
+        this.rejectshow = true;
+        break;
+      case "Accepted":
+        this.rejectshow = true;
+        break;
+    }
+    return this.rejectshow
+  }
+
 
   getPackageTypeValue = () => {
     const element = document.getElementById("packageType");
@@ -452,14 +475,17 @@ class ProductProduceDetail extends Component {
             >
               Modify
             </button>
-            <button
+            
+            {this.showReject === true ?
+              <button
               className={Class.itemButtonsCancel}
               onClick={() =>
                 this.props.rejectProduce(this.props.itemProduceDetails.id)
-              }
-            >
-              Reject
-            </button>
+              }>Reject
+              </button> 
+            : console.log()}
+                  
+            
           </div>
         </div>
       </div>
