@@ -165,6 +165,7 @@ class Admin extends Component {
     if (currentStatus === "Sold") return "Mark As Delivered";
     if (currentStatus === "Delivered") return "Send To Archives";
     if (currentStatus === "Not Accepted") return "Accept";
+    if (currentStatus === "Archive") return "Delete";
   };
 
   openPushThroughPopUp = (status, type) => {
