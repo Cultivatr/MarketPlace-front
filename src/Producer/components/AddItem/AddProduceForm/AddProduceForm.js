@@ -127,7 +127,7 @@ class ProduceForm extends Component {
             <form onSubmit={this.onSubmit} className="ui row form">
               <div className="form-column-8">
                 <div className="field">
-                  <div><label>Type </label><Tooltip message={'Hello This Is Type'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
+                  <div><label style={{fontWeight:"bolder"}}>Type </label><Tooltip message={'Hello This Is Type'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     type="text"
@@ -140,7 +140,7 @@ class ProduceForm extends Component {
                   </select>
                 </div>
                 <div className="field">
-                  <div><label>Package Type </label><Tooltip message={'Hello This Is Package Type'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
+                  <div><label style={{fontWeight:"bolder"}}>Package Type </label><Tooltip message={'Hello This Is Package Type'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     name="packageType"
@@ -156,7 +156,7 @@ class ProduceForm extends Component {
                   </select>
                 </div>
                 <div className="field size-container">
-                  <div><label>Package Size </label><Tooltip message={'Hello This Is Package Size'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
+                  <div><label style={{fontWeight:"bolder"}}>Package Size </label><Tooltip message={'Hello This Is Package Size'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <div className="qty-container">
                     <input
                       onChange={this.onChange}
@@ -177,7 +177,7 @@ class ProduceForm extends Component {
                 </div>
 
                 <div className="field">
-                  <div><label>Est Completion Date </label><Tooltip message={'Hello This Is Est Completion Date'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
+                  <div><label style={{fontWeight:"bolder"}}>Est Completion Date </label><Tooltip message={'Hello This Is Est Completion Date'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <div
                     className="dpicker"
                     style={{ border: "3px solid #F92E2E", width: "150px" }}
@@ -193,11 +193,11 @@ class ProduceForm extends Component {
                   </div>
                 </div>
                 <div className="field">
-                  <div><label>Seed Type </label><Tooltip message={'Hello This Is Seed Type'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
+                  <div><label style={{fontWeight:"bolder"}}>Seed Type </label><Tooltip message={'Hello This Is Seed Type'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <input onChange={this.onChange} type="text" name="seedType" />
                 </div>
                 <div className="field">
-                  <div><label>Modified Seed </label><Tooltip message={'Hello This Is Modified Seed'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
+                  <div><label style={{fontWeight:"bolder"}}>Modified Seed </label><Tooltip message={'Hello This Is Modified Seed'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     name="modifiedSeed"
@@ -210,7 +210,7 @@ class ProduceForm extends Component {
                   </select>
                 </div>
                 <div className="field">
-                  <div><label>Heirloom </label><Tooltip message={'Hello This Is Heirloom'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
+                  <div><label style={{fontWeight:"bolder"}}>Heirloom </label><Tooltip message={'Hello This Is Heirloom'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     name="heirloom"
@@ -223,7 +223,7 @@ class ProduceForm extends Component {
                   </select>
                 </div>
                 <div className="field">
-                  <label>Comments </label>
+                  <label style={{fontWeight:"bolder"}}>Comments </label>
                   <textarea
                     onChange={this.onChange}
                     placeholder="Tell us more"
@@ -234,7 +234,7 @@ class ProduceForm extends Component {
               </div>
               <div className="form-column-8">
                 <div className="field">
-                  <div><label>Estimated Quantity Planted </label><Tooltip message={'Hello This Is Est Quanity Planted'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
+                  <div><label style={{fontWeight:"bolder"}}>Estimated Quantity Planted </label><Tooltip message={'Hello This Is Est Quanity Planted'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <input
                     onChange={this.onChange}
                     type="number"
@@ -242,7 +242,7 @@ class ProduceForm extends Component {
                   />
                 </div>
                 <div className="field">
-                  <div><label>Certified Organic </label><Tooltip message={'Hello This Is Cert. Organic'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
+                  <div><label style={{fontWeight:"bolder"}}>Certified Organic </label><Tooltip message={'Hello This Is Cert. Organic'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <select
                     onChange={this.onChange}
                     name="certifiedOrganic"
@@ -255,7 +255,7 @@ class ProduceForm extends Component {
                   </select>
                 </div>
                 <div className="field">
-                  <div><label>Estimated Finished Qty </label><Tooltip message={'Hello This Is Est Finished Quanity'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
+                  <div><label style={{fontWeight:"bolder"}}>Estimated Finished Qty </label><Tooltip message={'Hello This Is Est Finished Quanity'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <input
                     onChange={this.onChange}
                     type="number"
@@ -265,7 +265,7 @@ class ProduceForm extends Component {
                   />
                 </div>
                 <div className="field">
-                  <div><label>Fertilizer Type Used </label><Tooltip message={'Hello This Is Fertilizer Type Used'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
+                  <div><label style={{fontWeight:"bolder"}}>Fertilizer Type Used </label><Tooltip message={'Hello This Is Fertilizer Type Used'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <input
                     onChange={this.onChange}
                     type="text"
@@ -273,7 +273,7 @@ class ProduceForm extends Component {
                   />
                 </div>
                 <div className="field">
-                  <div><label>Pesticide Type Used </label><Tooltip message={'Hello This Is Pesticide Type Used'} position={'top'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
+                  <div><label style={{fontWeight:"bolder"}}>Pesticide Type Used </label><Tooltip message={'Hello This Is Pesticide Type Used'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <input
                     onChange={this.onChange}
                     type="text"

@@ -9,7 +9,8 @@ class ProductLivestockDetail extends Component {
   constructor() {
     super();
     this.state = {
-      itemLivestockDetails: ""
+      itemLivestockDetails: "",
+      showRejectBtn: false,
     };
     this.priorCompletionDate = "";
     this.priorDeliveredDate = "";
@@ -17,11 +18,51 @@ class ProductLivestockDetail extends Component {
     this.priorOnFeedDate = "";
   }
 
+  componentWillReceiveProps(){
+    switch (this.props.itemLivestockDetails.status) {
+      case "Pending Admin":
+        this.setState({
+          showRejectBtn: true
+        })
+        break;
+      case "Pending Producer":
+        this.setState({
+          showRejectBtn: true
+        })
+        break;
+      case "Accepted":
+        this.setState({
+          showRejectBtn: true
+        })
+        break;
+      case "Sold" :
+        this.setState({
+          showRejectBtn: false
+        })
+        break;
+      case "Not Accepted":
+        this.setState({
+          showRejectBtn: false
+        })
+        break;
+      case "Delivered":
+        this.setState({
+          showRejectBtn: false
+        })
+        break;
+      case "Archive":
+        this.setState({
+          showRejectBtn: false
+        })
+        break;
+    }
+  }
   onChange = e => {
     let itemLivestockDetails = this.props.itemLivestockDetails;
     itemLivestockDetails[e.target.name] = e.target.value;
     this.setState({ itemLivestockDetails: itemLivestockDetails });
     console.log("Livestock details:", this.state.itemLivestockDetails);
+    console.log(this.state.itemLivestockDetails.status)
   };
 
   onChangeOther = e => {
@@ -186,6 +227,13 @@ class ProductLivestockDetail extends Component {
       finalPrice,
       status
     } = this.props.itemLivestockDetails;
+
+    let rejectBtn =
+      <button
+        className={Class.itemButtonsCancel}
+        onClick={() =>
+          this.props.rejectLivestock(this.props.itemLivestockDetails.id)
+        }>Reject</button>
     return (
       <div id="itemLivestockOverlay">
         <div className={Class.itemDetailContainer}>
@@ -498,14 +546,7 @@ class ProductLivestockDetail extends Component {
               Modify
             </button>
 
-            <button
-              className={Class.itemButtonsCancel}
-              onClick={() =>
-                this.props.rejectLivestock(this.props.itemLivestockDetails.id)
-              }
-            >
-              Reject
-            </button>
+            {this.state.showRejectBtn === false ? console.log() : rejectBtn}
           </div>
         </div>
       </div>

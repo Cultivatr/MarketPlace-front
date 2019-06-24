@@ -8,10 +8,51 @@ class ProductProduceDetail extends Component {
     super();
     this.state = {
       itemProduceDetails: "",
-      pushThroughText: "Accept"
+      pushThroughText: "",
+      showRejectBtn: false,
     };
     this.priorCompletionDate = "";
     this.priorDeliveredDate = "";
+  }
+
+  componentWillReceiveProps(){
+    switch (this.props.itemProduceDetails.status) {
+      case "Pending Admin":
+        this.setState({
+          showRejectBtn: true
+        })
+        break;
+      case "Pending Producer":
+        this.setState({
+          showRejectBtn: true
+        })
+        break;
+      case "Accepted":
+        this.setState({
+          showRejectBtn: true
+        })
+        break;
+      case "Sold" :
+        this.setState({
+          showRejectBtn: false
+        })
+        break;
+      case "Not Accepted":
+        this.setState({
+          showRejectBtn: false
+        })
+        break;
+      case "Delivered":
+        this.setState({
+          showRejectBtn: false
+        })
+        break;
+      case "Archive":
+        this.setState({
+          showRejectBtn: false
+        })
+        break;
+    }
   }
 
   getPackageTypeValue = () => {
@@ -54,6 +95,7 @@ class ProductProduceDetail extends Component {
     let itemProduceDetails = this.props.itemProduceDetails;
     itemProduceDetails[e.target.name] = e.target.value;
     this.setState({ itemProduceDetails: itemProduceDetails });
+    console.log(this.state.itemProduceDetails.status)
   };
 
   getModifiedSeedValue = () => {
@@ -117,6 +159,14 @@ class ProductProduceDetail extends Component {
       deliveredTo,
       status
     } = this.props.itemProduceDetails;
+    let rejectBtn = 
+      <button
+        className={Class.itemButtonsCancel}
+        onClick={() =>
+          this.props.rejectProduce(this.props.itemProduceDetails.id)
+        } >
+        Reject
+      </button>
     return (
       <div id="itemProduceOverlay">
         <div className={Class.itemDetailContainer}>
@@ -442,7 +492,7 @@ class ProductProduceDetail extends Component {
 
             <button
               className={Class.itemButtonsCancel}
-              onClick={this.props.removeOverlay}
+              onClick={this.props.removeOverlay} 
             >
               Cancel
             </button>
@@ -452,14 +502,7 @@ class ProductProduceDetail extends Component {
             >
               Modify
             </button>
-            <button
-              className={Class.itemButtonsCancel}
-              onClick={() =>
-                this.props.rejectProduce(this.props.itemProduceDetails.id)
-              }
-            >
-              Reject
-            </button>
+            {this.state.showRejectBtn === false ? console.log() : rejectBtn}
           </div>
         </div>
       </div>
