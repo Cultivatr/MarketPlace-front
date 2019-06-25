@@ -2,3 +2,13 @@
   list-style: none;
   display: flex;
 } 
+header{
+  background-color: black !important;
+  padding-bottom:10%;
+}
+li{
+  font-weight: bold;
+}
+nav{
+  margin-top: 10%;
+}
