@@ -1,15 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
-body {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('../../img/CultivatR-01.jpg');
+body{
+    background-image: url(../img/producer-background.jpg);
+    background-size: 100% 150%;
+    background-position-y: 0%;
+    background-repeat: no-repeat;
+}
+/* body {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('../img/CultivatR-01.jpg');
     background-position: center;
     background-size: cover;
+} */
+footer{
+    margin-top: 30px;
+    font: 14.85px 'Montserrat', sans-serif !important;
+    background-color: #000;
+    color: #fff;
+    font-size: 11.9px;
+    padding: 23px 0 25px 0px;
+    margin-top: 5%;
+    text-align: center;
 }
-
 header {
     /* height: 10vh;
     background-image: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95));  */

@@ -27,8 +27,8 @@
 
 .table {
   background-color: white;
-  margin-top: 1%;
-  border: 2px solid #1ECE88;
+  margin-top: 2%;
+  border: 5px solid black;
 }
 
 /*set height of table so it fully shows on screen when first opened*/

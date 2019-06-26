@@ -16,6 +16,7 @@ import {
   loadLivestockQuery, sendEmailQueryStatusUpdate,
   incrementLivestockQuery, incrementProduceQuery,
 } from "../SharedComponents/LocalServer/LocalServer"
+import logo from '../img/CultivatR_logo.png';
 
 
 class Admin extends Component {
@@ -331,7 +332,7 @@ class Admin extends Component {
   render() {
     return (
       <div className="App">
-        <AdminNav updateApp={this.props.updateApp} />
+        <AdminNav updateApp={this.props.updateApp} isAdmin={"true"} />
         {this.state.popUpIsOpen && <PushThroughPopUp closePopUp={this.closePopUp}
           price={this.state.currentPrice} type={this.state.currentType} confirm={this.openPushThroughPopUp} realType={this.state.forSeriousCurrentType} />}
         <AdminSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"}
@@ -365,6 +366,7 @@ class Admin extends Component {
           />
           <div className={Class.container}>
             <div className={Class.boxContainer}>
+            <div className="white-logo" style={{position:"absolute",left:"3%",top:"1.75%"}}><a href="https://cultivatr1.myshopify.com/"><img style={{width:"125%", height:"125%"}} src="https://cdn.shopify.com/s/files/1/0089/5929/5539/files/CultivatR_log_white_110x.png?v=1560906151"></img></a></div>
               <div id="desktop-menu" className={Class.leftNav}>
                 <button
                   id="button-allItems"
@@ -577,6 +579,9 @@ class Admin extends Component {
                 )}
               </div>
             </div>
+            <footer className="copyright">
+              © 2019 CultivatR | ALL RIGHTS RESERVED 
+            </footer>  
           </div>
         </main>
       </div>
