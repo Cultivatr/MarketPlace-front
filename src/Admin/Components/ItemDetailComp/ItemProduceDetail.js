@@ -15,7 +15,7 @@ class ProductProduceDetail extends Component {
     this.priorDeliveredDate = "";
   }
 
-  componentWillReceiveProps(){
+  componentWillReceiveProps() {
     switch (this.props.itemProduceDetails.status) {
       case "Pending Admin":
         this.setState({
@@ -32,7 +32,7 @@ class ProductProduceDetail extends Component {
           showRejectBtn: true
         })
         break;
-      case "Sold" :
+      case "Sold":
         this.setState({
           showRejectBtn: false
         })
@@ -51,6 +51,8 @@ class ProductProduceDetail extends Component {
         this.setState({
           showRejectBtn: false
         })
+        break;
+      default:
         break;
     }
   }
@@ -159,7 +161,7 @@ class ProductProduceDetail extends Component {
       deliveredTo,
       status
     } = this.props.itemProduceDetails;
-    let rejectBtn = 
+    let rejectBtn =
       <button
         className={Class.itemButtonsCancel}
         onClick={() =>
@@ -492,7 +494,7 @@ class ProductProduceDetail extends Component {
 
             <button
               className={Class.itemButtonsCancel}
-              onClick={this.props.removeOverlay} 
+              onClick={this.props.removeOverlay}
             >
               Cancel
             </button>
