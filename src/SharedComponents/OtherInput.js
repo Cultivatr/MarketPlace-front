@@ -48,6 +48,7 @@ export default class OtherInput extends Component {
                             className={`ui fluid dropdown animateOther ${this.displayClassDropdown}`}
                             style={{ width: `${this.selectWidth}%` }}
                             id={this.props.labelItem}
+                            required={true}
                         >
                             <option value="">Please choose an option</option>
                         </select>
@@ -58,6 +59,7 @@ export default class OtherInput extends Component {
                             type="text"
                             name={this.props.labelItem}
                             style={{ width: `${this.otherWidth}%` }}
+                            
                         />
                     </div>
 

@@ -119,9 +119,9 @@ class ProduceForm extends Component {
         <div className={styles.wrapper}>
           <span
             className="required-header"
-
+            style={{fontWeight:"bolder"}}
           >
-            * Coloured Border Indicates Required Field
+            * All Fields Must Be Filled In
           </span>
           <div className="ui grid container">
             <form onSubmit={this.onSubmit} className="ui row form">
@@ -133,7 +133,6 @@ class ProduceForm extends Component {
                     type="text"
                     name="type"
                     id="produceItems1"
-                    style={{ border: "3px solid #F92E2E" }}
                     required={true}
                   >
                     <option>Select Produce Item</option>
@@ -146,7 +145,6 @@ class ProduceForm extends Component {
                     name="packageType"
                     multiple=""
                     className="ui fluid dropdown"
-                    style={{ border: "3px solid #F92E2E" }}
                     required={true}
                   >
                     <option value="">Please choose an option</option>
@@ -163,12 +161,14 @@ class ProduceForm extends Component {
                       type="text"
                       name="packageSize"
                       className="qty-form"
+                      required={true}
                     />
                     <select
                       onChange={this.onChange}
                       name="packageSizeUnit"
                       multiple=""
                       className="ui fluid dropdown qty-dropdown"
+                      required={true}
                     >
                       <option value="Pounds">Pounds</option>
                       <option value="Grams">Grams</option>
@@ -180,7 +180,7 @@ class ProduceForm extends Component {
                   <div><label style={{fontWeight:"bolder"}}>Est Completion Date </label><Tooltip message={'Hello This Is Est Completion Date'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
                   <div
                     className="dpicker"
-                    style={{ border: "3px solid #F92E2E", width: "150px" }}
+                    style={{ width: "150px" }}
                   >
                     <DatePicker
                       name="estCompletionDate"
@@ -194,7 +194,7 @@ class ProduceForm extends Component {
                 </div>
                 <div className="field">
                   <div><label style={{fontWeight:"bolder"}}>Seed Type </label><Tooltip message={'Hello This Is Seed Type'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
-                  <input onChange={this.onChange} type="text" name="seedType" />
+                  <input onChange={this.onChange} type="text" name="seedType" required={true}/>
                 </div>
                 <div className="field">
                   <div><label style={{fontWeight:"bolder"}}>Modified Seed </label><Tooltip message={'Hello This Is Modified Seed'} position={'top'}><img alt="Tooltip" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></div>
@@ -203,6 +203,7 @@ class ProduceForm extends Component {
                     name="modifiedSeed"
                     multiple=""
                     className="ui fluid dropdown"
+                    required={true}
                   >
                     <option value="">Please choose an option</option>
                     <option value="Yes">Yes</option>
@@ -216,6 +217,7 @@ class ProduceForm extends Component {
                     name="heirloom"
                     multiple=""
                     className="ui fluid dropdown"
+                    required={true}
                   >
                     <option value="">Please choose an option</option>
                     <option value="Yes">Yes</option>
@@ -239,6 +241,7 @@ class ProduceForm extends Component {
                     onChange={this.onChange}
                     type="number"
                     name="estQuantityPlanted"
+                    required={true}
                   />
                 </div>
                 <div className="field">
@@ -248,6 +251,7 @@ class ProduceForm extends Component {
                     name="certifiedOrganic"
                     multiple=""
                     className="ui fluid dropdown"
+                    required={true}
                   >
                     <option value="">Please choose an option</option>
                     <option value="Yes">Yes</option>
@@ -260,7 +264,6 @@ class ProduceForm extends Component {
                     onChange={this.onChange}
                     type="number"
                     name="estFinishedQty"
-                    style={{ border: "3px solid #F92E2E" }}
                     required={true}
                   />
                 </div>
@@ -270,6 +273,7 @@ class ProduceForm extends Component {
                     onChange={this.onChange}
                     type="text"
                     name="fertilizerTypeUsed"
+                    required={true}
                   />
                 </div>
                 <div className="field">
@@ -278,6 +282,7 @@ class ProduceForm extends Component {
                     onChange={this.onChange}
                     type="text"
                     name="pesticideTypeUsed"
+                    required={true}
                   />
                 </div>
                 <input
