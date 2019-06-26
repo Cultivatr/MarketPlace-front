@@ -18,7 +18,7 @@ class ProductLivestockDetail extends Component {
     this.priorOnFeedDate = "";
   }
 
-  componentWillReceiveProps(){
+  componentWillReceiveProps() {
     switch (this.props.itemLivestockDetails.status) {
       case "Pending Admin":
         this.setState({
@@ -35,7 +35,7 @@ class ProductLivestockDetail extends Component {
           showRejectBtn: true
         })
         break;
-      case "Sold" :
+      case "Sold":
         this.setState({
           showRejectBtn: false
         })
@@ -55,6 +55,9 @@ class ProductLivestockDetail extends Component {
           showRejectBtn: false
         })
         break;
+      default:
+        break;
+
     }
   }
   onChange = e => {
