@@ -1,8 +1,17 @@
-header {
-  background-color: #1ECE88;
+header{
+  background-color: black !important;
+  padding-bottom:12em;
   width: 100%;
 }
-
 nav {
   display: flex;
+  margin-top: 12em;
+}
+.list {
+  list-style: none;
+  display: flex;
+} 
+li{
+  height: 44px;
+  width: max-content;
 }

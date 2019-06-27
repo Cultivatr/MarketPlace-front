@@ -24,7 +24,7 @@ class ContainerDashboard extends React.Component {
           }
           columns={[
             {
-              Header: "click on headers to sort or type to filter",
+              Header: "Click on Headers Below to Sort, or Type In Boxes Below to Filter Content",
               columns: [
                 {
                   Header: "Order #",

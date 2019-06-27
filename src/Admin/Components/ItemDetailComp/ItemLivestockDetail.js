@@ -57,7 +57,6 @@ class ProductLivestockDetail extends Component {
         break;
       default:
         break;
-
     }
   }
   onChange = e => {

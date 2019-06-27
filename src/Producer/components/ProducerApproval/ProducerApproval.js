@@ -167,8 +167,8 @@ class ProducerApproval extends Component {
         <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
         <div className="ui container">
           <div className={Class.table}>
-            <div className={Class.prodTableHeader}>
-              <h4>Click on headers to sort or type to filter</h4>
+            <div className={Class.prodTableHeader} style={{backgroundColor:"black", color:"#ffffff",}}>
+              <p id="approval-main-p">Items That Need Your Approval </p>
             </div>
 
             <ProducerApprovalTable
@@ -194,6 +194,9 @@ class ProducerApproval extends Component {
             />
           </div>
         </div>
+        <footer className="copyright">
+          © 2019 CultivatR | ALL RIGHTS RESERVED 
+        </footer> 
       </div>
     );
   }

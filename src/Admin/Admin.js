@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Class from "./admin.module.css";
 import AdminNav from "../SharedComponents/AdminNav";
-import DisplayAllDashboard from "./Components/ContainerDashboard/DisplayAllDashboard";
 import { filterData, getItemDetails } from "../AppUtils";
 import AddNewProdComp from "./Components/AddNewProdComp/AddNewProdComp";
 import UsersComp from "./Components/UsersComp/UsersComp";
@@ -331,7 +330,7 @@ class Admin extends Component {
   render() {
     return (
       <div className="App">
-        <AdminNav updateApp={this.props.updateApp} />
+        <AdminNav updateApp={this.props.updateApp} isAdmin={"true"} />
         {this.state.popUpIsOpen && <PushThroughPopUp closePopUp={this.closePopUp}
           price={this.state.currentPrice} type={this.state.currentType} confirm={this.openPushThroughPopUp} realType={this.state.forSeriousCurrentType} />}
         <AdminSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"}
@@ -365,6 +364,7 @@ class Admin extends Component {
           />
           <div className={Class.container}>
             <div className={Class.boxContainer}>
+            <div className="white-logo" style={{position:"absolute",left:"3%",top:"1.75%"}}><a href="https://cultivatr1.myshopify.com/"><img alt="CultivatR Logo" style={{width:"125%", height:"125%"}} src="https://cdn.shopify.com/s/files/1/0089/5929/5539/files/CultivatR_log_white_110x.png?v=1560906151"></img></a></div>
               <div id="desktop-menu" className={Class.leftNav}>
                 <button
                   id="button-allItems"
@@ -476,7 +476,7 @@ class Admin extends Component {
                 {this.state.dataToShow === "allItems" && (
                   <div className={Class.containerAdminSettings}>
                     <h4 id="all-items-title" className="mobile-header-title admin-mobile">List of All items</h4>
-                    <DisplayAllDashboard
+                    <AdminHelper
                       data={this.state.data}
                       itemObj={this.getItemObj}
                       title="List of All Items"
@@ -493,12 +493,12 @@ class Admin extends Component {
                 {this.state.dataToShow === "toBeAccepted" && (
                   <div className={Class.containerAdminSettings}>
                     <div className={Class.containerTitle}>
-                      <h4 className="mobile-header-title admin-mobile ">To be Accepted Conditionally</h4>
+                      <h4 className="mobile-header-title admin-mobile ">To Be Accepted Conditionally</h4>
                     </div>
                     <AdminHelper
                       data={this.state.pendingAdmin}
                       itemObj={this.getItemObj}
-                      title="To be Accepted Conditionally"
+                      title="To Be Accepted Conditionally"
                     />
                   </div>)}
                 {this.state.dataToShow === "awaitingProducer" && (
@@ -577,6 +577,9 @@ class Admin extends Component {
                 )}
               </div>
             </div>
+            <footer className="copyright">
+              © 2019 CultivatR | ALL RIGHTS RESERVED 
+            </footer>  
           </div>
         </main>
       </div>

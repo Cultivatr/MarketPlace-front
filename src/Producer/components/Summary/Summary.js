@@ -137,8 +137,8 @@ class Summary extends Component {
       <div className={Class.table}>
 
 
-        <div className={Class.prodTableHeader}>
-          <h4>Dashboard Table for: {this.state.userFullName}</h4>
+        <div id="summary-main-div"className={Class.prodTableHeader} style={{backgroundColor:"black", color:"#ffffff"}}>
+          <p id="summary-main-p" >Dashboard Table For {this.state.userFullName}</p>
         </div>
 
         <ReactTable
@@ -151,7 +151,7 @@ class Summary extends Component {
           }
           columns={[
             {
-              Header: "Click on headers to sort or type to filter",
+              Header: "Click on Headers Below to Sort, or Type In Boxes Below to Filter Content",
               columns: this.state.screenWidth > 650 ? [
 
                 {
