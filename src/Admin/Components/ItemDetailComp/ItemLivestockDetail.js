@@ -56,7 +56,6 @@ class ProductLivestockDetail extends Component {
         })
         break;
       default:
-        console.log("Case Is Undefined");
         break;
     }
   }

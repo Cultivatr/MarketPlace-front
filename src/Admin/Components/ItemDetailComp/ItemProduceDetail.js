@@ -53,7 +53,6 @@ class ProductProduceDetail extends Component {
         })
         break;
       default:
-        console.log("Case Is Undefined");
         break;
     }
   }

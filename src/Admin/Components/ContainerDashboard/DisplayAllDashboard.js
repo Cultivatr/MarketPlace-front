@@ -16,7 +16,7 @@ class DisplayAllDashboard extends React.Component {
     return (
       <div className={Class.container2}>
         <div id="desktop-menu" className={Class.containerTitle}>
-          <h4 >{this.props.title}</h4>
+          <h4><p className="admin-main-p">{this.props.title}</p></h4>
         </div>
         <ReactTable
           data={data}
@@ -28,7 +28,7 @@ class DisplayAllDashboard extends React.Component {
           }
           columns={[
             {
-              Header: "click on headers to sort or type to filter",
+              Header: "Click on Headers Below to Sort, or Type In Boxes Below to Filter Content",
               columns: [
                 {
                   Header: "Order #",

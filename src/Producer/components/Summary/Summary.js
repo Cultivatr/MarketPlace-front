@@ -151,7 +151,7 @@ class Summary extends Component {
           }
           columns={[
             {
-              Header: "Click on Headers to Sort, or Type to Filter Content",
+              Header: "Click on Headers Below to Sort, or Type In Boxes Below to Filter Content",
               columns: this.state.screenWidth > 650 ? [
 
                 {

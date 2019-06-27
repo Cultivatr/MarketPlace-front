@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 * {
    outline: none;
  }
@@ -5,10 +6,14 @@
  .App {
    text-align: center;
  }
- 
+ .admin-main-p{
+  font: 17px 'Montserrat', sans-serif !important;
+ }
  h4 {
    font-weight: 700;
    font-size: large;
+   font: 20px 'Montserrat', sans-serif !important;
+   font-weight: bold !important;
  }
  
  h1 {
@@ -25,6 +30,7 @@
  
  main {
    height: 88vh;
+   
  }
  
  .boxContainer {
@@ -49,6 +55,7 @@
    display: flex;
    justify-content: space-between;
    align-items: flex-start;
+   
  }
 
  @media only screen and (min-width : 1001px) {
