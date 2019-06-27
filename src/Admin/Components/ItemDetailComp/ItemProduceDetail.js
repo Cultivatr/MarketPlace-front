@@ -52,6 +52,9 @@ class ProductProduceDetail extends Component {
           showRejectBtn: false
         })
         break;
+      default:
+        console.log("Case Is Undefined");
+        break;
     }
   }
 

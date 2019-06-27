@@ -12,7 +12,7 @@ export const NavigationItems = ({ pendingLength, updateApp }) => (
   
   <ul className={styles.list} onClick={updateApp}>
 
-    <div className="white-logo" style={{position:"absolute",left:"3%",top:"1.75%"}}><a href="https://cultivatr1.myshopify.com/"><img style={{width:"125%", height:"125%"}} src="https://cdn.shopify.com/s/files/1/0089/5929/5539/files/CultivatR_log_white_110x.png?v=1560906151"></img></a></div>
+    <div className="white-logo" style={{position:"absolute",left:"3%",top:"1.75%"}}><a href="https://cultivatr1.myshopify.com/"><img alt="CulivatR Logo" style={{width:"125%", height:"125%"}} src="https://cdn.shopify.com/s/files/1/0089/5929/5539/files/CultivatR_log_white_110x.png?v=1560906151"></img></a></div>
 
     <li style={(window.location.pathname === "/producer/home") ? {borderBottom:"3px solid white"} : {}}>
       <NavigationItem link={"/producer/home"}><p id="shop-font">HOME <Tooltip message={'This Is The Home Page'} position={'bottom'}><img alt="" style={{ width: "15px", height: "15px" }} src={i}></img></Tooltip></p></NavigationItem>

@@ -55,6 +55,9 @@ class ProductLivestockDetail extends Component {
           showRejectBtn: false
         })
         break;
+      default:
+        console.log("Case Is Undefined");
+        break;
     }
   }
   onChange = e => {
