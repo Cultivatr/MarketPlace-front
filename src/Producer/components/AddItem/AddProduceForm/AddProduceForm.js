@@ -302,6 +302,9 @@ class ProduceForm extends Component {
           </div>
         </div>
         {this.state.showItemPopup && <AddItemPopUp hideItemPopup={this.hideItemPopup} type={this.state.data.type} clearForm={this.clearForm} />}
+        <footer className="copyright">
+          © 2019 CultivatR | ALL RIGHTS RESERVED 
+        </footer> 
       </div>
     );
   }

@@ -1,11 +1,11 @@
 header{
   background-color: black !important;
-  padding-bottom:9.7%;
+  padding-bottom:12em;
   width: 100%;
 }
 nav {
   display: flex;
-  margin-top: 10%;
+  margin-top: 12em;
 }
 .list {
   list-style: none;

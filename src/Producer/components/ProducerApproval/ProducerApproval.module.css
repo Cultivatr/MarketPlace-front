@@ -5,7 +5,9 @@
 .deliveryStatus {
   font-size: 18px;
 }
-
+#approval-main-p{
+  font-family:'Montserrat', sans-serif !important;
+}
 .userHeader {
   display: flex;
   justify-content: space-between;

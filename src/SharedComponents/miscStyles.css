@@ -21,7 +21,14 @@
   margin: 0;
   
 }
-
+@media only screen and (max-width: 1300px){
+  .white-logo{
+    display: none;
+  }
+  #magic-div{
+    display: none;
+  }
+}
 
 
 @media only screen and (max-width : 1000px) {
@@ -32,13 +39,11 @@
     text-align: initial;
     padding-right: 0px;
  }
-
- #mobile-parent-container{
+  #mobile-parent-container{
   height: initial;
   margin-top: 100px;
-}
-}
-
+  }
+ }
 
 @media only screen and (max-width : 667px) {
   .form-column-8{

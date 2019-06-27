@@ -1,7 +1,10 @@
+
 .userH1 {
   padding: 30px;
 }
-
+#summary-main-p{
+  font-family:'Montserrat', sans-serif !important;
+}
 .deliveryStatus {
   font-size: 18px;
 }
@@ -37,5 +40,5 @@
 }
 
 .prodTableHeader {
-  padding: 5px;
+  padding: 5px 5px;
 }

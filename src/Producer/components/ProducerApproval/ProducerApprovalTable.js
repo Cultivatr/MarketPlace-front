@@ -14,6 +14,7 @@ export default class ProducerApprovalTable extends Component {
         }
         columns={[
           {
+            Header: "Click on Headers to Sort, or Type to Filter Content",
             columns:
               this.props.screenWidth > 650 ?
                 [
@@ -35,7 +36,7 @@ export default class ProducerApprovalTable extends Component {
                   {
                     Header: "Type",
                     id: "type",
-                    width: 200,
+                    width: 300,
                     accessor: d => d.type,
                     filterMethod: (filter, rows) =>
                       matchSorter(rows, filter.value, { keys: ["type"] }),
@@ -85,7 +86,7 @@ export default class ProducerApprovalTable extends Component {
                     }
                   },
                   {
-                    Header: "Details",
+                    Header: "",
                     id: "MoreDetails",
                     width: 75,
                     accessor: d => (
