@@ -8,6 +8,7 @@ import i from '../../../img/i-icon-white.png' ;
 
 
 export const NavigationItems = ({ pendingLength, updateApp }) => (
+     <ul className ={styles.list} onClick={updateApp}>
 
      <div className="white-logo" style={window.screen.width >= 1000 ? {position:"absolute",left:"3%",top:"1.75%"} : {visibility:"hidden"}}><a href="https://cultivatr1.myshopify.com/"><img alt="CulivatR Logo" style={{width:"125%", height:"125%"}} src="https://cdn.shopify.com/s/files/1/0089/5929/5539/files/CultivatR_log_white_110x.png?v=1560906151"></img></a></div>
 
