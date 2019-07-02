@@ -1,0 +1,21 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/mars/create-react-app-buildpack"
+    }
+  ],
+  "env": {
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "MarketPlace-front",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}

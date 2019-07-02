@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { getItemDetails } from "../../../AppUtils";
-import Toolbar from "../../../SharedComponents/Navigation/Toolbar/Toolbar";
 import ProducerSlideMenu from "../../../SharedComponents/Navigation/SlideMenu/ProducerSlideMenu"
 import ProductProduceDetail from "../ProductDetail/ProductProduceDetail";
 import ProductLivestockDetail from "../ProductDetail/ProductLivestockDetail";
@@ -122,7 +121,6 @@ class ProducerApproval extends Component {
 
   getId = () => {
     const tempId = JSON.parse(sessionStorage.getItem("authData")).id;
-    console.log("ID", tempId);
     this.setState({
       localId: tempId,
       userFullName: JSON.parse(sessionStorage.getItem("authData")).fullName
@@ -165,13 +163,12 @@ class ProducerApproval extends Component {
   render() {
     return (
       <div>
-        <Toolbar />
         <h2 className="mobile-header-title">Items to be Approved</h2>
         <ProducerSlideMenu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
         <div className="ui container">
           <div className={Class.table}>
-            <div className={Class.prodTableHeader}>
-              <h4>Click on headers to sort or type to filter</h4>
+            <div className={Class.prodTableHeader} style={{backgroundColor:"black", color:"#ffffff",}}>
+              <p id="approval-main-p">Items That Need Your Approval </p>
             </div>
 
             <ProducerApprovalTable
@@ -197,6 +194,9 @@ class ProducerApproval extends Component {
             />
           </div>
         </div>
+        <footer className="copyright">
+          © 2019 CultivatR | ALL RIGHTS RESERVED 
+        </footer> 
       </div>
     );
   }

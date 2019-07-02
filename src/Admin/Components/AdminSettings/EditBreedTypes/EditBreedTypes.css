@@ -1,0 +1,21 @@
+.breed-list{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.breed-delete-btn {
+    width: 24px;
+    height: 24px;
+    padding: 1px;
+    /* background-image:white;  */
+    border: solid gray 1.5px;
+    border-radius: 0px;
+    text-align: center;
+    color:black
+  }
+
+.breed-delete-btn:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}

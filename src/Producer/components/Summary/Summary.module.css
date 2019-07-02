@@ -1,7 +1,10 @@
+
 .userH1 {
   padding: 30px;
 }
-
+#summary-main-p{
+  font-family:'Montserrat', sans-serif !important;
+}
 .deliveryStatus {
   font-size: 18px;
 }
@@ -27,8 +30,8 @@
 
 .table {
   background-color: white;
-  margin-top: 1%;
-  border: 2px solid #1ECE88;
+  margin-top: 2%;
+  border: 5px solid black;
 }
 
 /*set height of table so it fully shows on screen when first opened*/
@@ -37,5 +40,5 @@
 }
 
 .prodTableHeader {
-  padding: 5px;
+  padding: 5px 5px;
 }

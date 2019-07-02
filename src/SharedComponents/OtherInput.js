@@ -21,45 +21,49 @@ export default class OtherInput extends Component {
     };
 
     changeDisplayState = () => {
-        if(this.props.value){
-        if (this.props.value.includes("Other")) {
-            this.selectWidth = 30
-            this.otherWidth = 80
-            this.displayClassOther = ""
+        if (this.props.value) {
+            if (this.props.value.includes("Other")) {
+                this.selectWidth = 30
+                this.otherWidth = 80
+                this.displayClassOther = ""
+            }
+            else {
+                this.selectWidth = 100
+                this.otherWidth = 0
+                this.displayClassOther = "otherInput-1"
+            }
         }
-        else {
-            this.selectWidth = 100
-            this.otherWidth = 0
-            this.displayClassOther = "otherInput-1"
-        }
-    }
     }
     render() {
         this.changeDisplayState();
         return (
-            <div className="field ">
-                <label>{this.props.title}</label>
-                <div className="otherInputParent">
-                    <select
-                        onChange={this.props.onChange}
-                        name={this.props.labelItem}
-                        multiple=""
-                        className={`ui fluid dropdown animateOther ${this.displayClassDropdown}`}
-                        style={{ width: `${this.selectWidth}%` }}
-                        id={this.props.labelItem}
-                    >
-                        <option value="">Please choose an option</option>
-                    </select>
+            <div className="field">
+                <div>
+                    <label>{this.props.title}</label>
+                    <div className="otherInputParent">
+                        <select
+                            onChange={this.props.onChange}
+                            name={this.props.labelItem}
+                            multiple=""
+                            className={`ui fluid dropdown animateOther ${this.displayClassDropdown}`}
+                            style={{ width: `${this.selectWidth}%` }}
+                            id={this.props.labelItem}
+                            required={true}
+                        >
+                            <option value="">Please choose an option</option>
+                        </select>
 
-                    <input
-                        onChange={this.props.onChangeOther}
-                        className={`${this.displayClassOther} animateOther`}
-                        type="text"
-                        name={this.props.labelItem}
-                        style={{ width: `${this.otherWidth}%` }}
-                    />
+                        <input
+                            onChange={this.props.onChangeOther}
+                            className={`${this.displayClassOther} animateOther`}
+                            type="text"
+                            name={this.props.labelItem}
+                            style={{ width: `${this.otherWidth}%` }}
+                            
+                        />
+                    </div>
+
                 </div>
-
             </div>
         );
     }

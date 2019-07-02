@@ -14,14 +14,18 @@ export default class ProducerApprovalTable extends Component {
         }
         columns={[
           {
+            Header: "Click on Headers Below to Sort, or Type In Boxes Below to Filter Content",
             columns:
               this.props.screenWidth > 650 ?
                 [
                   {
                     Header: "Item #",
-                    id: "Id",
+                    id: "id",
                     width: 75,
                     accessor: d => d.id,
+                    sortMethod: (a, b) => {
+                      return (Number(a.substring(2)) > Number(b.substring(2))) ? 1 : -1
+                    },
                     filterMethod: (filter, rows) =>
                       matchSorter(rows, filter.value, { keys: ["id"] }),
                     filterAll: true,
@@ -32,7 +36,7 @@ export default class ProducerApprovalTable extends Component {
                   {
                     Header: "Type",
                     id: "type",
-                    width: 200,
+                    width: 300,
                     accessor: d => d.type,
                     filterMethod: (filter, rows) =>
                       matchSorter(rows, filter.value, { keys: ["type"] }),
@@ -92,16 +96,16 @@ export default class ProducerApprovalTable extends Component {
                           cursor: "pointer",
                           fontSize: 10,
                           border: "1px solid black",
-                          borderRadius: "100%",
-                          padding: "5px 5px",
-                          margin: "3px 0px 3px 0px",
+                          borderRadius: 25,
+                          padding: "5px",
+                          margin: "3px 0px",
                           textAlign: "center",
                           userSelect: "none"
                         }}
                         id={d.id}
                         onClick={this.props.getItemObj}
                       >
-                        {"<>"}
+                        {"Details"}
                       </span>
                     ),
                     filterMethod: (filter, rows) =>

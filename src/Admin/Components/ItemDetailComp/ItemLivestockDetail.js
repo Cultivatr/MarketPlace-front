@@ -9,7 +9,8 @@ class ProductLivestockDetail extends Component {
   constructor() {
     super();
     this.state = {
-      itemLivestockDetails: ""
+      itemLivestockDetails: "",
+      showRejectBtn: false,
     };
     this.priorCompletionDate = "";
     this.priorDeliveredDate = "";
@@ -17,11 +18,53 @@ class ProductLivestockDetail extends Component {
     this.priorOnFeedDate = "";
   }
 
+  componentWillReceiveProps() {
+    switch (this.props.itemLivestockDetails.status) {
+      case "Pending Admin":
+        this.setState({
+          showRejectBtn: true
+        })
+        break;
+      case "Pending Producer":
+        this.setState({
+          showRejectBtn: true
+        })
+        break;
+      case "Accepted":
+        this.setState({
+          showRejectBtn: true
+        })
+        break;
+      case "Sold":
+        this.setState({
+          showRejectBtn: false
+        })
+        break;
+      case "Not Accepted":
+        this.setState({
+          showRejectBtn: false
+        })
+        break;
+      case "Delivered":
+        this.setState({
+          showRejectBtn: false
+        })
+        break;
+      case "Archive":
+        this.setState({
+          showRejectBtn: false
+        })
+        break;
+      default:
+        break;
+    }
+  }
   onChange = e => {
     let itemLivestockDetails = this.props.itemLivestockDetails;
     itemLivestockDetails[e.target.name] = e.target.value;
     this.setState({ itemLivestockDetails: itemLivestockDetails });
     console.log("Livestock details:", this.state.itemLivestockDetails);
+    console.log(this.state.itemLivestockDetails.status)
   };
 
   onChangeOther = e => {
@@ -157,13 +200,12 @@ class ProductLivestockDetail extends Component {
     }
   };
 
-  modifyItem = async () => {
-    // just remove overlay if no changes made otherwise get error
+  modifyItem = async (removeO = true) => {
     if (this.state.itemLivestockDetails !== "") {
       await modifyItemLivestockQuery(this.state.itemLivestockDetails);
       await this.props.refreshLiveStock(this.state.itemLivestockDetails);
     };
-    this.props.removeOverlay();
+    removeO && this.props.removeOverlay();
   };
 
   render() {
@@ -187,6 +229,13 @@ class ProductLivestockDetail extends Component {
       finalPrice,
       status
     } = this.props.itemLivestockDetails;
+
+    let rejectBtn =
+      <button
+        className={Class.itemButtonsCancel}
+        onClick={() =>
+          this.props.rejectLivestock(this.props.itemLivestockDetails.id)
+        }>Reject</button>
     return (
       <div id="itemLivestockOverlay">
         <div className={Class.itemDetailContainer}>
@@ -200,7 +249,22 @@ class ProductLivestockDetail extends Component {
               <tbody>
                 <tr>
                   <td className="three wide column">Status</td>
-                  <td className={Class.noInput}>{status}</td>
+                  <td className={Class.row}>
+                    <select
+                      onChange={this.onChange}
+                      id="status"
+                      name="status"
+                      value={status}
+                      multiple=""
+                      className="ui fluid dropdown"
+                    >
+                      <option value="Pending Admin">Pending Admin</option>
+                      <option value="Pending Producer">Pending Producer</option>
+                      <option value="Accepted">Accepted</option>
+                      <option value="Sold">Sold</option>
+                      <option value="Delivered">Delivered</option>
+                      <option value="Not Accepted">Not Accepted</option>
+                    </select></td>
                 </tr>
                 <OtherInputAdmin value={this.props.itemLivestockDetails.breed} labelItem={"breed"} title={"Breed"} options={["Angus", "Birkshire", "Other"]} onChange={this.onChange} onChangeOther={this.onChangeOther} />
                 <tr>
@@ -459,14 +523,13 @@ class ProductLivestockDetail extends Component {
               "Pending Producer" ? null : (
                 <button
                   className={Class.itemButtonsModify}
-                  onClick={() =>
-                    this.props.pushThroughLivestock(
-                      this.props.itemLivestockDetails.id,
+                  onClick={() => {
+                    this.modifyItem(false)
+                    this.props.openPushThroughPopUp(
                       this.props.itemLivestockDetails.status,
-                      this.props.itemLivestockDetails.farm,
-                      this.props.itemLivestockDetails.email
+                      "livestock",
                     )
-                  }
+                  }}
                 >
                   {this.props.pushThroughBtnText}
                 </button>
@@ -485,14 +548,7 @@ class ProductLivestockDetail extends Component {
               Modify
             </button>
 
-            <button
-              className={Class.itemButtonsCancel}
-              onClick={() =>
-                this.props.rejectLivestock(this.props.itemLivestockDetails.id)
-              }
-            >
-              Reject
-            </button>
+            {this.state.showRejectBtn === false ? console.log() : rejectBtn}
           </div>
         </div>
       </div>

@@ -93,7 +93,7 @@ class AddNewProdComp extends Component {
                   onChange={this.onChange}
                   type="text"
                   name="firstName"
-                  style={{ border: "3px solid #1ECE88" }}
+                  style={{ border: "3px solid #F92E2E" }}
                 />
               </div>
             </div>
@@ -106,7 +106,7 @@ class AddNewProdComp extends Component {
                   onChange={this.onChange}
                   type="text"
                   name="lastName"
-                  style={{ border: "3px solid #1ECE88" }}
+                  style={{ border: "3px solid #F92E2E" }}
                 />
               </div>
             </div>
@@ -132,7 +132,7 @@ class AddNewProdComp extends Component {
                   type="number"
                   name="primaryNumber"
                   placeholder="xxx-xxx-xxxx"
-                  style={{ border: "3px solid #1ECE88" }}
+                  style={{ border: "3px solid #F92E2E" }}
                 />
               </div>
             </div>
@@ -186,7 +186,7 @@ class AddNewProdComp extends Component {
                   type="email"
                   name="email"
                   placeholder="must contain @ symbol"
-                  style={{ border: "3px solid #1ECE88" }}
+                  style={{ border: "3px solid #F92E2E" }}
                 />
               </div>
             </div>

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 .detail-button {
   background-color: #73e9a2;
   position: relative;
@@ -6,7 +7,6 @@
 .detail-button:hover {
   background-color: #16af54;
 }
-
 .ReactTable .rt-tbody{
   overflow-x: hidden;
 }

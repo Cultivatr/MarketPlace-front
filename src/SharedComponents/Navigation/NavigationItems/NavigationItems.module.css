@@ -1,4 +1,11 @@
-.list {
-  list-style: none;
-  display: flex;
-} 
+ @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+p{
+  font: 17px 'Montserrat', sans-serif !important;
+  font-weight: bold;
+  color: #ffffff !important;
+  font-weight: 400;
+  margin: 0px 10px 0px 10px; 
+}
+li:hover{
+  box-shadow: 0px 2px 0px  #f0f0f0;
+}

@@ -1,19 +1,21 @@
 .loginBox {
   max-width: 500px;
   margin: 0 auto;
-  border: 2px solid #1ECE88;
+  border: 5px solid black;
   padding: 40px;
-  margin-top: 100px;
+  margin-top: 1.25% ;
   border-radius: 2px;
   background-color: white;
 }
-
-
+#show-bar{
+  overflow: -moz-scrollbars-vertical !important;
+  overflow-y: scroll !important;
+}
 @media only screen and (max-width: 425px) {
 
   .loginBox {
     width: 270px;
-    border: 2px solid #1ECE88;
+    border: 5px solid black;
     /* padding: 40px; */
     padding: 0;
     margin-top: 100px;

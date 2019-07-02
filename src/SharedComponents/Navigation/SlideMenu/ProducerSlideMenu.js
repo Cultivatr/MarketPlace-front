@@ -18,14 +18,14 @@ class ProducerSlideMenu extends React.Component {
         return (
             <div className="mobile-top-menu">
                 <Menu>
-                    <Link to={"/producer"} className="menu-item" >Producer</Link>
-                    <Link to={"/awaiting-approval"} className="menu-item" >Awaiting Approval</Link>
-                    <Link to={"/add-livestock"} className="menu-item" >Add Livestock</Link>
-                    <Link to={"/add-produce"} className="menu-item" >Add Produce</Link>
-                    <Link to={"/contact-us"} className="menu-item" >Contact Us</Link>
+                    <Link to={"/producer/home"} className="menu-item" >Producer</Link>
+                    <Link to={"/producer/awaiting-approval"} className="menu-item" >Awaiting Approval</Link>
+                    <Link to={"/producer/add-livestock"} className="menu-item" >Add Livestock</Link>
+                    <Link to={"/producer/add-produce"} className="menu-item" >Add Produce</Link>
+                    <Link to={"/producer/contact-us"} className="menu-item" >Contact Us</Link>
                     {JSON.parse(sessionStorage.getItem("adminAuth")) && <>
                         <Link to={"/Admin"} className="menu-item bm-item bm-admin-link" >Admin</Link>
-                        <Link to={"/Producer"} className="menu-item bm-item bm-admin-link"> Producer </Link></>}
+                        <Link to={"/Producer/home"} className="menu-item bm-item bm-admin-link"> Producer </Link></>}
                     <Link to={"/"} className="menu-item bm-item bm-signout" onClick={this.SignOutClick}>Sign Out</Link>
                 </Menu>
             </div>

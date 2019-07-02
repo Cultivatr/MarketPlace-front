@@ -47,11 +47,12 @@ class SignIn extends Component {
       return this.state.admin ? (
         <Redirect to={"/admin"} />
       ) : (
-          <Redirect to={"/producer"} />
+          <Redirect to={"/producer/home"} />
         );
     }
 
     const responseGoogle = response => {
+      sessionStorage.setItem("id_token", response.getAuthResponse().id_token)
       this.logIn(response);
     };
     return (
